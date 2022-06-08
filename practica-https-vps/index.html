@@ -1,0 +1,2034 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/practica-https-vps/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Práctica: HTTPS en VPS - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-configuracion-de-https-en-el-vps" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Práctica: HTTPS en VPS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Práctica: HTTPS en VPS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Práctica: HTTPS en VPS
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preguntas" class="md-nav__link">
+    Preguntas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#certificado-wildcard-adrianjaramillotk" class="md-nav__link">
+    Certificado wildcard *.adrianjaramillo.tk
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preguntas" class="md-nav__link">
+    Preguntas
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#certificado-wildcard-adrianjaramillotk" class="md-nav__link">
+    Certificado wildcard *.adrianjaramillo.tk
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="practica-configuracion-de-https-en-el-vps">Práctica: Configuración de HTTPS en el VPS</h1>
+<p>Se configurará para todos los VirtualHosts usando <a href="https://letsencrypt.org">Let's Encrypt
+</a>.</p>
+<h2 id="parte-1">Parte 1</h2>
+<blockquote>
+<p>Comprobar que Brave tiene el certificado de Let’s Encrypt</p>
+</blockquote>
+<p>Antes de comprobar nada, es esencial entender su chain of trust:</p>
+<p><img alt="" src="https://letsencrypt.org/images/isrg-hierarchy.png" /></p>
+<p>Como vemos, existen muchas entidades certificadoras, pero las que nos interesan son <code>ISRG Root X1</code> y <code>R3</code>. Ésta última es la que suele firmar a los usuarios finales.</p>
+<p>Brave no tiene el certificado de <code>R3</code>, sino el de <code>ISRG Root X1</code>:</p>
+<p><img alt="" src="https://i.imgur.com/0BqmthE.png" /></p>
+<p>¿Por qué esto es así? Por la chain of trust que he mostrado arriba.</p>
+<p>Podemos hacer una prueba de esto, si accedemos a la web oficial de Let’s Encrypt y mostramos la jerarquía del certificado:</p>
+<p><img alt="" src="https://i.imgur.com/LqYHkrH.png" /></p>
+<p>Directamente Brave "no confía" en <code>R3</code>, porque no tiene su certificado y por lo cual no puede verificar su firma, pero sí tiene el certificado root de <code>ISRG Root X1</code> que firmó a R3, entonces puede verificar esa firma en el certificado de <code>R3</code> y en consecuencia, confiar en él.</p>
+<h2 id="parte-2">Parte 2</h2>
+<h3 id="preguntas">Preguntas</h3>
+<p><strong>¿Qué función tiene el cliente ACME?</strong></p>
+<p>Verificar que somos dueños del nombre de dominio, y emitirnos un certificado.</p>
+<p><a href="https://letsencrypt.org/docs/client-options/">Hay muchos clientes</a>, pero el recomendado es Certbot.</p>
+<p><strong>¿Qué configuración se realiza en el servidor web?</strong></p>
+<ol>
+<li>Solicitamos el certificado</li>
+<li>Configuramos los VirtualHosts con el certificado</li>
+</ol>
+<p><strong>¿Qué pruebas realiza Let’s Encrypt para asegurar que somos los administrados del sitio web?</strong></p>
+<p>Let's Encrypt realiza "challenges", y hay <a href="https://letsencrypt.org/docs/challenge-types/">varios tipos</a>. Los más comunes son HTTP-01 y DNS-01.</p>
+<p>En mi caso, como querré obtener un certificado wildcard, tendré que hacer el DNS-01.</p>
+<p>Su funcionamiento es simple:</p>
+<ol>
+<li>Let’s Encrypt nos proporciona un registro TXT que tendremos que crear en nuestro DNS bajo el nombre <code>_acme-challenge.adrianjaramillo.tk.</code></li>
+<li>Let’s Encrypt hace una consulta a <code>_acme-challenge.adrianjaramillo.tk.</code></li>
+<li>Si la consulta resolvió el nombre correctamente con la cadena que se nos proporcionó, Let’s Encrypt verifica que somos los dueños del dominio, y nos proporciona el certificado firmado.</li>
+</ol>
+<p><strong>¿Se puede usar el DNS para verificar que somos administradores del sitio?</strong></p>
+<p>Sí. De hecho, es el único challenge permitido si queremos obtener un certificado wildcard.</p>
+<h3 id="certificado-wildcard-adrianjaramillotk">Certificado wildcard <code>*.adrianjaramillo.tk</code></h3>
+<p>Instalo certbot y paquetes relacionados:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>sudo apt install letsencrypt
+</code></pre></div></p>
+<p>Añado el siguiente registro a mi DNS:</p>
+<p><img alt="" src="https://i.imgur.com/84y17Zw.png" /></p>
+<p>Pido el certificado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>sudo certbot certonly --manual --preferred-challenges dns -d *.adrianjaramillo.tk
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>Saving debug log to /var/log/letsencrypt/letsencrypt.log
+<a name="__codelineno-2-2"></a>Plugins selected: Authenticator manual, Installer None
+<a name="__codelineno-2-3"></a>Requesting a certificate for *.adrianjaramillo.tk
+<a name="__codelineno-2-4"></a>Performing the following challenges:
+<a name="__codelineno-2-5"></a>dns-01 challenge for adrianjaramillo.tk
+<a name="__codelineno-2-6"></a>
+<a name="__codelineno-2-7"></a>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+<a name="__codelineno-2-8"></a>Please deploy a DNS TXT record under the name
+<a name="__codelineno-2-9"></a>_acme-challenge.adrianjaramillo.tk with the following value:
+<a name="__codelineno-2-10"></a>
+<a name="__codelineno-2-11"></a>Zjtt4Rws9cuSpcQ8yMGJ5cXGcMfhgWUPen36G2WOwSg
+<a name="__codelineno-2-12"></a>
+<a name="__codelineno-2-13"></a>Before continuing, verify the record is deployed.
+<a name="__codelineno-2-14"></a>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+<a name="__codelineno-2-15"></a>Press Enter to Continue
+<a name="__codelineno-2-16"></a>Waiting for verification...
+<a name="__codelineno-2-17"></a>Cleaning up challenges
+<a name="__codelineno-2-18"></a>
+<a name="__codelineno-2-19"></a>IMPORTANT NOTES:
+<a name="__codelineno-2-20"></a> - Congratulations! Your certificate and chain have been saved at:
+<a name="__codelineno-2-21"></a>   /etc/letsencrypt/live/adrianjaramillo.tk/fullchain.pem
+<a name="__codelineno-2-22"></a>   Your key file has been saved at:
+<a name="__codelineno-2-23"></a>   /etc/letsencrypt/live/adrianjaramillo.tk/privkey.pem
+<a name="__codelineno-2-24"></a>   Your certificate will expire on 2022-03-06. To obtain a new or
+<a name="__codelineno-2-25"></a>   tweaked version of this certificate in the future, simply run
+<a name="__codelineno-2-26"></a>   certbot again. To non-interactively renew *all* of your
+<a name="__codelineno-2-27"></a>   certificates, run &quot;certbot renew&quot;
+<a name="__codelineno-2-28"></a> - If you like Certbot, please consider supporting our work by:
+<a name="__codelineno-2-29"></a>
+<a name="__codelineno-2-30"></a>   Donating to ISRG / Let&#39;s Encrypt:   https://letsencrypt.org/donate
+<a name="__codelineno-2-31"></a>   Donating to EFF:                    https://eff.org/donate-le
+</code></pre></div></p>
+<p>Verifico que tengo el certificado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>sudo certbot certificates
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>Saving debug log to /var/log/letsencrypt/letsencrypt.log
+<a name="__codelineno-4-2"></a>
+<a name="__codelineno-4-3"></a>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+<a name="__codelineno-4-4"></a>Found the following certs:
+<a name="__codelineno-4-5"></a>  Certificate Name: adrianjaramillo.tk
+<a name="__codelineno-4-6"></a>    Serial Number: 348d745d49f1968da5ccfce5d50d4b3018d
+<a name="__codelineno-4-7"></a>    Key Type: RSA
+<a name="__codelineno-4-8"></a>    Domains: *.adrianjaramillo.tk
+<a name="__codelineno-4-9"></a>    Expiry Date: 2022-03-06 18:09:13+00:00 (VALID: 89 days)
+<a name="__codelineno-4-10"></a>    Certificate Path: /etc/letsencrypt/live/adrianjaramillo.tk/fullchain.pem
+<a name="__codelineno-4-11"></a>    Private Key Path: /etc/letsencrypt/live/adrianjaramillo.tk/privkey.pem
+<a name="__codelineno-4-12"></a>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+</code></pre></div></p>
+<h2 id="parte-3">Parte 3</h2>
+<blockquote>
+<p>Configurar 2 ficheros por VirtualHost (HTTP y HTTPS). Redirigir HTTP a HTTPS.</p>
+</blockquote>
+<p><code>django_http.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>server {
+<a name="__codelineno-5-2"></a>
+<a name="__codelineno-5-3"></a>    listen 80;
+<a name="__codelineno-5-4"></a>    server_name django.adrianjaramillo.tk;
+<a name="__codelineno-5-5"></a>
+<a name="__codelineno-5-6"></a>    return 301 https://$host$request_uri;
+<a name="__codelineno-5-7"></a>
+<a name="__codelineno-5-8"></a>}
+</code></pre></div></p>
+<p><code>django_https.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>server {
+<a name="__codelineno-6-2"></a>
+<a name="__codelineno-6-3"></a>    listen 443 ssl;
+<a name="__codelineno-6-4"></a>    server_name django.adrianjaramillo.tk;
+<a name="__codelineno-6-5"></a>    root /home/blackmamba/django_tutorial;
+<a name="__codelineno-6-6"></a>
+<a name="__codelineno-6-7"></a>    ###################
+<a name="__codelineno-6-8"></a>    # RSA certificate #
+<a name="__codelineno-6-9"></a>    ###################
+<a name="__codelineno-6-10"></a>
+<a name="__codelineno-6-11"></a>    ssl_certificate /etc/letsencrypt/live/adrianjaramillo.tk/fullchain.pem;
+<a name="__codelineno-6-12"></a>    ssl_certificate_key /etc/letsencrypt/live/adrianjaramillo.tk/privkey.pem;
+<a name="__codelineno-6-13"></a>    include /etc/letsencrypt/options-ssl-nginx.conf;
+<a name="__codelineno-6-14"></a>
+<a name="__codelineno-6-15"></a>    #############
+<a name="__codelineno-6-16"></a>    # Locations #
+<a name="__codelineno-6-17"></a>    #############
+<a name="__codelineno-6-18"></a>
+<a name="__codelineno-6-19"></a>    location / {
+<a name="__codelineno-6-20"></a>        proxy_pass http://localhost:8080;
+<a name="__codelineno-6-21"></a>        include proxy_params;
+<a name="__codelineno-6-22"></a>    }
+<a name="__codelineno-6-23"></a>
+<a name="__codelineno-6-24"></a>    location /static/polls {
+<a name="__codelineno-6-25"></a>        alias /home/blackmamba/django_tutorial/polls/static/polls;
+<a name="__codelineno-6-26"></a>    }
+<a name="__codelineno-6-27"></a>
+<a name="__codelineno-6-28"></a>    location /static/admin {
+<a name="__codelineno-6-29"></a>        alias /home/blackmamba/venv/lib/python3.9/site-packages/django/contrib/admin/static/admin/;
+<a name="__codelineno-6-30"></a>    }
+<a name="__codelineno-6-31"></a>
+<a name="__codelineno-6-32"></a>}
+</code></pre></div></p>
+<p><code>portal_http.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>server {
+<a name="__codelineno-7-2"></a>
+<a name="__codelineno-7-3"></a>    listen 80;
+<a name="__codelineno-7-4"></a>    server_name portal.adrianjaramillo.tk;
+<a name="__codelineno-7-5"></a>
+<a name="__codelineno-7-6"></a>    return 301 https://$host$request_uri;
+<a name="__codelineno-7-7"></a>
+<a name="__codelineno-7-8"></a>}
+</code></pre></div></p>
+<p><code>portal_https.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>server {
+<a name="__codelineno-8-2"></a>
+<a name="__codelineno-8-3"></a>    listen 443 ssl;
+<a name="__codelineno-8-4"></a>    server_name portal.adrianjaramillo.tk;
+<a name="__codelineno-8-5"></a>    root /var/www/portal;
+<a name="__codelineno-8-6"></a>
+<a name="__codelineno-8-7"></a>    ###################
+<a name="__codelineno-8-8"></a>    # RSA certificate #
+<a name="__codelineno-8-9"></a>    ###################
+<a name="__codelineno-8-10"></a>
+<a name="__codelineno-8-11"></a>    ssl_certificate /etc/letsencrypt/live/adrianjaramillo.tk/fullchain.pem;
+<a name="__codelineno-8-12"></a>    ssl_certificate_key /etc/letsencrypt/live/adrianjaramillo.tk/privkey.pem;
+<a name="__codelineno-8-13"></a>    include /etc/letsencrypt/options-ssl-nginx.conf;
+<a name="__codelineno-8-14"></a>
+<a name="__codelineno-8-15"></a>    #############
+<a name="__codelineno-8-16"></a>    # Locations #
+<a name="__codelineno-8-17"></a>    #############
+<a name="__codelineno-8-18"></a>
+<a name="__codelineno-8-19"></a>    location / {
+<a name="__codelineno-8-20"></a>        index index.php index.html index.htm;
+<a name="__codelineno-8-21"></a>    }
+<a name="__codelineno-8-22"></a>
+<a name="__codelineno-8-23"></a>    location ~ \.php$ {
+<a name="__codelineno-8-24"></a>        include        fastcgi_params;
+<a name="__codelineno-8-25"></a>        fastcgi_pass   unix:/run/php/php7.4-fpm.sock;
+<a name="__codelineno-8-26"></a>        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+<a name="__codelineno-8-27"></a>    }
+<a name="__codelineno-8-28"></a>
+<a name="__codelineno-8-29"></a>}
+</code></pre></div></p>
+<p><code>www_http.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>server {
+<a name="__codelineno-9-2"></a>
+<a name="__codelineno-9-3"></a>    listen 80;
+<a name="__codelineno-9-4"></a>    server_name www.adrianjaramillo.tk;
+<a name="__codelineno-9-5"></a>
+<a name="__codelineno-9-6"></a>    return 301 https://$host$request_uri;
+<a name="__codelineno-9-7"></a>
+<a name="__codelineno-9-8"></a>}
+</code></pre></div></p>
+<p><code>www_https.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>server {
+<a name="__codelineno-10-2"></a>
+<a name="__codelineno-10-3"></a>    ###########
+<a name="__codelineno-10-4"></a>    # GENERAL #
+<a name="__codelineno-10-5"></a>    ###########
+<a name="__codelineno-10-6"></a>
+<a name="__codelineno-10-7"></a>    listen 443 ssl;
+<a name="__codelineno-10-8"></a>    server_name www.adrianjaramillo.tk;
+<a name="__codelineno-10-9"></a>
+<a name="__codelineno-10-10"></a>    root /var/www/www;
+<a name="__codelineno-10-11"></a>    index index.html index.htm;
+<a name="__codelineno-10-12"></a>
+<a name="__codelineno-10-13"></a>    error_page 404 /error/404.html;
+<a name="__codelineno-10-14"></a>    error_page 403 /error/403.html;
+<a name="__codelineno-10-15"></a>
+<a name="__codelineno-10-16"></a>    location ~ \.php$ {
+<a name="__codelineno-10-17"></a>        fastcgi_pass   unix:/run/php/php7.4-fpm.sock;
+<a name="__codelineno-10-18"></a>        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+<a name="__codelineno-10-19"></a>        include        fastcgi_params;
+<a name="__codelineno-10-20"></a>    }
+<a name="__codelineno-10-21"></a>
+<a name="__codelineno-10-22"></a>    ###################
+<a name="__codelineno-10-23"></a>    # RSA certificate #
+<a name="__codelineno-10-24"></a>    ###################
+<a name="__codelineno-10-25"></a>
+<a name="__codelineno-10-26"></a>    ssl_certificate /etc/letsencrypt/live/adrianjaramillo.tk/fullchain.pem;
+<a name="__codelineno-10-27"></a>    ssl_certificate_key /etc/letsencrypt/live/adrianjaramillo.tk/privkey.pem;
+<a name="__codelineno-10-28"></a>    include /etc/letsencrypt/options-ssl-nginx.conf;
+<a name="__codelineno-10-29"></a>
+<a name="__codelineno-10-30"></a>    #############
+<a name="__codelineno-10-31"></a>    # PRINCIPAL #
+<a name="__codelineno-10-32"></a>    #############
+<a name="__codelineno-10-33"></a>
+<a name="__codelineno-10-34"></a>    rewrite ^/$ https://www.adrianjaramillo.tk/principal permanent;
+<a name="__codelineno-10-35"></a>
+<a name="__codelineno-10-36"></a>    location /principal {
+<a name="__codelineno-10-37"></a>        autoindex off;
+<a name="__codelineno-10-38"></a>        disable_symlinks on;
+<a name="__codelineno-10-39"></a>    }
+<a name="__codelineno-10-40"></a>
+<a name="__codelineno-10-41"></a>    location /principal/documentos {
+<a name="__codelineno-10-42"></a>        alias /srv/doc;
+<a name="__codelineno-10-43"></a>        autoindex on;
+<a name="__codelineno-10-44"></a>        disable_symlinks off;
+<a name="__codelineno-10-45"></a>    }
+<a name="__codelineno-10-46"></a>
+<a name="__codelineno-10-47"></a>    location /secreto {
+<a name="__codelineno-10-48"></a>        auth_basic &quot;Acceso restringido&quot;;
+<a name="__codelineno-10-49"></a>        auth_basic_user_file /etc/nginx/.htpasswd;
+<a name="__codelineno-10-50"></a>    }
+<a name="__codelineno-10-51"></a>
+<a name="__codelineno-10-52"></a>    #############
+<a name="__codelineno-10-53"></a>    # NEXTCLOUD #
+<a name="__codelineno-10-54"></a>    #############
+<a name="__codelineno-10-55"></a>
+<a name="__codelineno-10-56"></a>    location = /robots.txt {
+<a name="__codelineno-10-57"></a>        allow all;
+<a name="__codelineno-10-58"></a>        log_not_found off;
+<a name="__codelineno-10-59"></a>        access_log off;
+<a name="__codelineno-10-60"></a>    }
+<a name="__codelineno-10-61"></a>
+<a name="__codelineno-10-62"></a>    location ^~ /.well-known {
+<a name="__codelineno-10-63"></a>        # The rules in this block are an adaptation of the rules
+<a name="__codelineno-10-64"></a>        # in the Nextcloud `.htaccess` that concern `/.well-known`.
+<a name="__codelineno-10-65"></a>
+<a name="__codelineno-10-66"></a>        location = /.well-known/carddav { return 301 /cloud/remote.php/dav/; }
+<a name="__codelineno-10-67"></a>        location = /.well-known/caldav  { return 301 /cloud/remote.php/dav/; }
+<a name="__codelineno-10-68"></a>
+<a name="__codelineno-10-69"></a>        location /.well-known/acme-challenge    { try_files $uri $uri/ =404; }
+<a name="__codelineno-10-70"></a>        location /.well-known/pki-validation    { try_files $uri $uri/ =404; }
+<a name="__codelineno-10-71"></a>
+<a name="__codelineno-10-72"></a>        # Let Nextcloud&#39;s API for `/.well-known` URIs handle all other
+<a name="__codelineno-10-73"></a>        # requests by passing them to the front-end controller.
+<a name="__codelineno-10-74"></a>        return 301 /cloud/index.php$request_uri;
+<a name="__codelineno-10-75"></a>    }
+<a name="__codelineno-10-76"></a>
+<a name="__codelineno-10-77"></a>    location ^~ /cloud {
+<a name="__codelineno-10-78"></a>        # set max upload size and increase upload timeout:
+<a name="__codelineno-10-79"></a>        client_max_body_size 512M;
+<a name="__codelineno-10-80"></a>        client_body_timeout 300s;
+<a name="__codelineno-10-81"></a>        fastcgi_buffers 64 4K;
+<a name="__codelineno-10-82"></a>
+<a name="__codelineno-10-83"></a>        # Enable gzip but do not remove ETag headers
+<a name="__codelineno-10-84"></a>        gzip on;
+<a name="__codelineno-10-85"></a>        gzip_vary on;
+<a name="__codelineno-10-86"></a>        gzip_comp_level 4;
+<a name="__codelineno-10-87"></a>        gzip_min_length 256;
+<a name="__codelineno-10-88"></a>        gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;
+<a name="__codelineno-10-89"></a>        gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy;
+<a name="__codelineno-10-90"></a>
+<a name="__codelineno-10-91"></a>        # Pagespeed is not supported by Nextcloud, so if your server is built
+<a name="__codelineno-10-92"></a>        # with the `ngx_pagespeed` module, uncomment this line to disable it.
+<a name="__codelineno-10-93"></a>        #pagespeed off;
+<a name="__codelineno-10-94"></a>
+<a name="__codelineno-10-95"></a>        # HTTP response headers borrowed from Nextcloud `.htaccess`
+<a name="__codelineno-10-96"></a>        add_header Referrer-Policy                      &quot;no-referrer&quot;   always;
+<a name="__codelineno-10-97"></a>        add_header X-Content-Type-Options               &quot;nosniff&quot;       always;
+<a name="__codelineno-10-98"></a>        add_header X-Download-Options                   &quot;noopen&quot;        always;
+<a name="__codelineno-10-99"></a>        add_header X-Frame-Options                      &quot;SAMEORIGIN&quot;    always;
+<a name="__codelineno-10-100"></a>        add_header X-Permitted-Cross-Domain-Policies    &quot;none&quot;          always;
+<a name="__codelineno-10-101"></a>        add_header X-Robots-Tag                         &quot;none&quot;          always;
+<a name="__codelineno-10-102"></a>        add_header X-XSS-Protection                     &quot;1; mode=block&quot; always;
+<a name="__codelineno-10-103"></a>
+<a name="__codelineno-10-104"></a>        # Remove X-Powered-By, which is an information leak
+<a name="__codelineno-10-105"></a>        fastcgi_hide_header X-Powered-By;
+<a name="__codelineno-10-106"></a>
+<a name="__codelineno-10-107"></a>        # Specify how to handle directories -- specifying `/nextcloud/index.php$request_uri`
+<a name="__codelineno-10-108"></a>        # here as the fallback means that Nginx always exhibits the desired behaviour
+<a name="__codelineno-10-109"></a>        # when a client requests a path that corresponds to a directory that exists
+<a name="__codelineno-10-110"></a>        # on the server. In particular, if that directory contains an index.php file,
+<a name="__codelineno-10-111"></a>        # that file is correctly served; if it doesn&#39;t, then the request is passed to
+<a name="__codelineno-10-112"></a>        # the front-end controller. This consistent behaviour means that we don&#39;t need
+<a name="__codelineno-10-113"></a>        # to specify custom rules for certain paths (e.g. images and other assets,
+<a name="__codelineno-10-114"></a>        # `/updater`, `/ocm-provider`, `/ocs-provider`), and thus
+<a name="__codelineno-10-115"></a>        # `try_files $uri $uri/ /nextcloud/index.php$request_uri`
+<a name="__codelineno-10-116"></a>        # always provides the desired behaviour.
+<a name="__codelineno-10-117"></a>        index index.php index.html /cloud/index.php$request_uri;
+<a name="__codelineno-10-118"></a>
+<a name="__codelineno-10-119"></a>        # Rule borrowed from `.htaccess` to handle Microsoft DAV clients
+<a name="__codelineno-10-120"></a>        location = /cloud {
+<a name="__codelineno-10-121"></a>            if ( $http_user_agent ~ ^DavClnt ) {
+<a name="__codelineno-10-122"></a>                return 302 /cloud/remote.php/webdav/$is_args$args;
+<a name="__codelineno-10-123"></a>            }
+<a name="__codelineno-10-124"></a>        }
+<a name="__codelineno-10-125"></a>
+<a name="__codelineno-10-126"></a>        # Rules borrowed from `.htaccess` to hide certain paths from clients
+<a name="__codelineno-10-127"></a>        location ~ ^/cloud/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/)    { return 404; }
+<a name="__codelineno-10-128"></a>        location ~ ^/cloud/(?:\.|autotest|occ|issue|indie|db_|console)                  { return 404; }
+<a name="__codelineno-10-129"></a>
+<a name="__codelineno-10-130"></a>        # Ensure this block, which passes PHP files to the PHP process, is above the blocks
+<a name="__codelineno-10-131"></a>        # which handle static assets (as seen below). If this block is not declared first,
+<a name="__codelineno-10-132"></a>        # then Nginx will encounter an infinite rewriting loop when it prepends
+<a name="__codelineno-10-133"></a>        # `/nextcloud/index.php` to the URI, resulting in a HTTP 500 error response.
+<a name="__codelineno-10-134"></a>        location ~ \.php(?:$|/) {
+<a name="__codelineno-10-135"></a>            # Required for legacy support
+<a name="__codelineno-10-136"></a>            rewrite ^/cloud/(?!index|remote|public|cron|core\/ajax\/update|status|ocs\/v[12]|updater\/.+|oc[ms]-provider\/.+|.+\/richdocumentscode\/proxy) /cloud/index.php$request_uri;
+<a name="__codelineno-10-137"></a>
+<a name="__codelineno-10-138"></a>            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+<a name="__codelineno-10-139"></a>            set $path_info $fastcgi_path_info;
+<a name="__codelineno-10-140"></a>
+<a name="__codelineno-10-141"></a>            try_files $fastcgi_script_name =404;
+<a name="__codelineno-10-142"></a>
+<a name="__codelineno-10-143"></a>            include fastcgi_params;
+<a name="__codelineno-10-144"></a>            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+<a name="__codelineno-10-145"></a>            fastcgi_param PATH_INFO $path_info;
+<a name="__codelineno-10-146"></a>
+<a name="__codelineno-10-147"></a>            fastcgi_param modHeadersAvailable true;         # Avoid sending the security headers twice
+<a name="__codelineno-10-148"></a>            fastcgi_param front_controller_active true;     # Enable pretty urls
+<a name="__codelineno-10-149"></a>            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+<a name="__codelineno-10-150"></a>
+<a name="__codelineno-10-151"></a>            fastcgi_intercept_errors on;
+<a name="__codelineno-10-152"></a>            fastcgi_request_buffering off;
+<a name="__codelineno-10-153"></a>        }
+<a name="__codelineno-10-154"></a>
+<a name="__codelineno-10-155"></a>        location ~ \.(?:css|js|svg|gif|png|jpg|ico)$ {
+<a name="__codelineno-10-156"></a>            try_files $uri /cloud/index.php$request_uri;
+<a name="__codelineno-10-157"></a>            expires 6M;         # Cache-Control policy borrowed from `.htaccess`
+<a name="__codelineno-10-158"></a>            access_log off;     # Optional: Don&#39;t log access to assets
+<a name="__codelineno-10-159"></a>        }
+<a name="__codelineno-10-160"></a>
+<a name="__codelineno-10-161"></a>        location ~ \.woff2?$ {
+<a name="__codelineno-10-162"></a>            try_files $uri /cloud/index.php$request_uri;
+<a name="__codelineno-10-163"></a>            expires 7d;         # Cache-Control policy borrowed from `.htaccess`
+<a name="__codelineno-10-164"></a>            access_log off;     # Optional: Don&#39;t log access to assets
+<a name="__codelineno-10-165"></a>        }
+<a name="__codelineno-10-166"></a>
+<a name="__codelineno-10-167"></a>        # Rule borrowed from `.htaccess`
+<a name="__codelineno-10-168"></a>        location /cloud/remote {
+<a name="__codelineno-10-169"></a>            return 301 /cloud/remote.php$request_uri;
+<a name="__codelineno-10-170"></a>        }
+<a name="__codelineno-10-171"></a>
+<a name="__codelineno-10-172"></a>        location /cloud {
+<a name="__codelineno-10-173"></a>            try_files $uri $uri/ /cloud/index.php$request_uri;
+<a name="__codelineno-10-174"></a>        }
+<a name="__codelineno-10-175"></a>    }
+<a name="__codelineno-10-176"></a>}
+</code></pre></div></p>
+<h2 id="parte-4">Parte 4</h2>
+<blockquote>
+<p>Comprobar que se ha creado una tarea cron para renovar el certificado</p>
+</blockquote>
+<p><code>/etc/cron.d/certbot</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a># /etc/cron.d/certbot: crontab entries for the certbot package
+<a name="__codelineno-11-2"></a>#
+<a name="__codelineno-11-3"></a># Upstream recommends attempting renewal twice a day
+<a name="__codelineno-11-4"></a>#
+<a name="__codelineno-11-5"></a># Eventually, this will be an opportunity to validate certificates
+<a name="__codelineno-11-6"></a># haven&#39;t been revoked, etc.  Renewal will only occur if expiration
+<a name="__codelineno-11-7"></a># is within 30 days.
+<a name="__codelineno-11-8"></a>#
+<a name="__codelineno-11-9"></a># Important Note!  This cronjob will NOT be executed if you are
+<a name="__codelineno-11-10"></a># running systemd as your init system.  If you are running systemd,
+<a name="__codelineno-11-11"></a># the cronjob.timer function takes precedence over this cronjob.  For
+<a name="__codelineno-11-12"></a># more details, see the systemd.timer manpage, or use systemctl show
+<a name="__codelineno-11-13"></a># certbot.timer.
+<a name="__codelineno-11-14"></a>SHELL=/bin/sh
+<a name="__codelineno-11-15"></a>PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+<a name="__codelineno-11-16"></a>
+<a name="__codelineno-11-17"></a>0 */12 * * * root test -x /usr/bin/certbot -a \! -d /run/systemd/system &amp;&amp; perl -e &#39;sleep int(rand(43200))&#39; &amp;&amp; certbot -q renew
+</code></pre></div></p>
+<p>La renovación <em>sólo ocurrirá</em> si la expiración es en 30 días.</p>
+<p>Podemos usar herramientas online para entender la expresión cron:</p>
+<p><img alt="" src="https://i.imgur.com/rOZ8VZI.png" /></p>
+<p>Es decir, la tarea cron se ejecuta cada 12 horas.</p>
+<h2 id="parte-5">Parte 5</h2>
+<blockquote>
+<p>Comprobar que las páginas son accesibles por HTTPS y visualizar los detalles del certificado</p>
+</blockquote>
+<p>En todos los VirtualHosts, los detalles del certificado son los mismos:</p>
+<p><img alt="" src="https://i.imgur.com/JVToH7q.png" /></p>
+<p>Muestro el resto de VirtualHosts:</p>
+<p><img alt="" src="https://i.imgur.com/Ml1Vk9O.png" /></p>
+<p><img alt="" src="https://i.imgur.com/46Er7Cv.png" /></p>
+<p><img alt="" src="https://i.imgur.com/5gTprLu.png" /></p>
+<h2 id="parte-6">Parte 6</h2>
+<blockquote>
+<p>Modificar el cliente Nextcloud para que siga funcionando con HTTPS</p>
+</blockquote>
+<p>Desde que hemos configurado HTTPS, el cliente da errores:</p>
+<p><img alt="" src="https://i.imgur.com/qHOuuHo.png" /></p>
+<p>Tenemos que borrar la conexión antigua, y crear una nueva HTTPS:</p>
+<p><img alt="" src="https://i.imgur.com/xbdnz3r.png" /></p>
+<p>Una vez terminada la configuración, vemos que sigue funcionando con HTTPS:</p>
+<p><img alt="" src="https://i.imgur.com/DfZe1vx.png" /></p>
+<p>Además, si queremos, el cliente de Nextcloud nos permite ver los detalles del certificado:</p>
+<p><img alt="" src="https://i.postimg.cc/L6H3fLHH/nextcloud-client-https.gif" /></p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/practica-https-vps/",this.page.identifier="practica-https-vps/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../practica-web-bd-dns-escenario/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Práctica: DNS+Web+BD en escenario" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Práctica: DNS+Web+BD en escenario
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../practica-aumento-rendimiento-web/" class="md-footer__link md-footer__link--next" aria-label="Next: Práctica: Aumento rendimiento web" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Práctica: Aumento rendimiento web
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2885 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/practica-servidor-correo/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Práctica: Servidor de correos en VPS - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-servidor-de-correos-en-vps" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Práctica: Servidor de correos en VPS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Práctica: Servidor de correos en VPS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Práctica: Servidor de correos en VPS
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pasos-previos" class="md-nav__link">
+    Pasos previos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-de-correos-desde-el-servidor" class="md-nav__link">
+    Gestión de correos desde el servidor
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestión de correos desde el servidor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea-1" class="md-nav__link">
+    Tarea 1
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    1.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    1.4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tarea-2" class="md-nav__link">
+    Tarea 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    2.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    2.4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    2.5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-3-uso-de-alias-y-redirecciones" class="md-nav__link">
+    Tarea 3: Uso de alias y redirecciones
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 3: Uso de alias y redirecciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    3.5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-4-para-asegurar-el-envio-opcional" class="md-nav__link">
+    Tarea 4: Para asegurar el envío (opcional)
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 4: Para asegurar el envío (opcional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pasos-iniciales" class="md-nav__link">
+    4.1 Pasos iniciales
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-configuracion-opendkim" class="md-nav__link">
+    4.2 Configuración OpenDKIM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-creacion-de-signing-y-key-table" class="md-nav__link">
+    4.3 Creación de Signing y Key Table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-generacion-de-claves" class="md-nav__link">
+    4.4 Generación de claves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-publicacion-de-la-clave-publica-en-mi-dns" class="md-nav__link">
+    4.5 Publicación de la clave pública en mi DNS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-testeo-de-la-clave-publica" class="md-nav__link">
+    4.6 Testeo de la clave pública
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-configuracion-de-postfix-con-opendkim" class="md-nav__link">
+    4.7 Configuración de Postfix con OpenDKIM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-reinicio-de-servicios" class="md-nav__link">
+    4.8 Reinicio de servicios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49-comprobaciones" class="md-nav__link">
+    4.9 Comprobaciones
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-de-correos-desde-un-cliente" class="md-nav__link">
+    Gestión de correos desde un cliente
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestión de correos desde un cliente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea-8" class="md-nav__link">
+    Tarea 8
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 8">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    8.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    8.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    8.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    8.4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85" class="md-nav__link">
+    8.5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tarea-9" class="md-nav__link">
+    Tarea 9
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 9">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    9.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    9.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    9.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    9.4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tarea-11" class="md-nav__link">
+    Tarea 11
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    11.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    11.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    11.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114" class="md-nav__link">
+    11.4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-13-comprobacion-final" class="md-nav__link">
+    Tarea 13: comprobación final
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pasos-previos" class="md-nav__link">
+    Pasos previos
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-de-correos-desde-el-servidor" class="md-nav__link">
+    Gestión de correos desde el servidor
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestión de correos desde el servidor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea-1" class="md-nav__link">
+    Tarea 1
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    1.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    1.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13" class="md-nav__link">
+    1.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14" class="md-nav__link">
+    1.4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tarea-2" class="md-nav__link">
+    Tarea 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23" class="md-nav__link">
+    2.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24" class="md-nav__link">
+    2.4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    2.5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-3-uso-de-alias-y-redirecciones" class="md-nav__link">
+    Tarea 3: Uso de alias y redirecciones
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 3: Uso de alias y redirecciones">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    3.5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-4-para-asegurar-el-envio-opcional" class="md-nav__link">
+    Tarea 4: Para asegurar el envío (opcional)
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 4: Para asegurar el envío (opcional)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pasos-iniciales" class="md-nav__link">
+    4.1 Pasos iniciales
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-configuracion-opendkim" class="md-nav__link">
+    4.2 Configuración OpenDKIM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-creacion-de-signing-y-key-table" class="md-nav__link">
+    4.3 Creación de Signing y Key Table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-generacion-de-claves" class="md-nav__link">
+    4.4 Generación de claves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-publicacion-de-la-clave-publica-en-mi-dns" class="md-nav__link">
+    4.5 Publicación de la clave pública en mi DNS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-testeo-de-la-clave-publica" class="md-nav__link">
+    4.6 Testeo de la clave pública
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#47-configuracion-de-postfix-con-opendkim" class="md-nav__link">
+    4.7 Configuración de Postfix con OpenDKIM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#48-reinicio-de-servicios" class="md-nav__link">
+    4.8 Reinicio de servicios
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#49-comprobaciones" class="md-nav__link">
+    4.9 Comprobaciones
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gestion-de-correos-desde-un-cliente" class="md-nav__link">
+    Gestión de correos desde un cliente
+  </a>
+  
+    <nav class="md-nav" aria-label="Gestión de correos desde un cliente">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea-8" class="md-nav__link">
+    Tarea 8
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 8">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#81" class="md-nav__link">
+    8.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#82" class="md-nav__link">
+    8.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#83" class="md-nav__link">
+    8.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    8.4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#85" class="md-nav__link">
+    8.5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tarea-9" class="md-nav__link">
+    Tarea 9
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 9">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91" class="md-nav__link">
+    9.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92" class="md-nav__link">
+    9.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93" class="md-nav__link">
+    9.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    9.4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tarea-11" class="md-nav__link">
+    Tarea 11
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 11">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    11.1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    11.2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    11.3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#114" class="md-nav__link">
+    11.4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-13-comprobacion-final" class="md-nav__link">
+    Tarea 13: comprobación final
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="practica-servidor-de-correos-en-vps">Práctica: Servidor de correos en VPS</h1>
+<h2 id="pasos-previos">Pasos previos</h2>
+<p>Instalo postfix:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a><span class="go">sudo apt update</span>
+<a name="__codelineno-0-2"></a><span class="go">sudo apt install postfix</span>
+</code></pre></div>
+<p>Selecciono "Internet Site":</p>
+<p><img alt="postfix install modes" src="https://i.imgur.com/AQArWhQ.png" /></p>
+<p>Escribo mi nombre de dominio. Se tomará como dominio origen de los correos que se envíen desde el vps <em>(<code>myorigin = /etc/mailname</code>)</em>:</p>
+<p><img alt="dominio origen" src="https://i.imgur.com/RSQA07R.png" /></p>
+<p>Instalo <code>mailutils</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a><span class="go">sudo apt install mailutils</span>
+</code></pre></div>
+<h2 id="gestion-de-correos-desde-el-servidor">Gestión de correos desde el servidor</h2>
+<h3 id="tarea-1">Tarea 1</h3>
+<h4 id="11">1.1</h4>
+<blockquote>
+<p>Crear registro SPF en el DNS</p>
+</blockquote>
+<p><img alt="registro spf" src="https://i.imgur.com/Fmp7QUO.png" /></p>
+<h4 id="12">1.2</h4>
+<blockquote>
+<p>Enviar un correo desde la vps a gmail</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a><span class="gp">blackmamba@kampe:~$</span> mail -r blackmamba@adrianjaramillo.tk adristudy@gmail.com
+<a name="__codelineno-2-2"></a><span class="go">Cc:</span>
+<a name="__codelineno-2-3"></a><span class="go">Subject: Correo con SPF</span>
+<a name="__codelineno-2-4"></a><span class="go">Mensaje</span>
+</code></pre></div>
+<h4 id="13">1.3</h4>
+<blockquote>
+<p>Mostrar <code>/var/log/mail.log</code> para verificar que el correo se ha enviado correctamente</p>
+</blockquote>
+<p>Línea relevante:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a><span class="go">Feb 14 16:20:33 kampe postfix/smtp[516217]: 242F742268: to=&lt;adristudy@gmail.com&gt;, relay=gmail-smtp-in.l.google.com[64.233.167.26]:25, delay=1.3, delays=0.03/0.01/0.29/0.95, dsn=2.0.0, status=sent (250 2.0.0 OK  1644855633 l11si9233120wms.107 - gsmtp)</span>
+</code></pre></div>
+<h4 id="14">1.4</h4>
+<blockquote>
+<p>Mostrar el correo recibido en gmail</p>
+</blockquote>
+<p><img alt="correo recibido" src="https://i.imgur.com/paotFxI.png" /></p>
+<p>Para estar seguros de que este correo ha llegado con SPF válido, tenemos que mostrar el correo original:</p>
+<p><img alt="checkeo pass válido" src="https://i.imgur.com/cUi9Kb7.png" /></p>
+<p>Ha pasado el checkeo SPF, pero si queremos ver información aún más específica, podemos hacer scroll al contenido en bruto del correo recibido:</p>
+<p><img alt="spf original" src="https://i.imgur.com/KSzFK0e.png" /></p>
+<p>Al ver eso, queda totalmente claro que el checkeo SPF ha sido exitoso.</p>
+<h3 id="tarea-2">Tarea 2</h3>
+<h4 id="21">2.1</h4>
+<blockquote>
+<p>Crear registro MX y CNAME correspondiente en el DNS</p>
+</blockquote>
+<p><img alt="registros dns mx y mail" src="https://i.imgur.com/1pcAAMz.png" /></p>
+<h4 id="22">2.2</h4>
+<blockquote>
+<p>Habilitar en el firewall del vps el tráfico entrante al puerto 25</p>
+</blockquote>
+<p><img alt="firewall 25 vps" src="https://i.imgur.com/r6VLM8T.png" /></p>
+<h4 id="23">2.3</h4>
+<blockquote>
+<p>Enviar un correo desde gmail a la vps</p>
+</blockquote>
+<p><img alt="correo para vps" src="https://i.imgur.com/3duHQSd.png" /></p>
+<h4 id="24">2.4</h4>
+<blockquote>
+<p>Comprobar que la vps ha recibido correctamente el correo mirando <code>/var/log/mail.log</code></p>
+</blockquote>
+<p><img alt="mail log vps" src="https://i.imgur.com/zfKjEvb.png" /></p>
+<h4 id="25">2.5</h4>
+<blockquote>
+<p>Mostrar el correo recibido</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a><span class="gp">blackmamba@kampe:~$</span> mail
+<a name="__codelineno-4-2"></a><span class="go">&quot;/var/mail/blackmamba&quot;: 1 message 1 new</span>
+<a name="__codelineno-4-3"></a><span class="gp">&gt;</span>N   <span class="m">1</span> adristudy          Mon Feb <span class="m">14</span> <span class="m">18</span>:17  <span class="m">52</span>/2630  Correo para la VPS
+<a name="__codelineno-4-4"></a><span class="go">? 1</span>
+<a name="__codelineno-4-5"></a><span class="go">Return-Path: &lt;adristudy@gmail.com&gt;</span>
+<a name="__codelineno-4-6"></a><span class="go">X-Original-To: blackmamba@adrianjaramillo.tk</span>
+<a name="__codelineno-4-7"></a><span class="go">Delivered-To: blackmamba@adrianjaramillo.tk</span>
+<a name="__codelineno-4-8"></a><span class="go">Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])</span>
+<a name="__codelineno-4-9"></a><span class="go">    by kampe.adrianjaramillo.tk (Postfix) with ESMTPS id 4F393422CB</span>
+<a name="__codelineno-4-10"></a><span class="go">    for &lt;blackmamba@adrianjaramillo.tk&gt;; Mon, 14 Feb 2022 18:17:40 +0000 (UTC)</span>
+<a name="__codelineno-4-11"></a><span class="go">Received: by mail-pl1-f176.google.com with SMTP id l8so5186364pls.7</span>
+<a name="__codelineno-4-12"></a><span class="go">        for &lt;blackmamba@adrianjaramillo.tk&gt;; Mon, 14 Feb 2022 10:17:40 -0800 (PST)</span>
+<a name="__codelineno-4-13"></a><span class="go">DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;</span>
+<a name="__codelineno-4-14"></a><span class="go">        d=gmail.com; s=20210112;</span>
+<a name="__codelineno-4-15"></a><span class="go">        h=mime-version:from:date:message-id:subject:to;</span>
+<a name="__codelineno-4-16"></a><span class="go">        bh=MudV18FBtYjZJPFyKfQ5hC6U6ERmLoC4WY7BpsZqJUs=;</span>
+<a name="__codelineno-4-17"></a><span class="go">        b=hpLYd8Radagaj5ilgByYq41SIVkdDFuM28I2tHi2qxE6yANOJnGC22x6FepMkW/ur3</span>
+<a name="__codelineno-4-18"></a><span class="go">         2iqHhmlw72u8he4u1VNxYsP3xCORcgx77iI3nxCkAYG7l9Tx6L7cScNNBMmsgfzP0Xp2</span>
+<a name="__codelineno-4-19"></a><span class="go">         ukKClt9Nc38F0xHSwF1qKrpie4OsxxB+blYUnUzx5SvUl18WtuHjfxLHM2cPpueYrYvc</span>
+<a name="__codelineno-4-20"></a><span class="go">         Ls0dR/Hyt9pWXEthi9ueHnWTprlauAdxKANUJMnbYA1C5z6YH0F+i/6NnHa96ZQ2E2Dv</span>
+<a name="__codelineno-4-21"></a><span class="go">         JrRzfqVYRwNwDzQAHa5ViqbgyepDPLmu9gnbytlfJCoQSrAs9diH/8gLU7b3ymnlkxQS</span>
+<a name="__codelineno-4-22"></a><span class="go">         HkNg==</span>
+<a name="__codelineno-4-23"></a><span class="go">X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;</span>
+<a name="__codelineno-4-24"></a><span class="go">        d=1e100.net; s=20210112;</span>
+<a name="__codelineno-4-25"></a><span class="go">        h=x-gm-message-state:mime-version:from:date:message-id:subject:to;</span>
+<a name="__codelineno-4-26"></a><span class="go">        bh=MudV18FBtYjZJPFyKfQ5hC6U6ERmLoC4WY7BpsZqJUs=;</span>
+<a name="__codelineno-4-27"></a><span class="go">        b=VUVBAkMaD/qnhm92cnmVBYhTFj0HuNxKqtgGNEVlEge780WB2QaXPMtaSMGSz77aHc</span>
+<a name="__codelineno-4-28"></a><span class="go">         nC3VQvj18EtItjtccAywt/FLLqP4ucH2gcellCvn0UreOCFoP8v7RaZTMYG4RBYrCOMD</span>
+<a name="__codelineno-4-29"></a><span class="go">         WKGXOXO2ay9fsCIQSNp429tQnRumifl3XaVMfy3jSZAbt1HUghtRP2VgE6Y/SLz5Lmkq</span>
+<a name="__codelineno-4-30"></a><span class="go">         NKEFW1u4IHqk8aXvM1cBzD6szJvPs5LSJjkmNuq/k/P+kH1QWQhrvs85Lyxzfgo3RSj+</span>
+<a name="__codelineno-4-31"></a><span class="go">         qIG6+H1TK4JI3bBMbhwEiiapEJOVYj2DsGmeSoDTvNChGryidxJMQqpDTdz3mZ+ZE37K</span>
+<a name="__codelineno-4-32"></a><span class="go">         bWxA==</span>
+<a name="__codelineno-4-33"></a><span class="go">X-Gm-Message-State: AOAM530YXJN7SPi6YOZ/UjMpMOMY71KTCE4ZLpC/AcW60wbzOkjuyN9M</span>
+<a name="__codelineno-4-34"></a><span class="go">    fWHiGc3H9WbfeAMOAzOBkY8vtybUr+Pw96kZMXAREDN/</span>
+<a name="__codelineno-4-35"></a><span class="go">X-Google-Smtp-Source: ABdhPJz6Vyx6fBNDRDGMOl88iRuxk0moB4G3eJTCNLmoXHc1ZDYlXFgmJdhK8aHYgutvtMLZmiO1TJ06tqf6XTu1iHA=</span>
+<a name="__codelineno-4-36"></a><span class="go">X-Received: by 2002:a17:90a:2e0a:: with SMTP id q10mr1050878pjd.130.1644862658470;</span>
+<a name="__codelineno-4-37"></a><span class="go"> Mon, 14 Feb 2022 10:17:38 -0800 (PST)</span>
+<a name="__codelineno-4-38"></a><span class="go">MIME-Version: 1.0</span>
+<a name="__codelineno-4-39"></a><span class="go">From: adristudy &lt;adristudy@gmail.com&gt;</span>
+<a name="__codelineno-4-40"></a><span class="go">Date: Mon, 14 Feb 2022 19:17:27 +0100</span>
+<a name="__codelineno-4-41"></a><span class="go">Message-ID: &lt;CAG5uPRccDy2iqjcOTT29ekY6tNCcnsgy0VsA5pXjzdm7KCcLgw@mail.gmail.com&gt;</span>
+<a name="__codelineno-4-42"></a><span class="go">Subject: Correo para la VPS</span>
+<a name="__codelineno-4-43"></a><span class="go">To: blackmamba@adrianjaramillo.tk</span>
+<a name="__codelineno-4-44"></a><span class="go">Content-Type: multipart/alternative; boundary=&quot;00000000000076676e05d7fe6ef6&quot;</span>
+<a name="__codelineno-4-45"></a>
+<a name="__codelineno-4-46"></a><span class="go">--00000000000076676e05d7fe6ef6</span>
+<a name="__codelineno-4-47"></a><span class="go">Content-Type: text/plain; charset=&quot;UTF-8&quot;</span>
+<a name="__codelineno-4-48"></a>
+<a name="__codelineno-4-49"></a><span class="go">Prueba</span>
+<a name="__codelineno-4-50"></a>
+<a name="__codelineno-4-51"></a><span class="go">--00000000000076676e05d7fe6ef6</span>
+<a name="__codelineno-4-52"></a><span class="go">Content-Type: text/html; charset=&quot;UTF-8&quot;</span>
+<a name="__codelineno-4-53"></a>
+<a name="__codelineno-4-54"></a><span class="go">&lt;div dir=&quot;ltr&quot;&gt;Prueba&lt;/div&gt;</span>
+<a name="__codelineno-4-55"></a>
+<a name="__codelineno-4-56"></a><span class="go">--00000000000076676e05d7fe6ef6--</span>
+</code></pre></div>
+<h2 id="tarea-3-uso-de-alias-y-redirecciones">Tarea 3: Uso de alias y redirecciones</h2>
+<h3 id="31">3.1</h3>
+<blockquote>
+<p>Crear tarea cron</p>
+</blockquote>
+<p>Abro la configuración:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a><span class="go">crontab -e</span>
+</code></pre></div>
+<p>Añado lo siguiente:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a><span class="go">MAILTO = root</span>
+<a name="__codelineno-6-2"></a>
+<a name="__codelineno-6-3"></a><span class="go">* * * * * echo Prueba de mensajes crontab</span>
+</code></pre></div>
+<p>Esta tarea ejecuta un echo cada minuto y envía un correo a root con el resultado.<br />
+No vemos ese echo por terminal ni en la sesión de nuestro usuario ni en la de root, pero nos sirve para hacer pruebas.</p>
+<h3 id="32">3.2</h3>
+<blockquote>
+<p>Comprobar que llegan correos en root</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a><span class="gp">root@kampe:~#</span> mail
+<a name="__codelineno-7-2"></a><span class="go">&quot;/var/mail/root&quot;: 64 messages 64 unread</span>
+<a name="__codelineno-7-3"></a><span class="gp">&gt;</span>U   <span class="m">1</span> Cron Daemon        Mon Feb <span class="m">14</span> <span class="m">21</span>:20  <span class="m">23</span>/788   Cron &lt;blackmamba@kampe&gt; <span class="nb">echo</span> Prueba de mensajes crontab
+<a name="__codelineno-7-4"></a><span class="go"> U   2 Cron Daemon        Mon Feb 14 21:21  22/762   Cron &lt;blackmamba@kampe&gt; echo Prueba de mensajes crontab</span>
+<a name="__codelineno-7-5"></a><span class="go"> U   3 Cron Daemon        Mon Feb 14 21:22  22/762   Cron &lt;blackmamba@kampe&gt; echo Prueba de mensajes crontab</span>
+<a name="__codelineno-7-6"></a><span class="go"> U   4 Cron Daemon        Mon Feb 14 21:23  22/762   Cron &lt;blackmamba@kampe&gt; echo Prueba de mensajes crontab</span>
+</code></pre></div>
+<p>Son todos iguales, así que muestro uno de ellos:</p>
+<p><img alt="correo crontab root" src="https://i.imgur.com/dWPZ8k3.png" /></p>
+<p>La parte que nos interesa es la marcada, el "From" y el "To".<br />
+Los correos los envía el daemon de Cron usando root, hacia el usuario root.<br />
+En el cuerpo del correo está el resultado del echo.</p>
+<p>Según como está ahora configurado cron, no nos llegarían esos correos a nuestro usuario.</p>
+<h3 id="33">3.3</h3>
+<blockquote>
+<p>Crear un alias para que lleguen los correos a <code>blackmamba</code></p>
+</blockquote>
+<p>Modifico <code>/etc/aliases</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a><span class="gp">#</span> See man <span class="m">5</span> aliases <span class="k">for</span> format
+<a name="__codelineno-8-2"></a><span class="go">postmaster: root</span>
+<a name="__codelineno-8-3"></a><span class="go">root: blackmamba</span>
+</code></pre></div>
+<p>Para que este cambio tome efecto ejecuto:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a><span class="go">sudo newaliases</span>
+</code></pre></div>
+<h3 id="34">3.4</h3>
+<blockquote>
+<p>Comprobar que ya llegan los correos a <code>blackmamba</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a><span class="gp">blackmamba@kampe:~$</span> mail
+<a name="__codelineno-10-2"></a><span class="go">&quot;/var/mail/blackmamba&quot;: 1 message 1 new</span>
+<a name="__codelineno-10-3"></a><span class="gp">&gt;</span>N   <span class="m">1</span> Cron Daemon        Mon Feb <span class="m">14</span> <span class="m">22</span>:59  <span class="m">20</span>/743   Cron &lt;blackmamba@kampe&gt; <span class="nb">echo</span> Prueba de mensajes crontab
+<a name="__codelineno-10-4"></a><span class="go">?</span>
+</code></pre></div>
+<p>Lo abro:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a><span class="go">? 1</span>
+<a name="__codelineno-11-2"></a><span class="go">Return-Path: &lt;blackmamba@adrianjaramillo.tk&gt;</span>
+<a name="__codelineno-11-3"></a><span class="go">X-Original-To: root</span>
+<a name="__codelineno-11-4"></a><span class="go">Delivered-To: root@adrianjaramillo.tk</span>
+<a name="__codelineno-11-5"></a><span class="go">Received: by kampe.adrianjaramillo.tk (Postfix, from userid 1000)</span>
+<a name="__codelineno-11-6"></a><span class="go">    id BC48442AC0; Mon, 14 Feb 2022 22:59:01 +0000 (UTC)</span>
+<a name="__codelineno-11-7"></a><span class="go">From: root@adrianjaramillo.tk (Cron Daemon)</span>
+<a name="__codelineno-11-8"></a><span class="go">To: root@adrianjaramillo.tk</span>
+<a name="__codelineno-11-9"></a><span class="go">Subject: Cron &lt;blackmamba@kampe&gt; echo Prueba de mensajes crontab</span>
+<a name="__codelineno-11-10"></a><span class="go">MIME-Version: 1.0</span>
+<a name="__codelineno-11-11"></a><span class="go">Content-Type: text/plain; charset=UTF-8</span>
+<a name="__codelineno-11-12"></a><span class="go">Content-Transfer-Encoding: 8bit</span>
+<a name="__codelineno-11-13"></a><span class="go">X-Cron-Env: &lt;MAILTO=root&gt;</span>
+<a name="__codelineno-11-14"></a><span class="go">X-Cron-Env: &lt;SHELL=/bin/sh&gt;</span>
+<a name="__codelineno-11-15"></a><span class="go">X-Cron-Env: &lt;HOME=/home/blackmamba&gt;</span>
+<a name="__codelineno-11-16"></a><span class="go">X-Cron-Env: &lt;PATH=/usr/bin:/bin&gt;</span>
+<a name="__codelineno-11-17"></a><span class="go">X-Cron-Env: &lt;LOGNAME=blackmamba&gt;</span>
+<a name="__codelineno-11-18"></a><span class="go">Message-Id: &lt;20220214225901.BC48442AC0@kampe.adrianjaramillo.tk&gt;</span>
+<a name="__codelineno-11-19"></a><span class="go">Date: Mon, 14 Feb 2022 22:59:01 +0000 (UTC)</span>
+<a name="__codelineno-11-20"></a>
+<a name="__codelineno-11-21"></a><span class="go">Prueba de mensajes crontab</span>
+<a name="__codelineno-11-22"></a><span class="go">?</span>
+</code></pre></div>
+<p>He mostrado el contenido para que se vea el campo "To:", que apunta a root, pero el alias funciona así que me llega a mi usuario principal <code>blackmamba</code>.</p>
+<h3 id="35">3.5</h3>
+<blockquote>
+<p>Crear una redirección para enviar esos correos a gmail</p>
+</blockquote>
+<p>Creo <code>/home/blackmamba/.forward</code> con el siguiente contenido:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a><span class="go">adristudy@gmail.com</span>
+</code></pre></div>
+<p>Veo en gmail que me están llegando:</p>
+<p><img alt="correos cron a gmail" src="https://i.imgur.com/CV4QGD4.png" /></p>
+<h2 id="tarea-4-para-asegurar-el-envio-opcional">Tarea 4: Para asegurar el envío (opcional)</h2>
+<p>Configurar postfix con opendkim para firmar los correos que envía.</p>
+<h3 id="41-pasos-iniciales">4.1 Pasos iniciales</h3>
+<p>Instalo los paquetes:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a><span class="go">sudo apt install opendkim opendkim-tools</span>
+</code></pre></div>
+<p>Añado el usuario postfix al grupo opendkim:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a><span class="go">sudo gpasswd -a postfix opendkim</span>
+</code></pre></div>
+<h3 id="42-configuracion-opendkim">4.2 Configuración OpenDKIM</h3>
+<p><code>/etc/opendkim.conf</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a><span class="gp">#</span> This is a basic configuration <span class="k">for</span> signing and verifying. It can easily be
+<a name="__codelineno-15-2"></a><span class="gp">#</span> adapted to suit a basic installation. See opendkim.conf<span class="o">(</span><span class="m">5</span><span class="o">)</span> and
+<a name="__codelineno-15-3"></a><span class="gp">#</span> /usr/share/doc/opendkim/examples/opendkim.conf.sample <span class="k">for</span> <span class="nb">complete</span>
+<a name="__codelineno-15-4"></a><span class="gp">#</span> documentation of available configuration parameters.
+<a name="__codelineno-15-5"></a>
+<a name="__codelineno-15-6"></a><span class="go">Syslog                      yes</span>
+<a name="__codelineno-15-7"></a><span class="go">SyslogSuccess           yes</span>
+<a name="__codelineno-15-8"></a><span class="gp">#</span>LogWhy         no
+<a name="__codelineno-15-9"></a>
+<a name="__codelineno-15-10"></a><span class="gp">#</span> Common signing and verification parameters. In Debian, the <span class="s2">&quot;From&quot;</span> header is
+<a name="__codelineno-15-11"></a><span class="gp">#</span> oversigned, because it is often the identity key used by reputation systems
+<a name="__codelineno-15-12"></a><span class="gp">#</span> and thus somewhat security sensitive.
+<a name="__codelineno-15-13"></a><span class="go">Canonicalization    relaxed/simple</span>
+<a name="__codelineno-15-14"></a><span class="go">Mode                        s</span>
+<a name="__codelineno-15-15"></a><span class="go">SubDomains          no</span>
+<a name="__codelineno-15-16"></a><span class="go">OversignHeaders From</span>
+<a name="__codelineno-15-17"></a>
+<a name="__codelineno-15-18"></a><span class="gp">#</span> Signing domain, selector, and key <span class="o">(</span>required<span class="o">)</span>. For example, perform signing
+<a name="__codelineno-15-19"></a><span class="gp">#</span> <span class="k">for</span> domain <span class="s2">&quot;example.com&quot;</span> with selector <span class="s2">&quot;2020&quot;</span> <span class="o">(</span><span class="m">2020</span>._domainkey.example.com<span class="o">)</span>,
+<a name="__codelineno-15-20"></a><span class="gp">#</span> using the private key stored in /etc/dkimkeys/example.private. More granular
+<a name="__codelineno-15-21"></a><span class="gp">#</span> setup options can be found in /usr/share/doc/opendkim/README.opendkim.
+<a name="__codelineno-15-22"></a><span class="gp">#</span>Domain         example.com
+<a name="__codelineno-15-23"></a><span class="gp">#</span>Selector           <span class="m">2020</span>
+<a name="__codelineno-15-24"></a><span class="gp">#</span>KeyFile            /etc/dkimkeys/example.private
+<a name="__codelineno-15-25"></a>
+<a name="__codelineno-15-26"></a><span class="gp">#</span> In Debian, opendkim runs as user <span class="s2">&quot;opendkim&quot;</span>. A <span class="nb">umask</span> of <span class="m">007</span> is required when
+<a name="__codelineno-15-27"></a><span class="gp">#</span> using a <span class="nb">local</span> socket with MTAs that access the socket as a non-privileged
+<a name="__codelineno-15-28"></a><span class="gp">#</span> user <span class="o">(</span><span class="k">for</span> example, Postfix<span class="o">)</span>. You may need to add user <span class="s2">&quot;postfix&quot;</span> to group
+<a name="__codelineno-15-29"></a><span class="gp">#</span> <span class="s2">&quot;opendkim&quot;</span> in that <span class="k">case</span>.
+<a name="__codelineno-15-30"></a><span class="go">UserID                      opendkim</span>
+<a name="__codelineno-15-31"></a><span class="go">UMask                       007</span>
+<a name="__codelineno-15-32"></a>
+<a name="__codelineno-15-33"></a><span class="gp">#</span> Socket <span class="k">for</span> the MTA connection <span class="o">(</span>required<span class="o">)</span>. If the MTA is inside a chroot jail,
+<a name="__codelineno-15-34"></a><span class="gp">#</span> it must be ensured that the socket is accessible. In Debian, Postfix runs in
+<a name="__codelineno-15-35"></a><span class="gp">#</span> a chroot in /var/spool/postfix, therefore a Unix socket would have to be
+<a name="__codelineno-15-36"></a><span class="gp">#</span> configured as shown on the last line below.
+<a name="__codelineno-15-37"></a><span class="gp">#</span>Socket         local:/run/opendkim/opendkim.sock
+<a name="__codelineno-15-38"></a><span class="gp">#</span>Socket         inet:8891@localhost
+<a name="__codelineno-15-39"></a><span class="gp">#</span>Socket         inet:8891
+<a name="__codelineno-15-40"></a><span class="go">Socket                      local:/var/spool/postfix/opendkim/opendkim.sock</span>
+<a name="__codelineno-15-41"></a>
+<a name="__codelineno-15-42"></a><span class="go">PidFile         /run/opendkim/opendkim.pid</span>
+<a name="__codelineno-15-43"></a>
+<a name="__codelineno-15-44"></a><span class="gp">#</span> Hosts <span class="k">for</span> which to sign rather than verify, default is <span class="m">127</span>.0.0.1. See the
+<a name="__codelineno-15-45"></a><span class="gp">#</span> OPERATION section of opendkim<span class="o">(</span><span class="m">8</span><span class="o">)</span> <span class="k">for</span> more information.
+<a name="__codelineno-15-46"></a><span class="gp">#</span>InternalHosts          <span class="m">192</span>.168.0.0/16, <span class="m">10</span>.0.0.0/8, <span class="m">172</span>.16.0.0/12
+<a name="__codelineno-15-47"></a>
+<a name="__codelineno-15-48"></a><span class="gp">#</span> The trust anchor enables DNSSEC. In Debian, the trust anchor file is provided
+<a name="__codelineno-15-49"></a><span class="gp">#</span> by the package dns-root-data.
+<a name="__codelineno-15-50"></a><span class="go">TrustAnchorFile /usr/share/dns/root.key</span>
+<a name="__codelineno-15-51"></a><span class="gp">#</span>Nameservers            <span class="m">127</span>.0.0.1
+<a name="__codelineno-15-52"></a>
+<a name="__codelineno-15-53"></a><span class="gp">#</span> Map domains in From addresses to keys used to sign messages
+<a name="__codelineno-15-54"></a><span class="go">KeyTable           refile:/etc/opendkim/key.table</span>
+<a name="__codelineno-15-55"></a><span class="go">SigningTable       refile:/etc/opendkim/signing.table</span>
+</code></pre></div>
+<h3 id="43-creacion-de-signing-y-key-table">4.3 Creación de Signing y Key Table</h3>
+<p>Creo la estructura de directorios para las claves:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a><span class="go">sudo mkdir -p /etc/opendkim/keys</span>
+</code></pre></div>
+<p>Modifico propietarios y permisos:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a><span class="go">sudo chown -R opendkim:opendkim /etc/opendkim</span>
+<a name="__codelineno-17-2"></a><span class="go">sudo chmod go-rw /etc/opendkim/keys</span>
+</code></pre></div>
+<p>Creo la signing table...</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a><span class="go">sudo touch /etc/opendkim/signing.table</span>
+</code></pre></div>
+<p>...con el siguiente contenido:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a><span class="go">*@adrianjaramillo.tk      default._domainkey.adrianjaramillo.tk</span>
+</code></pre></div>
+<p>Creo la key table...</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a><span class="go">sudo touch /etc/opendkim/key.table</span>
+</code></pre></div>
+<p>...con el siguiente contenido:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a><span class="go">default._domainkey.adrianjaramillo.tk     adrianjaramillo.tk:default:/etc/opendkim/keys/adrianjaramillo.tk/default.private</span>
+</code></pre></div>
+<h3 id="44-generacion-de-claves">4.4 Generación de claves</h3>
+<p>Creo un directorio para las claves del dominio:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a><span class="go">sudo mkdir /etc/opendkim/keys/adrianjaramillo.tk</span>
+</code></pre></div>
+<p>Genero las claves...</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a><span class="go">sudo opendkim-genkey -b 2048 -d adrianjaramillo.tk -D /etc/opendkim/keys/adrianjaramillo.tk -s default -v</span>
+</code></pre></div>
+<p>...y este es el output:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a><span class="go">opendkim-genkey: generating private key</span>
+<a name="__codelineno-24-2"></a><span class="go">opendkim-genkey: private key written to default.private</span>
+<a name="__codelineno-24-3"></a><span class="go">opendkim-genkey: extracting public key</span>
+<a name="__codelineno-24-4"></a><span class="go">opendkim-genkey: DNS TXT record written to default.txt</span>
+</code></pre></div>
+<p>Cambio los propietarios de la clave privada:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-25-1"></a><span class="go">sudo chown opendkim:opendkim /etc/opendkim/keys/adrianjaramillo.tk/default.private</span>
+</code></pre></div>
+<p>Compruebo que los permisos de la clave privada son correctos:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-26-1"></a><span class="go">-rw------- 1 opendkim opendkim 1679 Mar  7 19:57 /etc/opendkim/keys/adrianjaramillo.tk/default.private</span>
+</code></pre></div>
+<h3 id="45-publicacion-de-la-clave-publica-en-mi-dns">4.5 Publicación de la clave pública en mi DNS</h3>
+<p>La clave pública generada se encuentra en el fichero <code>/etc/opendkim/keys/adrianjaramillo.tk/default.txt</code>.:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-27-1"></a><span class="go">default._domainkey  IN  TXT ( &quot;v=DKIM1; h=sha256; k=rsa; &quot;</span>
+<a name="__codelineno-27-2"></a><span class="go">      &quot;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA66vm0/BhAdiyHkYz/AcaWPkUbnTXOlxCxKZQP3skWmCI5fZSBfwJpndYg1C05UyiCh3qsVXXnOZsiRoKK09vzDobKFw2ngRA5y3vTPKufY/Va/VNfNRdXd8fhUjffnAbxQ231WyTqHNrb2XjXoTY8/QBy/2Hexg1f7zZ4PqcM5+L6kzCGtzPJ0m7MfWCL6HQCbg82JX0aywITl&quot;</span>
+<a name="__codelineno-27-3"></a><span class="go">      &quot;sKhieEJg0WXHnzX/wYD4rreOxG05QCfIT7zWMamJdaDfEuua8qLMdPnb714MnTq1zPizBQ+YEDkFKwSDkaeKRq44CBYjjZ+ma9yI7PMwYQ+LEkA0kKtFm8IaQMoAyMQQcF0dzIwQIDAQAB&quot; )  ; ----- DKIM key default for adrianjaramillo.tk</span>
+</code></pre></div>
+<p>La string que aparece después de la p es mi clave pública.</p>
+<p><em>¿Cómo la publicamos?</em></p>
+<p>En nuestro DNS tenemos que crear un registro TXT con nombre <code>default._domainkey</code> y valor todo lo que haya entre paréntesis del fichero que acabo de mostrar.</p>
+<p><strong>IMPORTANTE: tenemos que eliminar todas las comillas dobles y espacios no necesarios. La string de la clave pública por alguna razón la parte en 2, pero hay que unirla</strong>.</p>
+<p>Es decir, el valor final se nos quedaría así:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-28-1"></a><span class="go">v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA66vm0/BhAdiyHkYz/AcaWPkUbnTXOlxCxKZQP3skWmCI5fZSBfwJpndYg1C05UyiCh3qsVXXnOZsiRoKK09vzDobKFw2ngRA5y3vTPKufY/Va/VNfNRdXd8fhUjffnAbxQ231WyTqHNrb2XjXoTY8/QBy/2Hexg1f7zZ4PqcM5+L6kzCGtzPJ0m7MfWCL6HQCbg82JX0aywITlsKhieEJg0WXHnzX/wYD4rreOxG05QCfIT7zWMamJdaDfEuua8qLMdPnb714MnTq1zPizBQ+YEDkFKwSDkaeKRq44CBYjjZ+ma9yI7PMwYQ+LEkA0kKtFm8IaQMoAyMQQcF0dzIwQIDAQAB</span>
+</code></pre></div>
+<p>Muestro que he creado dicho registro en mi DNS:</p>
+<p><img alt="dkim dns" src="https://i.imgur.com/Z8Vm8Ml.png" /></p>
+<h3 id="46-testeo-de-la-clave-publica">4.6 Testeo de la clave pública</h3>
+<p>Uso el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-29-1"></a><span class="go">sudo opendkim-testkey -d adrianjaramillo.tk -s default -vvv</span>
+</code></pre></div>
+<p>Si todo funciona, deberíamos de obtener un "Key OK":</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-30-1"></a><span class="go">opendkim-testkey: using default configfile /etc/opendkim.conf</span>
+<a name="__codelineno-30-2"></a><span class="go">opendkim-testkey: checking key &#39;default._domainkey.adrianjaramillo.tk&#39;</span>
+<a name="__codelineno-30-3"></a><span class="go">opendkim-testkey: key not secure</span>
+<a name="__codelineno-30-4"></a><span class="go">opendkim-testkey: key OK</span>
+</code></pre></div>
+<p>Este comando lo que hace realmente es una consulta DNS. Se compara la clave privada que tenemos configurada con la pública que aparece en el DNS, y se verifica si efectivamente ambas claves son del mismo par.</p>
+<p>Aparece "key not secure" pero de esto no tenemos que preocuparnos, simplemente significa que no tenemos habilitado DNSSEC en nuestro dominio. Por lo que he investigado, freenom no lo soporta.</p>
+<p>También podemos usar la web https://mxtoolbox.com/dkim.aspx para comprobar el registro DKIM. Importante que escribamos nuestro selector correctamente:</p>
+<p><img alt="web comprobar clave dkim publica" src="https://i.imgur.com/2kQZwFC.png" /></p>
+<p>Vemos que el registro DKIM publicado en mi DNS es válido:</p>
+<p><img alt="dkim válido" src="https://i.imgur.com/l7jkPmL.png" /></p>
+<h3 id="47-configuracion-de-postfix-con-opendkim">4.7 Configuración de Postfix con OpenDKIM</h3>
+<p>Creo el directorio donde se creará el socket de OpenDKIM:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-31-1"></a><span class="go">sudo mkdir /var/spool/postfix/opendkim</span>
+</code></pre></div>
+<p>Modifico los propietarios:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-32-1"></a><span class="go">sudo chown opendkim:postfix /var/spool/postfix/opendkim</span>
+</code></pre></div>
+<p>Modifico <code>/etc/opendkim.conf</code> para cambiar el socket que utiliza. Comento la línea:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-33-1"></a><span class="go">Socket                  local:/run/opendkim/opendkim.sock</span>
+</code></pre></div>
+<p>Y descomento la línea:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-34-1"></a><span class="go">Socket                  local:/var/spool/postfix/opendkim/opendkim.sock</span>
+</code></pre></div>
+<p>Por último, añado lo siguiente al final de <code>/etc/postfix/main.cf</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-35-1"></a><span class="gp">#</span> Milter configuration
+<a name="__codelineno-35-2"></a><span class="go">smtpd_milters = local:opendkim/opendkim.sock</span>
+<a name="__codelineno-35-3"></a><span class="go">non_smtpd_milters = $smtpd_milters</span>
+<a name="__codelineno-35-4"></a><span class="go">milter_default_action = accept</span>
+<a name="__codelineno-35-5"></a><span class="go">milter_protocol = 6</span>
+</code></pre></div>
+<h3 id="48-reinicio-de-servicios">4.8 Reinicio de servicios</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-36-1"></a><span class="go">sudo systemctl restart opendkim postfix</span>
+</code></pre></div>
+<h3 id="49-comprobaciones">4.9 Comprobaciones</h3>
+<p>Tras haberme enviado un correo a gmail, muestro el original para ver que haya pasado el chequeo DKIM:</p>
+<p><img alt="dkim pass" src="https://i.imgur.com/wdXXNRa.png" /></p>
+<p>En el correo en crudo vemos que tenemos un campo de firma DKIM:</p>
+<p><img alt="dkim bloque firma" src="https://i.imgur.com/DPGzssz.png" /></p>
+<p>También podemos mirar <code>/var/log/mail.log</code> filtrando por dkim para ver que se realiza la firma:</p>
+<p><img alt="firma dkim mail.log" src="https://i.imgur.com/dcFFEyB.png" /></p>
+<h2 id="gestion-de-correos-desde-un-cliente">Gestión de correos desde un cliente</h2>
+<h3 id="tarea-8">Tarea 8</h3>
+<h4 id="81">8.1</h4>
+<blockquote>
+<p>Borrar el fichero <code>.forward</code> anteriormente creado</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-37-1"></a><span class="go">rm .forward</span>
+</code></pre></div>
+<p>Es <strong>obligatorio</strong> que borremos este fichero para que lo que hagamos durante esta tarea funcione, y los correos lleguen a <code>Maildir</code> correctamente.</p>
+<p>¿Por qué? El fichero <code>.forward</code> tiene el siguiente funcionamiento:</p>
+<p><img alt="funcionamiento forward" src="https://i.imgur.com/pxhEqFg.png" /></p>
+<p>Es decir, <strong>si tenemos un fichero <code>.forward</code> no podremos recibir ningún correo en usuarios locales</strong>.</p>
+<h4 id="82">8.2</h4>
+<blockquote>
+<p>Configurar postfix con buzón Maildir</p>
+</blockquote>
+<p>Añado lo siguiente a <code>/etc/postfix/main.cf</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-38-1"></a><span class="go">home_mailbox = Maildir/</span>
+</code></pre></div>
+<p>Reinicio postfix:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-39-1"></a><span class="go">sudo systemctl restart postfix</span>
+</code></pre></div>
+<h4 id="83">8.3</h4>
+<blockquote>
+<p>Enviar un correo a <code>blackmamba</code></p>
+</blockquote>
+<p>Hago la prueba:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-40-1"></a><span class="gp">blackmamba@kampe:~$</span> mail -r blackmamba@localhost blackmamba@localhost
+<a name="__codelineno-40-2"></a><span class="go">Cc:</span>
+<a name="__codelineno-40-3"></a><span class="go">Subject: Prueba Maildir</span>
+<a name="__codelineno-40-4"></a><span class="go">Mensaje</span>
+</code></pre></div>
+<h4 id="84">8.4</h4>
+<blockquote>
+<p>Comprobar que el correo se ha guardado en el buzón Maildir</p>
+</blockquote>
+<p>Primero compruebo <code>/var/log/mail.log</code> para ver que haya llegado correctamente:</p>
+<p><img alt="maildir log" src="https://i.imgur.com/lrEepw0.png" /></p>
+<p>"delivered to maildir" significa que ha funcionado correctamente.</p>
+<p>Lo siguiente a comprobar es la estructura de <code>Maildir</code> que se nos ha generado en el home:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-41-1"></a><span class="gp">blackmamba@kampe:~$</span> tree Maildir/
+<a name="__codelineno-41-2"></a><span class="go">Maildir/</span>
+<a name="__codelineno-41-3"></a><span class="go">|-- cur</span>
+<a name="__codelineno-41-4"></a><span class="go">|-- new</span>
+<a name="__codelineno-41-5"></a><span class="go">|   `-- 1644944881.Vfe01I605c1M715492.kampe</span>
+<a name="__codelineno-41-6"></a><span class="go">`-- tmp</span>
+<a name="__codelineno-41-7"></a>
+<a name="__codelineno-41-8"></a><span class="go">3 directories, 1 file</span>
+</code></pre></div>
+<p><strong>¡Atención! NO TENEMOS que crear esta estructura de directorios manualmente para que funcione, lo hace postfix.</strong></p>
+<h4 id="85">8.5</h4>
+<blockquote>
+<p>Visualizar el correo recibido en <code>Maildir</code></p>
+</blockquote>
+<p>Podríamos perfectamente abrir manualmente los ficheros con <code>cat</code>, pero esto es rudimentario, usaremos la herramienta <code>mail</code>.</p>
+<p>Según se dice en la guía de José Domingo, desde que usamos <code>Maildir</code> como buzón ya no podremos visualizar los correos con <code>mail</code>. Esto es cierto si ejecutamos el comando sin argumentos:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-42-1"></a><span class="gp">blackmamba@kampe:~$</span> mail
+<a name="__codelineno-42-2"></a><span class="go">No mail for blackmamba</span>
+</code></pre></div>
+<p><strong>PERO</strong> podemos hacer lo siguiente:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-43-1"></a><span class="gp">blackmamba@kampe:~$</span> mail -f Maildir
+<a name="__codelineno-43-2"></a><span class="go">&quot;/home/blackmamba/Maildir&quot;: 1 message 1 new</span>
+<a name="__codelineno-43-3"></a><span class="gp">&gt;</span>N   <span class="m">1</span> blackmamba@localho Tue Feb <span class="m">15</span> <span class="m">17</span>:08  <span class="m">13</span>/459   Prueba Maildir
+<a name="__codelineno-43-4"></a><span class="go">? 1</span>
+<a name="__codelineno-43-5"></a><span class="go">Return-Path: &lt;blackmamba@localhost&gt;</span>
+<a name="__codelineno-43-6"></a><span class="go">X-Original-To: blackmamba@localhost</span>
+<a name="__codelineno-43-7"></a><span class="go">Delivered-To: blackmamba@localhost</span>
+<a name="__codelineno-43-8"></a><span class="go">Received: by kampe.adrianjaramillo.tk (Postfix, from userid 1000)</span>
+<a name="__codelineno-43-9"></a><span class="go">    id A9FDB42CF6; Tue, 15 Feb 2022 17:08:01 +0000 (UTC)</span>
+<a name="__codelineno-43-10"></a><span class="go">To: &lt;blackmamba@localhost&gt;</span>
+<a name="__codelineno-43-11"></a><span class="go">Subject: Prueba Maildir</span>
+<a name="__codelineno-43-12"></a><span class="go">X-Mailer: mail (GNU Mailutils 3.10)</span>
+<a name="__codelineno-43-13"></a><span class="go">Message-Id: &lt;20220215170801.A9FDB42CF6@kampe.adrianjaramillo.tk&gt;</span>
+<a name="__codelineno-43-14"></a><span class="go">Date: Tue, 15 Feb 2022 17:08:01 +0000 (UTC)</span>
+<a name="__codelineno-43-15"></a><span class="go">From: blackmamba@localhost</span>
+<a name="__codelineno-43-16"></a>
+<a name="__codelineno-43-17"></a><span class="go">Mensaje</span>
+<a name="__codelineno-43-18"></a><span class="go">?</span>
+</code></pre></div>
+<p>Indicando la ruta de <code>Maildir</code> con <code>mail -f</code> nos posibilita ver los correos perfectamente.</p>
+<p>Muestro el man de <code>mail</code> para un mejor entendimiento:</p>
+<p><img alt="mail -f man" src="https://i.imgur.com/95YeS20.png" /></p>
+<h3 id="tarea-9">Tarea 9</h3>
+<h4 id="91">9.1</h4>
+<blockquote>
+<p>Instalar Dovecot para ofrecer el protocolo IMAPS</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-44-1"></a><span class="go">sudo apt install dovecot-imapd</span>
+</code></pre></div>
+<p>Lo primero que podemos ver es que estará escuchando en el puerto que necesitamos:</p>
+<p><img alt="dovecot ports" src="https://i.imgur.com/XOEPZJ5.png" /></p>
+<p>Tenemos que permitir ese tráfico en el firewall de la vps:</p>
+<p><img alt="993 firewall vps" src="https://i.imgur.com/Y9siAwo.png" /></p>
+<p>Hacemos una primera prueba de comunicación con el puerto desde nuestro host:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-45-1"></a><span class="gp">atlas@olympus:~$</span> telnet <span class="m">87</span>.106.228.149 <span class="m">993</span>
+<a name="__codelineno-45-2"></a><span class="go">Trying 87.106.228.149...</span>
+<a name="__codelineno-45-3"></a><span class="go">Connected to 87.106.228.149.</span>
+<a name="__codelineno-45-4"></a><span class="go">Escape character is &#39;^]&#39;.</span>
+</code></pre></div>
+<h4 id="92">9.2</h4>
+<blockquote>
+<p>Configurar Dovecot para que use el buzón Maildir</p>
+</blockquote>
+<p>Modifico <code>/etc/dovecot/conf.d/10-mail.conf</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-46-1"></a><span class="go">mail_location = maildir:~/Maildir</span>
+</code></pre></div>
+<p>Reinicio dovecot:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-47-1"></a><span class="go">sudo systemctl restart dovecot</span>
+</code></pre></div>
+<h4 id="93">9.3</h4>
+<blockquote>
+<p>Configurar el cifrado de la comunicación por IMAPS en Dovecot con certificado. Usar el wildcard <code>*.adrianjaramillo.tk</code> que ya teníamos.</p>
+</blockquote>
+<p>Modifico <code>/etc/dovecot/conf.d/10-ssl.conf</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-48-1"></a><span class="gp">#</span><span class="c1">#</span>
+<a name="__codelineno-48-2"></a><span class="gp">#</span><span class="c1"># SSL settings</span>
+<a name="__codelineno-48-3"></a><span class="gp">#</span><span class="c1">#</span>
+<a name="__codelineno-48-4"></a>
+<a name="__codelineno-48-5"></a><span class="gp">#</span> SSL/TLS support: yes, no, required. &lt;doc/wiki/SSL.txt&gt;
+<a name="__codelineno-48-6"></a><span class="go">ssl = yes</span>
+<a name="__codelineno-48-7"></a>
+<a name="__codelineno-48-8"></a><span class="gp">#</span> PEM encoded X.509 SSL/TLS certificate and private key. They<span class="err">&#39;</span>re opened before
+<a name="__codelineno-48-9"></a><span class="gp">#</span> dropping root privileges, so keep the key file unreadable by anyone but
+<a name="__codelineno-48-10"></a><span class="gp">#</span> root. Included doc/mkcert.sh can be used to easily generate self-signed
+<a name="__codelineno-48-11"></a><span class="gp">#</span> certificate, just make sure to update the domains in dovecot-openssl.cnf
+<a name="__codelineno-48-12"></a><span class="go">ssl_cert = &lt;/etc/letsencrypt/live/adrianjaramillo.tk/fullchain.pem</span>
+<a name="__codelineno-48-13"></a><span class="go">ssl_key = &lt;/etc/letsencrypt/live/adrianjaramillo.tk/privkey.pem</span>
+</code></pre></div>
+<p>Sólo muestro el principio del fichero, porque es lo que he modificado.</p>
+<p>Reinicio dovecot:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-49-1"></a><span class="go">sudo systemctl restart dovecot</span>
+</code></pre></div>
+<h4 id="94">9.4</h4>
+<blockquote>
+<p>Configurar evolution para recibir los correos del vps</p>
+</blockquote>
+<p>Abro la configuración para una nueva cuenta de mail:</p>
+<p><img alt="evolution recibir 1" src="https://i.postimg.cc/sD7S1bkL/evolution-inicio-config-cuenta-mail.gif" /></p>
+<p>Indico mi cuenta de correo y un nombre <em>(podrá ser cualquiera, evolution sólo lo usa para identificar la conexión)</em>:</p>
+<p><img alt="evolution recibir 2" src="https://i.imgur.com/0SLprAF.png" /></p>
+<p>Configuro la recepción de correos:</p>
+<p><img alt="evolution recibir 3" src="https://i.imgur.com/TElH0SV.png" /></p>
+<p>La autenticación se va a realizar con usuarios del sistema, por eso escribo <code>blackmamba</code>. Para que funcione la autenticación en Dovecot no he tenido que configurar nada, ya funciona por defecto.</p>
+<p>Mantengo las opciones de recepción por defecto:</p>
+<p><img alt="evolution recibir 4" src="https://i.postimg.cc/sXNX7VnW/receiving-options-evolution.png" /></p>
+<p>Relleno las opciones de envío para que me deje terminar la configuración, pero <strong>ESTE NO ES el objetivo de este apartado, así que la configuración estará incompleta y por supuesto, no funcional</strong>:</p>
+<p><img alt="evolution recibir 5" src="https://i.postimg.cc/wMzwgppC/sending-evolution-nope.png" /></p>
+<p>El envío se configurará en la tarea 11.</p>
+<p>Muestro el resumen final de la configuración, y de nuevo ignoramos la parte referente al envío:</p>
+<p><img alt="evolution recibir 6" src="https://i.postimg.cc/6QkwXYpk/account-summary-evolution-receiving.png" /></p>
+<p>Por último se nos pregunta la contraseña del usuario que hemos indicado anteriormente:</p>
+<p><img alt="evolution recibir 7" src="https://i.postimg.cc/FzjnLxmJ/authentication-evolution-receiving.png" /></p>
+<p>Compruebo que puedo leer el correo de <code>Maildir</code> que envié en la tarea anterior:</p>
+<p><img alt="evolution recibir 8" src="https://i.postimg.cc/dtBDRkqb/prueba-mostrado-maildir.gif" /></p>
+<p>Evolution se sincroniza con Dovecot de forma live, así que podríamos enviar un correo y Evolution lo recibiría automáticamente.<br />
+Muestro la prueba:</p>
+<p><img alt="evolution recibir 9" src="https://i.postimg.cc/GhjcyWcz/evolution-dovecot-live.gif" /></p>
+<h3 id="tarea-11">Tarea 11</h3>
+<h4 id="111">11.1</h4>
+<blockquote>
+<p>Configurar postfix para ofrecer el protocolo SMTPS</p>
+</blockquote>
+<p>Descomento el siguiente bloque en <code>/etc/postfix/master.cf</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-50-1"></a><span class="go">smtps     inet  n       -       y       -       -       smtpd</span>
+<a name="__codelineno-50-2"></a><span class="go">  -o syslog_name=postfix/smtps</span>
+<a name="__codelineno-50-3"></a><span class="go">  -o smtpd_tls_wrappermode=yes</span>
+<a name="__codelineno-50-4"></a><span class="go">  -o smtpd_sasl_auth_enable=yes</span>
+<a name="__codelineno-50-5"></a><span class="go">  -o smtpd_reject_unlisted_recipient=no</span>
+<a name="__codelineno-50-6"></a><span class="go">  -o smtpd_client_restrictions=$mua_client_restrictions</span>
+<a name="__codelineno-50-7"></a><span class="go">  -o smtpd_helo_restrictions=$mua_helo_restrictions</span>
+<a name="__codelineno-50-8"></a><span class="go">  -o smtpd_sender_restrictions=$mua_sender_restrictions</span>
+<a name="__codelineno-50-9"></a><span class="go">  -o smtpd_recipient_restrictions=</span>
+<a name="__codelineno-50-10"></a><span class="go">  -o smtpd_relay_restrictions=permit_sasl_authenticated,reject</span>
+<a name="__codelineno-50-11"></a><span class="go">  -o milter_macro_daemon_name=ORIGINATING</span>
+</code></pre></div>
+<p>Reinicio postfix:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-51-1"></a><span class="go">sudo systemctl restart postfix</span>
+</code></pre></div>
+<p>Compruebo que ahora funciona el puerto SMTPS 465:</p>
+<p><img alt="puerto 465 abierto" src="https://i.imgur.com/ZrF26R9.png" /></p>
+<p>Tenemos que permitir ese tráfico en el firewall de la vps:</p>
+<p><img alt="465 firewall vps" src="https://i.imgur.com/klheTIh.png" /></p>
+<p>Hago una primera prueba de comunicación con el puerto desde nuestro host:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-52-1"></a><span class="gp">atlas@olympus:~$</span> telnet <span class="m">87</span>.106.228.149 <span class="m">465</span>
+<a name="__codelineno-52-2"></a><span class="go">Trying 87.106.228.149...</span>
+<a name="__codelineno-52-3"></a><span class="go">Connected to 87.106.228.149.</span>
+<a name="__codelineno-52-4"></a><span class="go">Escape character is &#39;^]&#39;.</span>
+</code></pre></div>
+<h4 id="112">11.2</h4>
+<blockquote>
+<p>Usar certificados para cifrar el envío de correos</p>
+</blockquote>
+<p>Modifico lo siguiente en <code>/etc/postfix/main.cf</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-53-1"></a><span class="go">smtpd_tls_cert_file=/etc/letsencrypt/live/adrianjaramillo.tk/fullchain.pem</span>
+<a name="__codelineno-53-2"></a><span class="go">smtpd_tls_key_file=/etc/letsencrypt/live/adrianjaramillo.tk/privkey.pem</span>
+</code></pre></div>
+<p>Reinicio postfix:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-54-1"></a><span class="go">sudo systemctl restart postfix</span>
+</code></pre></div>
+<h4 id="113">11.3</h4>
+<blockquote>
+<p>Configurar autenticación SASL tanto en Postfix como en Dovecot</p>
+</blockquote>
+<p>Añado lo siguiente a <code>/etc/postfix/main.cf</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-55-1"></a><span class="gp">#</span> Authentication
+<a name="__codelineno-55-2"></a>
+<a name="__codelineno-55-3"></a><span class="go">smtpd_sasl_type = dovecot</span>
+<a name="__codelineno-55-4"></a><span class="go">smtpd_sasl_path = private/auth</span>
+<a name="__codelineno-55-5"></a><span class="go">smtpd_sasl_auth_enable = yes</span>
+</code></pre></div>
+<p>Reinicio postfix:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-56-1"></a><span class="go">sudo systemctl restart postfix</span>
+</code></pre></div>
+<p>Descomento el siguiente bloque en <code>/etc/dovecot/conf.d/10-master.conf</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-57-1"></a><span class="gp">  #</span> Postfix smtp-auth
+<a name="__codelineno-57-2"></a><span class="go">  unix_listener /var/spool/postfix/private/auth {</span>
+<a name="__codelineno-57-3"></a><span class="go">    mode = 0666</span>
+<a name="__codelineno-57-4"></a><span class="go">  }</span>
+</code></pre></div>
+<p>Reinicio dovecot:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-58-1"></a><span class="go">sudo systemctl restart dovecot</span>
+</code></pre></div>
+<h4 id="114">11.4</h4>
+<blockquote>
+<p>Configurar evolution para enviar correos y mostrar una prueba de envío</p>
+</blockquote>
+<p>Borro la conexión anterior para poder crear una nueva:</p>
+<p><img alt="evolution enviar 1" src="https://i.postimg.cc/4NkrLBPj/borrar-conexion-evolution.gif" /></p>
+<p>Creo una nueva conexión, y muestro directamente la configuración de envío:</p>
+<p><img alt="evolution enviar 2" src="https://i.imgur.com/ZNVSYnR.png" /></p>
+<p>En el resumen final compruebo que la información de envío sea correcta:</p>
+<p><img alt="evolution enviar 3" src="https://i.imgur.com/NEFWz6b.png" /></p>
+<p>Envío un correo:</p>
+<p><img alt="evolution enviar 4" src="https://i.imgur.com/KjKcfQP.png" /></p>
+<p>Antes de que se realice el envío, se pide autenticación:</p>
+<p><img alt="evolution enviar 5" src="https://i.imgur.com/ZIHcSug.png" /></p>
+<p>Compruebo que me ha llegado el correo a gmail:  </p>
+<p><img alt="evolution enviar 6" src="https://i.imgur.com/z71mbM4.png" /></p>
+<p>Si queremos estar incluso más seguros de que este correo efectivamente se ha enviado desde Evolution y algún detalle más, podemos abrir el original y mostrar sus cabeceras:</p>
+<p><img alt="evolution enviar 7" src="https://i.imgur.com/R70kffQ.png" /></p>
+<h2 id="tarea-13-comprobacion-final">Tarea 13: comprobación final</h2>
+<blockquote>
+<p>Enviar un correo a <a href="https://www.mail-tester.com/">esta página</a> para obtener una puntuación. Mostrar el resultado.</p>
+</blockquote>
+<p>Este es el correo que enviaremos:</p>
+<p><img alt="correo prueba calidad" src="https://i.imgur.com/YTpGKT2.png" /></p>
+<p><a href="https://www.mail-tester.com/test-0oeev9pyl">Haz click aquí</a> para ver mis resultados.</p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/practica-servidor-correo/",this.page.identifier="practica-servidor-correo/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ejercicios-correo/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ejercicios en escenario libvirt" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Ejercicios en escenario libvirt
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../practica-cluster-ha/" class="md-footer__link md-footer__link--next" aria-label="Next: Práctica" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Práctica
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

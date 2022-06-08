@@ -1,0 +1,2116 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/ej1-nftables-nodo/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Ejercicio 1 nftables: por nodo - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ejercicio-1-nftables-cortafuegos-por-nodo" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ejercicio 1 nftables: por nodo
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Ejercicio 1 nftables: por nodo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Ejercicio 1 nftables: por nodo
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preliminares" class="md-nav__link">
+    Preliminares
+  </a>
+  
+    <nav class="md-nav" aria-label="Preliminares">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    Escenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparacion-nftables" class="md-nav__link">
+    Preparación nftables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-ssh-entrante" class="md-nav__link">
+    Tráfico ssh entrante
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-politicas-por-defecto" class="md-nav__link">
+    Cambiar políticas por defecto
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-loopback" class="md-nav__link">
+    Tráfico loopback
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-icmp-saliente" class="md-nav__link">
+    Tráfico ICMP saliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-dns-saliente" class="md-nav__link">
+    Tráfico DNS saliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-httphttps-saliente" class="md-nav__link">
+    Tráfico http/https saliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-http-entrante" class="md-nav__link">
+    Tráfico http entrante
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    Ejercicios
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-5" class="md-nav__link">
+    Ejercicio 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-6" class="md-nav__link">
+    Ejercicio 6
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preliminares" class="md-nav__link">
+    Preliminares
+  </a>
+  
+    <nav class="md-nav" aria-label="Preliminares">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    Escenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparacion-nftables" class="md-nav__link">
+    Preparación nftables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-ssh-entrante" class="md-nav__link">
+    Tráfico ssh entrante
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-politicas-por-defecto" class="md-nav__link">
+    Cambiar políticas por defecto
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-loopback" class="md-nav__link">
+    Tráfico loopback
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-icmp-saliente" class="md-nav__link">
+    Tráfico ICMP saliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-dns-saliente" class="md-nav__link">
+    Tráfico DNS saliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-httphttps-saliente" class="md-nav__link">
+    Tráfico http/https saliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-http-entrante" class="md-nav__link">
+    Tráfico http entrante
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    Ejercicios
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-5" class="md-nav__link">
+    Ejercicio 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-6" class="md-nav__link">
+    Ejercicio 6
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="ejercicio-1-nftables-cortafuegos-por-nodo">Ejercicio 1 nftables: cortafuegos por nodo</h1>
+<h2 id="preliminares">Preliminares</h2>
+<h3 id="escenario">Escenario</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a><span class="no">Vagrant</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="s2">&quot;2&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+<a name="__codelineno-0-2"></a>
+<a name="__codelineno-0-3"></a><span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">synced_folder</span> <span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;/vagrant&quot;</span><span class="p">,</span> <span class="ss">disabled</span><span class="p">:</span> <span class="kp">true</span>
+<a name="__codelineno-0-4"></a>
+<a name="__codelineno-0-5"></a>  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">define</span> <span class="ss">:ej1nftables1</span> <span class="k">do</span> <span class="o">|</span><span class="n">ej1nftables1</span><span class="o">|</span>
+<a name="__codelineno-0-6"></a>    <span class="n">ej1nftables1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;debian/bullseye64&quot;</span>
+<a name="__codelineno-0-7"></a>    <span class="n">ej1nftables1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="s2">&quot;ej1nftables1&quot;</span>
+<a name="__codelineno-0-8"></a>    <span class="n">ej1nftables1</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="ss">:private_network</span><span class="p">,</span>
+<a name="__codelineno-0-9"></a>      <span class="ss">:libvirt__network_name</span> <span class="o">=&gt;</span> <span class="s2">&quot;ej1-nftables-nodo&quot;</span><span class="p">,</span>
+<a name="__codelineno-0-10"></a>      <span class="ss">:libvirt__dhcp_enabled</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span>
+<a name="__codelineno-0-11"></a>      <span class="ss">:ip</span> <span class="o">=&gt;</span> <span class="s2">&quot;192.168.0.2&quot;</span><span class="p">,</span>
+<a name="__codelineno-0-12"></a>      <span class="ss">:libvirt__netmask</span> <span class="o">=&gt;</span> <span class="s1">&#39;255.255.255.0&#39;</span><span class="p">,</span>
+<a name="__codelineno-0-13"></a>      <span class="ss">:libvirt__forward_mode</span> <span class="o">=&gt;</span> <span class="s2">&quot;veryisolated&quot;</span>
+<a name="__codelineno-0-14"></a>  <span class="k">end</span>
+<a name="__codelineno-0-15"></a>
+<a name="__codelineno-0-16"></a>  <span class="n">config</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">define</span> <span class="ss">:ej1nftables2</span> <span class="k">do</span> <span class="o">|</span><span class="n">ej1nftables2</span><span class="o">|</span>
+<a name="__codelineno-0-17"></a>    <span class="n">ej1nftables2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">box</span> <span class="o">=</span> <span class="s2">&quot;debian/bullseye64&quot;</span>
+<a name="__codelineno-0-18"></a>    <span class="n">ej1nftables2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="s2">&quot;ej1nftables2&quot;</span>
+<a name="__codelineno-0-19"></a>    <span class="n">ej1nftables2</span><span class="o">.</span><span class="n">vm</span><span class="o">.</span><span class="n">network</span> <span class="ss">:private_network</span><span class="p">,</span>
+<a name="__codelineno-0-20"></a>      <span class="ss">:libvirt__network_name</span> <span class="o">=&gt;</span> <span class="s2">&quot;ej1-nftables-nodo&quot;</span><span class="p">,</span>
+<a name="__codelineno-0-21"></a>      <span class="ss">:libvirt__dhcp_enabled</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span>
+<a name="__codelineno-0-22"></a>      <span class="ss">:ip</span> <span class="o">=&gt;</span> <span class="s2">&quot;192.168.0.3&quot;</span><span class="p">,</span>
+<a name="__codelineno-0-23"></a>      <span class="ss">:libvirt__netmask</span> <span class="o">=&gt;</span> <span class="s1">&#39;255.255.255.0&#39;</span><span class="p">,</span>
+<a name="__codelineno-0-24"></a>      <span class="ss">:libvirt__forward_mode</span> <span class="o">=&gt;</span> <span class="s2">&quot;veryisolated&quot;</span>
+<a name="__codelineno-0-25"></a>  <span class="k">end</span>
+<a name="__codelineno-0-26"></a>
+<a name="__codelineno-0-27"></a><span class="k">end</span>
+</code></pre></div>
+<p>Instalo un servidor web para dejar abierto el puerto 80:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a><span class="go">sudo apt update</span>
+<a name="__codelineno-1-2"></a><span class="go">sudo apt install apache2</span>
+</code></pre></div>
+<h3 id="preparacion-nftables">Preparación nftables</h3>
+<p>Creo la tabla filter:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a><span class="go">sudo nft add table inet filter</span>
+</code></pre></div>
+<p>Creo las cadenas input/output en filter:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a><span class="go">sudo nft add chain inet filter input { type filter hook input priority 0 \; counter \; policy accept \; }</span>
+<a name="__codelineno-3-2"></a><span class="go">sudo nft add chain inet filter output { type filter hook output priority 0 \; counter \; policy accept \; }</span>
+</code></pre></div>
+<h3 id="trafico-ssh-entrante">Tráfico ssh entrante</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a><span class="go">sudo nft add rule inet filter input ip saddr 192.168.121.0/24 tcp dport 22 ct state new,established counter accept</span>
+<a name="__codelineno-4-2"></a><span class="go">sudo nft add rule inet filter output ip daddr 192.168.121.0/24 tcp sport 22 ct state established counter accept</span>
+</code></pre></div>
+<h3 id="cambiar-politicas-por-defecto">Cambiar políticas por defecto</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a><span class="go">sudo nft chain inet filter input { policy drop \; }</span>
+<a name="__codelineno-5-2"></a><span class="go">sudo nft chain inet filter output { policy drop \; }</span>
+</code></pre></div>
+<p>Después de este paso me sigue funcionando la conexión SSH a la máquina, por lo que las reglas del paso anterior funcionan.</p>
+<p>Todo tráfico diferente a este, no funciona por ahora.</p>
+<h3 id="trafico-loopback">Tráfico loopback</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a><span class="go">sudo nft add rule inet filter output oifname &quot;lo&quot; counter accept</span>
+<a name="__codelineno-6-2"></a><span class="go">sudo nft add rule inet filter input iifname &quot;lo&quot; counter accept</span>
+</code></pre></div>
+<p>Ya funciona el ping a localhost:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> ping <span class="m">127</span>.0.0.1
+<a name="__codelineno-7-2"></a><span class="go">PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.</span>
+<a name="__codelineno-7-3"></a><span class="go">64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.025 ms</span>
+<a name="__codelineno-7-4"></a><span class="go">64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.073 ms</span>
+<a name="__codelineno-7-5"></a><span class="go">^C</span>
+<a name="__codelineno-7-6"></a><span class="go">--- 127.0.0.1 ping statistics ---</span>
+<a name="__codelineno-7-7"></a><span class="go">2 packets transmitted, 2 received, 0% packet loss, time 1017ms</span>
+<a name="__codelineno-7-8"></a><span class="go">rtt min/avg/max/mdev = 0.025/0.049/0.073/0.024 ms</span>
+</code></pre></div>
+<h3 id="trafico-icmp-saliente">Tráfico ICMP saliente</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a><span class="go">sudo nft add rule inet filter output oifname &quot;eth0&quot; icmp type echo-request counter accept</span>
+<a name="__codelineno-8-2"></a><span class="go">sudo nft add rule inet filter input iifname &quot;eth0&quot; icmp type echo-reply counter accept</span>
+</code></pre></div>
+<p>Ya funciona el ping a Internet:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> ping <span class="m">1</span>.1.1.1
+<a name="__codelineno-9-2"></a><span class="go">PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.</span>
+<a name="__codelineno-9-3"></a><span class="go">64 bytes from 1.1.1.1: icmp_seq=1 ttl=54 time=368 ms</span>
+<a name="__codelineno-9-4"></a><span class="go">64 bytes from 1.1.1.1: icmp_seq=2 ttl=54 time=135 ms</span>
+<a name="__codelineno-9-5"></a><span class="go">^C</span>
+<a name="__codelineno-9-6"></a><span class="go">--- 1.1.1.1 ping statistics ---</span>
+<a name="__codelineno-9-7"></a><span class="go">2 packets transmitted, 2 received, 0% packet loss, time 1001ms</span>
+<a name="__codelineno-9-8"></a><span class="go">rtt min/avg/max/mdev = 135.491/251.525/367.559/116.034 ms</span>
+</code></pre></div>
+<h3 id="trafico-dns-saliente">Tráfico DNS saliente</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a><span class="go">sudo nft add rule inet filter output oifname &quot;eth0&quot; udp dport 53 ct state new,established counter accept</span>
+<a name="__codelineno-10-2"></a><span class="go">sudo nft add rule inet filter input iifname &quot;eth0&quot; udp sport 53 ct state established counter accept</span>
+</code></pre></div>
+<p>Probamos que las consultas DNS funcionan:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> dig @1.1.1.1 www.example.org
+<a name="__codelineno-11-2"></a>
+<a name="__codelineno-11-3"></a><span class="go">; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; @1.1.1.1 www.example.org</span>
+<a name="__codelineno-11-4"></a><span class="go">; (1 server found)</span>
+<a name="__codelineno-11-5"></a><span class="go">;; global options: +cmd</span>
+<a name="__codelineno-11-6"></a><span class="go">;; Got answer:</span>
+<a name="__codelineno-11-7"></a><span class="go">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 65305</span>
+<a name="__codelineno-11-8"></a><span class="go">;; flags: qr rd ra ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1</span>
+<a name="__codelineno-11-9"></a>
+<a name="__codelineno-11-10"></a><span class="go">;; OPT PSEUDOSECTION:</span>
+<a name="__codelineno-11-11"></a><span class="go">; EDNS: version: 0, flags:; udp: 1232</span>
+<a name="__codelineno-11-12"></a><span class="go">;; QUESTION SECTION:</span>
+<a name="__codelineno-11-13"></a><span class="go">;www.example.org.           IN  A</span>
+<a name="__codelineno-11-14"></a>
+<a name="__codelineno-11-15"></a><span class="go">;; ANSWER SECTION:</span>
+<a name="__codelineno-11-16"></a><span class="go">www.example.org.    86400   IN  A   93.184.216.34</span>
+<a name="__codelineno-11-17"></a>
+<a name="__codelineno-11-18"></a><span class="go">;; Query time: 132 msec</span>
+<a name="__codelineno-11-19"></a><span class="go">;; SERVER: 1.1.1.1#53(1.1.1.1)</span>
+<a name="__codelineno-11-20"></a><span class="go">;; WHEN: Thu Jan 27 12:41:50 UTC 2022</span>
+<a name="__codelineno-11-21"></a><span class="go">;; MSG SIZE  rcvd: 60</span>
+</code></pre></div>
+<h3 id="trafico-httphttps-saliente">Tráfico http/https saliente</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a><span class="go">sudo nft add rule inet filter output oifname &quot;eth0&quot; ip protocol tcp tcp dport { 80,443 } ct state new,established counter accept</span>
+<a name="__codelineno-12-2"></a><span class="go">sudo nft add rule inet filter input iifname &quot;eth0&quot; ip protocol tcp tcp sport { 80,443 } ct state established counter accept</span>
+</code></pre></div>
+<p>Compruebo que funciona http:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> curl http://portquiz.net:80
+<a name="__codelineno-13-2"></a><span class="go">Port test successful!</span>
+<a name="__codelineno-13-3"></a><span class="go">Your IP: 158.99.1.24</span>
+</code></pre></div>
+<p>Compruebo que funciona https:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> curl portquiz.net:443
+<a name="__codelineno-14-2"></a><span class="go">Port test successful!</span>
+<a name="__codelineno-14-3"></a><span class="go">Your IP: 158.99.1.24</span>
+</code></pre></div>
+<h3 id="trafico-http-entrante">Tráfico http entrante</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a><span class="go">sudo nft add rule inet filter input iifname &quot;eth0&quot; tcp dport 80 ct state new,established counter accept</span>
+<a name="__codelineno-15-2"></a><span class="go">sudo nft add rule inet filter output oifname &quot;eth0&quot; tcp sport 80 ct state established counter accept</span>
+</code></pre></div>
+<p>Compruebo que funciona desde mi host:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a><span class="gp">atlas@olympus:~/vagrant/ej1-nftables-nodo$</span> telnet <span class="m">192</span>.168.121.65 <span class="m">80</span>
+<a name="__codelineno-16-2"></a><span class="go">Trying 192.168.121.65...</span>
+<a name="__codelineno-16-3"></a><span class="go">Connected to 192.168.121.65.</span>
+<a name="__codelineno-16-4"></a><span class="go">Escape character is &#39;^]&#39;.</span>
+</code></pre></div>
+<h2 id="ejercicios">Ejercicios</h2>
+<h3 id="ejercicio-1">Ejercicio 1</h3>
+<blockquote>
+<p>Permitir conexiones ssh al exterior</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a><span class="go">sudo nft add rule inet filter output tcp dport 22 ct state new,established counter accept</span>
+<a name="__codelineno-17-2"></a><span class="go">sudo nft add rule inet filter input tcp sport 22 ct state established counter accept</span>
+</code></pre></div>
+<p>Pruebo que funciona conectando a mi host:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> ssh atlas@192.168.121.1
+<a name="__codelineno-18-2"></a><span class="go">The authenticity of host &#39;192.168.121.1 (192.168.121.1)&#39; can&#39;t be established.</span>
+<a name="__codelineno-18-3"></a><span class="go">ECDSA key fingerprint is SHA256:xbn++TBj5GyQdixTeO+cP7UGJzvMspD3AVK0JD1RbLw.</span>
+<a name="__codelineno-18-4"></a><span class="go">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span>
+<a name="__codelineno-18-5"></a><span class="go">Warning: Permanently added &#39;192.168.121.1&#39; (ECDSA) to the list of known hosts.</span>
+<a name="__codelineno-18-6"></a><span class="go">atlas@192.168.121.1&#39;s password:</span>
+<a name="__codelineno-18-7"></a><span class="go">Linux olympus 5.10.0-8-amd64 #1 SMP Debian 5.10.46-4 (2021-08-03) x86_64</span>
+<a name="__codelineno-18-8"></a>
+<a name="__codelineno-18-9"></a><span class="go">The programs included with the Debian GNU/Linux system are free software;</span>
+<a name="__codelineno-18-10"></a><span class="go">the exact distribution terms for each program are described in the</span>
+<a name="__codelineno-18-11"></a><span class="go">individual files in /usr/share/doc/*/copyright.</span>
+<a name="__codelineno-18-12"></a>
+<a name="__codelineno-18-13"></a><span class="go">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span>
+<a name="__codelineno-18-14"></a><span class="go">permitted by applicable law.</span>
+<a name="__codelineno-18-15"></a><span class="go">You have new mail.</span>
+<a name="__codelineno-18-16"></a><span class="go">Last login: Wed Jan 26 10:32:49 2022 from 192.168.121.148</span>
+<a name="__codelineno-18-17"></a><span class="gp">atlas@olympus:~$</span>
+</code></pre></div>
+<h3 id="ejercicio-2">Ejercicio 2</h3>
+<blockquote>
+<p>Denegar tráfico http entrante desde el host</p>
+</blockquote>
+<p>Antes de añadir la regla de bloqueo, debemos tener en cuenta nuestra situación actual de reglas en INPUT:</p>
+<p><img alt="reglas input" src="https://i.imgur.com/OW433w3.png" /></p>
+<p>Como se puede ver, si añadiéramos la regla de bloqueo al final no serviría para nada porque siempre haría match con la que permite todo el tráfico http entrante <em>(la marcada en rojo)</em>.</p>
+<p>¿Solución? Añadirla por encima de la regla marcada en rojo.</p>
+<p>Necesitamos saber el handle de la regla que está por encima de la posición donde queremos la nueva regla, así que ejecutamos:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a><span class="go">sudo nft -n -a list ruleset</span>
+</code></pre></div>
+<p><img alt="handle de la regla anterior" src="https://i.imgur.com/T23VXhi.png" /></p>
+<p>Vamos a añadir la regla de bloqueo usando el handle marcado para que se coloque justo debajo, y así estará en la posición que queremos:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a><span class="go">sudo nft add rule inet filter input position 18 ip saddr 192.168.121.1 tcp dport 80 ct state new,established counter drop</span>
+</code></pre></div>
+<p>Muestro cómo han quedado:</p>
+<p><img alt="posicion de handles correcta" src="https://i.imgur.com/R865U3r.png" /></p>
+<p>Compruebo que bloquea el tráfico:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a><span class="gp">atlas@olympus:~/vagrant/ej1-nftables-nodo$</span> telnet <span class="m">192</span>.168.121.65 <span class="m">80</span>
+<a name="__codelineno-21-2"></a><span class="go">Trying 192.168.121.65...</span>
+</code></pre></div>
+<h3 id="ejercicio-3">Ejercicio 3</h3>
+<blockquote>
+<p>Permitir tráfico DNS saliente sólo a 192.168.202.2. Comprobar que no se puede hacer un dig @1.1.1.1</p>
+</blockquote>
+<p>Nos encontramos en una situación parecida a la del ejercicio anterior, pero en este caso tenemos que borrar 2 reglas antiguas que permitían el tráfico DNS saliente a todo:</p>
+<p><img alt="reglas dns a borrar" src="https://i.imgur.com/dKphdvD.png" /></p>
+<p>Incluso si añadiéramos las nuevas reglas por encima de estas, cuando hiciésemos dig a 1.1.1.1 llegaría a hacer match con estas reglas y permitiría el tráfico, y eso no es lo que queremos.</p>
+<p>Para borrar estas reglas, primero tenemos que saber sus handles:</p>
+<p><img alt="handles a borrar" src="https://i.imgur.com/9QYFdFx.png" /></p>
+<p>Ya podemos borrarlas:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a><span class="go">sudo nft delete rule inet filter input handle 14</span>
+<a name="__codelineno-22-2"></a><span class="go">sudo nft delete rule inet filter output handle 13</span>
+</code></pre></div>
+<p>Añadimos las nuevas reglas:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a><span class="go">sudo nft add rule inet filter output ip daddr 192.168.202.2 udp dport 53 ct state new,established counter accept</span>
+<a name="__codelineno-23-2"></a><span class="go">sudo nft add rule inet filter input ip saddr 192.168.202.2 udp sport 53 ct state established counter accept</span>
+</code></pre></div>
+<p>Pruebo que las consultas DNS a <code>192.168.202.2</code> funcionan:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> dig @192.168.202.2 www.example.org
+<a name="__codelineno-24-2"></a>
+<a name="__codelineno-24-3"></a><span class="go">; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; @192.168.202.2 www.example.org</span>
+<a name="__codelineno-24-4"></a><span class="go">; (1 server found)</span>
+<a name="__codelineno-24-5"></a><span class="go">;; global options: +cmd</span>
+<a name="__codelineno-24-6"></a><span class="go">;; Got answer:</span>
+<a name="__codelineno-24-7"></a><span class="go">;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 18296</span>
+<a name="__codelineno-24-8"></a><span class="go">;; flags: qr rd ra ad; QUERY: 1, ANSWER: 1, AUTHORITY: 2, ADDITIONAL: 5</span>
+<a name="__codelineno-24-9"></a>
+<a name="__codelineno-24-10"></a><span class="go">;; OPT PSEUDOSECTION:</span>
+<a name="__codelineno-24-11"></a><span class="go">; EDNS: version: 0, flags:; udp: 4096</span>
+<a name="__codelineno-24-12"></a><span class="go">; COOKIE: ce3cd730cac8cfacd646547461f3e6ed8a244c9fe1c24ed8 (good)</span>
+<a name="__codelineno-24-13"></a><span class="go">;; QUESTION SECTION:</span>
+<a name="__codelineno-24-14"></a><span class="go">;www.example.org.           IN  A</span>
+<a name="__codelineno-24-15"></a>
+<a name="__codelineno-24-16"></a><span class="go">;; ANSWER SECTION:</span>
+<a name="__codelineno-24-17"></a><span class="go">www.example.org.    86400   IN  A   93.184.216.34</span>
+<a name="__codelineno-24-18"></a>
+<a name="__codelineno-24-19"></a><span class="go">;; AUTHORITY SECTION:</span>
+<a name="__codelineno-24-20"></a><span class="go">example.org.            66421   IN  NS  a.iana-servers.net.</span>
+<a name="__codelineno-24-21"></a><span class="go">example.org.            66421   IN  NS  b.iana-servers.net.</span>
+<a name="__codelineno-24-22"></a>
+<a name="__codelineno-24-23"></a><span class="go">;; ADDITIONAL SECTION:</span>
+<a name="__codelineno-24-24"></a><span class="go">a.iana-servers.net. 152765  IN  A   199.43.135.53</span>
+<a name="__codelineno-24-25"></a><span class="go">b.iana-servers.net. 152765  IN  A   199.43.133.53</span>
+<a name="__codelineno-24-26"></a><span class="go">a.iana-servers.net. 152765  IN  AAAA    2001:500:8f::53</span>
+<a name="__codelineno-24-27"></a><span class="go">b.iana-servers.net. 152765  IN  AAAA    2001:500:8d::53</span>
+<a name="__codelineno-24-28"></a>
+<a name="__codelineno-24-29"></a><span class="go">;; Query time: 492 msec</span>
+<a name="__codelineno-24-30"></a><span class="go">;; SERVER: 192.168.202.2#53(192.168.202.2)</span>
+<a name="__codelineno-24-31"></a><span class="go">;; WHEN: Fri Jan 28 12:51:57 UTC 2022</span>
+<a name="__codelineno-24-32"></a><span class="go">;; MSG SIZE  rcvd: 224</span>
+</code></pre></div>
+<p>Pruebo que las consultas DNS a <code>1.1.1.1</code> no funcionan:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-25-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> dig @1.1.1.1 www.example.org
+<a name="__codelineno-25-2"></a>
+<a name="__codelineno-25-3"></a><span class="go">; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; @1.1.1.1 www.example.org</span>
+<a name="__codelineno-25-4"></a><span class="go">; (1 server found)</span>
+<a name="__codelineno-25-5"></a><span class="go">;; global options: +cmd</span>
+<a name="__codelineno-25-6"></a><span class="go">;; connection timed out; no servers could be reached</span>
+</code></pre></div>
+<h3 id="ejercicio-4">Ejercicio 4</h3>
+<blockquote>
+<p>Bloquear tráfico http saliente a www.josedomingo.org (utilizar la ip). ¿Se puede acceder a fp.josedomingo.org?</p>
+</blockquote>
+<p>De nuevo, tendríamos una situación de conflicto de reglas si la siguiente la añadiéramos al final, porque antes tenemos una que permite todo el tráfico http/https saliente y los matchs se quedarían siempre ahí:</p>
+<p><img alt="http saliente abierto" src="https://i.imgur.com/EvkpQFT.png" /></p>
+<p>Tendremos que añadir la regla de bloqueo por encima de la anterior mostrada:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-26-1"></a><span class="go">sudo nft add rule inet filter output position 11 ip daddr 37.187.119.60 tcp dport 80 ct state new,established counter drop</span>
+</code></pre></div>
+<p>Se nos quedarían las reglas así:</p>
+<p><img alt="regla http bloqueo josedom" src="https://i.imgur.com/IqxGDz2.png" /></p>
+<p>Pruebo que <strong>no funciona</strong> el tráfico http saliente a <code>www.josedomingo.org</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-27-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> curl www.josedomingo.org
+</code></pre></div>
+<p>Se quedará esperando infinitamente porque no hay conexión.</p>
+<p>Pruebo a ver si funciona el tráfico http saliente a <code>fp.josedomingo.org</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-28-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> curl fp.josedomingo.org
+</code></pre></div>
+<p>Tampoco hay conexión. No funciona ya que <code>fp.josedomingo.org</code> se acaba traduciendo a la misma IP que hemos bloqueado antes.</p>
+<p>Pruebo que cualquier otro tráfico http saliente funciona:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-29-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> telnet www.example.org <span class="m">80</span>
+<a name="__codelineno-29-2"></a><span class="go">Trying 93.184.216.34...</span>
+<a name="__codelineno-29-3"></a><span class="go">Connected to www.example.org.</span>
+<a name="__codelineno-29-4"></a><span class="go">Escape character is &#39;^]&#39;.</span>
+</code></pre></div>
+<h3 id="ejercicio-5">Ejercicio 5</h3>
+<blockquote>
+<p>Permitir tráfico saliente a babuino-smtp.gonzalonazareno.org por el puerto 25</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-30-1"></a><span class="go">sudo nft add rule inet filter output ip daddr 192.168.203.3 tcp dport 25 ct state new,established counter accept</span>
+<a name="__codelineno-30-2"></a><span class="go">sudo nft add rule inet filter input ip saddr 192.168.203.3 tcp sport 25 ct state established counter accept</span>
+</code></pre></div>
+<p>Pruebo que funciona con telnet:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-31-1"></a><span class="gp">vagrant@ej1nftables1:~$</span> telnet babuino-smtp.gonzalonazareno.org <span class="m">25</span>
+<a name="__codelineno-31-2"></a><span class="go">Trying 192.168.203.3...</span>
+<a name="__codelineno-31-3"></a><span class="go">Connected to babuino-smtp.gonzalonazareno.org.</span>
+<a name="__codelineno-31-4"></a><span class="go">Escape character is &#39;^]&#39;.</span>
+<a name="__codelineno-31-5"></a><span class="go">220 babuino-smtp.gonzalonazareno.org ESMTP Postfix (Debian/GNU)</span>
+</code></pre></div>
+<h3 id="ejercicio-6">Ejercicio 6</h3>
+<h4 id="parte-1">Parte 1</h4>
+<blockquote>
+<p>Instalar mariadb-server y habilitar conexiones remotas</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-32-1"></a><span class="go">sudo apt install mariadb-server</span>
+</code></pre></div>
+<p><code>/etc/mysql/mariadb.conf.d/50-server.cnf</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-33-1"></a><span class="go">bind-address            = 0.0.0.0</span>
+</code></pre></div>
+<p>Reinicio:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-34-1"></a><span class="go">sudo systemctl restart mariadb</span>
+</code></pre></div>
+<h4 id="parte-2">Parte 2</h4>
+<blockquote>
+<p>Permitir tráfico entrante desde mi host</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-35-1"></a><span class="go">sudo nft add rule inet filter input ip saddr 192.168.121.1 tcp dport 3306 counter accept</span>
+<a name="__codelineno-35-2"></a><span class="go">sudo nft add rule inet filter output ip daddr 192.168.121.1 tcp sport 3306 counter accept</span>
+</code></pre></div>
+<p>Pruebo que funciona:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-36-1"></a><span class="gp">atlas@olympus:~/vagrant/ej1-nftables-nodo$</span> nc -zvw10 <span class="m">192</span>.168.121.65 <span class="m">3306</span>
+<a name="__codelineno-36-2"></a><span class="go">Connection to 192.168.121.65 3306 port [tcp/mysql] succeeded!</span>
+</code></pre></div>
+<h4 id="parte-3">Parte 3</h4>
+<blockquote>
+<p>Comprobar que desde otro cliente bloquea el tráfico</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-37-1"></a><span class="gp">vagrant@ej1nftables2:~$</span> nc -zvw10 <span class="m">192</span>.168.0.2 <span class="m">3306</span>
+<a name="__codelineno-37-2"></a><span class="go">192.168.0.2: inverse host lookup failed: Unknown host</span>
+<a name="__codelineno-37-3"></a><span class="gp gp-VirtualEnv">(UNKNOWN)</span> <span class="go">[192.168.0.2] 3306 (mysql) : Connection timed out</span>
+</code></pre></div>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/ej1-nftables-nodo/",this.page.identifier="ej1-nftables-nodo/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ej1-iptables-nodo/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ejercicio 1 iptables: por nodo" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Ejercicio 1 iptables: por nodo
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../ej2-iptables-perimetral/" class="md-footer__link md-footer__link--next" aria-label="Next: Ejercicio 2 iptables: perimetral" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Ejercicio 2 iptables: perimetral
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

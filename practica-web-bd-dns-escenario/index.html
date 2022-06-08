@@ -1,0 +1,2871 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/practica-web-bd-dns-escenario/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Práctica: DNS+Web+BD en escenario - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-servidores-web-base-de-datos-y-dns-en-escenario" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Práctica: DNS+Web+BD en escenario
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Práctica: DNS+Web+BD en escenario
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entrega" class="md-nav__link">
+    Entrega
+  </a>
+  
+    <nav class="md-nav" aria-label="Entrega">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#en-zeus" class="md-nav__link">
+    En zeus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-apolo" class="md-nav__link">
+    En apolo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-ares" class="md-nav__link">
+    En ares
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-hera" class="md-nav__link">
+    En hera
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servidor-dns-apolo" class="md-nav__link">
+    Servidor DNS (apolo)
+  </a>
+  
+    <nav class="md-nav" aria-label="Servidor DNS (apolo)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_1" class="md-nav__link">
+    Parte 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#en-zeus_1" class="md-nav__link">
+    En zeus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-apolo_1" class="md-nav__link">
+    En apolo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-ares_1" class="md-nav__link">
+    En ares
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-hera_1" class="md-nav__link">
+    En hera
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_1" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servidor-web-hera" class="md-nav__link">
+    Servidor Web (hera)
+  </a>
+  
+    <nav class="md-nav" aria-label="Servidor Web (hera)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_2" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_2" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_1" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5_1" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servidor-de-bd-ares" class="md-nav__link">
+    Servidor de BD (ares)
+  </a>
+  
+    <nav class="md-nav" aria-label="Servidor de BD (ares)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_3" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_3" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_2" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entrega" class="md-nav__link">
+    Entrega
+  </a>
+  
+    <nav class="md-nav" aria-label="Entrega">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#en-zeus" class="md-nav__link">
+    En zeus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-apolo" class="md-nav__link">
+    En apolo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-ares" class="md-nav__link">
+    En ares
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-hera" class="md-nav__link">
+    En hera
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servidor-dns-apolo" class="md-nav__link">
+    Servidor DNS (apolo)
+  </a>
+  
+    <nav class="md-nav" aria-label="Servidor DNS (apolo)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_1" class="md-nav__link">
+    Parte 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#en-zeus_1" class="md-nav__link">
+    En zeus
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-apolo_1" class="md-nav__link">
+    En apolo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-ares_1" class="md-nav__link">
+    En ares
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-hera_1" class="md-nav__link">
+    En hera
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_1" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servidor-web-hera" class="md-nav__link">
+    Servidor Web (hera)
+  </a>
+  
+    <nav class="md-nav" aria-label="Servidor Web (hera)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_2" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_2" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_1" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5_1" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#servidor-de-bd-ares" class="md-nav__link">
+    Servidor de BD (ares)
+  </a>
+  
+    <nav class="md-nav" aria-label="Servidor de BD (ares)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_3" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_3" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_2" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="practica-servidores-web-base-de-datos-y-dns-en-escenario">Práctica: Servidores Web, Base de Datos y DNS en escenario</h1>
+<h2 id="entrega">Entrega</h2>
+<h3 id="parte-1">Parte 1</h3>
+<blockquote>
+<p>Entregar configuración de cliente DNS en cada servidor</p>
+</blockquote>
+<h4 id="en-zeus">En zeus</h4>
+<p>Añado a <code>/etc/dhcp/dhclient.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>#############
+<a name="__codelineno-0-2"></a># My config #
+<a name="__codelineno-0-3"></a>#############
+<a name="__codelineno-0-4"></a>
+<a name="__codelineno-0-5"></a>supersede domain-name &quot;adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-0-6"></a>supersede domain-search &quot;adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-0-7"></a>supersede domain-name-servers 10.0.1.102;
+</code></pre></div></p>
+<h4 id="en-apolo">En apolo</h4>
+<p>Añado a <code>/etc/dhcp/dhclient.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>#############
+<a name="__codelineno-1-2"></a># My config #
+<a name="__codelineno-1-3"></a>#############
+<a name="__codelineno-1-4"></a>
+<a name="__codelineno-1-5"></a>supersede domain-name &quot;adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-1-6"></a>supersede domain-search &quot;adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-1-7"></a>supersede domain-name-servers 127.0.0.1;
+</code></pre></div></p>
+<h4 id="en-ares">En ares</h4>
+<p><code>/etc/netplan/01-netcfg.yaml</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>network:
+<a name="__codelineno-2-2"></a>  version: 2
+<a name="__codelineno-2-3"></a>  renderer: networkd
+<a name="__codelineno-2-4"></a>  ethernets:
+<a name="__codelineno-2-5"></a>    eth0:
+<a name="__codelineno-2-6"></a>      dhcp4: true
+<a name="__codelineno-2-7"></a>      dhcp6: false
+<a name="__codelineno-2-8"></a>      optional: true
+</code></pre></div>
+<em>(elimino nameservers)</em></p>
+<p><code>/etc/systemd/resolved.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>#  This file is part of systemd.
+<a name="__codelineno-3-2"></a>#
+<a name="__codelineno-3-3"></a>#  systemd is free software; you can redistribute it and/or modify it
+<a name="__codelineno-3-4"></a>#  under the terms of the GNU Lesser General Public License as published by
+<a name="__codelineno-3-5"></a>#  the Free Software Foundation; either version 2.1 of the License, or
+<a name="__codelineno-3-6"></a>#  (at your option) any later version.
+<a name="__codelineno-3-7"></a>#
+<a name="__codelineno-3-8"></a># Entries in this file show the compile time defaults.
+<a name="__codelineno-3-9"></a># You can change settings by editing this file.
+<a name="__codelineno-3-10"></a># Defaults can be restored by simply deleting this file.
+<a name="__codelineno-3-11"></a>#
+<a name="__codelineno-3-12"></a># See resolved.conf(5) for details
+<a name="__codelineno-3-13"></a>
+<a name="__codelineno-3-14"></a>[Resolve]
+<a name="__codelineno-3-15"></a>DNS=10.0.1.102
+<a name="__codelineno-3-16"></a>Domains=adrianj.gonzalonazareno.org
+<a name="__codelineno-3-17"></a>
+<a name="__codelineno-3-18"></a>#FallbackDNS=
+<a name="__codelineno-3-19"></a>#LLMNR=no
+<a name="__codelineno-3-20"></a>#MulticastDNS=no
+<a name="__codelineno-3-21"></a>#DNSSEC=yes
+<a name="__codelineno-3-22"></a>#DNSOverTLS=no
+<a name="__codelineno-3-23"></a>#Cache=yes
+<a name="__codelineno-3-24"></a>DNSStubListener=no
+<a name="__codelineno-3-25"></a>#ReadEtcHosts=yes
+</code></pre></div>
+<em>(este fichero modifica <code>/etc/resolv.conf</code>)</em></p>
+<p>Reinicio <code>systemd-resolved</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>sudo systemctl restart systemd-resolved
+</code></pre></div>
+<em>(esto actualiza <code>/etc/resolv.conf</code>)</em></p>
+<p><strong>¡Atención!</strong><br />
+Por un error de systemd con <code>DNSStubListener=no</code> hay que actualizar manualmente el enlace simbólico, porque no lo hace automáticamente:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>sudo rm /etc/resolv.conf
+<a name="__codelineno-5-2"></a>sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+</code></pre></div></p>
+<h4 id="en-hera">En hera</h4>
+<p><code>/etc/NetworkManager/conf.d/90-dns-none.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>[main]
+<a name="__codelineno-6-2"></a>dns=none
+</code></pre></div>
+<em>(evito que NetworkManager modifique <code>/etc/resolv.conf</code>)</em></p>
+<p>Reinicio:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>sudo systemctl restart NetworkManager
+</code></pre></div></p>
+<p>Escribo mi configuración en <code>/etc/resolv.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>domain adrianj.gonzalonazareno.org
+<a name="__codelineno-8-2"></a>search adrianj.gonzalonazareno.org.
+<a name="__codelineno-8-3"></a>nameserver 10.0.1.102
+</code></pre></div></p>
+<h3 id="parte-2">Parte 2</h3>
+<blockquote>
+<p>Entregar definición de vistas y ficheros de zona</p>
+</blockquote>
+<p>Añadir a <code>named.conf.options</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>allow-recursion { any; };
+<a name="__codelineno-9-2"></a>recursion yes;
+<a name="__codelineno-9-3"></a>allow-query { any; };
+</code></pre></div></p>
+<p>Comentar en <code>named.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>// include &quot;/etc/bind/named.conf.default-zones&quot;;
+</code></pre></div></p>
+<p>Comentar en <code>zones.rfc1918</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a>// zone &quot;16.172.in-addr.arpa&quot;  { type master; file &quot;/etc/bind/db.empty&quot;; };
+</code></pre></div></p>
+<p><code>named.conf.local</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>//
+<a name="__codelineno-12-2"></a>// Do any local configuration here
+<a name="__codelineno-12-3"></a>//
+<a name="__codelineno-12-4"></a>
+<a name="__codelineno-12-5"></a>// Consider adding the 1918 zones here, if they are not used in your
+<a name="__codelineno-12-6"></a>// organization
+<a name="__codelineno-12-7"></a>
+<a name="__codelineno-12-8"></a>
+<a name="__codelineno-12-9"></a>view externa {
+<a name="__codelineno-12-10"></a>
+<a name="__codelineno-12-11"></a>    match-clients { 172.22.0.0/16; 192.168.202.2/32; 192.168.1.0/24; };
+<a name="__codelineno-12-12"></a>
+<a name="__codelineno-12-13"></a>    zone &quot;adrianj.gonzalonazareno.org&quot; {
+<a name="__codelineno-12-14"></a>        type master;
+<a name="__codelineno-12-15"></a>        file &quot;/etc/bind/db.externa.adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-12-16"></a>    };
+<a name="__codelineno-12-17"></a>
+<a name="__codelineno-12-18"></a>};
+<a name="__codelineno-12-19"></a>
+<a name="__codelineno-12-20"></a>
+<a name="__codelineno-12-21"></a>
+<a name="__codelineno-12-22"></a>view dmz {
+<a name="__codelineno-12-23"></a>
+<a name="__codelineno-12-24"></a>    match-clients { 172.16.0.0/16; };
+<a name="__codelineno-12-25"></a>
+<a name="__codelineno-12-26"></a>    zone &quot;adrianj.gonzalonazareno.org&quot; {
+<a name="__codelineno-12-27"></a>        type master;
+<a name="__codelineno-12-28"></a>        file &quot;/etc/bind/db.dmz.adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-12-29"></a>    };
+<a name="__codelineno-12-30"></a>
+<a name="__codelineno-12-31"></a>    zone &quot;16.172.in-addr.arpa&quot; {
+<a name="__codelineno-12-32"></a>        type master;
+<a name="__codelineno-12-33"></a>        file &quot;/etc/bind/db.172.16&quot;;
+<a name="__codelineno-12-34"></a>    };
+<a name="__codelineno-12-35"></a>
+<a name="__codelineno-12-36"></a>    zone &quot;1.0.10.in-addr.arpa&quot; {
+<a name="__codelineno-12-37"></a>        type master;
+<a name="__codelineno-12-38"></a>        file &quot;/etc/bind/db.10.0.1&quot;;
+<a name="__codelineno-12-39"></a>    };
+<a name="__codelineno-12-40"></a>
+<a name="__codelineno-12-41"></a>    include &quot;/etc/bind/zones.rfc1918&quot;;
+<a name="__codelineno-12-42"></a>    include &quot;/etc/bind/named.conf.default-zones&quot;;
+<a name="__codelineno-12-43"></a>
+<a name="__codelineno-12-44"></a>};
+<a name="__codelineno-12-45"></a>
+<a name="__codelineno-12-46"></a>
+<a name="__codelineno-12-47"></a>
+<a name="__codelineno-12-48"></a>view interna {
+<a name="__codelineno-12-49"></a>
+<a name="__codelineno-12-50"></a>    match-clients { 10.0.1.0/24; 127.0.0.1/32; };
+<a name="__codelineno-12-51"></a>
+<a name="__codelineno-12-52"></a>    zone &quot;adrianj.gonzalonazareno.org&quot; {
+<a name="__codelineno-12-53"></a>        type master;
+<a name="__codelineno-12-54"></a>        file &quot;/etc/bind/db.interna.adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-12-55"></a>    };
+<a name="__codelineno-12-56"></a>
+<a name="__codelineno-12-57"></a>    zone &quot;1.0.10.in-addr.arpa&quot; {
+<a name="__codelineno-12-58"></a>        type master;
+<a name="__codelineno-12-59"></a>        file &quot;/etc/bind/db.10.0.1&quot;;
+<a name="__codelineno-12-60"></a>    };
+<a name="__codelineno-12-61"></a>
+<a name="__codelineno-12-62"></a>    zone &quot;16.172.in-addr.arpa&quot; {
+<a name="__codelineno-12-63"></a>        type master;
+<a name="__codelineno-12-64"></a>        file &quot;/etc/bind/db.172.16&quot;;
+<a name="__codelineno-12-65"></a>    };
+<a name="__codelineno-12-66"></a>
+<a name="__codelineno-12-67"></a>
+<a name="__codelineno-12-68"></a>    include &quot;/etc/bind/zones.rfc1918&quot;;
+<a name="__codelineno-12-69"></a>    include &quot;/etc/bind/named.conf.default-zones&quot;;
+<a name="__codelineno-12-70"></a>
+<a name="__codelineno-12-71"></a>};
+</code></pre></div>
+<em>(en la vista externa he añadido la red de mi casa)</em></p>
+<p><code>db.externa.adrianj.gonzalonazareno.org</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>$ORIGIN adrianj.gonzalonazareno.org.
+<a name="__codelineno-13-2"></a>$TTL 86400
+<a name="__codelineno-13-3"></a>@     IN     SOA    zeus.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-13-4"></a>                    2001062501 ; serial
+<a name="__codelineno-13-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-13-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-13-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-13-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-13-9"></a>
+<a name="__codelineno-13-10"></a>@              IN    NS      zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-13-11"></a>
+<a name="__codelineno-13-12"></a>; zeus           IN    A       172.22.0.213 ; clase
+<a name="__codelineno-13-13"></a>zeus           IN    A       192.168.1.106 ; casa-eth
+<a name="__codelineno-13-14"></a>www            IN    CNAME   zeus
+</code></pre></div>
+<em>(la IP externa cambia según esté en clase o en casa)</em></p>
+<p><code>db.dmz.adrianj.gonzalonazareno.org</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a>$ORIGIN adrianj.gonzalonazareno.org.
+<a name="__codelineno-14-2"></a>$TTL 86400
+<a name="__codelineno-14-3"></a>@     IN     SOA    apolo.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-14-4"></a>                    2001062501 ; serial
+<a name="__codelineno-14-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-14-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-14-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-14-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-14-9"></a>
+<a name="__codelineno-14-10"></a>@              IN    NS      apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-14-11"></a>
+<a name="__codelineno-14-12"></a>zeus           IN    A       172.16.0.1
+<a name="__codelineno-14-13"></a>hera           IN    A       172.16.0.200
+<a name="__codelineno-14-14"></a>apolo          IN    A       10.0.1.102
+<a name="__codelineno-14-15"></a>ares           IN    A       10.0.1.101
+<a name="__codelineno-14-16"></a>
+<a name="__codelineno-14-17"></a>www            IN    CNAME   hera
+<a name="__codelineno-14-18"></a>bd             IN    CNAME   ares
+</code></pre></div></p>
+<p><code>db.interna.adrianj.gonzalonazareno.org</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a>$ORIGIN adrianj.gonzalonazareno.org.
+<a name="__codelineno-15-2"></a>$TTL 86400
+<a name="__codelineno-15-3"></a>@     IN     SOA    apolo.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-15-4"></a>                    2001062501 ; serial
+<a name="__codelineno-15-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-15-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-15-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-15-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-15-9"></a>
+<a name="__codelineno-15-10"></a>@              IN    NS      apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-15-11"></a>
+<a name="__codelineno-15-12"></a>zeus           IN    A       10.0.1.1
+<a name="__codelineno-15-13"></a>apolo          IN    A       10.0.1.102
+<a name="__codelineno-15-14"></a>ares           IN    A       10.0.1.101
+<a name="__codelineno-15-15"></a>hera           IN    A       172.16.0.200
+<a name="__codelineno-15-16"></a>
+<a name="__codelineno-15-17"></a>www            IN    CNAME   hera
+<a name="__codelineno-15-18"></a>bd             IN    CNAME   ares
+</code></pre></div></p>
+<p><code>db.172.16</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a>$ORIGIN 16.172.in-addr.arpa.
+<a name="__codelineno-16-2"></a>$TTL 86400
+<a name="__codelineno-16-3"></a>@     IN     SOA    apolo.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-16-4"></a>                    2001062502 ; serial
+<a name="__codelineno-16-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-16-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-16-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-16-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-16-9"></a>
+<a name="__codelineno-16-10"></a>@                            IN     NS     apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-16-11"></a>
+<a name="__codelineno-16-12"></a>1.0                          IN     PTR    zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-16-13"></a>200.0                        IN     PTR    hera.adrianj.gonzalonazareno.org.
+</code></pre></div></p>
+<p><code>db.10.0.1</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a>$ORIGIN 1.0.10.in-addr.arpa.
+<a name="__codelineno-17-2"></a>$TTL 86400
+<a name="__codelineno-17-3"></a>@     IN     SOA    apolo.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-17-4"></a>                    2001062501 ; serial
+<a name="__codelineno-17-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-17-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-17-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-17-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-17-9"></a>
+<a name="__codelineno-17-10"></a>@        IN     NS     apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-17-11"></a>
+<a name="__codelineno-17-12"></a>1        IN     PTR    zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-17-13"></a>102      IN     PTR    apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-17-14"></a>101      IN     PTR    ares.adrianj.gonzalonazareno.org.
+</code></pre></div></p>
+<h3 id="parte-3">Parte 3</h3>
+<blockquote>
+<p>Consultas desde un cliente externo</p>
+</blockquote>
+<p><em>(en estas consultas usaré <code>@192.168.1.106</code> porque en mi casa no existe delegación del dominio)</em></p>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a>dig @192.168.1.106 NS adrianj.gonzalonazareno.org
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; @192.168.1.106 NS adrianj.gonzalonazareno.org
+<a name="__codelineno-19-2"></a>; (1 server found)
+<a name="__codelineno-19-3"></a>;; global options: +cmd
+<a name="__codelineno-19-4"></a>;; Got answer:
+<a name="__codelineno-19-5"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 58348
+<a name="__codelineno-19-6"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 2
+<a name="__codelineno-19-7"></a>
+<a name="__codelineno-19-8"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-19-9"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-19-10"></a>; COOKIE: e4468067cae8269e01000000619ff86a197a3852650fd14f (good)
+<a name="__codelineno-19-11"></a>;; QUESTION SECTION:
+<a name="__codelineno-19-12"></a>;adrianj.gonzalonazareno.org.   IN  NS
+<a name="__codelineno-19-13"></a>
+<a name="__codelineno-19-14"></a>;; ANSWER SECTION:
+<a name="__codelineno-19-15"></a>adrianj.gonzalonazareno.org. 86400 IN   NS  zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-19-16"></a>
+<a name="__codelineno-19-17"></a>;; ADDITIONAL SECTION:
+<a name="__codelineno-19-18"></a>zeus.adrianj.gonzalonazareno.org. 86400 IN A    192.168.1.106
+<a name="__codelineno-19-19"></a>
+<a name="__codelineno-19-20"></a>;; Query time: 0 msec
+<a name="__codelineno-19-21"></a>;; SERVER: 192.168.1.106#53(192.168.1.106)
+<a name="__codelineno-19-22"></a>;; WHEN: Thu Nov 25 21:56:10 CET 2021
+<a name="__codelineno-19-23"></a>;; MSG SIZE  rcvd: 119
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a>dig @192.168.1.106 zeus.adrianj.gonzalonazareno.org
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; @192.168.1.106 zeus.adrianj.gonzalonazareno.org
+<a name="__codelineno-21-2"></a>; (1 server found)
+<a name="__codelineno-21-3"></a>;; global options: +cmd
+<a name="__codelineno-21-4"></a>;; Got answer:
+<a name="__codelineno-21-5"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 37293
+<a name="__codelineno-21-6"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-21-7"></a>
+<a name="__codelineno-21-8"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-21-9"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-21-10"></a>; COOKIE: 84a54d72b820320701000000619ff98b8b9e767129e71df3 (good)
+<a name="__codelineno-21-11"></a>;; QUESTION SECTION:
+<a name="__codelineno-21-12"></a>;zeus.adrianj.gonzalonazareno.org. IN   A
+<a name="__codelineno-21-13"></a>
+<a name="__codelineno-21-14"></a>;; ANSWER SECTION:
+<a name="__codelineno-21-15"></a>zeus.adrianj.gonzalonazareno.org. 86400 IN A    192.168.1.106
+<a name="__codelineno-21-16"></a>
+<a name="__codelineno-21-17"></a>;; Query time: 0 msec
+<a name="__codelineno-21-18"></a>;; SERVER: 192.168.1.106#53(192.168.1.106)
+<a name="__codelineno-21-19"></a>;; WHEN: Thu Nov 25 22:00:59 CET 2021
+<a name="__codelineno-21-20"></a>;; MSG SIZE  rcvd: 105
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a>dig @192.168.1.106 www.adrianj.gonzalonazareno.org
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; @192.168.1.106 www.adrianj.gonzalonazareno.org
+<a name="__codelineno-23-2"></a>; (1 server found)
+<a name="__codelineno-23-3"></a>;; global options: +cmd
+<a name="__codelineno-23-4"></a>;; Got answer:
+<a name="__codelineno-23-5"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 41074
+<a name="__codelineno-23-6"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-23-7"></a>
+<a name="__codelineno-23-8"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-23-9"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-23-10"></a>; COOKIE: e1cddf11d68022f801000000619ff9cf5d2b25377cbac1b2 (good)
+<a name="__codelineno-23-11"></a>;; QUESTION SECTION:
+<a name="__codelineno-23-12"></a>;www.adrianj.gonzalonazareno.org. IN    A
+<a name="__codelineno-23-13"></a>
+<a name="__codelineno-23-14"></a>;; ANSWER SECTION:
+<a name="__codelineno-23-15"></a>www.adrianj.gonzalonazareno.org. 86400 IN CNAME zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-23-16"></a>zeus.adrianj.gonzalonazareno.org. 86400 IN A    192.168.1.106
+<a name="__codelineno-23-17"></a>
+<a name="__codelineno-23-18"></a>;; Query time: 0 msec
+<a name="__codelineno-23-19"></a>;; SERVER: 192.168.1.106#53(192.168.1.106)
+<a name="__codelineno-23-20"></a>;; WHEN: Thu Nov 25 22:02:07 CET 2021
+<a name="__codelineno-23-21"></a>;; MSG SIZE  rcvd: 123
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a>dig @192.168.1.106 bd.adrianj.gonzalonazareno.org
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-25-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; @192.168.1.106 bd.adrianj.gonzalonazareno.org
+<a name="__codelineno-25-2"></a>; (1 server found)
+<a name="__codelineno-25-3"></a>;; global options: +cmd
+<a name="__codelineno-25-4"></a>;; Got answer:
+<a name="__codelineno-25-5"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NXDOMAIN, id: 40461
+<a name="__codelineno-25-6"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+<a name="__codelineno-25-7"></a>
+<a name="__codelineno-25-8"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-25-9"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-25-10"></a>; COOKIE: a06ac8db7750971101000000619ffa4950b175b5a1d7d627 (good)
+<a name="__codelineno-25-11"></a>;; QUESTION SECTION:
+<a name="__codelineno-25-12"></a>;bd.adrianj.gonzalonazareno.org.    IN  A
+<a name="__codelineno-25-13"></a>
+<a name="__codelineno-25-14"></a>;; AUTHORITY SECTION:
+<a name="__codelineno-25-15"></a>adrianj.gonzalonazareno.org. 86400 IN   SOA zeus.adrianj.gonzalonazareno.org. admin.adrianj.gonzalonazareno.org. 2001062501 21600 3600 604800 86400
+<a name="__codelineno-25-16"></a>
+<a name="__codelineno-25-17"></a>;; Query time: 4 msec
+<a name="__codelineno-25-18"></a>;; SERVER: 192.168.1.106#53(192.168.1.106)
+<a name="__codelineno-25-19"></a>;; WHEN: Thu Nov 25 22:04:09 CET 2021
+<a name="__codelineno-25-20"></a>;; MSG SIZE  rcvd: 134
+</code></pre></div>
+<em>(no hay respuesta porque <strong>bd no existe en la vista externa</strong>)</em></p>
+<blockquote>
+<p>Consultas desde un cliente interno</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-26-1"></a>dig NS adrianj.gonzalonazareno.org
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-27-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; NS adrianj.gonzalonazareno.org
+<a name="__codelineno-27-2"></a>;; global options: +cmd
+<a name="__codelineno-27-3"></a>;; Got answer:
+<a name="__codelineno-27-4"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 17610
+<a name="__codelineno-27-5"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 2
+<a name="__codelineno-27-6"></a>
+<a name="__codelineno-27-7"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-27-8"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-27-9"></a>; COOKIE: 3f12cd4ba620cf1501000000619ffc618b1029d6fd6ee025 (good)
+<a name="__codelineno-27-10"></a>;; QUESTION SECTION:
+<a name="__codelineno-27-11"></a>;adrianj.gonzalonazareno.org.   IN  NS
+<a name="__codelineno-27-12"></a>
+<a name="__codelineno-27-13"></a>;; ANSWER SECTION:
+<a name="__codelineno-27-14"></a>adrianj.gonzalonazareno.org. 86400 IN   NS  apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-27-15"></a>
+<a name="__codelineno-27-16"></a>;; ADDITIONAL SECTION:
+<a name="__codelineno-27-17"></a>apolo.adrianj.gonzalonazareno.org. 86400 IN A   10.0.1.102
+<a name="__codelineno-27-18"></a>
+<a name="__codelineno-27-19"></a>;; Query time: 24 msec
+<a name="__codelineno-27-20"></a>;; SERVER: 10.0.1.102#53(10.0.1.102)
+<a name="__codelineno-27-21"></a>;; WHEN: Thu Nov 25 21:13:05 UTC 2021
+<a name="__codelineno-27-22"></a>;; MSG SIZE  rcvd: 120
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-28-1"></a>dig zeus.adrianj.gonzalonazareno.org
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-29-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; zeus.adrianj.gonzalonazareno.org
+<a name="__codelineno-29-2"></a>;; global options: +cmd
+<a name="__codelineno-29-3"></a>;; Got answer:
+<a name="__codelineno-29-4"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 15547
+<a name="__codelineno-29-5"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-29-6"></a>
+<a name="__codelineno-29-7"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-29-8"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-29-9"></a>; COOKIE: 6268af10a08da00101000000619ffd1d5a37dcbdf9bcad63 (good)
+<a name="__codelineno-29-10"></a>;; QUESTION SECTION:
+<a name="__codelineno-29-11"></a>;zeus.adrianj.gonzalonazareno.org. IN   A
+<a name="__codelineno-29-12"></a>
+<a name="__codelineno-29-13"></a>;; ANSWER SECTION:
+<a name="__codelineno-29-14"></a>zeus.adrianj.gonzalonazareno.org. 86400 IN A    10.0.1.1
+<a name="__codelineno-29-15"></a>
+<a name="__codelineno-29-16"></a>;; Query time: 4 msec
+<a name="__codelineno-29-17"></a>;; SERVER: 10.0.1.102#53(10.0.1.102)
+<a name="__codelineno-29-18"></a>;; WHEN: Thu Nov 25 21:16:13 UTC 2021
+<a name="__codelineno-29-19"></a>;; MSG SIZE  rcvd: 105
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-30-1"></a>dig www.adrianj.gonzalonazareno.org
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-31-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; www.adrianj.gonzalonazareno.org
+<a name="__codelineno-31-2"></a>;; global options: +cmd
+<a name="__codelineno-31-3"></a>;; Got answer:
+<a name="__codelineno-31-4"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 35003
+<a name="__codelineno-31-5"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-31-6"></a>
+<a name="__codelineno-31-7"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-31-8"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-31-9"></a>; COOKIE: ddc4f5521915c21901000000619ffd8ec03f6e53f09e84af (good)
+<a name="__codelineno-31-10"></a>;; QUESTION SECTION:
+<a name="__codelineno-31-11"></a>;www.adrianj.gonzalonazareno.org. IN    A
+<a name="__codelineno-31-12"></a>
+<a name="__codelineno-31-13"></a>;; ANSWER SECTION:
+<a name="__codelineno-31-14"></a>www.adrianj.gonzalonazareno.org. 86400 IN CNAME hera.adrianj.gonzalonazareno.org.
+<a name="__codelineno-31-15"></a>hera.adrianj.gonzalonazareno.org. 86400 IN A    172.16.0.200
+<a name="__codelineno-31-16"></a>
+<a name="__codelineno-31-17"></a>;; Query time: 0 msec
+<a name="__codelineno-31-18"></a>;; SERVER: 10.0.1.102#53(10.0.1.102)
+<a name="__codelineno-31-19"></a>;; WHEN: Thu Nov 25 21:18:06 UTC 2021
+<a name="__codelineno-31-20"></a>;; MSG SIZE  rcvd: 123
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-32-1"></a>dig bd.adrianj.gonzalonazareno.org
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-33-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; bd.adrianj.gonzalonazareno.org
+<a name="__codelineno-33-2"></a>;; global options: +cmd
+<a name="__codelineno-33-3"></a>;; Got answer:
+<a name="__codelineno-33-4"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 3419
+<a name="__codelineno-33-5"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-33-6"></a>
+<a name="__codelineno-33-7"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-33-8"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-33-9"></a>; COOKIE: 022009393ab949eb01000000619ffdec08dac774ea4bf941 (good)
+<a name="__codelineno-33-10"></a>;; QUESTION SECTION:
+<a name="__codelineno-33-11"></a>;bd.adrianj.gonzalonazareno.org.    IN  A
+<a name="__codelineno-33-12"></a>
+<a name="__codelineno-33-13"></a>;; ANSWER SECTION:
+<a name="__codelineno-33-14"></a>bd.adrianj.gonzalonazareno.org. 86400 IN CNAME  ares.adrianj.gonzalonazareno.org.
+<a name="__codelineno-33-15"></a>ares.adrianj.gonzalonazareno.org. 86400 IN A    10.0.1.101
+<a name="__codelineno-33-16"></a>
+<a name="__codelineno-33-17"></a>;; Query time: 4 msec
+<a name="__codelineno-33-18"></a>;; SERVER: 10.0.1.102#53(10.0.1.102)
+<a name="__codelineno-33-19"></a>;; WHEN: Thu Nov 25 21:19:40 UTC 2021
+<a name="__codelineno-33-20"></a>;; MSG SIZE  rcvd: 122
+</code></pre></div></p>
+<blockquote>
+<p>Consultas inversas en cada una de las redes <em>(interna+dmz+externa)</em></p>
+</blockquote>
+<p>En red interna:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-34-1"></a>dig -x 10.0.1.1
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-35-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; -x 10.0.1.1
+<a name="__codelineno-35-2"></a>;; global options: +cmd
+<a name="__codelineno-35-3"></a>;; Got answer:
+<a name="__codelineno-35-4"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 4421
+<a name="__codelineno-35-5"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-35-6"></a>
+<a name="__codelineno-35-7"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-35-8"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-35-9"></a>; COOKIE: 0d9da3496030523401000000619fff3ccb3de97da07c83e9 (good)
+<a name="__codelineno-35-10"></a>;; QUESTION SECTION:
+<a name="__codelineno-35-11"></a>;1.1.0.10.in-addr.arpa.     IN  PTR
+<a name="__codelineno-35-12"></a>
+<a name="__codelineno-35-13"></a>;; ANSWER SECTION:
+<a name="__codelineno-35-14"></a>1.1.0.10.in-addr.arpa.  86400   IN  PTR zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-35-15"></a>
+<a name="__codelineno-35-16"></a>;; Query time: 8 msec
+<a name="__codelineno-35-17"></a>;; SERVER: 10.0.1.102#53(10.0.1.102)
+<a name="__codelineno-35-18"></a>;; WHEN: Thu Nov 25 21:25:16 UTC 2021
+<a name="__codelineno-35-19"></a>;; MSG SIZE  rcvd: 124
+</code></pre></div></p>
+<p>En red DMZ:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-36-1"></a>dig -x 172.16.0.1
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-37-1"></a>; &lt;&lt;&gt;&gt; DiG 9.11.26-RedHat-9.11.26-6.el8 &lt;&lt;&gt;&gt; -x 172.16.0.1
+<a name="__codelineno-37-2"></a>;; global options: +cmd
+<a name="__codelineno-37-3"></a>;; Got answer:
+<a name="__codelineno-37-4"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 58791
+<a name="__codelineno-37-5"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-37-6"></a>
+<a name="__codelineno-37-7"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-37-8"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-37-9"></a>; COOKIE: 7c0c4c54f5e88ddd01000000619fffb8fd24258dd7580093 (good)
+<a name="__codelineno-37-10"></a>;; QUESTION SECTION:
+<a name="__codelineno-37-11"></a>;1.0.16.172.in-addr.arpa.   IN  PTR
+<a name="__codelineno-37-12"></a>
+<a name="__codelineno-37-13"></a>;; ANSWER SECTION:
+<a name="__codelineno-37-14"></a>1.0.16.172.in-addr.arpa. 86400  IN  PTR zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-37-15"></a>
+<a name="__codelineno-37-16"></a>;; Query time: 3 msec
+<a name="__codelineno-37-17"></a>;; SERVER: 10.0.1.102#53(10.0.1.102)
+<a name="__codelineno-37-18"></a>;; WHEN: Thu Nov 25 21:27:20 UTC 2021
+<a name="__codelineno-37-19"></a>;; MSG SIZE  rcvd: 126
+</code></pre></div></p>
+<p>En red externa:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-38-1"></a>dig @192.168.1.106 -x 10.0.1.101
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-39-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; @192.168.1.106 -x 10.0.1.101
+<a name="__codelineno-39-2"></a>; (1 server found)
+<a name="__codelineno-39-3"></a>;; global options: +cmd
+<a name="__codelineno-39-4"></a>;; Got answer:
+<a name="__codelineno-39-5"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NXDOMAIN, id: 27352
+<a name="__codelineno-39-6"></a>;; flags: qr aa rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+<a name="__codelineno-39-7"></a>
+<a name="__codelineno-39-8"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-39-9"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-39-10"></a>; COOKIE: c10440dae46509270100000061a00236623d14bb17cbdef9 (good)
+<a name="__codelineno-39-11"></a>;; QUESTION SECTION:
+<a name="__codelineno-39-12"></a>;101.1.0.10.in-addr.arpa.   IN  PTR
+<a name="__codelineno-39-13"></a>
+<a name="__codelineno-39-14"></a>;; AUTHORITY SECTION:
+<a name="__codelineno-39-15"></a>10.IN-ADDR.ARPA.    86400   IN  SOA 10.IN-ADDR.ARPA. . 0 28800 7200 604800 86400
+<a name="__codelineno-39-16"></a>
+<a name="__codelineno-39-17"></a>;; Query time: 0 msec
+<a name="__codelineno-39-18"></a>;; SERVER: 192.168.1.106#53(192.168.1.106)
+<a name="__codelineno-39-19"></a>;; WHEN: Thu Nov 25 22:37:58 CET 2021
+<a name="__codelineno-39-20"></a>;; MSG SIZE  rcvd: 130
+</code></pre></div>
+<em>(no responde porque <strong>en la vista externa no existen zonas de resolución inversa</strong>)</em></p>
+<h3 id="parte-4">Parte 4</h3>
+<blockquote>
+<p>Captura de <code>www.adrianj.gonzalonazareno.org/info.php</code></p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/IUBf1QZ.png" /></p>
+<h3 id="parte-5">Parte 5</h3>
+<blockquote>
+<p>Entregar conexión a MariaDB desde hera</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/LSK21vk.png" /></p>
+<h2 id="servidor-dns-apolo">Servidor DNS (apolo)</h2>
+<h3 id="parte-1_1">Parte 1</h3>
+<blockquote>
+<p>DNAT en zeus redirigiendo puerto 53 a apolo</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-40-1"></a>sudo iptables -t nat -A PREROUTING -i eth1 -p udp --dport 53 -j DNAT --to-destination 10.0.1.102:53
+</code></pre></div>
+<em>(regla para clase)</em></p>
+<blockquote>
+<p>DNAT en zeus redirigiendo puerto 80 a hera</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-41-1"></a>sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j DNAT --to-destination 172.16.0.200:80
+</code></pre></div>
+<em>(regla para clase)</em></p>
+<blockquote>
+<p>Guardar reglas</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-42-1"></a>iptables-save &gt; /etc/iptables/rules.v4
+</code></pre></div>
+<h3 id="parte-2_1">Parte 2</h3>
+<blockquote>
+<p>Configurar todos los servidores para resolver con apolo</p>
+</blockquote>
+<h4 id="en-zeus_1">En zeus</h4>
+<p>Añado a <code>/etc/dhcp/dhclient.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-43-1"></a>#############
+<a name="__codelineno-43-2"></a># My config #
+<a name="__codelineno-43-3"></a>#############
+<a name="__codelineno-43-4"></a>
+<a name="__codelineno-43-5"></a>supersede domain-name &quot;adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-43-6"></a>supersede domain-search &quot;adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-43-7"></a>supersede domain-name-servers 10.0.1.102;
+</code></pre></div></p>
+<h4 id="en-apolo_1">En apolo</h4>
+<p>Añado a <code>/etc/dhcp/dhclient.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-44-1"></a>#############
+<a name="__codelineno-44-2"></a># My config #
+<a name="__codelineno-44-3"></a>#############
+<a name="__codelineno-44-4"></a>
+<a name="__codelineno-44-5"></a>supersede domain-name &quot;adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-44-6"></a>supersede domain-search &quot;adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-44-7"></a>supersede domain-name-servers 127.0.0.1;
+</code></pre></div></p>
+<h4 id="en-ares_1">En ares</h4>
+<p><code>/etc/netplan/01-netcfg.yaml</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-45-1"></a>network:
+<a name="__codelineno-45-2"></a>  version: 2
+<a name="__codelineno-45-3"></a>  renderer: networkd
+<a name="__codelineno-45-4"></a>  ethernets:
+<a name="__codelineno-45-5"></a>    eth0:
+<a name="__codelineno-45-6"></a>      dhcp4: true
+<a name="__codelineno-45-7"></a>      dhcp6: false
+<a name="__codelineno-45-8"></a>      optional: true
+</code></pre></div>
+<em>(elimino nameservers)</em></p>
+<p><code>/etc/systemd/resolved.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-46-1"></a>#  This file is part of systemd.
+<a name="__codelineno-46-2"></a>#
+<a name="__codelineno-46-3"></a>#  systemd is free software; you can redistribute it and/or modify it
+<a name="__codelineno-46-4"></a>#  under the terms of the GNU Lesser General Public License as published by
+<a name="__codelineno-46-5"></a>#  the Free Software Foundation; either version 2.1 of the License, or
+<a name="__codelineno-46-6"></a>#  (at your option) any later version.
+<a name="__codelineno-46-7"></a>#
+<a name="__codelineno-46-8"></a># Entries in this file show the compile time defaults.
+<a name="__codelineno-46-9"></a># You can change settings by editing this file.
+<a name="__codelineno-46-10"></a># Defaults can be restored by simply deleting this file.
+<a name="__codelineno-46-11"></a>#
+<a name="__codelineno-46-12"></a># See resolved.conf(5) for details
+<a name="__codelineno-46-13"></a>
+<a name="__codelineno-46-14"></a>[Resolve]
+<a name="__codelineno-46-15"></a>DNS=10.0.1.102
+<a name="__codelineno-46-16"></a>Domains=adrianj.gonzalonazareno.org
+<a name="__codelineno-46-17"></a>
+<a name="__codelineno-46-18"></a>#FallbackDNS=
+<a name="__codelineno-46-19"></a>#LLMNR=no
+<a name="__codelineno-46-20"></a>#MulticastDNS=no
+<a name="__codelineno-46-21"></a>#DNSSEC=yes
+<a name="__codelineno-46-22"></a>#DNSOverTLS=no
+<a name="__codelineno-46-23"></a>#Cache=yes
+<a name="__codelineno-46-24"></a>DNSStubListener=no
+<a name="__codelineno-46-25"></a>#ReadEtcHosts=yes
+</code></pre></div>
+<em>(este fichero modifica <code>/etc/resolv.conf</code>)</em></p>
+<p>Reinicio <code>systemd-resolved</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-47-1"></a>sudo systemctl restart systemd-resolved
+</code></pre></div>
+<em>(esto actualiza <code>/etc/resolv.conf</code>)</em></p>
+<p><strong>¡Atención!</strong><br />
+Por un error de systemd con <code>DNSStubListener=no</code> hay que actualizar manualmente el enlace simbólico, porque no lo hace automáticamente:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-48-1"></a>sudo rm /etc/resolv.conf
+<a name="__codelineno-48-2"></a>sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+</code></pre></div></p>
+<h4 id="en-hera_1">En hera</h4>
+<p><code>/etc/NetworkManager/conf.d/90-dns-none.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-49-1"></a>[main]
+<a name="__codelineno-49-2"></a>dns=none
+</code></pre></div>
+<em>(evito que NetworkManager modifique <code>/etc/resolv.conf</code>)</em></p>
+<p>Reinicio:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-50-1"></a>sudo systemctl restart NetworkManager
+</code></pre></div></p>
+<p>Escribo mi configuración en <code>/etc/resolv.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-51-1"></a>domain adrianj.gonzalonazareno.org
+<a name="__codelineno-51-2"></a>search adrianj.gonzalonazareno.org.
+<a name="__codelineno-51-3"></a>nameserver 10.0.1.102
+</code></pre></div></p>
+<h3 id="parte-3_1">Parte 3</h3>
+<blockquote>
+<p>Configurar bind9</p>
+</blockquote>
+<p>Añadir a <code>named.conf.options</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-52-1"></a>allow-recursion { any; };
+<a name="__codelineno-52-2"></a>recursion yes;
+<a name="__codelineno-52-3"></a>allow-query { any; };
+</code></pre></div></p>
+<p>Comentar en <code>named.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-53-1"></a>// include &quot;/etc/bind/named.conf.default-zones&quot;;
+</code></pre></div></p>
+<p>Comentar en <code>zones.rfc1918</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-54-1"></a>// zone &quot;16.172.in-addr.arpa&quot;  { type master; file &quot;/etc/bind/db.empty&quot;; };
+</code></pre></div></p>
+<p><code>named.conf.local</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-55-1"></a>//
+<a name="__codelineno-55-2"></a>// Do any local configuration here
+<a name="__codelineno-55-3"></a>//
+<a name="__codelineno-55-4"></a>
+<a name="__codelineno-55-5"></a>// Consider adding the 1918 zones here, if they are not used in your
+<a name="__codelineno-55-6"></a>// organization
+<a name="__codelineno-55-7"></a>
+<a name="__codelineno-55-8"></a>
+<a name="__codelineno-55-9"></a>view externa {
+<a name="__codelineno-55-10"></a>
+<a name="__codelineno-55-11"></a>    match-clients { 172.22.0.0/16; 192.168.202.2/32; 192.168.1.0/24; };
+<a name="__codelineno-55-12"></a>
+<a name="__codelineno-55-13"></a>    zone &quot;adrianj.gonzalonazareno.org&quot; {
+<a name="__codelineno-55-14"></a>        type master;
+<a name="__codelineno-55-15"></a>        file &quot;/etc/bind/db.externa.adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-55-16"></a>    };
+<a name="__codelineno-55-17"></a>
+<a name="__codelineno-55-18"></a>};
+<a name="__codelineno-55-19"></a>
+<a name="__codelineno-55-20"></a>
+<a name="__codelineno-55-21"></a>
+<a name="__codelineno-55-22"></a>view dmz {
+<a name="__codelineno-55-23"></a>
+<a name="__codelineno-55-24"></a>    match-clients { 172.16.0.0/16; };
+<a name="__codelineno-55-25"></a>
+<a name="__codelineno-55-26"></a>    zone &quot;adrianj.gonzalonazareno.org&quot; {
+<a name="__codelineno-55-27"></a>        type master;
+<a name="__codelineno-55-28"></a>        file &quot;/etc/bind/db.dmz.adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-55-29"></a>    };
+<a name="__codelineno-55-30"></a>
+<a name="__codelineno-55-31"></a>    zone &quot;16.172.in-addr.arpa&quot; {
+<a name="__codelineno-55-32"></a>        type master;
+<a name="__codelineno-55-33"></a>        file &quot;/etc/bind/db.172.16&quot;;
+<a name="__codelineno-55-34"></a>    };
+<a name="__codelineno-55-35"></a>
+<a name="__codelineno-55-36"></a>    zone &quot;1.0.10.in-addr.arpa&quot; {
+<a name="__codelineno-55-37"></a>        type master;
+<a name="__codelineno-55-38"></a>        file &quot;/etc/bind/db.10.0.1&quot;;
+<a name="__codelineno-55-39"></a>    };
+<a name="__codelineno-55-40"></a>
+<a name="__codelineno-55-41"></a>    include &quot;/etc/bind/zones.rfc1918&quot;;
+<a name="__codelineno-55-42"></a>    include &quot;/etc/bind/named.conf.default-zones&quot;;
+<a name="__codelineno-55-43"></a>
+<a name="__codelineno-55-44"></a>};
+<a name="__codelineno-55-45"></a>
+<a name="__codelineno-55-46"></a>
+<a name="__codelineno-55-47"></a>
+<a name="__codelineno-55-48"></a>view interna {
+<a name="__codelineno-55-49"></a>
+<a name="__codelineno-55-50"></a>    match-clients { 10.0.1.0/24; 127.0.0.1/32; };
+<a name="__codelineno-55-51"></a>
+<a name="__codelineno-55-52"></a>    zone &quot;adrianj.gonzalonazareno.org&quot; {
+<a name="__codelineno-55-53"></a>        type master;
+<a name="__codelineno-55-54"></a>        file &quot;/etc/bind/db.interna.adrianj.gonzalonazareno.org&quot;;
+<a name="__codelineno-55-55"></a>    };
+<a name="__codelineno-55-56"></a>
+<a name="__codelineno-55-57"></a>    zone &quot;1.0.10.in-addr.arpa&quot; {
+<a name="__codelineno-55-58"></a>        type master;
+<a name="__codelineno-55-59"></a>        file &quot;/etc/bind/db.10.0.1&quot;;
+<a name="__codelineno-55-60"></a>    };
+<a name="__codelineno-55-61"></a>
+<a name="__codelineno-55-62"></a>    zone &quot;16.172.in-addr.arpa&quot; {
+<a name="__codelineno-55-63"></a>        type master;
+<a name="__codelineno-55-64"></a>        file &quot;/etc/bind/db.172.16&quot;;
+<a name="__codelineno-55-65"></a>    };
+<a name="__codelineno-55-66"></a>
+<a name="__codelineno-55-67"></a>
+<a name="__codelineno-55-68"></a>    include &quot;/etc/bind/zones.rfc1918&quot;;
+<a name="__codelineno-55-69"></a>    include &quot;/etc/bind/named.conf.default-zones&quot;;
+<a name="__codelineno-55-70"></a>
+<a name="__codelineno-55-71"></a>};
+</code></pre></div>
+<em>(en la vista externa he añadido la red de mi casa)</em></p>
+<p><code>db.externa.adrianj.gonzalonazareno.org</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-56-1"></a>$ORIGIN adrianj.gonzalonazareno.org.
+<a name="__codelineno-56-2"></a>$TTL 86400
+<a name="__codelineno-56-3"></a>@     IN     SOA    zeus.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-56-4"></a>                    2001062501 ; serial
+<a name="__codelineno-56-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-56-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-56-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-56-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-56-9"></a>
+<a name="__codelineno-56-10"></a>@              IN    NS      zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-56-11"></a>
+<a name="__codelineno-56-12"></a>; zeus           IN    A       172.22.0.213 ; clase
+<a name="__codelineno-56-13"></a>zeus           IN    A       192.168.1.106 ; casa-eth
+<a name="__codelineno-56-14"></a>www            IN    CNAME   zeus
+</code></pre></div>
+<em>(la IP externa cambia según esté en clase o en casa)</em></p>
+<p><code>db.dmz.adrianj.gonzalonazareno.org</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-57-1"></a>$ORIGIN adrianj.gonzalonazareno.org.
+<a name="__codelineno-57-2"></a>$TTL 86400
+<a name="__codelineno-57-3"></a>@     IN     SOA    apolo.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-57-4"></a>                    2001062501 ; serial
+<a name="__codelineno-57-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-57-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-57-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-57-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-57-9"></a>
+<a name="__codelineno-57-10"></a>@              IN    NS      apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-57-11"></a>
+<a name="__codelineno-57-12"></a>zeus           IN    A       172.16.0.1
+<a name="__codelineno-57-13"></a>hera           IN    A       172.16.0.200
+<a name="__codelineno-57-14"></a>apolo          IN    A       10.0.1.102
+<a name="__codelineno-57-15"></a>ares           IN    A       10.0.1.101
+<a name="__codelineno-57-16"></a>
+<a name="__codelineno-57-17"></a>www            IN    CNAME   hera
+<a name="__codelineno-57-18"></a>bd             IN    CNAME   ares
+</code></pre></div></p>
+<p><code>db.interna.adrianj.gonzalonazareno.org</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-58-1"></a>$ORIGIN adrianj.gonzalonazareno.org.
+<a name="__codelineno-58-2"></a>$TTL 86400
+<a name="__codelineno-58-3"></a>@     IN     SOA    apolo.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-58-4"></a>                    2001062501 ; serial
+<a name="__codelineno-58-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-58-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-58-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-58-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-58-9"></a>
+<a name="__codelineno-58-10"></a>@              IN    NS      apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-58-11"></a>
+<a name="__codelineno-58-12"></a>zeus           IN    A       10.0.1.1
+<a name="__codelineno-58-13"></a>apolo          IN    A       10.0.1.102
+<a name="__codelineno-58-14"></a>ares           IN    A       10.0.1.101
+<a name="__codelineno-58-15"></a>hera           IN    A       172.16.0.200
+<a name="__codelineno-58-16"></a>
+<a name="__codelineno-58-17"></a>www            IN    CNAME   hera
+<a name="__codelineno-58-18"></a>bd             IN    CNAME   ares
+</code></pre></div></p>
+<p><code>db.172.16</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-59-1"></a>$ORIGIN 16.172.in-addr.arpa.
+<a name="__codelineno-59-2"></a>$TTL 86400
+<a name="__codelineno-59-3"></a>@     IN     SOA    apolo.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-59-4"></a>                    2001062502 ; serial
+<a name="__codelineno-59-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-59-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-59-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-59-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-59-9"></a>
+<a name="__codelineno-59-10"></a>@                            IN     NS     apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-59-11"></a>
+<a name="__codelineno-59-12"></a>1.0                          IN     PTR    zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-59-13"></a>200.0                        IN     PTR    hera.adrianj.gonzalonazareno.org.
+</code></pre></div></p>
+<p><code>db.10.0.1</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-60-1"></a>$ORIGIN 1.0.10.in-addr.arpa.
+<a name="__codelineno-60-2"></a>$TTL 86400
+<a name="__codelineno-60-3"></a>@     IN     SOA    apolo.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-60-4"></a>                    2001062501 ; serial
+<a name="__codelineno-60-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-60-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-60-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-60-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-60-9"></a>
+<a name="__codelineno-60-10"></a>@        IN     NS     apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-60-11"></a>
+<a name="__codelineno-60-12"></a>1        IN     PTR    zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-60-13"></a>102      IN     PTR    apolo.adrianj.gonzalonazareno.org.
+<a name="__codelineno-60-14"></a>101      IN     PTR    ares.adrianj.gonzalonazareno.org.
+</code></pre></div></p>
+<h2 id="servidor-web-hera">Servidor Web (hera)</h2>
+<h3 id="parte-1_2">Parte 1</h3>
+<blockquote>
+<p>Instalar Apache</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-61-1"></a>sudo dnf install httpd
+<a name="__codelineno-61-2"></a>systemctl enable --now  httpd
+</code></pre></div>
+<h3 id="parte-2_2">Parte 2</h3>
+<blockquote>
+<p>Instalar php + PHP-FPM</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-62-1"></a>sudo dnf install php
+</code></pre></div>
+<em>(instala PHP-FPM por dependencia)</em></p>
+<p>En <code>/var/www/www</code> descargo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-63-1"></a>sudo wget https://gist.githubusercontent.com/SyntaxC4/5648247/raw/94277156638f9c309f2e36e19bff378ba7364907/info.php
+</code></pre></div></p>
+<h3 id="parte-3_2">Parte 3</h3>
+<blockquote>
+<p>Crear VirtualHost</p>
+</blockquote>
+<p><code>/etc/httpd/conf.d/www.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-64-1"></a>&lt;VirtualHost *:80&gt;
+<a name="__codelineno-64-2"></a>
+<a name="__codelineno-64-3"></a>    ServerName www.adrianj.gonzalonazareno.org
+<a name="__codelineno-64-4"></a>    DocumentRoot /var/www/www
+<a name="__codelineno-64-5"></a>
+<a name="__codelineno-64-6"></a>&lt;/VirtualHost&gt;
+</code></pre></div></p>
+<h3 id="parte-4_1">Parte 4</h3>
+<blockquote>
+<p>Reiniciar Apache</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-65-1"></a>sudo systemctl restart httpd
+</code></pre></div>
+<h3 id="parte-5_1">Parte 5</h3>
+<blockquote>
+<p>Instalar cliente MariaDB <em>(para entrega parte 5)</em></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-66-1"></a>curl -LsS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
+<a name="__codelineno-66-2"></a>sudo dnf install MariaDB-client
+</code></pre></div>
+<h2 id="servidor-de-bd-ares">Servidor de BD (ares)</h2>
+<h3 id="parte-1_3">Parte 1</h3>
+<blockquote>
+<p>Instalar MariaDB</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-67-1"></a>sudo apt install mariadb-server
+</code></pre></div>
+<h3 id="parte-2_3">Parte 2</h3>
+<blockquote>
+<p>Habilitar conexiones remotas</p>
+</blockquote>
+<p><code>/etc/mysql/mariadb.conf.d/50-server.cnf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-68-1"></a>bind-address            = 0.0.0.0  
+</code></pre></div></p>
+<h3 id="parte-3_3">Parte 3</h3>
+<blockquote>
+<p>Habilitar root con acceso remoto</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-69-1"></a>use mysql;
+<a name="__codelineno-69-2"></a>update user set plugin=&#39;&#39; where User=&#39;root&#39;;
+<a name="__codelineno-69-3"></a>grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;1234&#39;;
+<a name="__codelineno-69-4"></a>flush privileges;
+</code></pre></div>
+<h3 id="parte-4_2">Parte 4</h3>
+<blockquote>
+<p>Reiniciar</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-70-1"></a>sudo systemctl restart mariadb
+</code></pre></div>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/practica-web-bd-dns-escenario/",this.page.identifier="practica-web-bd-dns-escenario/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ej3-delegacion-subdominio-bind9/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ejercicio 3: Delegación subdominios" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Ejercicio 3: Delegación subdominios
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../practica-https-vps/" class="md-footer__link md-footer__link--next" aria-label="Next: Práctica: HTTPS en VPS" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Práctica: HTTPS en VPS
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

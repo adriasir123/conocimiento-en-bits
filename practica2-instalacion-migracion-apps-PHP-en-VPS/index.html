@@ -1,0 +1,2605 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/practica2-instalacion-migracion-apps-PHP-en-VPS/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Práctica 2: Instalación/migración de apps a VPS - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-2-instalacionmigracion-de-aplicaciones-web-php-en-tu-vps" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Práctica 2: Instalación/migración de apps a VPS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Práctica 2: Instalación/migración de apps a VPS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-1-migracion-de-phpbb" class="md-nav__link">
+    Tarea 1: Migración de phpBB
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 1: Migración de phpBB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-2-instalacionmigracion-nextcloud" class="md-nav__link">
+    Tarea 2: Instalación/migración Nextcloud
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 2: Instalación/migración Nextcloud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1_1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_1" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_1" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_1" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2_1" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_2" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_2" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_2" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5_1" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6_1" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3_1" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-3" class="md-nav__link">
+    Tarea 3
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-1-migracion-de-phpbb" class="md-nav__link">
+    Tarea 1: Migración de phpBB
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 1: Migración de phpBB">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-2-instalacionmigracion-nextcloud" class="md-nav__link">
+    Tarea 2: Instalación/migración Nextcloud
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 2: Instalación/migración Nextcloud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1_1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_1" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_1" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_1" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2_1" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_2" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_2" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_2" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5_1" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6_1" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3_1" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-3" class="md-nav__link">
+    Tarea 3
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="practica-2-instalacionmigracion-de-aplicaciones-web-php-en-tu-vps">Práctica 2: Instalación/migración de aplicaciones web PHP en tu VPS</h1>
+<h2 id="tarea-1-migracion-de-phpbb">Tarea 1: Migración de phpBB</h2>
+<h3 id="ejercicio-1">Ejercicio 1</h3>
+<blockquote>
+<p>Crear VirtualHost con <code>server_name</code> <code>portal.adrianjaramillo.tk</code></p>
+</blockquote>
+<p>Creo <code>/etc/nginx/sites-available/portal.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>server {
+<a name="__codelineno-0-2"></a>
+<a name="__codelineno-0-3"></a>    listen 80;
+<a name="__codelineno-0-4"></a>    server_name portal.adrianjaramillo.tk;
+<a name="__codelineno-0-5"></a>    root /var/www/portal;
+<a name="__codelineno-0-6"></a>
+<a name="__codelineno-0-7"></a>    location / {
+<a name="__codelineno-0-8"></a>        index index.php index.html index.htm;
+<a name="__codelineno-0-9"></a>    }
+<a name="__codelineno-0-10"></a>
+<a name="__codelineno-0-11"></a>    location ~ \.php$ {
+<a name="__codelineno-0-12"></a>        include        fastcgi_params;
+<a name="__codelineno-0-13"></a>        fastcgi_pass   unix:/run/php/php7.4-fpm.sock;
+<a name="__codelineno-0-14"></a>        fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+<a name="__codelineno-0-15"></a>    }
+<a name="__codelineno-0-16"></a>
+<a name="__codelineno-0-17"></a>}
+</code></pre></div></p>
+<p>Lo habilito:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>sudo ln -s /etc/nginx/sites-available/portal.conf /etc/nginx/sites-enabled/
+</code></pre></div></p>
+<p>Reinicio Nginx:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>sudo systemctl restart nginx
+</code></pre></div></p>
+<p>Creo un registro CNAME en la zona DNS pública para <code>portal.adrianjaramillo.tk</code>:</p>
+<p><img alt="" src="https://i.postimg.cc/KcLLckzz/portal-tk-vps.png" /></p>
+<h3 id="ejercicio-2">Ejercicio 2</h3>
+<blockquote>
+<p>Nombrar en <code>/etc/hosts</code> la BD como <code>bd.adrianjaramillo.tk</code></p>
+</blockquote>
+<p>Modifico la siguiente línea en <code>/etc/hosts</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>127.0.0.1       localhost.localdomain localhost bd.adrianjaramillo.tk
+</code></pre></div></p>
+<p>Muestro que funciona:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>blackmamba@kampe:/etc/nginx/sites-available$ ping bd.adrianjaramillo.tk
+<a name="__codelineno-4-2"></a>PING localhost.localdomain (127.0.0.1) 56(84) bytes of data.
+<a name="__codelineno-4-3"></a>64 bytes from localhost.localdomain (127.0.0.1): icmp_seq=1 ttl=64 time=0.039 ms
+<a name="__codelineno-4-4"></a>64 bytes from localhost.localdomain (127.0.0.1): icmp_seq=2 ttl=64 time=0.058 ms
+<a name="__codelineno-4-5"></a>^C
+<a name="__codelineno-4-6"></a>--- localhost.localdomain ping statistics ---
+<a name="__codelineno-4-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1031ms
+<a name="__codelineno-4-8"></a>rtt min/avg/max/mdev = 0.039/0.048/0.058/0.009 ms
+</code></pre></div></p>
+<h3 id="ejercicio-3">Ejercicio 3</h3>
+<p>Realizar la migración de phpBB.</p>
+<h4 id="parte-1">Parte 1</h4>
+<blockquote>
+<p>Instalar las dependencias de paquetería requeridas para que <code>phpBB</code> funcione</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>sudo apt install php-json php-mbstring php-xml php-mysql php-pdo php-zip php-gd php-curl php-pear php-bcmath
+</code></pre></div>
+<h4 id="parte-2">Parte 2</h4>
+<blockquote>
+<p>Transferir el DocumentRoot de <code>phpBB</code> al VPS mediante repositorios</p>
+</blockquote>
+<p>Hago una copia del DocumentRoot en el home:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>sudo cp -r /var/www/phpBB ~
+</code></pre></div></p>
+<p>Cambio los propietarios:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>sudo chown -R vagrant:vagrant ~/phpBB/
+</code></pre></div></p>
+<p>Inicializo el directorio como repo git:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>git init
+</code></pre></div></p>
+<p>Creo el repositorio en github: <a href="https://github.com/adriasir123/phpBB-document-root">https://github.com/adriasir123/phpBB-document-root</a></p>
+<p>Subo el directorio al repositorio creado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>git remote add origin git@github.com:adriasir123/phpBB-document-root.git
+<a name="__codelineno-9-2"></a>git branch -M main
+<a name="__codelineno-9-3"></a>git add .
+<a name="__codelineno-9-4"></a>git config --global user.email &quot;adristudy@gmail.com&quot;
+<a name="__codelineno-9-5"></a>git config --global user.name &quot;Adrián Jaramillo Rodríguez&quot;
+<a name="__codelineno-9-6"></a>git commit -m &quot;Initial commit&quot;
+<a name="__codelineno-9-7"></a>git push -u origin main
+</code></pre></div></p>
+<p>Me bajo el repositorio en <code>/var/www/portal</code> del VPS:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>sudo git clone https://github.com/adriasir123/phpBB-document-root.git .
+</code></pre></div></p>
+<p>Modifico los propietarios correctamente en <code>/var/www/portal/</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a>sudo chown -R www-data:www-data /var/www/portal/
+</code></pre></div></p>
+<h4 id="parte-3">Parte 3</h4>
+<blockquote>
+<p>Migrar la BD al VPS</p>
+</blockquote>
+<p>Exporto la BD:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>sudo mysqldump -u root phpBB_db &gt; phpBB_db.sql
+</code></pre></div></p>
+<p>Creo la BD en el VPS:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>CREATE DATABASE `phpBB_db`;
+</code></pre></div></p>
+<p>Creo un usuario con permisos sobre <code>phpBB_db</code>:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a>CREATE USER &#39;phpBB_user&#39; IDENTIFIED BY &#39;1234&#39;;
+<a name="__codelineno-14-2"></a>
+<a name="__codelineno-14-3"></a>GRANT USAGE ON *.* TO &#39;phpBB_user&#39;@localhost IDENTIFIED BY &#39;1234&#39;;
+<a name="__codelineno-14-4"></a>
+<a name="__codelineno-14-5"></a>GRANT ALL privileges ON `phpBB_db`.* TO &#39;phpBB_user&#39;@localhost;
+<a name="__codelineno-14-6"></a>
+<a name="__codelineno-14-7"></a>FLUSH PRIVILEGES;
+</code></pre></div>
+<p>Importo la copia de seguridad:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a>sudo mysql -u root phpBB_db &lt; phpBB_db.sql
+</code></pre></div></p>
+<h4 id="parte-4">Parte 4</h4>
+<blockquote>
+<p>Cambiar los datos de conexión a la base de datos</p>
+</blockquote>
+<p>Modifico la siguiente línea en <code>config.php</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a>$dbhost = &#39;bd.adrianjaramillo.tk&#39;;
+</code></pre></div></p>
+<h3 id="ejercicio-4">Ejercicio 4</h3>
+<blockquote>
+<p>Comprobar que <code>phpBB</code> sigue funcionando en <code>portal.adrianjaramillo.tk</code></p>
+</blockquote>
+<p><img alt="" src="https://i.postimg.cc/yx98q75x/phpbb-migracion.gif" /></p>
+<h2 id="tarea-2-instalacionmigracion-nextcloud">Tarea 2: Instalación/migración Nextcloud</h2>
+<h3 id="ejercicio-1_1">Ejercicio 1</h3>
+<p>Instalar Nextcloud en el entorno de desarrollo.</p>
+<h4 id="parte-1_1">Parte 1</h4>
+<blockquote>
+<p>Crear el escenario</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-17-2"></a>
+<a name="__codelineno-17-3"></a>config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-17-4"></a>
+<a name="__codelineno-17-5"></a>  config.vm.define :nextcloudnginx do |nextcloudnginx|
+<a name="__codelineno-17-6"></a>    nextcloudnginx.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-17-7"></a>    nextcloudnginx.vm.hostname = &quot;nextcloudnginx&quot;
+<a name="__codelineno-17-8"></a>  end
+<a name="__codelineno-17-9"></a>
+<a name="__codelineno-17-10"></a>end
+</code></pre></div>
+<h4 id="parte-2_1">Parte 2</h4>
+<blockquote>
+<p>Instalar y configurar Nginx</p>
+</blockquote>
+<p>Lo instalo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a>sudo apt update
+<a name="__codelineno-18-2"></a>sudo apt install curl gnupg2 ca-certificates lsb-release
+<a name="__codelineno-18-3"></a>sudo apt install nginx
+</code></pre></div></p>
+<p>Creo <code>/etc/nginx/sites-available/nextcloud.conf</code>, con <code>server_name</code> <code>www.nextcloud-adrianj.com</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a>server {
+<a name="__codelineno-19-2"></a>    listen 80;
+<a name="__codelineno-19-3"></a>    server_name www.nextcloud-adrianj.com;
+<a name="__codelineno-19-4"></a>
+<a name="__codelineno-19-5"></a>    # Path to the root of the domain
+<a name="__codelineno-19-6"></a>    root /var/www/nextcloud;
+<a name="__codelineno-19-7"></a>
+<a name="__codelineno-19-8"></a>    location = /robots.txt {
+<a name="__codelineno-19-9"></a>        allow all;
+<a name="__codelineno-19-10"></a>        log_not_found off;
+<a name="__codelineno-19-11"></a>        access_log off;
+<a name="__codelineno-19-12"></a>    }
+<a name="__codelineno-19-13"></a>
+<a name="__codelineno-19-14"></a>    location ^~ /.well-known {
+<a name="__codelineno-19-15"></a>        # The rules in this block are an adaptation of the rules
+<a name="__codelineno-19-16"></a>        # in the Nextcloud `.htaccess` that concern `/.well-known`.
+<a name="__codelineno-19-17"></a>
+<a name="__codelineno-19-18"></a>        location = /.well-known/carddav { return 301 /cloud/remote.php/dav/; }
+<a name="__codelineno-19-19"></a>        location = /.well-known/caldav  { return 301 /cloud/remote.php/dav/; }
+<a name="__codelineno-19-20"></a>
+<a name="__codelineno-19-21"></a>        location /.well-known/acme-challenge    { try_files $uri $uri/ =404; }
+<a name="__codelineno-19-22"></a>        location /.well-known/pki-validation    { try_files $uri $uri/ =404; }
+<a name="__codelineno-19-23"></a>
+<a name="__codelineno-19-24"></a>        # Let Nextcloud&#39;s API for `/.well-known` URIs handle all other
+<a name="__codelineno-19-25"></a>        # requests by passing them to the front-end controller.
+<a name="__codelineno-19-26"></a>        return 301 /cloud/index.php$request_uri;
+<a name="__codelineno-19-27"></a>    }
+<a name="__codelineno-19-28"></a>
+<a name="__codelineno-19-29"></a>    location ^~ /cloud {
+<a name="__codelineno-19-30"></a>        # set max upload size and increase upload timeout:
+<a name="__codelineno-19-31"></a>        client_max_body_size 512M;
+<a name="__codelineno-19-32"></a>        client_body_timeout 300s;
+<a name="__codelineno-19-33"></a>        fastcgi_buffers 64 4K;
+<a name="__codelineno-19-34"></a>
+<a name="__codelineno-19-35"></a>        # Enable gzip but do not remove ETag headers
+<a name="__codelineno-19-36"></a>        gzip on;
+<a name="__codelineno-19-37"></a>        gzip_vary on;
+<a name="__codelineno-19-38"></a>        gzip_comp_level 4;
+<a name="__codelineno-19-39"></a>        gzip_min_length 256;
+<a name="__codelineno-19-40"></a>        gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;
+<a name="__codelineno-19-41"></a>        gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy;
+<a name="__codelineno-19-42"></a>
+<a name="__codelineno-19-43"></a>        # Pagespeed is not supported by Nextcloud, so if your server is built
+<a name="__codelineno-19-44"></a>        # with the `ngx_pagespeed` module, uncomment this line to disable it.
+<a name="__codelineno-19-45"></a>        #pagespeed off;
+<a name="__codelineno-19-46"></a>
+<a name="__codelineno-19-47"></a>        # HTTP response headers borrowed from Nextcloud `.htaccess`
+<a name="__codelineno-19-48"></a>        add_header Referrer-Policy                      &quot;no-referrer&quot;   always;
+<a name="__codelineno-19-49"></a>        add_header X-Content-Type-Options               &quot;nosniff&quot;       always;
+<a name="__codelineno-19-50"></a>        add_header X-Download-Options                   &quot;noopen&quot;        always;
+<a name="__codelineno-19-51"></a>        add_header X-Frame-Options                      &quot;SAMEORIGIN&quot;    always;
+<a name="__codelineno-19-52"></a>        add_header X-Permitted-Cross-Domain-Policies    &quot;none&quot;          always;
+<a name="__codelineno-19-53"></a>        add_header X-Robots-Tag                         &quot;none&quot;          always;
+<a name="__codelineno-19-54"></a>        add_header X-XSS-Protection                     &quot;1; mode=block&quot; always;
+<a name="__codelineno-19-55"></a>
+<a name="__codelineno-19-56"></a>        # Remove X-Powered-By, which is an information leak
+<a name="__codelineno-19-57"></a>        fastcgi_hide_header X-Powered-By;
+<a name="__codelineno-19-58"></a>
+<a name="__codelineno-19-59"></a>        # Specify how to handle directories -- specifying `/nextcloud/index.php$request_uri`
+<a name="__codelineno-19-60"></a>        # here as the fallback means that Nginx always exhibits the desired behaviour
+<a name="__codelineno-19-61"></a>        # when a client requests a path that corresponds to a directory that exists
+<a name="__codelineno-19-62"></a>        # on the server. In particular, if that directory contains an index.php file,
+<a name="__codelineno-19-63"></a>        # that file is correctly served; if it doesn&#39;t, then the request is passed to
+<a name="__codelineno-19-64"></a>        # the front-end controller. This consistent behaviour means that we don&#39;t need
+<a name="__codelineno-19-65"></a>        # to specify custom rules for certain paths (e.g. images and other assets,
+<a name="__codelineno-19-66"></a>        # `/updater`, `/ocm-provider`, `/ocs-provider`), and thus
+<a name="__codelineno-19-67"></a>        # `try_files $uri $uri/ /nextcloud/index.php$request_uri`
+<a name="__codelineno-19-68"></a>        # always provides the desired behaviour.
+<a name="__codelineno-19-69"></a>        index index.php index.html /cloud/index.php$request_uri;
+<a name="__codelineno-19-70"></a>
+<a name="__codelineno-19-71"></a>        # Rule borrowed from `.htaccess` to handle Microsoft DAV clients
+<a name="__codelineno-19-72"></a>        location = /cloud {
+<a name="__codelineno-19-73"></a>            if ( $http_user_agent ~ ^DavClnt ) {
+<a name="__codelineno-19-74"></a>                return 302 /cloud/remote.php/webdav/$is_args$args;
+<a name="__codelineno-19-75"></a>            }
+<a name="__codelineno-19-76"></a>        }
+<a name="__codelineno-19-77"></a>
+<a name="__codelineno-19-78"></a>        # Rules borrowed from `.htaccess` to hide certain paths from clients
+<a name="__codelineno-19-79"></a>        location ~ ^/cloud/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/)    { return 404; }
+<a name="__codelineno-19-80"></a>        location ~ ^/cloud/(?:\.|autotest|occ|issue|indie|db_|console)                  { return 404; }
+<a name="__codelineno-19-81"></a>
+<a name="__codelineno-19-82"></a>        # Ensure this block, which passes PHP files to the PHP process, is above the blocks
+<a name="__codelineno-19-83"></a>        # which handle static assets (as seen below). If this block is not declared first,
+<a name="__codelineno-19-84"></a>        # then Nginx will encounter an infinite rewriting loop when it prepends
+<a name="__codelineno-19-85"></a>        # `/nextcloud/index.php` to the URI, resulting in a HTTP 500 error response.
+<a name="__codelineno-19-86"></a>        location ~ \.php(?:$|/) {
+<a name="__codelineno-19-87"></a>            # Required for legacy support
+<a name="__codelineno-19-88"></a>            rewrite ^/cloud/(?!index|remote|public|cron|core\/ajax\/update|status|ocs\/v[12]|updater\/.+|oc[ms]-provider\/.+|.+\/richdocumentscode\/proxy) /cloud/index.php$request_uri;
+<a name="__codelineno-19-89"></a>
+<a name="__codelineno-19-90"></a>            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+<a name="__codelineno-19-91"></a>            set $path_info $fastcgi_path_info;
+<a name="__codelineno-19-92"></a>
+<a name="__codelineno-19-93"></a>            try_files $fastcgi_script_name =404;
+<a name="__codelineno-19-94"></a>
+<a name="__codelineno-19-95"></a>            include fastcgi_params;
+<a name="__codelineno-19-96"></a>            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+<a name="__codelineno-19-97"></a>            fastcgi_param PATH_INFO $path_info;
+<a name="__codelineno-19-98"></a>
+<a name="__codelineno-19-99"></a>            fastcgi_param modHeadersAvailable true;         # Avoid sending the security headers twice
+<a name="__codelineno-19-100"></a>            fastcgi_param front_controller_active true;     # Enable pretty urls
+<a name="__codelineno-19-101"></a>            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+<a name="__codelineno-19-102"></a>
+<a name="__codelineno-19-103"></a>            fastcgi_intercept_errors on;
+<a name="__codelineno-19-104"></a>            fastcgi_request_buffering off;
+<a name="__codelineno-19-105"></a>        }
+<a name="__codelineno-19-106"></a>
+<a name="__codelineno-19-107"></a>        location ~ \.(?:css|js|svg|gif|png|jpg|ico)$ {
+<a name="__codelineno-19-108"></a>            try_files $uri /cloud/index.php$request_uri;
+<a name="__codelineno-19-109"></a>            expires 6M;         # Cache-Control policy borrowed from `.htaccess`
+<a name="__codelineno-19-110"></a>            access_log off;     # Optional: Don&#39;t log access to assets
+<a name="__codelineno-19-111"></a>        }
+<a name="__codelineno-19-112"></a>
+<a name="__codelineno-19-113"></a>        location ~ \.woff2?$ {
+<a name="__codelineno-19-114"></a>            try_files $uri /cloud/index.php$request_uri;
+<a name="__codelineno-19-115"></a>            expires 7d;         # Cache-Control policy borrowed from `.htaccess`
+<a name="__codelineno-19-116"></a>            access_log off;     # Optional: Don&#39;t log access to assets
+<a name="__codelineno-19-117"></a>        }
+<a name="__codelineno-19-118"></a>
+<a name="__codelineno-19-119"></a>        # Rule borrowed from `.htaccess`
+<a name="__codelineno-19-120"></a>        location /cloud/remote {
+<a name="__codelineno-19-121"></a>            return 301 /cloud/remote.php$request_uri;
+<a name="__codelineno-19-122"></a>        }
+<a name="__codelineno-19-123"></a>
+<a name="__codelineno-19-124"></a>        location /cloud {
+<a name="__codelineno-19-125"></a>            try_files $uri $uri/ /cloud/index.php$request_uri;
+<a name="__codelineno-19-126"></a>        }
+<a name="__codelineno-19-127"></a>    }
+<a name="__codelineno-19-128"></a>}
+</code></pre></div>
+Nextcloud no está oficialmente soportado para Nginx, así que esta configuración está hecha por contribuidores.<br />
+Igualmente, está publicada en la documentación oficial de Nextcloud: <a href="https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html#nextcloud-in-a-subdir-of-the-nginx-webroot">https://docs.nextcloud.com/server/latest/admin_manual/installation/nginx.html#nextcloud-in-a-subdir-of-the-nginx-webroot</a><br />
+Específicamente, he elegido hacer la manera en subdirectorio, para que mi entorno de desarrollo y el de producción sean lo más parecidos posible. Así, la migración luego será más sencilla.</p>
+<p>Lo habilito:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a>sudo ln -s /etc/nginx/sites-available/nextcloud.conf /etc/nginx/sites-enabled/
+</code></pre></div></p>
+<p>Compruebo que la configuración sea correcta:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a>sudo nginx -t
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a>nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+<a name="__codelineno-22-2"></a>nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre></div></p>
+<p>Reinicio Nginx:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a>sudo systemctl restart nginx
+</code></pre></div></p>
+<p>Modifico mi <code>/etc/hosts</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a># nextcloudnginx resolutions
+<a name="__codelineno-24-2"></a>192.168.121.62 www.nextcloud-adrianj.com
+</code></pre></div></p>
+<h4 id="parte-3_1">Parte 3</h4>
+<blockquote>
+<p>Instalar y configurar php</p>
+</blockquote>
+<p>Instalo PHP-FPM y dependencias php para Nextcloud:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-25-1"></a>sudo apt install php-fpm php-mysql php-zip php-xml php-mbstring php-gd php-curl php-cli php-common php-json php-intl php-pear php-imagick php-dev php-soap php-bz2
+</code></pre></div></p>
+<p>Modifico las siguientes líneas en <code>/etc/php/7.4/fpm/php.ini</code> y <code>/etc/php/7.4/cli/php.ini</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-26-1"></a>date.timezone = Europe/Madrid
+<a name="__codelineno-26-2"></a>cgi.fix_pathinfo=0
+</code></pre></div></p>
+<p>Descomentar las siguientes líneas en <code>/etc/php/7.4/fpm/pool.d/www.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-27-1"></a>env[HOSTNAME] = $HOSTNAME
+<a name="__codelineno-27-2"></a>env[PATH] = /usr/local/bin:/usr/bin:/bin
+<a name="__codelineno-27-3"></a>env[TMP] = /tmp
+<a name="__codelineno-27-4"></a>env[TMPDIR] = /tmp
+<a name="__codelineno-27-5"></a>env[TEMP] = /tmp
+</code></pre></div></p>
+<p>Habilito y reinicio php-fpm:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-28-1"></a>sudo systemctl enable php7.4-fpm
+<a name="__codelineno-28-2"></a>sudo systemctl restart php7.4-fpm
+</code></pre></div></p>
+<h4 id="parte-4_1">Parte 4</h4>
+<blockquote>
+<p>Instalar servidor MariaDB</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-29-1"></a>sudo apt install mariadb-server
+</code></pre></div>
+<p>Creo la BD para Nextcloud:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-30-1"></a>CREATE DATABASE `nextcloud_db`;
+</code></pre></div></p>
+<p>Creo un usuario con permisos sobre <code>nextcloud_db</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-31-1"></a>CREATE USER &#39;nextcloud_user&#39; IDENTIFIED BY &#39;1234&#39;;
+<a name="__codelineno-31-2"></a>
+<a name="__codelineno-31-3"></a>GRANT USAGE ON *.* TO &#39;nextcloud_user&#39;@localhost IDENTIFIED BY &#39;1234&#39;;
+<a name="__codelineno-31-4"></a>
+<a name="__codelineno-31-5"></a>GRANT ALL privileges ON `nextcloud_db`.* TO &#39;nextcloud_user&#39;@localhost;
+<a name="__codelineno-31-6"></a>
+<a name="__codelineno-31-7"></a>FLUSH PRIVILEGES;
+</code></pre></div></p>
+<h4 id="parte-5">Parte 5</h4>
+<blockquote>
+<p>Descargar Nextcloud</p>
+</blockquote>
+<p>En <code>/var/www/nextcloud</code> hago lo siguiente:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-32-1"></a>sudo apt install unzip
+<a name="__codelineno-32-2"></a>sudo wget https://download.nextcloud.com/server/releases/nextcloud-22.2.1.zip
+<a name="__codelineno-32-3"></a>sudo unzip nextcloud-22.2.1.zip
+<a name="__codelineno-32-4"></a>sudo mv nextcloud cloud
+</code></pre></div></p>
+<p>Cambio los propietarios:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-33-1"></a>sudo chown -R www-data:www-data /var/www/nextcloud/
+</code></pre></div></p>
+<p>Así, consigo tener Nextcloud descargado en un directorio <code>cloud</code> dentro del Document Root <code>/var/www/nextcloud</code>, lo cual será una situación muy parecida a lo que tendré en el entorno de producción.</p>
+<h4 id="parte-6">Parte 6</h4>
+<blockquote>
+<p>Instalación de Nextcloud</p>
+</blockquote>
+<p>Para empezar, accedo a <code>www.nextcloud-adrianj.com/cloud</code></p>
+<p>Datos de la cuenta admin:</p>
+<ul>
+<li>Username: admin</li>
+<li>Password: admin1</li>
+</ul>
+<p>Introduciendo esos datos, junto con los de conexión a la BD, instalamos:</p>
+<p><img alt="" src="https://i.imgur.com/WqGri9t.png" /></p>
+<p>Después de esto, ya tendríamos Nextcloud funcionando:</p>
+<p><img alt="" src="https://i.imgur.com/5rkiVm8.png" /></p>
+<h3 id="ejercicio-2_1">Ejercicio 2</h3>
+<p>Realizar la migración de Nextcloud, para que se acceda en <code>www.adrianjaramillo.tk/cloud</code>.</p>
+<h4 id="parte-1_2">Parte 1</h4>
+<blockquote>
+<p>Instalar dependencias y configurar php</p>
+</blockquote>
+<p>Instalo los siguientes paquetes necesarios para que Nextcloud funcione, y que faltan en el VPS:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-34-1"></a>sudo apt install php-cli php-intl php-imagick php-dev php-soap php-bz2
+</code></pre></div></p>
+<p>Modifico las siguientes líneas en <code>/etc/php/7.4/fpm/php.ini</code> y <code>/etc/php/7.4/cli/php.ini</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-35-1"></a>date.timezone = Europe/Madrid
+<a name="__codelineno-35-2"></a>cgi.fix_pathinfo=0
+</code></pre></div></p>
+<p>Descomentar las siguientes líneas en <code>/etc/php/7.4/fpm/pool.d/www.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-36-1"></a>env[HOSTNAME] = $HOSTNAME
+<a name="__codelineno-36-2"></a>env[PATH] = /usr/local/bin:/usr/bin:/bin
+<a name="__codelineno-36-3"></a>env[TMP] = /tmp
+<a name="__codelineno-36-4"></a>env[TMPDIR] = /tmp
+<a name="__codelineno-36-5"></a>env[TEMP] = /tmp
+</code></pre></div></p>
+<p>Habilito y reinicio php-fpm:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-37-1"></a>sudo systemctl enable php7.4-fpm
+<a name="__codelineno-37-2"></a>sudo systemctl restart php7.4-fpm
+</code></pre></div></p>
+<h4 id="parte-2_2">Parte 2</h4>
+<blockquote>
+<p>Transferir el subdirectorio de <code>Nextcloud</code> al VPS mediante repositorios</p>
+</blockquote>
+<p>Hago una copia del subdirectorio que contiene la app en el home:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-38-1"></a>sudo cp -r /var/www/nextcloud/cloud ~
+</code></pre></div></p>
+<p>Cambio los propietarios:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-39-1"></a>sudo chown -R vagrant:vagrant ~/cloud/
+</code></pre></div></p>
+<p>Inicializo el directorio como repo git:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-40-1"></a>git init
+</code></pre></div></p>
+<p>Creo el repositorio en github: <a href="https://github.com/adriasir123/nextcloud-subdirectorio-cloud">https://github.com/adriasir123/nextcloud-subdirectorio-cloud</a></p>
+<p>Subo el directorio al repositorio creado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-41-1"></a>git remote add origin git@github.com:adriasir123/nextcloud-subdirectorio-cloud.git
+<a name="__codelineno-41-2"></a>git branch -M main
+<a name="__codelineno-41-3"></a>git add .
+<a name="__codelineno-41-4"></a>git config --global user.email &quot;adristudy@gmail.com&quot;
+<a name="__codelineno-41-5"></a>git config --global user.name &quot;Adrián Jaramillo Rodríguez&quot;
+<a name="__codelineno-41-6"></a>git commit -m &quot;Initial commit&quot;
+<a name="__codelineno-41-7"></a>git push -u origin main
+</code></pre></div></p>
+<p>Me bajo el repositorio en <code>/var/www/www/cloud</code> del VPS:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-42-1"></a>sudo git clone https://github.com/adriasir123/nextcloud-subdirectorio-cloud.git .
+</code></pre></div></p>
+<p>Modifico los propietarios correctamente en <code>/var/www/www/cloud/</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-43-1"></a>sudo chown -R www-data:www-data /var/www/www/cloud/
+</code></pre></div></p>
+<h4 id="parte-3_2">Parte 3</h4>
+<blockquote>
+<p>Migrar la BD al VPS</p>
+</blockquote>
+<p>Exporto la BD:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-44-1"></a>sudo mysqldump -u root nextcloud_db &gt; nextcloud_db.sql
+</code></pre></div></p>
+<p>Creo la BD para Nextcloud:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-45-1"></a>CREATE DATABASE `nextcloud_db`;
+</code></pre></div></p>
+<p>Creo un usuario con permisos sobre <code>nextcloud_db</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-46-1"></a>CREATE USER &#39;nextcloud_user&#39; IDENTIFIED BY &#39;1234&#39;;
+<a name="__codelineno-46-2"></a>
+<a name="__codelineno-46-3"></a>GRANT USAGE ON *.* TO &#39;nextcloud_user&#39;@localhost IDENTIFIED BY &#39;1234&#39;;
+<a name="__codelineno-46-4"></a>
+<a name="__codelineno-46-5"></a>GRANT ALL privileges ON `nextcloud_db`.* TO &#39;nextcloud_user&#39;@localhost;
+<a name="__codelineno-46-6"></a>
+<a name="__codelineno-46-7"></a>FLUSH PRIVILEGES;
+</code></pre></div></p>
+<p>Importo la copia de seguridad:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-47-1"></a>sudo mysql -u root nextcloud_db &lt; nextcloud_db.sql
+</code></pre></div></p>
+<h4 id="parte-4_2">Parte 4</h4>
+<blockquote>
+<p>Cambiar el fichero de configuración de Nextcloud</p>
+</blockquote>
+<p>Modifico <code>/var/www/www/cloud/config/config.php</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-48-1"></a>&lt;?php
+<a name="__codelineno-48-2"></a>$CONFIG = array (
+<a name="__codelineno-48-3"></a>  &#39;instanceid&#39; =&gt; &#39;ocr2lp6lisyt&#39;,
+<a name="__codelineno-48-4"></a>  &#39;passwordsalt&#39; =&gt; &#39;RjrrSdcDyvgGXhx/Grnoccv298gljL&#39;,
+<a name="__codelineno-48-5"></a>  &#39;secret&#39; =&gt; &#39;b7JkIA6v1+MGT70voUpA9XOvvMRVAc/PsgImxoDmYQytgHut&#39;,
+<a name="__codelineno-48-6"></a>  &#39;trusted_domains&#39; =&gt;
+<a name="__codelineno-48-7"></a>  array (
+<a name="__codelineno-48-8"></a>    0 =&gt; &#39;www.adrianjaramillo.tk&#39;,
+<a name="__codelineno-48-9"></a>  ),
+<a name="__codelineno-48-10"></a>  &#39;datadirectory&#39; =&gt; &#39;/var/www/www/cloud/data&#39;,
+<a name="__codelineno-48-11"></a>  &#39;dbtype&#39; =&gt; &#39;mysql&#39;,
+<a name="__codelineno-48-12"></a>  &#39;version&#39; =&gt; &#39;22.2.1.2&#39;,
+<a name="__codelineno-48-13"></a>  &#39;overwrite.cli.url&#39; =&gt; &#39;http://www.adrianjaramillo.tk/cloud&#39;,
+<a name="__codelineno-48-14"></a>  &#39;dbname&#39; =&gt; &#39;nextcloud_db&#39;,
+<a name="__codelineno-48-15"></a>  &#39;dbhost&#39; =&gt; &#39;bd.adrianjaramillo.tk&#39;,
+<a name="__codelineno-48-16"></a>  &#39;dbport&#39; =&gt; &#39;&#39;,
+<a name="__codelineno-48-17"></a>  &#39;dbtableprefix&#39; =&gt; &#39;oc_&#39;,
+<a name="__codelineno-48-18"></a>  &#39;mysql.utf8mb4&#39; =&gt; true,
+<a name="__codelineno-48-19"></a>  &#39;dbuser&#39; =&gt; &#39;nextcloud_user&#39;,
+<a name="__codelineno-48-20"></a>  &#39;dbpassword&#39; =&gt; &#39;1234&#39;,
+<a name="__codelineno-48-21"></a>  &#39;installed&#39; =&gt; true,
+<a name="__codelineno-48-22"></a>);
+</code></pre></div></p>
+<h4 id="parte-5_1">Parte 5</h4>
+<blockquote>
+<p>Configurar Nginx</p>
+</blockquote>
+<p>Hago una copia de seguridad del VirtualHost que voy a modificar:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-49-1"></a>sudo cp www.conf www.conf.backup
+</code></pre></div></p>
+<p>Modifico <code>www.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-50-1"></a>server {
+<a name="__codelineno-50-2"></a>
+<a name="__codelineno-50-3"></a>    ###########
+<a name="__codelineno-50-4"></a>    # GENERAL #
+<a name="__codelineno-50-5"></a>    ###########
+<a name="__codelineno-50-6"></a>
+<a name="__codelineno-50-7"></a>    listen 80;
+<a name="__codelineno-50-8"></a>    server_name www.adrianjaramillo.tk;
+<a name="__codelineno-50-9"></a>
+<a name="__codelineno-50-10"></a>    root /var/www/www;
+<a name="__codelineno-50-11"></a>    index index.html index.htm;
+<a name="__codelineno-50-12"></a>
+<a name="__codelineno-50-13"></a>    error_page 404 /error/404.html;
+<a name="__codelineno-50-14"></a>    error_page 403 /error/403.html;
+<a name="__codelineno-50-15"></a>
+<a name="__codelineno-50-16"></a>    #############
+<a name="__codelineno-50-17"></a>    # PRINCIPAL #
+<a name="__codelineno-50-18"></a>    #############
+<a name="__codelineno-50-19"></a>
+<a name="__codelineno-50-20"></a>    rewrite ^/$ http://www.adrianjaramillo.tk/principal permanent;
+<a name="__codelineno-50-21"></a>
+<a name="__codelineno-50-22"></a>    location /principal {
+<a name="__codelineno-50-23"></a>        autoindex off;
+<a name="__codelineno-50-24"></a>        disable_symlinks on;
+<a name="__codelineno-50-25"></a>    }
+<a name="__codelineno-50-26"></a>
+<a name="__codelineno-50-27"></a>    location /principal/documentos {
+<a name="__codelineno-50-28"></a>        alias /srv/doc;
+<a name="__codelineno-50-29"></a>        autoindex on;
+<a name="__codelineno-50-30"></a>        disable_symlinks off;
+<a name="__codelineno-50-31"></a>    }
+<a name="__codelineno-50-32"></a>
+<a name="__codelineno-50-33"></a>    location /secreto {
+<a name="__codelineno-50-34"></a>        auth_basic &quot;Acceso restringido&quot;;
+<a name="__codelineno-50-35"></a>        auth_basic_user_file /etc/nginx/.htpasswd;
+<a name="__codelineno-50-36"></a>    }
+<a name="__codelineno-50-37"></a>
+<a name="__codelineno-50-38"></a>    #############
+<a name="__codelineno-50-39"></a>    # NEXTCLOUD #
+<a name="__codelineno-50-40"></a>    #############
+<a name="__codelineno-50-41"></a>
+<a name="__codelineno-50-42"></a>    location = /robots.txt {
+<a name="__codelineno-50-43"></a>        allow all;
+<a name="__codelineno-50-44"></a>        log_not_found off;
+<a name="__codelineno-50-45"></a>        access_log off;
+<a name="__codelineno-50-46"></a>    }
+<a name="__codelineno-50-47"></a>
+<a name="__codelineno-50-48"></a>    location ^~ /.well-known {
+<a name="__codelineno-50-49"></a>        # The rules in this block are an adaptation of the rules
+<a name="__codelineno-50-50"></a>        # in the Nextcloud `.htaccess` that concern `/.well-known`.
+<a name="__codelineno-50-51"></a>
+<a name="__codelineno-50-52"></a>        location = /.well-known/carddav { return 301 /cloud/remote.php/dav/; }
+<a name="__codelineno-50-53"></a>        location = /.well-known/caldav  { return 301 /cloud/remote.php/dav/; }
+<a name="__codelineno-50-54"></a>
+<a name="__codelineno-50-55"></a>        location /.well-known/acme-challenge    { try_files $uri $uri/ =404; }
+<a name="__codelineno-50-56"></a>        location /.well-known/pki-validation    { try_files $uri $uri/ =404; }
+<a name="__codelineno-50-57"></a>
+<a name="__codelineno-50-58"></a>        # Let Nextcloud&#39;s API for `/.well-known` URIs handle all other
+<a name="__codelineno-50-59"></a>        # requests by passing them to the front-end controller.
+<a name="__codelineno-50-60"></a>        return 301 /cloud/index.php$request_uri;
+<a name="__codelineno-50-61"></a>    }
+<a name="__codelineno-50-62"></a>
+<a name="__codelineno-50-63"></a>    location ^~ /cloud {
+<a name="__codelineno-50-64"></a>        # set max upload size and increase upload timeout:
+<a name="__codelineno-50-65"></a>        client_max_body_size 512M;
+<a name="__codelineno-50-66"></a>        client_body_timeout 300s;
+<a name="__codelineno-50-67"></a>        fastcgi_buffers 64 4K;
+<a name="__codelineno-50-68"></a>
+<a name="__codelineno-50-69"></a>        # Enable gzip but do not remove ETag headers
+<a name="__codelineno-50-70"></a>        gzip on;
+<a name="__codelineno-50-71"></a>        gzip_vary on;
+<a name="__codelineno-50-72"></a>        gzip_comp_level 4;
+<a name="__codelineno-50-73"></a>        gzip_min_length 256;
+<a name="__codelineno-50-74"></a>        gzip_proxied expired no-cache no-store private no_last_modified no_etag auth;
+<a name="__codelineno-50-75"></a>        gzip_types application/atom+xml application/javascript application/json application/ld+json application/manifest+json application/rss+xml application/vnd.geo+json application/vnd.ms-fontobject application/x-font-ttf application/x-web-app-manifest+json application/xhtml+xml application/xml font/opentype image/bmp image/svg+xml image/x-icon text/cache-manifest text/css text/plain text/vcard text/vnd.rim.location.xloc text/vtt text/x-component text/x-cross-domain-policy;
+<a name="__codelineno-50-76"></a>
+<a name="__codelineno-50-77"></a>        # Pagespeed is not supported by Nextcloud, so if your server is built
+<a name="__codelineno-50-78"></a>        # with the `ngx_pagespeed` module, uncomment this line to disable it.
+<a name="__codelineno-50-79"></a>        #pagespeed off;
+<a name="__codelineno-50-80"></a>
+<a name="__codelineno-50-81"></a>        # HTTP response headers borrowed from Nextcloud `.htaccess`
+<a name="__codelineno-50-82"></a>        add_header Referrer-Policy                      &quot;no-referrer&quot;   always;
+<a name="__codelineno-50-83"></a>        add_header X-Content-Type-Options               &quot;nosniff&quot;       always;
+<a name="__codelineno-50-84"></a>        add_header X-Download-Options                   &quot;noopen&quot;        always;
+<a name="__codelineno-50-85"></a>        add_header X-Frame-Options                      &quot;SAMEORIGIN&quot;    always;
+<a name="__codelineno-50-86"></a>        add_header X-Permitted-Cross-Domain-Policies    &quot;none&quot;          always;
+<a name="__codelineno-50-87"></a>        add_header X-Robots-Tag                         &quot;none&quot;          always;
+<a name="__codelineno-50-88"></a>        add_header X-XSS-Protection                     &quot;1; mode=block&quot; always;
+<a name="__codelineno-50-89"></a>
+<a name="__codelineno-50-90"></a>        # Remove X-Powered-By, which is an information leak
+<a name="__codelineno-50-91"></a>        fastcgi_hide_header X-Powered-By;
+<a name="__codelineno-50-92"></a>
+<a name="__codelineno-50-93"></a>        # Specify how to handle directories -- specifying `/nextcloud/index.php$request_uri`
+<a name="__codelineno-50-94"></a>        # here as the fallback means that Nginx always exhibits the desired behaviour
+<a name="__codelineno-50-95"></a>        # when a client requests a path that corresponds to a directory that exists
+<a name="__codelineno-50-96"></a>        # on the server. In particular, if that directory contains an index.php file,
+<a name="__codelineno-50-97"></a>        # that file is correctly served; if it doesn&#39;t, then the request is passed to
+<a name="__codelineno-50-98"></a>        # the front-end controller. This consistent behaviour means that we don&#39;t need
+<a name="__codelineno-50-99"></a>        # to specify custom rules for certain paths (e.g. images and other assets,
+<a name="__codelineno-50-100"></a>        # `/updater`, `/ocm-provider`, `/ocs-provider`), and thus
+<a name="__codelineno-50-101"></a>        # `try_files $uri $uri/ /nextcloud/index.php$request_uri`
+<a name="__codelineno-50-102"></a>        # always provides the desired behaviour.
+<a name="__codelineno-50-103"></a>        index index.php index.html /cloud/index.php$request_uri;
+<a name="__codelineno-50-104"></a>
+<a name="__codelineno-50-105"></a>        # Rule borrowed from `.htaccess` to handle Microsoft DAV clients
+<a name="__codelineno-50-106"></a>        location = /cloud {
+<a name="__codelineno-50-107"></a>            if ( $http_user_agent ~ ^DavClnt ) {
+<a name="__codelineno-50-108"></a>                return 302 /cloud/remote.php/webdav/$is_args$args;
+<a name="__codelineno-50-109"></a>            }
+<a name="__codelineno-50-110"></a>        }
+<a name="__codelineno-50-111"></a>
+<a name="__codelineno-50-112"></a>        # Rules borrowed from `.htaccess` to hide certain paths from clients
+<a name="__codelineno-50-113"></a>        location ~ ^/cloud/(?:build|tests|config|lib|3rdparty|templates|data)(?:$|/)    { return 404; }
+<a name="__codelineno-50-114"></a>        location ~ ^/cloud/(?:\.|autotest|occ|issue|indie|db_|console)                  { return 404; }
+<a name="__codelineno-50-115"></a>
+<a name="__codelineno-50-116"></a>        # Ensure this block, which passes PHP files to the PHP process, is above the blocks
+<a name="__codelineno-50-117"></a>        # which handle static assets (as seen below). If this block is not declared first,
+<a name="__codelineno-50-118"></a>        # then Nginx will encounter an infinite rewriting loop when it prepends
+<a name="__codelineno-50-119"></a>        # `/nextcloud/index.php` to the URI, resulting in a HTTP 500 error response.
+<a name="__codelineno-50-120"></a>        location ~ \.php(?:$|/) {
+<a name="__codelineno-50-121"></a>            # Required for legacy support
+<a name="__codelineno-50-122"></a>            rewrite ^/cloud/(?!index|remote|public|cron|core\/ajax\/update|status|ocs\/v[12]|updater\/.+|oc[ms]-provider\/.+|.+\/richdocumentscode\/proxy) /cloud/index.php$request_uri;
+<a name="__codelineno-50-123"></a>
+<a name="__codelineno-50-124"></a>            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+<a name="__codelineno-50-125"></a>            set $path_info $fastcgi_path_info;
+<a name="__codelineno-50-126"></a>
+<a name="__codelineno-50-127"></a>            try_files $fastcgi_script_name =404;
+<a name="__codelineno-50-128"></a>
+<a name="__codelineno-50-129"></a>            include fastcgi_params;
+<a name="__codelineno-50-130"></a>            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+<a name="__codelineno-50-131"></a>            fastcgi_param PATH_INFO $path_info;
+<a name="__codelineno-50-132"></a>
+<a name="__codelineno-50-133"></a>            fastcgi_param modHeadersAvailable true;         # Avoid sending the security headers twice
+<a name="__codelineno-50-134"></a>            fastcgi_param front_controller_active true;     # Enable pretty urls
+<a name="__codelineno-50-135"></a>            fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+<a name="__codelineno-50-136"></a>
+<a name="__codelineno-50-137"></a>            fastcgi_intercept_errors on;
+<a name="__codelineno-50-138"></a>            fastcgi_request_buffering off;
+<a name="__codelineno-50-139"></a>        }
+<a name="__codelineno-50-140"></a>
+<a name="__codelineno-50-141"></a>        location ~ \.(?:css|js|svg|gif|png|jpg|ico)$ {
+<a name="__codelineno-50-142"></a>            try_files $uri /cloud/index.php$request_uri;
+<a name="__codelineno-50-143"></a>            expires 6M;         # Cache-Control policy borrowed from `.htaccess`
+<a name="__codelineno-50-144"></a>            access_log off;     # Optional: Don&#39;t log access to assets
+<a name="__codelineno-50-145"></a>        }
+<a name="__codelineno-50-146"></a>
+<a name="__codelineno-50-147"></a>        location ~ \.woff2?$ {
+<a name="__codelineno-50-148"></a>            try_files $uri /cloud/index.php$request_uri;
+<a name="__codelineno-50-149"></a>            expires 7d;         # Cache-Control policy borrowed from `.htaccess`
+<a name="__codelineno-50-150"></a>            access_log off;     # Optional: Don&#39;t log access to assets
+<a name="__codelineno-50-151"></a>        }
+<a name="__codelineno-50-152"></a>
+<a name="__codelineno-50-153"></a>        # Rule borrowed from `.htaccess`
+<a name="__codelineno-50-154"></a>        location /cloud/remote {
+<a name="__codelineno-50-155"></a>            return 301 /cloud/remote.php$request_uri;
+<a name="__codelineno-50-156"></a>        }
+<a name="__codelineno-50-157"></a>
+<a name="__codelineno-50-158"></a>        location /cloud {
+<a name="__codelineno-50-159"></a>            try_files $uri $uri/ /cloud/index.php$request_uri;
+<a name="__codelineno-50-160"></a>        }
+<a name="__codelineno-50-161"></a>    }
+<a name="__codelineno-50-162"></a>}
+</code></pre></div></p>
+<p>Después de esto, reinicio tanto Nginx como PHP-FPM para asegurarme de que no tendré problemas al hacer las pruebas:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-51-1"></a>sudo systemctl restart nginx.service
+<a name="__codelineno-51-2"></a>sudo systemctl restart php7.4-fpm.service
+</code></pre></div></p>
+<h4 id="parte-6_1">Parte 6</h4>
+<blockquote>
+<p>Comprobar que Nextcloud funciona en el VPS accediendo a <code>www.adrianjaramillo.tk/cloud</code></p>
+</blockquote>
+<p><img alt="" src="https://i.postimg.cc/J4sKCRW2/nextcloud-vps.gif" /></p>
+<h4 id="parte-7">Parte 7</h4>
+<blockquote>
+<p>Comprobar que la página principal sigue funcionando, junto con las configuraciones que tenía</p>
+</blockquote>
+<p><img alt="" src="https://i.postimg.cc/Yq2vjBff/principal-sigue-funcionando-tras-migracion-nextcloud.gif" /></p>
+<h3 id="ejercicio-3_1">Ejercicio 3</h3>
+<blockquote>
+<p>Instalar en tu máquina el cliente de Nextcloud y configurarlo para el acceso al VPS.</p>
+</blockquote>
+<p>Está disponible en los repositorios de Debian, por lo que:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-52-1"></a>sudo apt update
+<a name="__codelineno-52-2"></a>sudo apt install nextcloud-desktop
+</code></pre></div></p>
+<p>Paso a configurarlo:</p>
+<p><img alt="" src="https://i.imgur.com/LNwDmov.png" /></p>
+<p><img alt="" src="https://i.imgur.com/lqI9BUp.png" /></p>
+<p>Nos pide autenticarnos desde el navegador antes de entrar:</p>
+<p><img alt="" src="https://i.imgur.com/IBEgsEr.png" /></p>
+<p>El directorio local indicado, es el que se utilizará para la sincronización:</p>
+<p><img alt="" src="https://i.imgur.com/6Vxpb3j.png" /></p>
+<p>Así se vería nuestro cliente después de haber sincronizado y estar funcionando:</p>
+<p><img alt="" src="https://i.imgur.com/7A6xIRM.png" /></p>
+<p>Abajo muestro el directorio local que me ha sincronizado el cliente:</p>
+<p><img alt="" src="https://i.imgur.com/f6ecjdT.png" /></p>
+<h2 id="tarea-3">Tarea 3</h2>
+<blockquote>
+<p>Modificar la web principal con accesos a las 2 apps migradas</p>
+</blockquote>
+<p><img alt="" src="https://i.postimg.cc/8CJshYG0/principal-accesos-apps.gif" /></p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/practica2-instalacion-migracion-apps-PHP-en-VPS/",this.page.identifier="practica2-instalacion-migracion-apps-PHP-en-VPS/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../practica1-implantacion-apps-php/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Práctica 1: Apps PHP" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Práctica 1: Apps PHP
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-footer__link md-footer__link--next" aria-label="Next: Ejercicio 1: Apache + mod_wsgi" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Ejercicio 1: Apache + mod_wsgi
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,4295 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/practica-vpn-sad/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Práctica: VPN - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-vpn" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Práctica: VPN
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Práctica: VPN
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Práctica: VPN
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1-acceso-remoto-openvpn" class="md-nav__link">
+    Parte 1: acceso remoto OpenVPN
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 1: acceso remoto OpenVPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    Escenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-servervpn" class="md-nav__link">
+    En servervpn
+  </a>
+  
+    <nav class="md-nav" aria-label="En servervpn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-openvpn" class="md-nav__link">
+    Instalar OpenVPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#habilitar-forwarding" class="md-nav__link">
+    Habilitar forwarding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-infraestructura-de-clave-publica" class="md-nav__link">
+    Crear infraestructura de clave pública
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-de-la-ca" class="md-nav__link">
+    Generar certificado + clave privada de la CA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-del-servidor-vpn" class="md-nav__link">
+    Generar certificado + clave privada del servidor VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-parametros-diffiehellman" class="md-nav__link">
+    Generar parámetros Diffie–Hellman
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-del-cliente-vpn" class="md-nav__link">
+    Generar certificado + clave privada del cliente VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pasar-ficheros-necesarios-al-cliente-vpn" class="md-nav__link">
+    Pasar ficheros necesarios al cliente VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-el-servidor-vpn" class="md-nav__link">
+    Configurar el servidor VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-el-servidor" class="md-nav__link">
+    Iniciar el servidor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientevpn" class="md-nav__link">
+    En clientevpn
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientevpn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-openvpn_1" class="md-nav__link">
+    Instalar OpenVPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mover-ficheros-a-la-ruta-adecuada" class="md-nav__link">
+    Mover ficheros a la ruta adecuada
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-el-cliente-vpn" class="md-nav__link">
+    Configurar el cliente VPN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal" class="md-nav__link">
+    En clientenormal
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2-sitio-a-sitio-openvpn" class="md-nav__link">
+    Parte 2: sitio a sitio OpenVPN
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 2: sitio a sitio OpenVPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario_1" class="md-nav__link">
+    Escenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-servervpn_1" class="md-nav__link">
+    En servervpn
+  </a>
+  
+    <nav class="md-nav" aria-label="En servervpn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-openvpn_2" class="md-nav__link">
+    Instalar OpenVPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#habilitar-forwarding_1" class="md-nav__link">
+    Habilitar forwarding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-pki" class="md-nav__link">
+    Crear PKI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-de-la-ca_1" class="md-nav__link">
+    Generar certificado + clave privada de la CA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-del-servidor-vpn_1" class="md-nav__link">
+    Generar certificado + clave privada del servidor VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-parametros-diffiehellman_1" class="md-nav__link">
+    Generar parámetros Diffie–Hellman
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-del-cliente-vpn_1" class="md-nav__link">
+    Generar certificado + clave privada del cliente VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pasar-ficheros-necesarios-al-cliente-vpn_1" class="md-nav__link">
+    Pasar ficheros necesarios al cliente VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-el-servidor-vpn_1" class="md-nav__link">
+    Configurar el servidor VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-el-servidor_1" class="md-nav__link">
+    Iniciar el servidor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientevpn_1" class="md-nav__link">
+    En clientevpn
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientevpn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-openvpn_3" class="md-nav__link">
+    Instalar OpenVPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#habilitar-forwarding_2" class="md-nav__link">
+    Habilitar forwarding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mover-ficheros-a-la-ruta-adecuada_1" class="md-nav__link">
+    Mover ficheros a la ruta adecuada
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-el-cliente-vpn_1" class="md-nav__link">
+    Configurar el cliente VPN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal1" class="md-nav__link">
+    En clientenormal1
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto_1" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal2" class="md-nav__link">
+    En clientenormal2
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto_2" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento_1" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-3-acceso-remoto-wireguard" class="md-nav__link">
+    Parte 3: acceso remoto WireGuard
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 3: acceso remoto WireGuard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario_2" class="md-nav__link">
+    Escenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-servervpn_2" class="md-nav__link">
+    En servervpn
+  </a>
+  
+    <nav class="md-nav" aria-label="En servervpn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-wireguard" class="md-nav__link">
+    Instalar WireGuard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-par-de-claves" class="md-nav__link">
+    Generar par de claves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar" class="md-nav__link">
+    Configurar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-permisos" class="md-nav__link">
+    Modificar permisos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-wireguard" class="md-nav__link">
+    Iniciar WireGuard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientevpn-debian-11" class="md-nav__link">
+    En clientevpn (debian 11)
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientevpn (debian 11)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-wireguard_1" class="md-nav__link">
+    Instalar WireGuard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-par-de-claves_1" class="md-nav__link">
+    Generar par de claves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar_1" class="md-nav__link">
+    Configurar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-permisos_1" class="md-nav__link">
+    Modificar permisos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-wireguard_1" class="md-nav__link">
+    Iniciar WireGuard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal_1" class="md-nav__link">
+    En clientenormal
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto_3" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento_2" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extra-cliente-vpn-windows" class="md-nav__link">
+    Extra: cliente VPN Windows
+  </a>
+  
+    <nav class="md-nav" aria-label="Extra: cliente VPN Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conectar-cliente" class="md-nav__link">
+    Conectar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-cliente" class="md-nav__link">
+    Configurar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-el-servidor" class="md-nav__link">
+    Modificar el servidor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activar-cliente" class="md-nav__link">
+    Activar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento_3" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extra-cliente-vpn-android" class="md-nav__link">
+    Extra: cliente VPN Android
+  </a>
+  
+    <nav class="md-nav" aria-label="Extra: cliente VPN Android">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conectar-cliente_1" class="md-nav__link">
+    Conectar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-cliente_1" class="md-nav__link">
+    Configurar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-el-servidor_1" class="md-nav__link">
+    Modificar el servidor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activar-cliente_1" class="md-nav__link">
+    Activar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento_4" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusiones" class="md-nav__link">
+    Conclusiones
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-4-sitio-a-sitio-wireguard" class="md-nav__link">
+    Parte 4: sitio a sitio WireGuard
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 4: sitio a sitio WireGuard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario_3" class="md-nav__link">
+    Escenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-peervpn1" class="md-nav__link">
+    En peervpn1
+  </a>
+  
+    <nav class="md-nav" aria-label="En peervpn1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-wireguard_2" class="md-nav__link">
+    Instalar WireGuard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-par-de-claves_2" class="md-nav__link">
+    Generar par de claves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar_2" class="md-nav__link">
+    Configurar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-permisos_2" class="md-nav__link">
+    Modificar permisos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-wireguard_2" class="md-nav__link">
+    Iniciar WireGuard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-peervpn2" class="md-nav__link">
+    En peervpn2
+  </a>
+  
+    <nav class="md-nav" aria-label="En peervpn2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-wireguard_3" class="md-nav__link">
+    Instalar WireGuard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-par-de-claves_3" class="md-nav__link">
+    Generar par de claves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar_3" class="md-nav__link">
+    Configurar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-permisos_3" class="md-nav__link">
+    Modificar permisos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-wireguard_3" class="md-nav__link">
+    Iniciar WireGuard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal1_1" class="md-nav__link">
+    En clientenormal1
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto_4" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal2_1" class="md-nav__link">
+    En clientenormal2
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto_5" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento_5" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusiones_1" class="md-nav__link">
+    Conclusiones
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bibliografia" class="md-nav__link">
+    Bibliografía
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1-acceso-remoto-openvpn" class="md-nav__link">
+    Parte 1: acceso remoto OpenVPN
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 1: acceso remoto OpenVPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    Escenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-servervpn" class="md-nav__link">
+    En servervpn
+  </a>
+  
+    <nav class="md-nav" aria-label="En servervpn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-openvpn" class="md-nav__link">
+    Instalar OpenVPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#habilitar-forwarding" class="md-nav__link">
+    Habilitar forwarding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-infraestructura-de-clave-publica" class="md-nav__link">
+    Crear infraestructura de clave pública
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-de-la-ca" class="md-nav__link">
+    Generar certificado + clave privada de la CA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-del-servidor-vpn" class="md-nav__link">
+    Generar certificado + clave privada del servidor VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-parametros-diffiehellman" class="md-nav__link">
+    Generar parámetros Diffie–Hellman
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-del-cliente-vpn" class="md-nav__link">
+    Generar certificado + clave privada del cliente VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pasar-ficheros-necesarios-al-cliente-vpn" class="md-nav__link">
+    Pasar ficheros necesarios al cliente VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-el-servidor-vpn" class="md-nav__link">
+    Configurar el servidor VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-el-servidor" class="md-nav__link">
+    Iniciar el servidor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientevpn" class="md-nav__link">
+    En clientevpn
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientevpn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-openvpn_1" class="md-nav__link">
+    Instalar OpenVPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mover-ficheros-a-la-ruta-adecuada" class="md-nav__link">
+    Mover ficheros a la ruta adecuada
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-el-cliente-vpn" class="md-nav__link">
+    Configurar el cliente VPN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal" class="md-nav__link">
+    En clientenormal
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2-sitio-a-sitio-openvpn" class="md-nav__link">
+    Parte 2: sitio a sitio OpenVPN
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 2: sitio a sitio OpenVPN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario_1" class="md-nav__link">
+    Escenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-servervpn_1" class="md-nav__link">
+    En servervpn
+  </a>
+  
+    <nav class="md-nav" aria-label="En servervpn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-openvpn_2" class="md-nav__link">
+    Instalar OpenVPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#habilitar-forwarding_1" class="md-nav__link">
+    Habilitar forwarding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-pki" class="md-nav__link">
+    Crear PKI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-de-la-ca_1" class="md-nav__link">
+    Generar certificado + clave privada de la CA
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-del-servidor-vpn_1" class="md-nav__link">
+    Generar certificado + clave privada del servidor VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-parametros-diffiehellman_1" class="md-nav__link">
+    Generar parámetros Diffie–Hellman
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-certificado-clave-privada-del-cliente-vpn_1" class="md-nav__link">
+    Generar certificado + clave privada del cliente VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pasar-ficheros-necesarios-al-cliente-vpn_1" class="md-nav__link">
+    Pasar ficheros necesarios al cliente VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-el-servidor-vpn_1" class="md-nav__link">
+    Configurar el servidor VPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-el-servidor_1" class="md-nav__link">
+    Iniciar el servidor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientevpn_1" class="md-nav__link">
+    En clientevpn
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientevpn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-openvpn_3" class="md-nav__link">
+    Instalar OpenVPN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#habilitar-forwarding_2" class="md-nav__link">
+    Habilitar forwarding
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mover-ficheros-a-la-ruta-adecuada_1" class="md-nav__link">
+    Mover ficheros a la ruta adecuada
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-el-cliente-vpn_1" class="md-nav__link">
+    Configurar el cliente VPN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal1" class="md-nav__link">
+    En clientenormal1
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto_1" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal2" class="md-nav__link">
+    En clientenormal2
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto_2" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento_1" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-3-acceso-remoto-wireguard" class="md-nav__link">
+    Parte 3: acceso remoto WireGuard
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 3: acceso remoto WireGuard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario_2" class="md-nav__link">
+    Escenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-servervpn_2" class="md-nav__link">
+    En servervpn
+  </a>
+  
+    <nav class="md-nav" aria-label="En servervpn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-wireguard" class="md-nav__link">
+    Instalar WireGuard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-par-de-claves" class="md-nav__link">
+    Generar par de claves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar" class="md-nav__link">
+    Configurar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-permisos" class="md-nav__link">
+    Modificar permisos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-wireguard" class="md-nav__link">
+    Iniciar WireGuard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientevpn-debian-11" class="md-nav__link">
+    En clientevpn (debian 11)
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientevpn (debian 11)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-wireguard_1" class="md-nav__link">
+    Instalar WireGuard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-par-de-claves_1" class="md-nav__link">
+    Generar par de claves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar_1" class="md-nav__link">
+    Configurar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-permisos_1" class="md-nav__link">
+    Modificar permisos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-wireguard_1" class="md-nav__link">
+    Iniciar WireGuard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal_1" class="md-nav__link">
+    En clientenormal
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto_3" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento_2" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extra-cliente-vpn-windows" class="md-nav__link">
+    Extra: cliente VPN Windows
+  </a>
+  
+    <nav class="md-nav" aria-label="Extra: cliente VPN Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conectar-cliente" class="md-nav__link">
+    Conectar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-cliente" class="md-nav__link">
+    Configurar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-el-servidor" class="md-nav__link">
+    Modificar el servidor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activar-cliente" class="md-nav__link">
+    Activar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento_3" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extra-cliente-vpn-android" class="md-nav__link">
+    Extra: cliente VPN Android
+  </a>
+  
+    <nav class="md-nav" aria-label="Extra: cliente VPN Android">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conectar-cliente_1" class="md-nav__link">
+    Conectar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar-cliente_1" class="md-nav__link">
+    Configurar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-el-servidor_1" class="md-nav__link">
+    Modificar el servidor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#activar-cliente_1" class="md-nav__link">
+    Activar cliente
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento_4" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusiones" class="md-nav__link">
+    Conclusiones
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-4-sitio-a-sitio-wireguard" class="md-nav__link">
+    Parte 4: sitio a sitio WireGuard
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 4: sitio a sitio WireGuard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#escenario_3" class="md-nav__link">
+    Escenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-peervpn1" class="md-nav__link">
+    En peervpn1
+  </a>
+  
+    <nav class="md-nav" aria-label="En peervpn1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-wireguard_2" class="md-nav__link">
+    Instalar WireGuard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-par-de-claves_2" class="md-nav__link">
+    Generar par de claves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar_2" class="md-nav__link">
+    Configurar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-permisos_2" class="md-nav__link">
+    Modificar permisos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-wireguard_2" class="md-nav__link">
+    Iniciar WireGuard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-peervpn2" class="md-nav__link">
+    En peervpn2
+  </a>
+  
+    <nav class="md-nav" aria-label="En peervpn2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-wireguard_3" class="md-nav__link">
+    Instalar WireGuard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generar-par-de-claves_3" class="md-nav__link">
+    Generar par de claves
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configurar_3" class="md-nav__link">
+    Configurar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-permisos_3" class="md-nav__link">
+    Modificar permisos
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iniciar-wireguard_3" class="md-nav__link">
+    Iniciar WireGuard
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal1_1" class="md-nav__link">
+    En clientenormal1
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto_4" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-clientenormal2_1" class="md-nav__link">
+    En clientenormal2
+  </a>
+  
+    <nav class="md-nav" aria-label="En clientenormal2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cambiar-ruta-por-defecto_5" class="md-nav__link">
+    Cambiar ruta por defecto
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pruebas-de-funcionamiento_5" class="md-nav__link">
+    Pruebas de funcionamiento
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conclusiones_1" class="md-nav__link">
+    Conclusiones
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bibliografia" class="md-nav__link">
+    Bibliografía
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="practica-vpn">Práctica: VPN</h1>
+<h2 id="parte-1-acceso-remoto-openvpn">Parte 1: acceso remoto OpenVPN</h2>
+<h3 id="escenario">Escenario</h3>
+<p><img alt="" src="https://i.postimg.cc/tJktZ6nV/acceso-remoto-openvpn.jpg" /></p>
+<p><code>Vagrantfile</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-0-2"></a>
+<a name="__codelineno-0-3"></a>config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-0-4"></a>
+<a name="__codelineno-0-5"></a>  config.vm.provider :libvirt do |libvirt|
+<a name="__codelineno-0-6"></a>    libvirt.cpus = 1
+<a name="__codelineno-0-7"></a>    libvirt.memory = 512
+<a name="__codelineno-0-8"></a>  end
+<a name="__codelineno-0-9"></a>
+<a name="__codelineno-0-10"></a>  config.vm.define :clientevpn do |clientevpn|
+<a name="__codelineno-0-11"></a>    clientevpn.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-0-12"></a>    clientevpn.vm.hostname = &quot;clientevpn&quot;
+<a name="__codelineno-0-13"></a>    clientevpn.vm.network :private_network,
+<a name="__codelineno-0-14"></a>      :libvirt__network_name =&gt; &quot;externa-vpn&quot;,
+<a name="__codelineno-0-15"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-16"></a>      :ip =&gt; &quot;192.88.99.11&quot;,
+<a name="__codelineno-0-17"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-0-18"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-19"></a>  end
+<a name="__codelineno-0-20"></a>
+<a name="__codelineno-0-21"></a>  config.vm.define :servervpn do |servervpn|
+<a name="__codelineno-0-22"></a>    servervpn.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-0-23"></a>    servervpn.vm.hostname = &quot;servervpn&quot;
+<a name="__codelineno-0-24"></a>    servervpn.vm.network :private_network,
+<a name="__codelineno-0-25"></a>      :libvirt__network_name =&gt; &quot;externa-vpn&quot;,
+<a name="__codelineno-0-26"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-27"></a>      :ip =&gt; &quot;192.88.99.10&quot;,
+<a name="__codelineno-0-28"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-0-29"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-30"></a>    servervpn.vm.network :private_network,
+<a name="__codelineno-0-31"></a>      :libvirt__network_name =&gt; &quot;interna-vpn&quot;,
+<a name="__codelineno-0-32"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-33"></a>      :ip =&gt; &quot;192.168.0.1&quot;,
+<a name="__codelineno-0-34"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-0-35"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-36"></a>  end
+<a name="__codelineno-0-37"></a>
+<a name="__codelineno-0-38"></a>  config.vm.define :clientenormal do |clientenormal|
+<a name="__codelineno-0-39"></a>    clientenormal.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-0-40"></a>    clientenormal.vm.hostname = &quot;clientenormal&quot;
+<a name="__codelineno-0-41"></a>    clientenormal.vm.network :private_network,
+<a name="__codelineno-0-42"></a>      :libvirt__network_name =&gt; &quot;interna-vpn&quot;,
+<a name="__codelineno-0-43"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-44"></a>      :ip =&gt; &quot;192.168.0.5&quot;,
+<a name="__codelineno-0-45"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-0-46"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-47"></a>  end
+<a name="__codelineno-0-48"></a>
+<a name="__codelineno-0-49"></a>end
+</code></pre></div></p>
+<h3 id="en-servervpn">En servervpn</h3>
+<h4 id="instalar-openvpn">Instalar OpenVPN</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>sudo apt update
+<a name="__codelineno-1-2"></a>sudo apt install openvpn
+</code></pre></div>
+<h4 id="habilitar-forwarding">Habilitar forwarding</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+</code></pre></div>
+<h4 id="crear-infraestructura-de-clave-publica">Crear infraestructura de clave pública</h4>
+<p>Según la guía que estoy siguiendo es necesario copiar la configuración de <code>/usr/share/easy-rsa</code> a <code>/etc/openvpn</code> antes de continuar, para prevenir que futuras actualizaciones del paquete OpenVPN modifiquen las configuraciones que hagamos.</p>
+<p>En nuestro caso esta posibilidad <strong>nunca llegaría a hacerse realidad</strong>, puesto que lo que estamos haciendo es simplemente una práctica, que se extiende durante un periodo de tiempo relativamente corto.</p>
+<p>Aún así, lo hago por razones de organización, ya que todas las configuraciones manuales deben estar bajo <code>/etc</code>.</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>sudo cp -r /usr/share/easy-rsa /etc/openvpn
+<a name="__codelineno-3-2"></a>cd /etc/openvpn/easy-rsa
+</code></pre></div>
+<p>Inicializamos la PKI:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>sudo ./easyrsa init-pki
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>init-pki complete; you may now create a CA or requests.
+<a name="__codelineno-5-2"></a>Your newly created PKI dir is: /etc/openvpn/easy-rsa/pki
+</code></pre></div></p>
+<h4 id="generar-certificado-clave-privada-de-la-ca">Generar certificado + clave privada de la CA</h4>
+<p>En este paso obtendremos el par de claves necesario de la Autoridad Certificadora (CA).</p>
+<p>Posteriormente, es esta clave privada la que se usará para firmar los certificados tanto del servidor como del cliente.</p>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>sudo ./easyrsa build-ca
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>Using SSL: openssl OpenSSL 1.1.1k  25 Mar 2021
+<a name="__codelineno-7-2"></a>
+<a name="__codelineno-7-3"></a>Enter New CA Key Passphrase:
+<a name="__codelineno-7-4"></a>Re-Enter New CA Key Passphrase:
+<a name="__codelineno-7-5"></a>Generating RSA private key, 2048 bit long modulus (2 primes)
+<a name="__codelineno-7-6"></a>........................................................................................+++++
+<a name="__codelineno-7-7"></a>.......................................+++++
+<a name="__codelineno-7-8"></a>e is 65537 (0x010001)
+<a name="__codelineno-7-9"></a>You are about to be asked to enter information that will be incorporated
+<a name="__codelineno-7-10"></a>into your certificate request.
+<a name="__codelineno-7-11"></a>What you are about to enter is what is called a Distinguished Name or a DN.
+<a name="__codelineno-7-12"></a>There are quite a few fields but you can leave some blank
+<a name="__codelineno-7-13"></a>For some fields there will be a default value,
+<a name="__codelineno-7-14"></a>If you enter &#39;.&#39;, the field will be left blank.
+<a name="__codelineno-7-15"></a>-----
+<a name="__codelineno-7-16"></a>Common Name (eg: your user, host, or server name) [Easy-RSA CA]:Adrianj CA
+<a name="__codelineno-7-17"></a>
+<a name="__codelineno-7-18"></a>CA creation complete and you may now import and sign cert requests.
+<a name="__codelineno-7-19"></a>Your new CA certificate file for publishing is at:
+<a name="__codelineno-7-20"></a>/etc/openvpn/easy-rsa/pki/ca.crt
+</code></pre></div>
+Passphrase: 1234</p>
+<p>Certificado generado: <code>/etc/openvpn/easy-rsa/pki/ca.crt</code><br />
+Clave privada generada: <code>/etc/openvpn/easy-rsa/pki/private/ca.key</code></p>
+<h4 id="generar-certificado-clave-privada-del-servidor-vpn">Generar certificado + clave privada del servidor VPN</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>sudo ./easyrsa build-server-full server nopass
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>Using SSL: openssl OpenSSL 1.1.1k  25 Mar 2021
+<a name="__codelineno-9-2"></a>Generating a RSA private key
+<a name="__codelineno-9-3"></a>.......+++++
+<a name="__codelineno-9-4"></a>............................+++++
+<a name="__codelineno-9-5"></a>writing new private key to &#39;/etc/openvpn/easy-rsa/pki/easy-rsa-2389.Tqf1G1/tmp.Ow20MK&#39;
+<a name="__codelineno-9-6"></a>-----
+<a name="__codelineno-9-7"></a>Using configuration from /etc/openvpn/easy-rsa/pki/easy-rsa-2389.Tqf1G1/tmp.5Exl9Q
+<a name="__codelineno-9-8"></a>Enter pass phrase for /etc/openvpn/easy-rsa/pki/private/ca.key:
+<a name="__codelineno-9-9"></a>Check that the request matches the signature
+<a name="__codelineno-9-10"></a>Signature ok
+<a name="__codelineno-9-11"></a>The Subject&#39;s Distinguished Name is as follows
+<a name="__codelineno-9-12"></a>commonName            :ASN.1 12:&#39;server&#39;
+<a name="__codelineno-9-13"></a>Certificate is to be certified until Mar 18 08:30:09 2024 GMT (825 days)
+<a name="__codelineno-9-14"></a>
+<a name="__codelineno-9-15"></a>Write out database with 1 new entries
+<a name="__codelineno-9-16"></a>Data Base Updated
+</code></pre></div></p>
+<p>Certificado generado: <code>/etc/openvpn/easy-rsa/pki/issued/server.crt</code><br />
+Clave privada generada: <code>/etc/openvpn/easy-rsa/pki/private/server.key</code></p>
+<h4 id="generar-parametros-diffiehellman">Generar parámetros Diffie–Hellman</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>sudo ./easyrsa gen-dh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a>Using SSL: openssl OpenSSL 1.1.1k  25 Mar 2021
+<a name="__codelineno-11-2"></a>Generating DH parameters, 2048 bit long safe prime, generator 2
+<a name="__codelineno-11-3"></a>This is going to take a long time
+<a name="__codelineno-11-4"></a>.......................+.....................+..............................................................+......................+................................................................................+...................................................................................................................................................+....................+....................................................................+..................+.......+..............................................................+...........................................................................+................................................................................................................................+.....................................+...........................................................................................................................................................................+................................................................................................................................................................................................................+.+.............................+.........................+..............................................................................................................................................................................................................................+..............+......................................................................+................................+.................................+......................................................................................................+............................................................................................+...........................................................................................................................................................................................+........................................+.............................................................................+....................................................................................................+...........+...........................................................+.....................................................................+...............................................................................................................................................+...........................................................................................................................................+.....................................+........................................................................................+...................+.............+.......................+.......................................................................................+.........................................................+...........................................................................+...............................................................................................................................................................+.......................................+........................................................+..........................................+................................................................................................................+.........+.............................+..........................................................................+...............................................+............................................................................................................+.......+...............................................................................................................+............................................+................+..................................................+...............+..............................................................................+.......................................................................+.................................+..+.+.+..............................................................................................+.............................................................................+...................................................................................................................................................................................................+...........+................................................................................+............................................................................................................................................................................................................+............................+..+......................................................................................................................................................................................+..............................................................................................+......................................................................................................................................................................................................................................................................................................................................................................................................+........................................+......................+...............................+...........................+...............................................................................................+..........................................................................................................................+.......................................................................+.................................................................................+....................................................................+................................+.++*++*++*++*
+<a name="__codelineno-11-5"></a>
+<a name="__codelineno-11-6"></a>DH parameters of size 2048 created at /etc/openvpn/easy-rsa/pki/dh.pem
+</code></pre></div></p>
+<h4 id="generar-certificado-clave-privada-del-cliente-vpn">Generar certificado + clave privada del cliente VPN</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>sudo ./easyrsa build-client-full clientevpn nopass
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>Using SSL: openssl OpenSSL 1.1.1k  25 Mar 2021
+<a name="__codelineno-13-2"></a>Generating a RSA private key
+<a name="__codelineno-13-3"></a>..............+++++
+<a name="__codelineno-13-4"></a>................................+++++
+<a name="__codelineno-13-5"></a>writing new private key to &#39;/etc/openvpn/easy-rsa/pki/easy-rsa-2541.yaiUd0/tmp.WePx19&#39;
+<a name="__codelineno-13-6"></a>-----
+<a name="__codelineno-13-7"></a>Using configuration from /etc/openvpn/easy-rsa/pki/easy-rsa-2541.yaiUd0/tmp.GMaG7k
+<a name="__codelineno-13-8"></a>Enter pass phrase for /etc/openvpn/easy-rsa/pki/private/ca.key:
+<a name="__codelineno-13-9"></a>Check that the request matches the signature
+<a name="__codelineno-13-10"></a>Signature ok
+<a name="__codelineno-13-11"></a>The Subject&#39;s Distinguished Name is as follows
+<a name="__codelineno-13-12"></a>commonName            :ASN.1 12:&#39;clientevpn&#39;
+<a name="__codelineno-13-13"></a>Certificate is to be certified until Mar 18 08:49:43 2024 GMT (825 days)
+<a name="__codelineno-13-14"></a>
+<a name="__codelineno-13-15"></a>Write out database with 1 new entries
+<a name="__codelineno-13-16"></a>Data Base Updated
+</code></pre></div></p>
+<p>Certificado generado: <code>/etc/openvpn/easy-rsa/pki/issued/clientevpn.crt</code><br />
+Clave privada generada: <code>/etc/openvpn/easy-rsa/pki/private/clientevpn.key</code></p>
+<h4 id="pasar-ficheros-necesarios-al-cliente-vpn">Pasar ficheros necesarios al cliente VPN</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a>sudo cp -rp /etc/openvpn/easy-rsa/pki/{ca.crt,issued/clientevpn.crt,private/clientevpn.key} ~
+<a name="__codelineno-14-2"></a>sudo chown vagrant: ~/{ca.crt,clientevpn.crt,clientevpn.key}
+<a name="__codelineno-14-3"></a>scp ~/{ca.crt,clientevpn.crt,clientevpn.key} vagrant@192.88.99.11:/home/vagrant
+</code></pre></div>
+<h4 id="configurar-el-servidor-vpn">Configurar el servidor VPN</h4>
+<p>Copio la plantilla oficial de configuración para servidores openvpn, para partir de ella:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a>sudo cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server/servidor.conf
+</code></pre></div></p>
+<p>Modifico <code>/etc/openvpn/server/servidor.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a>port 1194
+<a name="__codelineno-16-2"></a>proto udp
+<a name="__codelineno-16-3"></a>dev tun
+<a name="__codelineno-16-4"></a>
+<a name="__codelineno-16-5"></a>
+<a name="__codelineno-16-6"></a>ca /etc/openvpn/easy-rsa/pki/ca.crt
+<a name="__codelineno-16-7"></a>cert /etc/openvpn/easy-rsa/pki/issued/server.crt
+<a name="__codelineno-16-8"></a>key /etc/openvpn/easy-rsa/pki/private/server.key
+<a name="__codelineno-16-9"></a>dh /etc/openvpn/easy-rsa/pki/dh.pem
+<a name="__codelineno-16-10"></a>
+<a name="__codelineno-16-11"></a>
+<a name="__codelineno-16-12"></a>topology subnet
+<a name="__codelineno-16-13"></a>
+<a name="__codelineno-16-14"></a>
+<a name="__codelineno-16-15"></a># DIRECCIONAMIENTO PARA EL TÚNEL
+<a name="__codelineno-16-16"></a>#
+<a name="__codelineno-16-17"></a># El servidor será: 10.99.99.1
+<a name="__codelineno-16-18"></a># El resto de IPs estarán disponibles para los clientes
+<a name="__codelineno-16-19"></a>server 10.99.99.0 255.255.255.0
+<a name="__codelineno-16-20"></a>ifconfig-pool-persist /var/log/openvpn/ipp.txt
+<a name="__codelineno-16-21"></a>
+<a name="__codelineno-16-22"></a>
+<a name="__codelineno-16-23"></a>push &quot;route 192.168.0.0 255.255.255.0&quot;
+<a name="__codelineno-16-24"></a>
+<a name="__codelineno-16-25"></a>
+<a name="__codelineno-16-26"></a>keepalive 10 120
+<a name="__codelineno-16-27"></a>cipher AES-256-CBC
+<a name="__codelineno-16-28"></a>persist-key
+<a name="__codelineno-16-29"></a>persist-tun
+<a name="__codelineno-16-30"></a>status /var/log/openvpn/openvpn-status.log
+<a name="__codelineno-16-31"></a>verb 3
+<a name="__codelineno-16-32"></a>explicit-exit-notify 1
+</code></pre></div></p>
+<h4 id="iniciar-el-servidor">Iniciar el servidor</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a>sudo systemctl enable --now openvpn-server@servidor
+</code></pre></div>
+<p>Verifico que está funcionando:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a>sudo systemctl status openvpn-server@servidor
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a>● openvpn-server@servidor.service - OpenVPN service for servidor
+<a name="__codelineno-19-2"></a>     Loaded: loaded (/lib/systemd/system/openvpn-server@.service; enabled; vendor preset: enabled)
+<a name="__codelineno-19-3"></a>     Active: active (running) since Tue 2021-12-14 09:16:30 UTC; 35s ago
+<a name="__codelineno-19-4"></a>       Docs: man:openvpn(8)
+<a name="__codelineno-19-5"></a>             https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
+<a name="__codelineno-19-6"></a>             https://community.openvpn.net/openvpn/wiki/HOWTO
+<a name="__codelineno-19-7"></a>   Main PID: 2800 (openvpn)
+<a name="__codelineno-19-8"></a>     Status: &quot;Initialization Sequence Completed&quot;
+<a name="__codelineno-19-9"></a>      Tasks: 1 (limit: 528)
+<a name="__codelineno-19-10"></a>     Memory: 1.0M
+<a name="__codelineno-19-11"></a>        CPU: 9ms
+<a name="__codelineno-19-12"></a>     CGroup: /system.slice/system-openvpn\x2dserver.slice/openvpn-server@servidor.service
+<a name="__codelineno-19-13"></a>             └─2800 /usr/sbin/openvpn --status /run/openvpn-server/status-servidor.log --status-version 2 --suppress-timestamps --config servidor.conf
+<a name="__codelineno-19-14"></a>
+<a name="__codelineno-19-15"></a>Dec 14 09:16:30 servervpn openvpn[2800]: net_iface_up: set tun0 up
+<a name="__codelineno-19-16"></a>Dec 14 09:16:30 servervpn openvpn[2800]: net_addr_v4_add: 10.99.99.1/24 dev tun0
+<a name="__codelineno-19-17"></a>Dec 14 09:16:30 servervpn openvpn[2800]: Could not determine IPv4/IPv6 protocol. Using AF_INET
+<a name="__codelineno-19-18"></a>Dec 14 09:16:30 servervpn openvpn[2800]: Socket Buffers: R=[212992-&gt;212992] S=[212992-&gt;212992]
+<a name="__codelineno-19-19"></a>Dec 14 09:16:30 servervpn openvpn[2800]: UDPv4 link local (bound): [AF_INET][undef]:1194
+<a name="__codelineno-19-20"></a>Dec 14 09:16:30 servervpn openvpn[2800]: UDPv4 link remote: [AF_UNSPEC]
+<a name="__codelineno-19-21"></a>Dec 14 09:16:30 servervpn openvpn[2800]: MULTI: multi_init called, r=256 v=256
+<a name="__codelineno-19-22"></a>Dec 14 09:16:30 servervpn openvpn[2800]: IFCONFIG POOL IPv4: base=10.99.99.2 size=252
+<a name="__codelineno-19-23"></a>Dec 14 09:16:30 servervpn openvpn[2800]: IFCONFIG POOL LIST
+<a name="__codelineno-19-24"></a>Dec 14 09:16:30 servervpn openvpn[2800]: Initialization Sequence Completed
+</code></pre></div></p>
+<h3 id="en-clientevpn">En clientevpn</h3>
+<h4 id="instalar-openvpn_1">Instalar OpenVPN</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a>sudo apt update
+<a name="__codelineno-20-2"></a>sudo apt install openvpn
+</code></pre></div>
+<h4 id="mover-ficheros-a-la-ruta-adecuada">Mover ficheros a la ruta adecuada</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a>sudo mv ~/{ca.crt,clientevpn.crt,clientevpn.key} /etc/openvpn/client
+<a name="__codelineno-21-2"></a>sudo chown root: /etc/openvpn/client/*
+</code></pre></div>
+<p><code>/etc/openvpn/client</code> queda así:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a>vagrant@clientevpn:/etc/openvpn/client$ ls -la
+<a name="__codelineno-22-2"></a>total 24
+<a name="__codelineno-22-3"></a>drwxr-xr-x 2 root root 4096 Dec 14 09:31 .
+<a name="__codelineno-22-4"></a>drwxr-xr-x 4 root root 4096 Dec 14 09:30 ..
+<a name="__codelineno-22-5"></a>-rw------- 1 root root 1200 Dec 14 09:01 ca.crt
+<a name="__codelineno-22-6"></a>-rw------- 1 root root 4498 Dec 14 09:01 clientevpn.crt
+<a name="__codelineno-22-7"></a>-rw------- 1 root root 1704 Dec 14 09:01 clientevpn.key
+</code></pre></div></p>
+<h4 id="configurar-el-cliente-vpn">Configurar el cliente VPN</h4>
+<p>Copio la plantilla oficial de configuración para clientes openvpn, para partir de ella:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a>sudo cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn/client/cliente.conf
+</code></pre></div></p>
+<p>Modifico <code>/etc/openvpn/client/cliente.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a>client
+<a name="__codelineno-24-2"></a>dev tun
+<a name="__codelineno-24-3"></a>proto udp
+<a name="__codelineno-24-4"></a>
+<a name="__codelineno-24-5"></a>remote 192.88.99.10 1194
+<a name="__codelineno-24-6"></a>resolv-retry infinite
+<a name="__codelineno-24-7"></a>nobind
+<a name="__codelineno-24-8"></a>
+<a name="__codelineno-24-9"></a>persist-key
+<a name="__codelineno-24-10"></a>persist-tun
+<a name="__codelineno-24-11"></a>
+<a name="__codelineno-24-12"></a>ca /etc/openvpn/client/ca.crt
+<a name="__codelineno-24-13"></a>cert /etc/openvpn/client/clientevpn.crt
+<a name="__codelineno-24-14"></a>key /etc/openvpn/client/clientevpn.key
+<a name="__codelineno-24-15"></a>
+<a name="__codelineno-24-16"></a>remote-cert-tls server
+<a name="__codelineno-24-17"></a>cipher AES-256-CBC
+<a name="__codelineno-24-18"></a>verb 3
+</code></pre></div></p>
+<p>Habilito el servicio:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-25-1"></a>sudo systemctl enable --now openvpn-client@cliente
+</code></pre></div></p>
+<p>Verifico que funciona:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-26-1"></a>sudo systemctl status openvpn-client@cliente
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-27-1"></a>● openvpn-client@cliente.service - OpenVPN tunnel for cliente
+<a name="__codelineno-27-2"></a>     Loaded: loaded (/lib/systemd/system/openvpn-client@.service; enabled; vendor preset: enabled)
+<a name="__codelineno-27-3"></a>     Active: active (running) since Tue 2021-12-14 09:43:44 UTC; 5s ago
+<a name="__codelineno-27-4"></a>       Docs: man:openvpn(8)
+<a name="__codelineno-27-5"></a>             https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
+<a name="__codelineno-27-6"></a>             https://community.openvpn.net/openvpn/wiki/HOWTO
+<a name="__codelineno-27-7"></a>   Main PID: 12859 (openvpn)
+<a name="__codelineno-27-8"></a>     Status: &quot;Initialization Sequence Completed&quot;
+<a name="__codelineno-27-9"></a>      Tasks: 1 (limit: 528)
+<a name="__codelineno-27-10"></a>     Memory: 1.9M
+<a name="__codelineno-27-11"></a>        CPU: 17ms
+<a name="__codelineno-27-12"></a>     CGroup: /system.slice/system-openvpn\x2dclient.slice/openvpn-client@cliente.service
+<a name="__codelineno-27-13"></a>             └─12859 /usr/sbin/openvpn --suppress-timestamps --nobind --config cliente.conf
+<a name="__codelineno-27-14"></a>
+<a name="__codelineno-27-15"></a>Dec 14 09:43:44 clientevpn openvpn[12859]: net_route_v4_best_gw query: dst 0.0.0.0
+<a name="__codelineno-27-16"></a>Dec 14 09:43:44 clientevpn openvpn[12859]: net_route_v4_best_gw result: via 192.168.121.1 dev eth0
+<a name="__codelineno-27-17"></a>Dec 14 09:43:44 clientevpn openvpn[12859]: ROUTE_GATEWAY 192.168.121.1/255.255.255.0 IFACE=eth0 HWADD&gt;
+<a name="__codelineno-27-18"></a>Dec 14 09:43:44 clientevpn openvpn[12859]: TUN/TAP device tun0 opened
+<a name="__codelineno-27-19"></a>Dec 14 09:43:44 clientevpn openvpn[12859]: net_iface_mtu_set: mtu 1500 for tun0
+<a name="__codelineno-27-20"></a>Dec 14 09:43:44 clientevpn openvpn[12859]: net_iface_up: set tun0 up
+<a name="__codelineno-27-21"></a>Dec 14 09:43:44 clientevpn openvpn[12859]: net_addr_v4_add: 10.99.99.2/24 dev tun0
+<a name="__codelineno-27-22"></a>Dec 14 09:43:44 clientevpn openvpn[12859]: net_route_v4_add: 192.168.0.0/24 via 10.99.99.1 dev [NULL]&gt;
+<a name="__codelineno-27-23"></a>Dec 14 09:43:44 clientevpn openvpn[12859]: WARNING: this configuration may cache passwords in memory &gt;
+<a name="__codelineno-27-24"></a>Dec 14 09:43:44 clientevpn openvpn[12859]: Initialization Sequence Completed
+</code></pre></div></p>
+<h3 id="en-clientenormal">En clientenormal</h3>
+<h4 id="cambiar-ruta-por-defecto">Cambiar ruta por defecto</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-28-1"></a>sudo ip route del default
+<a name="__codelineno-28-2"></a>sudo ip route add default via 192.168.0.1
+</code></pre></div>
+<h3 id="pruebas-de-funcionamiento">Pruebas de funcionamiento</h3>
+<p><em>(todas estarán hechas desde clientevpn)</em></p>
+<p>Ping al otro extremo del túnel <em>(servervpn)</em>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-29-1"></a>vagrant@clientevpn:/etc/openvpn/client$ ping 10.99.99.1
+<a name="__codelineno-29-2"></a>PING 10.99.99.1 (10.99.99.1) 56(84) bytes of data.
+<a name="__codelineno-29-3"></a>64 bytes from 10.99.99.1: icmp_seq=1 ttl=64 time=0.412 ms
+<a name="__codelineno-29-4"></a>64 bytes from 10.99.99.1: icmp_seq=2 ttl=64 time=0.696 ms
+<a name="__codelineno-29-5"></a>64 bytes from 10.99.99.1: icmp_seq=3 ttl=64 time=0.455 ms
+<a name="__codelineno-29-6"></a>^C
+<a name="__codelineno-29-7"></a>--- 10.99.99.1 ping statistics ---
+<a name="__codelineno-29-8"></a>3 packets transmitted, 3 received, 0% packet loss, time 2048ms
+<a name="__codelineno-29-9"></a>rtt min/avg/max/mdev = 0.412/0.521/0.696/0.124 ms
+</code></pre></div></p>
+<p>Ping a clientenormal:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-30-1"></a>vagrant@clientevpn:/etc/openvpn/client$ ping 192.168.0.5
+<a name="__codelineno-30-2"></a>PING 192.168.0.5 (192.168.0.5) 56(84) bytes of data.
+<a name="__codelineno-30-3"></a>64 bytes from 192.168.0.5: icmp_seq=1 ttl=63 time=0.849 ms
+<a name="__codelineno-30-4"></a>64 bytes from 192.168.0.5: icmp_seq=2 ttl=63 time=0.839 ms
+<a name="__codelineno-30-5"></a>^C
+<a name="__codelineno-30-6"></a>--- 192.168.0.5 ping statistics ---
+<a name="__codelineno-30-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+<a name="__codelineno-30-8"></a>rtt min/avg/max/mdev = 0.839/0.844/0.849/0.005 ms
+</code></pre></div></p>
+<p>Traceroute a clientenormal <em>(para que se vea claro la utilización del túnel VPN)</em>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-31-1"></a>vagrant@clientevpn:/etc/openvpn/client$ traceroute 192.168.0.5
+<a name="__codelineno-31-2"></a>traceroute to 192.168.0.5 (192.168.0.5), 30 hops max, 60 byte packets
+<a name="__codelineno-31-3"></a> 1  10.99.99.1 (10.99.99.1)  0.446 ms  0.364 ms  0.331 ms
+<a name="__codelineno-31-4"></a> 2  192.168.0.5 (192.168.0.5)  0.553 ms  0.612 ms  0.581 ms
+</code></pre></div></p>
+<h2 id="parte-2-sitio-a-sitio-openvpn">Parte 2: sitio a sitio OpenVPN</h2>
+<h3 id="escenario_1">Escenario</h3>
+<p><img alt="" src="https://i.postimg.cc/fynq296Q/site-to-site-openvpn.png" /></p>
+<p><code>Vagrantfile</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-32-1"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-32-2"></a>
+<a name="__codelineno-32-3"></a>config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-32-4"></a>
+<a name="__codelineno-32-5"></a>  config.vm.provider :libvirt do |libvirt|
+<a name="__codelineno-32-6"></a>    libvirt.cpus = 1
+<a name="__codelineno-32-7"></a>    libvirt.memory = 512
+<a name="__codelineno-32-8"></a>  end
+<a name="__codelineno-32-9"></a>
+<a name="__codelineno-32-10"></a>  config.vm.define :clientenormal1 do |clientenormal1|
+<a name="__codelineno-32-11"></a>    clientenormal1.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-32-12"></a>    clientenormal1.vm.hostname = &quot;clientenormal1&quot;
+<a name="__codelineno-32-13"></a>    clientenormal1.vm.network :private_network,
+<a name="__codelineno-32-14"></a>      :libvirt__network_name =&gt; &quot;privada1-vpn2&quot;,
+<a name="__codelineno-32-15"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-32-16"></a>      :ip =&gt; &quot;192.168.0.2&quot;,
+<a name="__codelineno-32-17"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-32-18"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-32-19"></a>  end
+<a name="__codelineno-32-20"></a>
+<a name="__codelineno-32-21"></a>  config.vm.define :clientevpn do |clientevpn|
+<a name="__codelineno-32-22"></a>    clientevpn.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-32-23"></a>    clientevpn.vm.hostname = &quot;clientevpn&quot;
+<a name="__codelineno-32-24"></a>    clientevpn.vm.network :private_network,
+<a name="__codelineno-32-25"></a>      :libvirt__network_name =&gt; &quot;privada1-vpn2&quot;,
+<a name="__codelineno-32-26"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-32-27"></a>      :ip =&gt; &quot;192.168.0.1&quot;,
+<a name="__codelineno-32-28"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-32-29"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-32-30"></a>    clientevpn.vm.network :private_network,
+<a name="__codelineno-32-31"></a>      :libvirt__network_name =&gt; &quot;internet-vpn2&quot;,
+<a name="__codelineno-32-32"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-32-33"></a>      :ip =&gt; &quot;192.88.99.11&quot;,
+<a name="__codelineno-32-34"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-32-35"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-32-36"></a>  end
+<a name="__codelineno-32-37"></a>
+<a name="__codelineno-32-38"></a>  config.vm.define :servervpn do |servervpn|
+<a name="__codelineno-32-39"></a>    servervpn.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-32-40"></a>    servervpn.vm.hostname = &quot;servervpn&quot;
+<a name="__codelineno-32-41"></a>    servervpn.vm.network :private_network,
+<a name="__codelineno-32-42"></a>      :libvirt__network_name =&gt; &quot;internet-vpn2&quot;,
+<a name="__codelineno-32-43"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-32-44"></a>      :ip =&gt; &quot;192.88.99.10&quot;,
+<a name="__codelineno-32-45"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-32-46"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-32-47"></a>    servervpn.vm.network :private_network,
+<a name="__codelineno-32-48"></a>      :libvirt__network_name =&gt; &quot;privada2-vpn2&quot;,
+<a name="__codelineno-32-49"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-32-50"></a>      :ip =&gt; &quot;192.168.1.1&quot;,
+<a name="__codelineno-32-51"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-32-52"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-32-53"></a>  end
+<a name="__codelineno-32-54"></a>
+<a name="__codelineno-32-55"></a>  config.vm.define :clientenormal2 do |clientenormal2|
+<a name="__codelineno-32-56"></a>    clientenormal2.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-32-57"></a>    clientenormal2.vm.hostname = &quot;clientenormal2&quot;
+<a name="__codelineno-32-58"></a>    clientenormal2.vm.network :private_network,
+<a name="__codelineno-32-59"></a>      :libvirt__network_name =&gt; &quot;privada2-vpn2&quot;,
+<a name="__codelineno-32-60"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-32-61"></a>      :ip =&gt; &quot;192.168.1.2&quot;,
+<a name="__codelineno-32-62"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-32-63"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-32-64"></a>  end
+<a name="__codelineno-32-65"></a>
+<a name="__codelineno-32-66"></a>end
+</code></pre></div></p>
+<h3 id="en-servervpn_1">En servervpn</h3>
+<h4 id="instalar-openvpn_2">Instalar OpenVPN</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-33-1"></a>sudo apt update
+<a name="__codelineno-33-2"></a>sudo apt install openvpn
+</code></pre></div>
+<h4 id="habilitar-forwarding_1">Habilitar forwarding</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-34-1"></a>echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+</code></pre></div>
+<h4 id="crear-pki">Crear PKI</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-35-1"></a>sudo cp -r /usr/share/easy-rsa /etc/openvpn
+<a name="__codelineno-35-2"></a>cd /etc/openvpn/easy-rsa
+<a name="__codelineno-35-3"></a>sudo ./easyrsa init-pki
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-36-1"></a>init-pki complete; you may now create a CA or requests.
+<a name="__codelineno-36-2"></a>Your newly created PKI dir is: /etc/openvpn/easy-rsa/pki
+</code></pre></div></p>
+<h4 id="generar-certificado-clave-privada-de-la-ca_1">Generar certificado + clave privada de la CA</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-37-1"></a>sudo ./easyrsa build-ca
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-38-1"></a>Using SSL: openssl OpenSSL 1.1.1k  25 Mar 2021
+<a name="__codelineno-38-2"></a>
+<a name="__codelineno-38-3"></a>Enter New CA Key Passphrase:
+<a name="__codelineno-38-4"></a>Re-Enter New CA Key Passphrase:
+<a name="__codelineno-38-5"></a>Generating RSA private key, 2048 bit long modulus (2 primes)
+<a name="__codelineno-38-6"></a>..................+++++
+<a name="__codelineno-38-7"></a>..................................+++++
+<a name="__codelineno-38-8"></a>e is 65537 (0x010001)
+<a name="__codelineno-38-9"></a>You are about to be asked to enter information that will be incorporated
+<a name="__codelineno-38-10"></a>into your certificate request.
+<a name="__codelineno-38-11"></a>What you are about to enter is what is called a Distinguished Name or a DN.
+<a name="__codelineno-38-12"></a>There are quite a few fields but you can leave some blank
+<a name="__codelineno-38-13"></a>For some fields there will be a default value,
+<a name="__codelineno-38-14"></a>If you enter &#39;.&#39;, the field will be left blank.
+<a name="__codelineno-38-15"></a>-----
+<a name="__codelineno-38-16"></a>Common Name (eg: your user, host, or server name) [Easy-RSA CA]:Adrianj CA
+<a name="__codelineno-38-17"></a>
+<a name="__codelineno-38-18"></a>CA creation complete and you may now import and sign cert requests.
+<a name="__codelineno-38-19"></a>Your new CA certificate file for publishing is at:
+<a name="__codelineno-38-20"></a>/etc/openvpn/easy-rsa/pki/ca.crt
+</code></pre></div>
+Passphrase: 1234</p>
+<h4 id="generar-certificado-clave-privada-del-servidor-vpn_1">Generar certificado + clave privada del servidor VPN</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-39-1"></a>sudo ./easyrsa build-server-full server nopass
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-40-1"></a>Using SSL: openssl OpenSSL 1.1.1k  25 Mar 2021
+<a name="__codelineno-40-2"></a>Generating a RSA private key
+<a name="__codelineno-40-3"></a>..............................................................+++++
+<a name="__codelineno-40-4"></a>........................................................................................................................+++++
+<a name="__codelineno-40-5"></a>writing new private key to &#39;/etc/openvpn/easy-rsa/pki/easy-rsa-2046.nRVdyM/tmp.6vm2xf&#39;
+<a name="__codelineno-40-6"></a>-----
+<a name="__codelineno-40-7"></a>Using configuration from /etc/openvpn/easy-rsa/pki/easy-rsa-2046.nRVdyM/tmp.3Nm9uS
+<a name="__codelineno-40-8"></a>Enter pass phrase for /etc/openvpn/easy-rsa/pki/private/ca.key:
+<a name="__codelineno-40-9"></a>Check that the request matches the signature
+<a name="__codelineno-40-10"></a>Signature ok
+<a name="__codelineno-40-11"></a>The Subject&#39;s Distinguished Name is as follows
+<a name="__codelineno-40-12"></a>commonName            :ASN.1 12:&#39;server&#39;
+<a name="__codelineno-40-13"></a>Certificate is to be certified until Apr  3 09:13:11 2024 GMT (825 days)
+<a name="__codelineno-40-14"></a>
+<a name="__codelineno-40-15"></a>Write out database with 1 new entries
+<a name="__codelineno-40-16"></a>Data Base Updated
+</code></pre></div></p>
+<h4 id="generar-parametros-diffiehellman_1">Generar parámetros Diffie–Hellman</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-41-1"></a>sudo ./easyrsa gen-dh
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-42-1"></a>Using SSL: openssl OpenSSL 1.1.1k  25 Mar 2021
+<a name="__codelineno-42-2"></a>Generating DH parameters, 2048 bit long safe prime, generator 2
+<a name="__codelineno-42-3"></a>This is going to take a long time
+<a name="__codelineno-42-4"></a>...................................+....................+..........................+....................................................................................................................................................................................................................+.....................+.....................................................................................................................................................................................................................................+...........+.................................................................................................................................+.................................................+....................................................+.........................................................................................................................................................................................................................+.............................+.............................................+..................................................................................................................................................................+............................................................................................................................................................................................................................................................................+..............................................................................................................................+.........................................................................................................+.......................................................................+................................................................................................................................................................+.......................................................................................................................................................+........................................................................................................................................................................................+...................................................................................+............................................................................+....................................+...............................................................+...............................................................................................................+.....................................................................................................................................................................................................................................+.....................+...................................+..................................................................................................+.............................................................................................+.......................................................................+..................................+......................................................................................................................................+....................................................+........................................................................................................................................................................................................................................................+........................................................................................................................................+...................................................................................................................................+....................................+....................+.....................................................................................................+..+...............................+..................................+...........................+.....................................................................................................................+...............................................................................................................................................................................................+................+...+.........................................................+..+.........+....+...+................................................................................................+...............................................................................................................................................................................................................................................................................................................................................+..................................................................+...............................................................................................................................+.....................................................................................................+............+...................................+.............................................................................................................................................+...............................................................................................+.........+.................+...........................................................................................................................................+....+........................................................................................+................+........+................................................................................................................................................................................................................................................+.......................................................................................................+.............................................................................................................................................................................................................................................+................................................................+...........................................................................................................................................................................+..................+..................................+...................................................................................................................................................................................................................................+....................................................................................................+.......................................................................................................................................................................................+..................................++*++*++*++*
+<a name="__codelineno-42-5"></a>
+<a name="__codelineno-42-6"></a>DH parameters of size 2048 created at /etc/openvpn/easy-rsa/pki/dh.pem
+</code></pre></div></p>
+<h4 id="generar-certificado-clave-privada-del-cliente-vpn_1">Generar certificado + clave privada del cliente VPN</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-43-1"></a>sudo ./easyrsa build-client-full clientevpn nopass
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-44-1"></a>Using SSL: openssl OpenSSL 1.1.1k  25 Mar 2021
+<a name="__codelineno-44-2"></a>Generating a RSA private key
+<a name="__codelineno-44-3"></a>.......................................................................+++++
+<a name="__codelineno-44-4"></a>................................+++++
+<a name="__codelineno-44-5"></a>writing new private key to &#39;/etc/openvpn/easy-rsa/pki/easy-rsa-2162.MUtxW0/tmp.cwHjMI&#39;
+<a name="__codelineno-44-6"></a>-----
+<a name="__codelineno-44-7"></a>Using configuration from /etc/openvpn/easy-rsa/pki/easy-rsa-2162.MUtxW0/tmp.tJCZID
+<a name="__codelineno-44-8"></a>Enter pass phrase for /etc/openvpn/easy-rsa/pki/private/ca.key:
+<a name="__codelineno-44-9"></a>Check that the request matches the signature
+<a name="__codelineno-44-10"></a>Signature ok
+<a name="__codelineno-44-11"></a>The Subject&#39;s Distinguished Name is as follows
+<a name="__codelineno-44-12"></a>commonName            :ASN.1 12:&#39;clientevpn&#39;
+<a name="__codelineno-44-13"></a>Certificate is to be certified until Apr  3 09:28:02 2024 GMT (825 days)
+<a name="__codelineno-44-14"></a>
+<a name="__codelineno-44-15"></a>Write out database with 1 new entries
+<a name="__codelineno-44-16"></a>Data Base Updated
+</code></pre></div></p>
+<h4 id="pasar-ficheros-necesarios-al-cliente-vpn_1">Pasar ficheros necesarios al cliente VPN</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-45-1"></a>sudo cp -rp /etc/openvpn/easy-rsa/pki/{ca.crt,issued/clientevpn.crt,private/clientevpn.key} ~
+<a name="__codelineno-45-2"></a>sudo chown vagrant: ~/{ca.crt,clientevpn.crt,clientevpn.key}
+<a name="__codelineno-45-3"></a>scp ~/{ca.crt,clientevpn.crt,clientevpn.key} vagrant@192.88.99.11:/home/vagrant
+</code></pre></div>
+<h4 id="configurar-el-servidor-vpn_1">Configurar el servidor VPN</h4>
+<p>Creo el <code>client-config-dir</code> junto con un fichero con información sobre <code>clientevpn</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-46-1"></a>cd /etc/openvpn
+<a name="__codelineno-46-2"></a>sudo mkdir ccd
+<a name="__codelineno-46-3"></a>cd ccd
+<a name="__codelineno-46-4"></a>sudo touch clientevpn
+<a name="__codelineno-46-5"></a>echo iroute 192.168.0.0 255.255.255.0 &gt; /etc/openvpn/ccd/clientevpn
+</code></pre></div></p>
+<p>Creo el fichero de configuración partiendo de una plantilla:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-47-1"></a>sudo cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server/servidor.conf
+</code></pre></div></p>
+<p>Modifico <code>/etc/openvpn/server/servidor.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-48-1"></a>port 1194
+<a name="__codelineno-48-2"></a>proto udp
+<a name="__codelineno-48-3"></a>dev tun
+<a name="__codelineno-48-4"></a>
+<a name="__codelineno-48-5"></a>
+<a name="__codelineno-48-6"></a>ca /etc/openvpn/easy-rsa/pki/ca.crt
+<a name="__codelineno-48-7"></a>cert /etc/openvpn/easy-rsa/pki/issued/server.crt
+<a name="__codelineno-48-8"></a>key /etc/openvpn/easy-rsa/pki/private/server.key
+<a name="__codelineno-48-9"></a>dh /etc/openvpn/easy-rsa/pki/dh.pem
+<a name="__codelineno-48-10"></a>
+<a name="__codelineno-48-11"></a>
+<a name="__codelineno-48-12"></a>topology subnet
+<a name="__codelineno-48-13"></a>
+<a name="__codelineno-48-14"></a>
+<a name="__codelineno-48-15"></a>server 10.99.99.0 255.255.255.0
+<a name="__codelineno-48-16"></a>ifconfig-pool-persist /var/log/openvpn/ipp.txt
+<a name="__codelineno-48-17"></a>
+<a name="__codelineno-48-18"></a>
+<a name="__codelineno-48-19"></a>push &quot;route 192.168.1.0 255.255.255.0&quot;
+<a name="__codelineno-48-20"></a>
+<a name="__codelineno-48-21"></a>client-config-dir /etc/openvpn/ccd
+<a name="__codelineno-48-22"></a>route 192.168.0.0 255.255.255.0
+<a name="__codelineno-48-23"></a>
+<a name="__codelineno-48-24"></a>
+<a name="__codelineno-48-25"></a>keepalive 10 120
+<a name="__codelineno-48-26"></a>cipher AES-256-CBC
+<a name="__codelineno-48-27"></a>persist-key
+<a name="__codelineno-48-28"></a>persist-tun
+<a name="__codelineno-48-29"></a>status /var/log/openvpn/openvpn-status.log
+<a name="__codelineno-48-30"></a>verb 3
+<a name="__codelineno-48-31"></a>explicit-exit-notify 1
+</code></pre></div></p>
+<h4 id="iniciar-el-servidor_1">Iniciar el servidor</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-49-1"></a>sudo systemctl enable --now openvpn-server@servidor
+</code></pre></div>
+<p>Verifico que está funcionando:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-50-1"></a>sudo systemctl status openvpn-server@servidor
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-51-1"></a>● openvpn-server@servidor.service - OpenVPN service for servidor
+<a name="__codelineno-51-2"></a>     Loaded: loaded (/lib/systemd/system/openvpn-server@.service; enabled; vendor preset: enabled)
+<a name="__codelineno-51-3"></a>     Active: active (running) since Thu 2021-12-30 09:47:53 UTC; 12s ago
+<a name="__codelineno-51-4"></a>       Docs: man:openvpn(8)
+<a name="__codelineno-51-5"></a>             https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
+<a name="__codelineno-51-6"></a>             https://community.openvpn.net/openvpn/wiki/HOWTO
+<a name="__codelineno-51-7"></a>   Main PID: 2291 (openvpn)
+<a name="__codelineno-51-8"></a>     Status: &quot;Initialization Sequence Completed&quot;
+<a name="__codelineno-51-9"></a>      Tasks: 1 (limit: 528)
+<a name="__codelineno-51-10"></a>     Memory: 1020.0K
+<a name="__codelineno-51-11"></a>        CPU: 7ms
+<a name="__codelineno-51-12"></a>     CGroup: /system.slice/system-openvpn\x2dserver.slice/openvpn-server@servidor.service
+<a name="__codelineno-51-13"></a>             └─2291 /usr/sbin/openvpn --status /run/openvpn-server/status-servidor.log --status-vers&gt;
+<a name="__codelineno-51-14"></a>
+<a name="__codelineno-51-15"></a>Dec 30 09:47:53 servervpn openvpn[2291]: net_addr_v4_add: 10.99.99.1/24 dev tun0
+<a name="__codelineno-51-16"></a>Dec 30 09:47:53 servervpn openvpn[2291]: net_route_v4_add: 192.168.0.0/24 via 10.99.99.2 dev [NULL] &gt;
+<a name="__codelineno-51-17"></a>Dec 30 09:47:53 servervpn openvpn[2291]: Could not determine IPv4/IPv6 protocol. Using AF_INET
+<a name="__codelineno-51-18"></a>Dec 30 09:47:53 servervpn openvpn[2291]: Socket Buffers: R=[212992-&gt;212992] S=[212992-&gt;212992]
+<a name="__codelineno-51-19"></a>Dec 30 09:47:53 servervpn openvpn[2291]: UDPv4 link local (bound): [AF_INET][undef]:1194
+<a name="__codelineno-51-20"></a>Dec 30 09:47:53 servervpn openvpn[2291]: UDPv4 link remote: [AF_UNSPEC]
+<a name="__codelineno-51-21"></a>Dec 30 09:47:53 servervpn openvpn[2291]: MULTI: multi_init called, r=256 v=256
+<a name="__codelineno-51-22"></a>Dec 30 09:47:53 servervpn openvpn[2291]: IFCONFIG POOL IPv4: base=10.99.99.2 size=252
+<a name="__codelineno-51-23"></a>Dec 30 09:47:53 servervpn openvpn[2291]: IFCONFIG POOL LIST
+</code></pre></div></p>
+<h3 id="en-clientevpn_1">En clientevpn</h3>
+<h4 id="instalar-openvpn_3">Instalar OpenVPN</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-52-1"></a>sudo apt update
+<a name="__codelineno-52-2"></a>sudo apt install openvpn
+</code></pre></div>
+<h4 id="habilitar-forwarding_2">Habilitar forwarding</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-53-1"></a>echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+</code></pre></div>
+<h4 id="mover-ficheros-a-la-ruta-adecuada_1">Mover ficheros a la ruta adecuada</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-54-1"></a>sudo mv ~/{ca.crt,clientevpn.crt,clientevpn.key} /etc/openvpn/client
+<a name="__codelineno-54-2"></a>sudo chown root: /etc/openvpn/client/*
+</code></pre></div>
+<h4 id="configurar-el-cliente-vpn_1">Configurar el cliente VPN</h4>
+<p>Copio la plantilla oficial de configuración para clientes openvpn, para partir de ella:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-55-1"></a>sudo cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf /etc/openvpn/client/cliente.conf
+</code></pre></div></p>
+<p>Modifico <code>/etc/openvpn/client/cliente.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-56-1"></a>client
+<a name="__codelineno-56-2"></a>dev tun
+<a name="__codelineno-56-3"></a>proto udp
+<a name="__codelineno-56-4"></a>
+<a name="__codelineno-56-5"></a>remote 192.88.99.10 1194
+<a name="__codelineno-56-6"></a>resolv-retry infinite
+<a name="__codelineno-56-7"></a>nobind
+<a name="__codelineno-56-8"></a>
+<a name="__codelineno-56-9"></a>persist-key
+<a name="__codelineno-56-10"></a>persist-tun
+<a name="__codelineno-56-11"></a>
+<a name="__codelineno-56-12"></a>ca /etc/openvpn/client/ca.crt
+<a name="__codelineno-56-13"></a>cert /etc/openvpn/client/clientevpn.crt
+<a name="__codelineno-56-14"></a>key /etc/openvpn/client/clientevpn.key
+<a name="__codelineno-56-15"></a>
+<a name="__codelineno-56-16"></a>remote-cert-tls server
+<a name="__codelineno-56-17"></a>cipher AES-256-CBC
+<a name="__codelineno-56-18"></a>verb 3
+</code></pre></div></p>
+<p>Habilito el servicio:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-57-1"></a>sudo systemctl enable --now openvpn-client@cliente
+</code></pre></div></p>
+<p>Verifico que funciona:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-58-1"></a>sudo systemctl status openvpn-client@cliente
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-59-1"></a>● openvpn-client@cliente.service - OpenVPN tunnel for cliente
+<a name="__codelineno-59-2"></a>     Loaded: loaded (/lib/systemd/system/openvpn-client@.service; enabled; vendor preset: enabled)
+<a name="__codelineno-59-3"></a>     Active: active (running) since Thu 2021-12-30 10:20:45 UTC; 39s ago
+<a name="__codelineno-59-4"></a>       Docs: man:openvpn(8)
+<a name="__codelineno-59-5"></a>             https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
+<a name="__codelineno-59-6"></a>             https://community.openvpn.net/openvpn/wiki/HOWTO
+<a name="__codelineno-59-7"></a>   Main PID: 10909 (openvpn)
+<a name="__codelineno-59-8"></a>     Status: &quot;Initialization Sequence Completed&quot;
+<a name="__codelineno-59-9"></a>      Tasks: 1 (limit: 528)
+<a name="__codelineno-59-10"></a>     Memory: 1.4M
+<a name="__codelineno-59-11"></a>        CPU: 11ms
+<a name="__codelineno-59-12"></a>     CGroup: /system.slice/system-openvpn\x2dclient.slice/openvpn-client@cliente.service
+<a name="__codelineno-59-13"></a>             └─10909 /usr/sbin/openvpn --suppress-timestamps --nobind --config cliente.conf
+<a name="__codelineno-59-14"></a>
+<a name="__codelineno-59-15"></a>Dec 30 10:20:45 clientevpn openvpn[10909]: net_route_v4_best_gw query: dst 0.0.0.0
+<a name="__codelineno-59-16"></a>Dec 30 10:20:45 clientevpn openvpn[10909]: net_route_v4_best_gw result: via 192.168.121.1 dev eth0
+<a name="__codelineno-59-17"></a>Dec 30 10:20:45 clientevpn openvpn[10909]: ROUTE_GATEWAY 192.168.121.1/255.255.255.0 IFACE=eth0 HWADDR=52:54:00:&gt;
+<a name="__codelineno-59-18"></a>Dec 30 10:20:45 clientevpn openvpn[10909]: TUN/TAP device tun0 opened
+<a name="__codelineno-59-19"></a>Dec 30 10:20:45 clientevpn openvpn[10909]: net_iface_mtu_set: mtu 1500 for tun0
+<a name="__codelineno-59-20"></a>Dec 30 10:20:45 clientevpn openvpn[10909]: net_iface_up: set tun0 up
+<a name="__codelineno-59-21"></a>Dec 30 10:20:45 clientevpn openvpn[10909]: net_addr_v4_add: 10.99.99.2/24 dev tun0
+<a name="__codelineno-59-22"></a>Dec 30 10:20:45 clientevpn openvpn[10909]: net_route_v4_add: 192.168.1.0/24 via 10.99.99.1 dev [NULL] table 0 me&gt;
+<a name="__codelineno-59-23"></a>Dec 30 10:20:45 clientevpn openvpn[10909]: WARNING: this configuration may cache passwords in memory -- use the &gt;
+</code></pre></div></p>
+<h3 id="en-clientenormal1">En clientenormal1</h3>
+<h4 id="cambiar-ruta-por-defecto_1">Cambiar ruta por defecto</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-60-1"></a>sudo ip route del default
+<a name="__codelineno-60-2"></a>sudo ip route add default via 192.168.0.1
+</code></pre></div>
+<h3 id="en-clientenormal2">En clientenormal2</h3>
+<h4 id="cambiar-ruta-por-defecto_2">Cambiar ruta por defecto</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-61-1"></a>sudo ip route del default
+<a name="__codelineno-61-2"></a>sudo ip route add default via 192.168.1.1
+</code></pre></div>
+<h3 id="pruebas-de-funcionamiento_1">Pruebas de funcionamiento</h3>
+<p>Ping desde <code>clientenormal1</code> a <code>clientenormal2</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-62-1"></a>vagrant@clientenormal1:~$ ping 192.168.1.2
+<a name="__codelineno-62-2"></a>PING 192.168.1.2 (192.168.1.2) 56(84) bytes of data.
+<a name="__codelineno-62-3"></a>64 bytes from 192.168.1.2: icmp_seq=1 ttl=62 time=4.45 ms
+<a name="__codelineno-62-4"></a>64 bytes from 192.168.1.2: icmp_seq=2 ttl=62 time=2.30 ms
+<a name="__codelineno-62-5"></a>^C
+<a name="__codelineno-62-6"></a>--- 192.168.1.2 ping statistics ---
+<a name="__codelineno-62-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+<a name="__codelineno-62-8"></a>rtt min/avg/max/mdev = 2.301/3.376/4.451/1.075 ms
+</code></pre></div></p>
+<p>Ping desde <code>clientenormal2</code> a <code>clientenormal1</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-63-1"></a>vagrant@clientenormal2:~$ ping 192.168.0.2
+<a name="__codelineno-63-2"></a>PING 192.168.0.2 (192.168.0.2) 56(84) bytes of data.
+<a name="__codelineno-63-3"></a>64 bytes from 192.168.0.2: icmp_seq=1 ttl=62 time=2.26 ms
+<a name="__codelineno-63-4"></a>64 bytes from 192.168.0.2: icmp_seq=2 ttl=62 time=2.24 ms
+<a name="__codelineno-63-5"></a>64 bytes from 192.168.0.2: icmp_seq=3 ttl=62 time=2.19 ms
+<a name="__codelineno-63-6"></a>^C
+<a name="__codelineno-63-7"></a>--- 192.168.0.2 ping statistics ---
+<a name="__codelineno-63-8"></a>3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+<a name="__codelineno-63-9"></a>rtt min/avg/max/mdev = 2.188/2.229/2.264/0.031 ms
+</code></pre></div></p>
+<p>Traceroute desde <code>clientenormal1</code> a <code>clientenormal2</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-64-1"></a>vagrant@clientenormal1:~$ traceroute 192.168.1.2
+<a name="__codelineno-64-2"></a>traceroute to 192.168.1.2 (192.168.1.2), 30 hops max, 60 byte packets
+<a name="__codelineno-64-3"></a> 1  192.168.0.1 (192.168.0.1)  0.521 ms  0.438 ms  0.433 ms
+<a name="__codelineno-64-4"></a> 2  10.99.99.1 (10.99.99.1)  2.229 ms  2.196 ms  2.177 ms
+<a name="__codelineno-64-5"></a> 3  192.168.1.2 (192.168.1.2)  2.129 ms  2.082 ms  2.035 ms
+</code></pre></div></p>
+<p>Traceroute desde <code>clientenormal2</code> a <code>clientenormal1</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-65-1"></a>vagrant@clientenormal2:~$ traceroute 192.168.0.2
+<a name="__codelineno-65-2"></a>traceroute to 192.168.0.2 (192.168.0.2), 30 hops max, 60 byte packets
+<a name="__codelineno-65-3"></a> 1  192.168.1.1 (192.168.1.1)  0.613 ms  0.538 ms  0.507 ms
+<a name="__codelineno-65-4"></a> 2  10.99.99.2 (10.99.99.2)  2.864 ms  2.828 ms  2.812 ms
+<a name="__codelineno-65-5"></a> 3  192.168.0.2 (192.168.0.2)  2.824 ms  2.778 ms  3.276 ms
+</code></pre></div></p>
+<h2 id="parte-3-acceso-remoto-wireguard">Parte 3: acceso remoto WireGuard</h2>
+<h3 id="escenario_2">Escenario</h3>
+<p><img alt="" src="https://i.postimg.cc/xCnCxbR6/acceso-remoto-wireguard.jpg" /></p>
+<p><code>Vagrantfile</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-66-1"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-66-2"></a>
+<a name="__codelineno-66-3"></a>config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-66-4"></a>
+<a name="__codelineno-66-5"></a>  config.vm.provider :libvirt do |libvirt|
+<a name="__codelineno-66-6"></a>    libvirt.cpus = 1
+<a name="__codelineno-66-7"></a>    libvirt.memory = 512
+<a name="__codelineno-66-8"></a>  end
+<a name="__codelineno-66-9"></a>
+<a name="__codelineno-66-10"></a>  config.vm.define :clientevpn do |clientevpn|
+<a name="__codelineno-66-11"></a>    clientevpn.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-66-12"></a>    clientevpn.vm.hostname = &quot;clientevpn&quot;
+<a name="__codelineno-66-13"></a>    clientevpn.vm.network :private_network,
+<a name="__codelineno-66-14"></a>      :libvirt__network_name =&gt; &quot;internet-vpn3&quot;,
+<a name="__codelineno-66-15"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-66-16"></a>      :ip =&gt; &quot;192.88.99.11&quot;,
+<a name="__codelineno-66-17"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-66-18"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-66-19"></a>  end
+<a name="__codelineno-66-20"></a>
+<a name="__codelineno-66-21"></a>  config.vm.define :servervpn do |servervpn|
+<a name="__codelineno-66-22"></a>    servervpn.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-66-23"></a>    servervpn.vm.hostname = &quot;servervpn&quot;
+<a name="__codelineno-66-24"></a>    servervpn.vm.network :private_network,
+<a name="__codelineno-66-25"></a>      :libvirt__network_name =&gt; &quot;internet-vpn3&quot;,
+<a name="__codelineno-66-26"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-66-27"></a>      :ip =&gt; &quot;192.88.99.10&quot;,
+<a name="__codelineno-66-28"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-66-29"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-66-30"></a>    servervpn.vm.network :private_network,
+<a name="__codelineno-66-31"></a>      :libvirt__network_name =&gt; &quot;privada-vpn3&quot;,
+<a name="__codelineno-66-32"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-66-33"></a>      :ip =&gt; &quot;192.168.0.1&quot;,
+<a name="__codelineno-66-34"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-66-35"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-66-36"></a>  end
+<a name="__codelineno-66-37"></a>
+<a name="__codelineno-66-38"></a>  config.vm.define :clientenormal do |clientenormal|
+<a name="__codelineno-66-39"></a>    clientenormal.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-66-40"></a>    clientenormal.vm.hostname = &quot;clientenormal&quot;
+<a name="__codelineno-66-41"></a>    clientenormal.vm.network :private_network,
+<a name="__codelineno-66-42"></a>      :libvirt__network_name =&gt; &quot;privada-vpn3&quot;,
+<a name="__codelineno-66-43"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-66-44"></a>      :ip =&gt; &quot;192.168.0.2&quot;,
+<a name="__codelineno-66-45"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-66-46"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-66-47"></a>  end
+<a name="__codelineno-66-48"></a>
+<a name="__codelineno-66-49"></a>end
+</code></pre></div></p>
+<h3 id="en-servervpn_2">En servervpn</h3>
+<h4 id="instalar-wireguard">Instalar WireGuard</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-67-1"></a>sudo apt update
+<a name="__codelineno-67-2"></a>sudo apt install wireguard
+</code></pre></div>
+<h4 id="generar-par-de-claves">Generar par de claves</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-68-1"></a>wg genkey | sudo tee /etc/wireguard/server_private.key | wg pubkey | sudo tee /etc/wireguard/server_public.key
+</code></pre></div>
+<h4 id="configurar">Configurar</h4>
+<p>Creo el fichero de configuración <em>(wg0 será el nombre de la interfaz)</em>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-69-1"></a>sudo touch /etc/wireguard/wg0.conf
+</code></pre></div></p>
+<p>Lo modifico:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-70-1"></a>[Interface]
+<a name="__codelineno-70-2"></a>Address = 10.99.99.1/24
+<a name="__codelineno-70-3"></a>ListenPort = 51820
+<a name="__codelineno-70-4"></a>PrivateKey = wPO8E5rUB9hFCwJMQYsLwDtNV7eX9SZmL9h/VO+NwFY=
+<a name="__codelineno-70-5"></a>
+<a name="__codelineno-70-6"></a># IP forwarding
+<a name="__codelineno-70-7"></a>PreUp = sysctl -w net.ipv4.ip_forward=1
+<a name="__codelineno-70-8"></a>
+<a name="__codelineno-70-9"></a>[Peer]
+<a name="__codelineno-70-10"></a>PublicKey = GLJ8rEoPu22e+t2xPP54TJoGCoq09+HiOuiwBV3TzSw=
+<a name="__codelineno-70-11"></a>AllowedIPs = 10.99.99.2/32
+</code></pre></div></p>
+<h4 id="modificar-permisos">Modificar permisos</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-71-1"></a>sudo chmod 600 /etc/wireguard/ -R
+</code></pre></div>
+<h4 id="iniciar-wireguard">Iniciar WireGuard</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-72-1"></a>sudo wg-quick up /etc/wireguard/wg0.conf
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-73-1"></a>[#] sysctl -w net.ipv4.ip_forward=1
+<a name="__codelineno-73-2"></a>net.ipv4.ip_forward = 1
+<a name="__codelineno-73-3"></a>[#] ip link add wg0 type wireguard
+<a name="__codelineno-73-4"></a>[#] wg setconf wg0 /dev/fd/63
+<a name="__codelineno-73-5"></a>[#] ip -4 address add 10.99.99.1/24 dev wg0
+<a name="__codelineno-73-6"></a>[#] ip link set mtu 1420 up dev wg0
+</code></pre></div></p>
+<p>Se nos crea la interfaz:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-74-1"></a>5: wg0: &lt;POINTOPOINT,NOARP,UP,LOWER_UP&gt; mtu 1420 qdisc noqueue state UNKNOWN group default qlen 1000
+<a name="__codelineno-74-2"></a>    link/none
+<a name="__codelineno-74-3"></a>    inet 10.99.99.1/24 scope global wg0
+<a name="__codelineno-74-4"></a>       valid_lft forever preferred_lft forever
+</code></pre></div></p>
+<p>Y la ruta:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-75-1"></a>10.99.99.0/24 dev wg0 proto kernel scope link src 10.99.99.1
+</code></pre></div></p>
+<h3 id="en-clientevpn-debian-11">En clientevpn (debian 11)</h3>
+<h4 id="instalar-wireguard_1">Instalar WireGuard</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-76-1"></a>sudo apt update
+<a name="__codelineno-76-2"></a>sudo apt install wireguard
+</code></pre></div>
+<h4 id="generar-par-de-claves_1">Generar par de claves</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-77-1"></a>wg genkey | sudo tee /etc/wireguard/client_private.key | wg pubkey | sudo tee /etc/wireguard/client_public.key
+</code></pre></div>
+<h4 id="configurar_1">Configurar</h4>
+<p>Creo el fichero de configuración <em>(wg-client0 será el nombre de la interfaz)</em>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-78-1"></a>sudo touch /etc/wireguard/wg-client0.conf
+</code></pre></div></p>
+<p>Lo modifico:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-79-1"></a>[Interface]
+<a name="__codelineno-79-2"></a>Address = 10.99.99.2/24
+<a name="__codelineno-79-3"></a>PrivateKey = iO5lDgbhB6cGsJL6Udw0SP+9x4N0FHrRj2irMiNM93Y=
+<a name="__codelineno-79-4"></a>
+<a name="__codelineno-79-5"></a>[Peer]
+<a name="__codelineno-79-6"></a>PublicKey = K7noXpmRF60rW7BjqGTHTF8PaOVLASb1UJJF62YsFw8=
+<a name="__codelineno-79-7"></a>AllowedIPs = 0.0.0.0/0
+<a name="__codelineno-79-8"></a>Endpoint = 192.88.99.10:51820
+<a name="__codelineno-79-9"></a>PersistentKeepalive = 25
+</code></pre></div></p>
+<h4 id="modificar-permisos_1">Modificar permisos</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-80-1"></a>sudo chmod 600 /etc/wireguard/ -R
+</code></pre></div>
+<h4 id="iniciar-wireguard_1">Iniciar WireGuard</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-81-1"></a>sudo wg-quick up /etc/wireguard/wg-client0.conf
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-82-1"></a>[#] ip link add wg-client0 type wireguard
+<a name="__codelineno-82-2"></a>[#] wg setconf wg-client0 /dev/fd/63
+<a name="__codelineno-82-3"></a>[#] ip -4 address add 10.99.99.2/24 dev wg-client0
+<a name="__codelineno-82-4"></a>[#] ip link set mtu 1420 up dev wg-client0
+<a name="__codelineno-82-5"></a>[#] wg set wg-client0 fwmark 51820
+<a name="__codelineno-82-6"></a>[#] ip -4 route add 0.0.0.0/0 dev wg-client0 table 51820
+<a name="__codelineno-82-7"></a>[#] ip -4 rule add not fwmark 51820 table 51820
+<a name="__codelineno-82-8"></a>[#] ip -4 rule add table main suppress_prefixlength 0
+<a name="__codelineno-82-9"></a>[#] sysctl -q net.ipv4.conf.all.src_valid_mark=1
+<a name="__codelineno-82-10"></a>[#] nft -f /dev/fd/63
+</code></pre></div></p>
+<p>Se nos crea la interfaz:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-83-1"></a>4: wg-client0: &lt;POINTOPOINT,NOARP,UP,LOWER_UP&gt; mtu 1420 qdisc noqueue state UNKNOWN group default qlen 1000
+<a name="__codelineno-83-2"></a>    link/none
+<a name="__codelineno-83-3"></a>    inet 10.99.99.2/24 scope global wg-client0
+<a name="__codelineno-83-4"></a>       valid_lft forever preferred_lft forever
+</code></pre></div></p>
+<p>Y la ruta:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-84-1"></a>10.99.99.0/24 dev wg-client0 proto kernel scope link src 10.99.99.2
+</code></pre></div></p>
+<h3 id="en-clientenormal_1">En clientenormal</h3>
+<h4 id="cambiar-ruta-por-defecto_3">Cambiar ruta por defecto</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-85-1"></a>sudo ip route del default
+<a name="__codelineno-85-2"></a>sudo ip route add default via 192.168.0.1
+</code></pre></div>
+<h3 id="pruebas-de-funcionamiento_2">Pruebas de funcionamiento</h3>
+<p><em>(todas hechas desde clientevpn)</em></p>
+<p>Ping al otro extremo del túnel:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-86-1"></a>vagrant@clientevpn:~$ ping 10.99.99.1
+<a name="__codelineno-86-2"></a>PING 10.99.99.1 (10.99.99.1) 56(84) bytes of data.
+<a name="__codelineno-86-3"></a>64 bytes from 10.99.99.1: icmp_seq=1 ttl=64 time=2.43 ms
+<a name="__codelineno-86-4"></a>64 bytes from 10.99.99.1: icmp_seq=2 ttl=64 time=0.232 ms
+<a name="__codelineno-86-5"></a>^C
+<a name="__codelineno-86-6"></a>--- 10.99.99.1 ping statistics ---
+<a name="__codelineno-86-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+<a name="__codelineno-86-8"></a>rtt min/avg/max/mdev = 0.232/1.328/2.425/1.096 ms
+</code></pre></div></p>
+<p>Ping a clientenormal:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-87-1"></a>vagrant@clientevpn:~$ ping 192.168.0.2
+<a name="__codelineno-87-2"></a>PING 192.168.0.2 (192.168.0.2) 56(84) bytes of data.
+<a name="__codelineno-87-3"></a>64 bytes from 192.168.0.2: icmp_seq=1 ttl=63 time=1.56 ms
+<a name="__codelineno-87-4"></a>64 bytes from 192.168.0.2: icmp_seq=2 ttl=63 time=0.360 ms
+<a name="__codelineno-87-5"></a>^C
+<a name="__codelineno-87-6"></a>--- 192.168.0.2 ping statistics ---
+<a name="__codelineno-87-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+<a name="__codelineno-87-8"></a>rtt min/avg/max/mdev = 0.360/0.959/1.559/0.599 ms
+</code></pre></div></p>
+<p>Traceroute a clientenormal:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-88-1"></a>vagrant@clientevpn:~$ traceroute 192.168.0.2
+<a name="__codelineno-88-2"></a>traceroute to 192.168.0.2 (192.168.0.2), 30 hops max, 60 byte packets
+<a name="__codelineno-88-3"></a> 1  10.99.99.1 (10.99.99.1)  0.734 ms  0.275 ms  0.242 ms
+<a name="__codelineno-88-4"></a> 2  192.168.0.2 (192.168.0.2)  0.712 ms  0.664 ms  0.617 ms
+</code></pre></div></p>
+<h3 id="extra-cliente-vpn-windows">Extra: cliente VPN Windows</h3>
+<h4 id="conectar-cliente">Conectar cliente</h4>
+<p>Conecto la VM a la red <code>internet-vpn3</code>:</p>
+<p><img alt="" src="https://i.imgur.com/oeLET6E.png" /></p>
+<p>Configuro estáticamente la interfaz:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-89-1"></a>netsh interface ip set address name=&quot;Ethernet&quot; static 192.88.99.12 255.255.255.0 192.88.99.10
+</code></pre></div>
+<p>Compruebo que la configuración se aplicó correctamente:</p>
+<p><img alt="" src="https://i.imgur.com/RmHnYNI.png" /></p>
+<p>Compruebo que tengo conectividad con servervpn:</p>
+<p><img alt="" src="https://i.imgur.com/kC4Rl5T.png" /></p>
+<h4 id="configurar-cliente">Configurar cliente</h4>
+<p>Descargo e instalo Wireguard:</p>
+<p><img alt="" src="https://i.imgur.com/PnuNBVQ.png" /></p>
+<p>Compruebo que funciona el programa:</p>
+<p><img alt="" src="https://i.imgur.com/6xiDTEw.png" /></p>
+<p>Creo un nuevo túnel en blanco:</p>
+<p><img alt="" src="https://i.imgur.com/MQs39Ts.png" /></p>
+<p>Como nos podemos dar cuenta, la generación de claves ha sido automática:</p>
+<p><img alt="" src="https://i.imgur.com/zMqkR69.png" /></p>
+<p>Completo la configuración y nombro el túnel:</p>
+<p><img alt="" src="https://i.imgur.com/NuWRSBw.png" /></p>
+<p>Verifico que se ha creado correctamente:</p>
+<p><img alt="" src="https://i.imgur.com/YRScpHp.png" /></p>
+<p>Nos damos cuenta de que está inactivo (por ahora).</p>
+<h4 id="modificar-el-servidor">Modificar el servidor</h4>
+<p>Tengo que añadir el nuevo peer a <code>wg0.conf</code>. El fichero se quedaría así:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-90-1"></a>[Interface]
+<a name="__codelineno-90-2"></a>Address = 10.99.99.1/24
+<a name="__codelineno-90-3"></a>ListenPort = 51820
+<a name="__codelineno-90-4"></a>PrivateKey = wPO8E5rUB9hFCwJMQYsLwDtNV7eX9SZmL9h/VO+NwFY=
+<a name="__codelineno-90-5"></a>
+<a name="__codelineno-90-6"></a># IP forwarding
+<a name="__codelineno-90-7"></a>PreUp = sysctl -w net.ipv4.ip_forward=1
+<a name="__codelineno-90-8"></a>
+<a name="__codelineno-90-9"></a>[Peer]
+<a name="__codelineno-90-10"></a>PublicKey = GLJ8rEoPu22e+t2xPP54TJoGCoq09+HiOuiwBV3TzSw=
+<a name="__codelineno-90-11"></a>AllowedIPs = 10.99.99.2/32
+<a name="__codelineno-90-12"></a>
+<a name="__codelineno-90-13"></a>[Peer]
+<a name="__codelineno-90-14"></a>PublicKey = 3CNoT/Zae2eXK+yW0wm13qFWOEOwUcfCQrcIGttUPyk=
+<a name="__codelineno-90-15"></a>AllowedIPs = 10.99.99.3/32
+</code></pre></div></p>
+<p>Reinicio el servidor para que los cambios tomen efecto:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-91-1"></a>sudo wg-quick down /etc/wireguard/wg0.conf
+<a name="__codelineno-91-2"></a>sudo wg-quick up /etc/wireguard/wg0.conf
+</code></pre></div></p>
+<h4 id="activar-cliente">Activar cliente</h4>
+<p><img alt="" src="https://i.imgur.com/muCEm1S.png" /></p>
+<p><img alt="" src="https://i.imgur.com/68Ar9SV.png" /></p>
+<p>Vemos que se nos crea la interfaz de túnel:</p>
+<p><img alt="" src="https://i.imgur.com/42ytjaP.png" /></p>
+<h4 id="pruebas-de-funcionamiento_3">Pruebas de funcionamiento</h4>
+<p>Ping al otro extremo del túnel:</p>
+<p><img alt="" src="https://i.imgur.com/XR4fuGJ.png" /></p>
+<p>Ping a clientenormal:</p>
+<p><img alt="" src="https://i.imgur.com/vikD4lO.png" /></p>
+<p>Tracert a clientenormal:</p>
+<p><img alt="" src="https://i.imgur.com/pwMVQ8J.png" /></p>
+<h3 id="extra-cliente-vpn-android">Extra: cliente VPN Android</h3>
+<h4 id="conectar-cliente_1">Conectar cliente</h4>
+<p>Conecto la VM a la red <code>internet-vpn3</code>:</p>
+<p><img alt="" src="https://i.imgur.com/GZCPo8P.png" /></p>
+<p>Configuro estáticamente la interfaz:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-92-1"></a>ifconfig wlan0 192.88.99.13 netmask 255.255.255.0 up
+</code></pre></div>
+<p>Compruebo que la configuración se aplicó correctamente:</p>
+<p><img alt="" src="https://i.imgur.com/UpCkiZu.png" /></p>
+<p>Compruebo que tengo conectividad con servervpn:</p>
+<p><img alt="" src="https://i.imgur.com/KE9LR9G.png" /></p>
+<h4 id="configurar-cliente_1">Configurar cliente</h4>
+<p>Instalo Wireguard:</p>
+<p><img alt="" src="https://i.imgur.com/1vEHzQN.png" /></p>
+<p>Compruebo que funciona el programa:</p>
+<p><img alt="" src="https://i.imgur.com/t2LZRNB.png" /></p>
+<p>Creo un nuevo túnel en blanco:</p>
+<p><img alt="" src="https://i.imgur.com/iS2mELB.png" /></p>
+<p>Genero un par de claves:</p>
+<p><img alt="" src="https://i.imgur.com/9PAPaVg.png" /></p>
+<p>Completo la configuración:</p>
+<p><img alt="" src="https://i.imgur.com/fITSxMx.png" /></p>
+<p><img alt="" src="https://i.imgur.com/G6KNIlD.png" /></p>
+<p>Verifico que se ha creado correctamente el túnel:</p>
+<p><img alt="" src="https://i.imgur.com/vqUOuEw.png" /></p>
+<p>Está inactivo (por ahora).</p>
+<h4 id="modificar-el-servidor_1">Modificar el servidor</h4>
+<p>Tengo que añadir el nuevo peer a <code>wg0.conf</code>. El fichero se quedaría así:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-93-1"></a>[Interface]
+<a name="__codelineno-93-2"></a>Address = 10.99.99.1/24
+<a name="__codelineno-93-3"></a>ListenPort = 51820
+<a name="__codelineno-93-4"></a>PrivateKey = wPO8E5rUB9hFCwJMQYsLwDtNV7eX9SZmL9h/VO+NwFY=
+<a name="__codelineno-93-5"></a>
+<a name="__codelineno-93-6"></a># IP forwarding
+<a name="__codelineno-93-7"></a>PreUp = sysctl -w net.ipv4.ip_forward=1
+<a name="__codelineno-93-8"></a>
+<a name="__codelineno-93-9"></a>[Peer]
+<a name="__codelineno-93-10"></a>PublicKey = GLJ8rEoPu22e+t2xPP54TJoGCoq09+HiOuiwBV3TzSw=
+<a name="__codelineno-93-11"></a>AllowedIPs = 10.99.99.2/32
+<a name="__codelineno-93-12"></a>
+<a name="__codelineno-93-13"></a>[Peer]
+<a name="__codelineno-93-14"></a>PublicKey = 3CNoT/Zae2eXK+yW0wm13qFWOEOwUcfCQrcIGttUPyk=
+<a name="__codelineno-93-15"></a>AllowedIPs = 10.99.99.3/32
+<a name="__codelineno-93-16"></a>
+<a name="__codelineno-93-17"></a>[Peer]
+<a name="__codelineno-93-18"></a>PublicKey = DJusByULiqhbzBhSCDdVJZAjH6mNEUVE9qlyYc/CylM=
+<a name="__codelineno-93-19"></a>AllowedIPs = 10.99.99.4/32
+</code></pre></div></p>
+<p>Reinicio el servidor para que los cambios tomen efecto:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-94-1"></a>sudo wg-quick down /etc/wireguard/wg0.conf
+<a name="__codelineno-94-2"></a>sudo wg-quick up /etc/wireguard/wg0.conf
+</code></pre></div></p>
+<h4 id="activar-cliente_1">Activar cliente</h4>
+<p><img alt="" src="https://i.imgur.com/Mkp7WxP.png" /></p>
+<p><img alt="" src="https://i.imgur.com/1amrzI9.png" /></p>
+<p>Vemos que se nos crea la interfaz de túnel:</p>
+<p><img alt="" src="https://i.imgur.com/kFAx18Z.png" /></p>
+<h4 id="pruebas-de-funcionamiento_4">Pruebas de funcionamiento</h4>
+<p>Ping al otro extremo del túnel:</p>
+<p><img alt="" src="https://i.imgur.com/1acerxo.png" /></p>
+<p>Ping a clientenormal:</p>
+<p><img alt="" src="https://i.imgur.com/3X9kygw.png" /></p>
+<p>Traceroute a clientenormal:</p>
+<p><img alt="" src="https://i.imgur.com/y5hyVPP.png" /></p>
+<h3 id="conclusiones">Conclusiones</h3>
+<p>Aquí expondré las conclusiones a las que he llegado tras comparar el acceso remoto de WireGuard con el de OpenVPN.</p>
+<ul>
+<li>
+<p>Con WireGuard no existe realmente el concepto de cliente-servidor, sino el de peer-to-peer. Aunque en la práctica, se distingue fácilmente cuál es el "servidor" porque es en el que abrimos un puerto específico durante la configuración.</p>
+</li>
+<li>
+<p>La autenticación es mucho más sencilla con WireGuard, ya que se usa un par de claves y no certificados. Conceptualmente ambos mecanismos son casi iguales, pero en la práctica es mucho más cómodo trabajar con un par de claves porque nos ahorramos el tener que crear una Autoridad Certificadora, el firmado de certificados...etc. Es muy parecido, por no decir casi igual, a como se trabaja con SSH.</p>
+</li>
+<li>
+<p>Los ficheros de configuración son notoriamente más cortos y sencillos en WireGuard.</p>
+</li>
+<li>
+<p>WireGuard nos proporciona la herramienta <code>wg-quick</code> para controlar el servicio, lo cual es mucho más sencillo que trabajar con systemd.</p>
+</li>
+</ul>
+<h2 id="parte-4-sitio-a-sitio-wireguard">Parte 4: sitio a sitio WireGuard</h2>
+<h3 id="escenario_3">Escenario</h3>
+<p><img alt="" src="https://i.postimg.cc/4yKyNf9V/site-to-site-wireguard.jpg" /></p>
+<p><code>Vagrantfile</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-95-1"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-95-2"></a>
+<a name="__codelineno-95-3"></a>config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-95-4"></a>
+<a name="__codelineno-95-5"></a>  config.vm.provider :libvirt do |libvirt|
+<a name="__codelineno-95-6"></a>    libvirt.cpus = 1
+<a name="__codelineno-95-7"></a>    libvirt.memory = 512
+<a name="__codelineno-95-8"></a>  end
+<a name="__codelineno-95-9"></a>
+<a name="__codelineno-95-10"></a>  config.vm.define :clientenormal1 do |clientenormal1|
+<a name="__codelineno-95-11"></a>    clientenormal1.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-95-12"></a>    clientenormal1.vm.hostname = &quot;clientenormal1&quot;
+<a name="__codelineno-95-13"></a>    clientenormal1.vm.network :private_network,
+<a name="__codelineno-95-14"></a>      :libvirt__network_name =&gt; &quot;privada1-vpn4&quot;,
+<a name="__codelineno-95-15"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-95-16"></a>      :ip =&gt; &quot;192.168.0.2&quot;,
+<a name="__codelineno-95-17"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-95-18"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-95-19"></a>  end
+<a name="__codelineno-95-20"></a>
+<a name="__codelineno-95-21"></a>  config.vm.define :peervpn1 do |peervpn1|
+<a name="__codelineno-95-22"></a>    peervpn1.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-95-23"></a>    peervpn1.vm.hostname = &quot;peervpn1&quot;
+<a name="__codelineno-95-24"></a>    peervpn1.vm.network :private_network,
+<a name="__codelineno-95-25"></a>      :libvirt__network_name =&gt; &quot;privada1-vpn4&quot;,
+<a name="__codelineno-95-26"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-95-27"></a>      :ip =&gt; &quot;192.168.0.1&quot;,
+<a name="__codelineno-95-28"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-95-29"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-95-30"></a>    peervpn1.vm.network :private_network,
+<a name="__codelineno-95-31"></a>      :libvirt__network_name =&gt; &quot;internet-vpn4&quot;,
+<a name="__codelineno-95-32"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-95-33"></a>      :ip =&gt; &quot;192.88.99.11&quot;,
+<a name="__codelineno-95-34"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-95-35"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-95-36"></a>  end
+<a name="__codelineno-95-37"></a>
+<a name="__codelineno-95-38"></a>  config.vm.define :peervpn2 do |peervpn2|
+<a name="__codelineno-95-39"></a>    peervpn2.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-95-40"></a>    peervpn2.vm.hostname = &quot;peervpn2&quot;
+<a name="__codelineno-95-41"></a>    peervpn2.vm.network :private_network,
+<a name="__codelineno-95-42"></a>      :libvirt__network_name =&gt; &quot;internet-vpn4&quot;,
+<a name="__codelineno-95-43"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-95-44"></a>      :ip =&gt; &quot;192.88.99.10&quot;,
+<a name="__codelineno-95-45"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-95-46"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-95-47"></a>    peervpn2.vm.network :private_network,
+<a name="__codelineno-95-48"></a>      :libvirt__network_name =&gt; &quot;privada2-vpn4&quot;,
+<a name="__codelineno-95-49"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-95-50"></a>      :ip =&gt; &quot;192.168.1.1&quot;,
+<a name="__codelineno-95-51"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-95-52"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-95-53"></a>  end
+<a name="__codelineno-95-54"></a>
+<a name="__codelineno-95-55"></a>  config.vm.define :clientenormal2 do |clientenormal2|
+<a name="__codelineno-95-56"></a>    clientenormal2.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-95-57"></a>    clientenormal2.vm.hostname = &quot;clientenormal2&quot;
+<a name="__codelineno-95-58"></a>    clientenormal2.vm.network :private_network,
+<a name="__codelineno-95-59"></a>      :libvirt__network_name =&gt; &quot;privada2-vpn4&quot;,
+<a name="__codelineno-95-60"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-95-61"></a>      :ip =&gt; &quot;192.168.1.2&quot;,
+<a name="__codelineno-95-62"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-95-63"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-95-64"></a>  end
+<a name="__codelineno-95-65"></a>
+<a name="__codelineno-95-66"></a>end
+</code></pre></div></p>
+<h3 id="en-peervpn1">En peervpn1</h3>
+<h4 id="instalar-wireguard_2">Instalar WireGuard</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-96-1"></a>sudo apt update
+<a name="__codelineno-96-2"></a>sudo apt install wireguard
+</code></pre></div>
+<h4 id="generar-par-de-claves_2">Generar par de claves</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-97-1"></a>wg genkey | sudo tee /etc/wireguard/peervpn1_private.key | wg pubkey | sudo tee /etc/wireguard/peervpn1_public.key
+</code></pre></div>
+<h4 id="configurar_2">Configurar</h4>
+<p>Creo el fichero de configuración:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-98-1"></a>sudo touch /etc/wireguard/wg0.conf
+</code></pre></div></p>
+<p>Lo modifico:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-99-1"></a>[Interface]
+<a name="__codelineno-99-2"></a>Address = 10.99.99.1/32
+<a name="__codelineno-99-3"></a>ListenPort = 51820
+<a name="__codelineno-99-4"></a>PrivateKey = 4FMOxWlQLSGHlfgjFKBkmPDeURsHh7RBeCAoYMd/vGw=
+<a name="__codelineno-99-5"></a>
+<a name="__codelineno-99-6"></a># IP forwarding
+<a name="__codelineno-99-7"></a>PreUp = sysctl -w net.ipv4.ip_forward=1
+<a name="__codelineno-99-8"></a>
+<a name="__codelineno-99-9"></a>[Peer]
+<a name="__codelineno-99-10"></a>Endpoint = 192.88.99.10:51820
+<a name="__codelineno-99-11"></a>AllowedIPs = 10.99.99.2/32, 192.168.1.0/24
+<a name="__codelineno-99-12"></a>PublicKey = FMJMI1Cg7jOLPTZj49DP/KE7RVK9/J8X5l3KG4LVf2Q=
+</code></pre></div></p>
+<h4 id="modificar-permisos_2">Modificar permisos</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-100-1"></a>sudo chmod 600 /etc/wireguard/ -R
+</code></pre></div>
+<h4 id="iniciar-wireguard_2">Iniciar WireGuard</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-101-1"></a>sudo wg-quick up /etc/wireguard/wg0.conf
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-102-1"></a>[#] sysctl -w net.ipv4.ip_forward=1
+<a name="__codelineno-102-2"></a>net.ipv4.ip_forward = 1
+<a name="__codelineno-102-3"></a>[#] ip link add wg0 type wireguard
+<a name="__codelineno-102-4"></a>[#] wg setconf wg0 /dev/fd/63
+<a name="__codelineno-102-5"></a>[#] ip -4 address add 10.99.99.1/32 dev wg0
+<a name="__codelineno-102-6"></a>[#] ip link set mtu 1420 up dev wg0
+<a name="__codelineno-102-7"></a>[#] ip -4 route add 10.99.99.2/32 dev wg0
+<a name="__codelineno-102-8"></a>[#] ip -4 route add 192.168.1.0/24 dev wg0
+</code></pre></div></p>
+<p>Se crea la interfaz:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-103-1"></a>7: wg0: &lt;POINTOPOINT,NOARP,UP,LOWER_UP&gt; mtu 1420 qdisc noqueue state UNKNOWN group default qlen 1000
+<a name="__codelineno-103-2"></a>    link/none
+<a name="__codelineno-103-3"></a>    inet 10.99.99.1/32 scope global wg0
+<a name="__codelineno-103-4"></a>       valid_lft forever preferred_lft forever
+</code></pre></div></p>
+<p>Y las rutas:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-104-1"></a>10.99.99.2 dev wg0 scope link
+<a name="__codelineno-104-2"></a>192.168.1.0/24 dev wg0 scope link
+</code></pre></div></p>
+<h3 id="en-peervpn2">En peervpn2</h3>
+<h4 id="instalar-wireguard_3">Instalar WireGuard</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-105-1"></a>sudo apt update
+<a name="__codelineno-105-2"></a>sudo apt install wireguard
+</code></pre></div>
+<h4 id="generar-par-de-claves_3">Generar par de claves</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-106-1"></a>wg genkey | sudo tee /etc/wireguard/peervpn2_private.key | wg pubkey | sudo tee /etc/wireguard/peervpn2_public.key
+</code></pre></div>
+<h4 id="configurar_3">Configurar</h4>
+<p>Creo el fichero de configuración:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-107-1"></a>sudo touch /etc/wireguard/wg0.conf
+</code></pre></div></p>
+<p>Lo modifico:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-108-1"></a>[Interface]
+<a name="__codelineno-108-2"></a>Address = 10.99.99.2/32
+<a name="__codelineno-108-3"></a>ListenPort = 51820
+<a name="__codelineno-108-4"></a>PrivateKey = UP7xLuRK2JtsFxUwWqHxeREAwKPQPO9mvYfI+neNd3E=
+<a name="__codelineno-108-5"></a>
+<a name="__codelineno-108-6"></a># IP forwarding
+<a name="__codelineno-108-7"></a>PreUp = sysctl -w net.ipv4.ip_forward=1
+<a name="__codelineno-108-8"></a>
+<a name="__codelineno-108-9"></a>[Peer]
+<a name="__codelineno-108-10"></a>Endpoint = 192.88.99.11:51820
+<a name="__codelineno-108-11"></a>AllowedIPs = 10.99.99.1/32, 192.168.0.0/24
+<a name="__codelineno-108-12"></a>PublicKey = nN/tik1TNOkFuupFVlNOaEO5hwQFKlsUWoKYsSCutzA=
+</code></pre></div></p>
+<h4 id="modificar-permisos_3">Modificar permisos</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-109-1"></a>sudo chmod 600 /etc/wireguard/ -R
+</code></pre></div>
+<h4 id="iniciar-wireguard_3">Iniciar WireGuard</h4>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-110-1"></a>sudo wg-quick up /etc/wireguard/wg0.conf
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-111-1"></a>[#] sysctl -w net.ipv4.ip_forward=1
+<a name="__codelineno-111-2"></a>net.ipv4.ip_forward = 1
+<a name="__codelineno-111-3"></a>[#] ip link add wg0 type wireguard
+<a name="__codelineno-111-4"></a>[#] wg setconf wg0 /dev/fd/63
+<a name="__codelineno-111-5"></a>[#] ip -4 address add 10.99.99.2/32 dev wg0
+<a name="__codelineno-111-6"></a>[#] ip link set mtu 1420 up dev wg0
+<a name="__codelineno-111-7"></a>[#] ip -4 route add 10.99.99.1/32 dev wg0
+<a name="__codelineno-111-8"></a>[#] ip -4 route add 192.168.0.0/24 dev wg0
+</code></pre></div></p>
+<p>Se nos crea la interfaz:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-112-1"></a>7: wg0: &lt;POINTOPOINT,NOARP,UP,LOWER_UP&gt; mtu 1420 qdisc noqueue state UNKNOWN group default qlen 1000
+<a name="__codelineno-112-2"></a>    link/none
+<a name="__codelineno-112-3"></a>    inet 10.99.99.2/32 scope global wg0
+<a name="__codelineno-112-4"></a>       valid_lft forever preferred_lft forever
+</code></pre></div></p>
+<p>Y las rutas:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-113-1"></a>10.99.99.1 dev wg0 scope link
+<a name="__codelineno-113-2"></a>192.168.0.0/24 dev wg0 scope link
+</code></pre></div></p>
+<h3 id="en-clientenormal1_1">En clientenormal1</h3>
+<h4 id="cambiar-ruta-por-defecto_4">Cambiar ruta por defecto</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-114-1"></a>sudo ip route del default
+<a name="__codelineno-114-2"></a>sudo ip route add default via 192.168.0.1
+</code></pre></div>
+<h3 id="en-clientenormal2_1">En clientenormal2</h3>
+<h4 id="cambiar-ruta-por-defecto_5">Cambiar ruta por defecto</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-115-1"></a>sudo ip route del default
+<a name="__codelineno-115-2"></a>sudo ip route add default via 192.168.1.1
+</code></pre></div>
+<h3 id="pruebas-de-funcionamiento_5">Pruebas de funcionamiento</h3>
+<p>Ping desde <code>clientenormal1</code> a <code>clientenormal2</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-116-1"></a>vagrant@clientenormal1:~$ ping 192.168.1.2
+<a name="__codelineno-116-2"></a>PING 192.168.1.2 (192.168.1.2) 56(84) bytes of data.
+<a name="__codelineno-116-3"></a>64 bytes from 192.168.1.2: icmp_seq=1 ttl=62 time=2.77 ms
+<a name="__codelineno-116-4"></a>64 bytes from 192.168.1.2: icmp_seq=2 ttl=62 time=0.958 ms
+<a name="__codelineno-116-5"></a>^C
+<a name="__codelineno-116-6"></a>--- 192.168.1.2 ping statistics ---
+<a name="__codelineno-116-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+<a name="__codelineno-116-8"></a>rtt min/avg/max/mdev = 0.958/1.865/2.772/0.907 ms
+</code></pre></div></p>
+<p>Ping desde <code>clientenormal2</code> a <code>clientenormal1</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-117-1"></a>vagrant@clientenormal2:~$ ping 192.168.0.2
+<a name="__codelineno-117-2"></a>PING 192.168.0.2 (192.168.0.2) 56(84) bytes of data.
+<a name="__codelineno-117-3"></a>64 bytes from 192.168.0.2: icmp_seq=1 ttl=62 time=1.26 ms
+<a name="__codelineno-117-4"></a>64 bytes from 192.168.0.2: icmp_seq=2 ttl=62 time=0.721 ms
+<a name="__codelineno-117-5"></a>^C
+<a name="__codelineno-117-6"></a>--- 192.168.0.2 ping statistics ---
+<a name="__codelineno-117-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+<a name="__codelineno-117-8"></a>rtt min/avg/max/mdev = 0.721/0.992/1.264/0.271 ms
+</code></pre></div></p>
+<p>Traceroute desde <code>clientenormal1</code> a <code>clientenormal2</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-118-1"></a>vagrant@clientenormal1:~$ traceroute 192.168.1.2
+<a name="__codelineno-118-2"></a>traceroute to 192.168.1.2 (192.168.1.2), 30 hops max, 60 byte packets
+<a name="__codelineno-118-3"></a> 1  192.168.0.1 (192.168.0.1)  0.264 ms  0.244 ms  0.228 ms
+<a name="__codelineno-118-4"></a> 2  10.99.99.2 (10.99.99.2)  0.558 ms  0.540 ms  0.495 ms
+<a name="__codelineno-118-5"></a> 3  192.168.1.2 (192.168.1.2)  0.748 ms  0.700 ms  0.685 ms
+</code></pre></div></p>
+<p>Traceroute desde <code>clientenormal2</code> a <code>clientenormal1</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-119-1"></a>vagrant@clientenormal2:~$ traceroute 192.168.0.2
+<a name="__codelineno-119-2"></a>traceroute to 192.168.0.2 (192.168.0.2), 30 hops max, 60 byte packets
+<a name="__codelineno-119-3"></a> 1  192.168.1.1 (192.168.1.1)  0.800 ms  0.774 ms  0.764 ms
+<a name="__codelineno-119-4"></a> 2  10.99.99.1 (10.99.99.1)  1.665 ms  1.653 ms  1.760 ms
+<a name="__codelineno-119-5"></a> 3  192.168.0.2 (192.168.0.2)  2.553 ms  2.544 ms  2.535 ms
+</code></pre></div></p>
+<h3 id="conclusiones_1">Conclusiones</h3>
+<p>Aquí expondré las conclusiones a las que he llegado tras comparar el sitio a sitio de WireGuard con el de OpenVPN.  </p>
+<p>Además de las ya mencionadas en el anterior apartado de conclusiones, sólo quedaría una más por destacar, y que sólo ha sucedido con la configuración de sitio a sitio:</p>
+<ul>
+<li>El manejo de rutas es mucho más sencillo con WireGuard, ya que sólo nos tenemos que preocupar de que el parámetro <code>AllowedIPs</code> esté correctamente relleno con las rutas que necesitamos en cada peer. Con OpenVPN influyen los <code>ccd</code>, "complicando" un poco la configuración.</li>
+</ul>
+<h2 id="bibliografia">Bibliografía</h2>
+<p>PARTE 1:</p>
+<p><a href="https://kifarunix.com/install-openvpn-server-on-debian-11-debian-10/">https://kifarunix.com/install-openvpn-server-on-debian-11-debian-10/</a></p>
+<p>PARTE 2:</p>
+<p><a href="https://medium.com/@bjammal/site-to-site-vpn-on-a-single-host-using-openvpn-e9c5cdb22f92">https://medium.com/@bjammal/site-to-site-vpn-on-a-single-host-using-openvpn-e9c5cdb22f92</a>
+<a href="https://www.matoski.com/article/site-to-site-openvpn-firewalld-debian/">https://www.matoski.com/article/site-to-site-openvpn-firewalld-debian/</a><br />
+<a href="https://openvpn.net/community-resources/how-to/#scope">https://openvpn.net/community-resources/how-to/#scope</a> (sección <em>Including multiple machines on the client side when using a routed VPN (dev tun)</em>)</p>
+<p>PARTE 3:</p>
+<p><a href="https://www.linuxbabe.com/debian/wireguard-vpn-server-debian">https://www.linuxbabe.com/debian/wireguard-vpn-server-debian</a><br />
+<a href="https://www.makeuseof.com/how-to-set-up-wireguard-windows/">https://www.makeuseof.com/how-to-set-up-wireguard-windows/</a></p>
+<p>PARTE 4:</p>
+<p><a href="https://www.procustodibus.com/blog/2020/12/wireguard-site-to-site-config/">https://www.procustodibus.com/blog/2020/12/wireguard-site-to-site-config/</a></p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/practica-vpn-sad/",this.page.identifier="practica-vpn-sad/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../practica-integridad-firmas-autenticacion/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Criptografía 2: Firmas" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Criptografía 2: Firmas
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../ej1-iptables-nodo/" class="md-footer__link md-footer__link--next" aria-label="Next: Ejercicio 1 iptables: por nodo" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Ejercicio 1 iptables: por nodo
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

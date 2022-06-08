@@ -1,0 +1,3112 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/perimetral-iptables-escenario/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Práctica iptables: perimetral escenario - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-iptables-perimetral-sobre-escenario" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Práctica iptables: perimetral escenario
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Práctica iptables: perimetral escenario
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Práctica iptables: perimetral escenario
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-7" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-8" class="md-nav__link">
+    Parte 8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-9" class="md-nav__link">
+    Parte 9
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-10" class="md-nav__link">
+    Parte 10
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-11" class="md-nav__link">
+    Parte 11
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-12" class="md-nav__link">
+    Parte 12
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-13" class="md-nav__link">
+    Parte 13
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-14" class="md-nav__link">
+    Parte 14
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-15" class="md-nav__link">
+    Parte 15
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-16" class="md-nav__link">
+    Parte 16
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-17" class="md-nav__link">
+    Parte 17
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-18" class="md-nav__link">
+    Parte 18
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-19" class="md-nav__link">
+    Parte 19
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-20" class="md-nav__link">
+    Parte 20
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 20">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servidor-de-correo" class="md-nav__link">
+    Servidor de correo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidor-ftp" class="md-nav__link">
+    Servidor FTP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-21" class="md-nav__link">
+    Parte 21
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-22" class="md-nav__link">
+    Parte 22
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-23" class="md-nav__link">
+    Parte 23
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-24" class="md-nav__link">
+    Parte 24
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-25" class="md-nav__link">
+    Parte 25
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-26" class="md-nav__link">
+    Parte 26
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-27" class="md-nav__link">
+    Parte 27
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 27">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logica-base" class="md-nav__link">
+    Lógica base
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prueba-1" class="md-nav__link">
+    Prueba 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-1-bloquear-null-scan" class="md-nav__link">
+    Solución 1: Bloquear Null scan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-2-bloquear-xmas-scan" class="md-nav__link">
+    Solución 2: Bloquear Xmas scan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-3-bloquear-fin-scan" class="md-nav__link">
+    Solución 3: Bloquear FIN scan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-4-bloquear-udp-scan" class="md-nav__link">
+    Solución 4: Bloquear UDP scan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-28" class="md-nav__link">
+    Parte 28
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 28">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trafico-dns-externa-apolo" class="md-nav__link">
+    Tráfico DNS externa → Apolo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-dns-apolo-externa" class="md-nav__link">
+    Tráfico DNS Apolo → externa
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-http-externa-hera" class="md-nav__link">
+    Tráfico http externa → Hera
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-correo-apolo-externa" class="md-nav__link">
+    Tráfico correo Apolo → externa
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-correo-externa-apolo" class="md-nav__link">
+    Tráfico correo externa → Apolo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-29" class="md-nav__link">
+    Parte 29
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-7" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-8" class="md-nav__link">
+    Parte 8
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-9" class="md-nav__link">
+    Parte 9
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-10" class="md-nav__link">
+    Parte 10
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-11" class="md-nav__link">
+    Parte 11
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-12" class="md-nav__link">
+    Parte 12
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-13" class="md-nav__link">
+    Parte 13
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-14" class="md-nav__link">
+    Parte 14
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-15" class="md-nav__link">
+    Parte 15
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-16" class="md-nav__link">
+    Parte 16
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-17" class="md-nav__link">
+    Parte 17
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-18" class="md-nav__link">
+    Parte 18
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-19" class="md-nav__link">
+    Parte 19
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-20" class="md-nav__link">
+    Parte 20
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 20">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#servidor-de-correo" class="md-nav__link">
+    Servidor de correo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servidor-ftp" class="md-nav__link">
+    Servidor FTP
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-21" class="md-nav__link">
+    Parte 21
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-22" class="md-nav__link">
+    Parte 22
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-23" class="md-nav__link">
+    Parte 23
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-24" class="md-nav__link">
+    Parte 24
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-25" class="md-nav__link">
+    Parte 25
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-26" class="md-nav__link">
+    Parte 26
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-27" class="md-nav__link">
+    Parte 27
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 27">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#logica-base" class="md-nav__link">
+    Lógica base
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prueba-1" class="md-nav__link">
+    Prueba 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-1-bloquear-null-scan" class="md-nav__link">
+    Solución 1: Bloquear Null scan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-2-bloquear-xmas-scan" class="md-nav__link">
+    Solución 2: Bloquear Xmas scan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-3-bloquear-fin-scan" class="md-nav__link">
+    Solución 3: Bloquear FIN scan
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solucion-4-bloquear-udp-scan" class="md-nav__link">
+    Solución 4: Bloquear UDP scan
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-28" class="md-nav__link">
+    Parte 28
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 28">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trafico-dns-externa-apolo" class="md-nav__link">
+    Tráfico DNS externa → Apolo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-dns-apolo-externa" class="md-nav__link">
+    Tráfico DNS Apolo → externa
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-http-externa-hera" class="md-nav__link">
+    Tráfico http externa → Hera
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-correo-apolo-externa" class="md-nav__link">
+    Tráfico correo Apolo → externa
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trafico-correo-externa-apolo" class="md-nav__link">
+    Tráfico correo externa → Apolo
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-29" class="md-nav__link">
+    Parte 29
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="practica-iptables-perimetral-sobre-escenario">Práctica iptables: perimetral sobre escenario</h1>
+<p><strong>ATENCIÓN: La IP pública de Zeus en este escenario es posible que cambie durante las demostraciones ya que este es un escenario que funciona tanto en clase como en casa, y existen 2 direccionamientos distintos.</strong>  </p>
+<h2 id="parte-1">Parte 1</h2>
+<blockquote>
+<p>Mostrar escenario del que se parte</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-0-2"></a>
+<a name="__codelineno-0-3"></a>config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-0-4"></a>
+<a name="__codelineno-0-5"></a>config.vm.provider :libvirt do |libvirt|
+<a name="__codelineno-0-6"></a>  libvirt.cpus = 1
+<a name="__codelineno-0-7"></a>  libvirt.memory = 512
+<a name="__codelineno-0-8"></a>end
+<a name="__codelineno-0-9"></a>
+<a name="__codelineno-0-10"></a>  config.vm.define :zeus do |zeus|
+<a name="__codelineno-0-11"></a>    zeus.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-0-12"></a>    zeus.vm.hostname = &quot;zeus&quot;
+<a name="__codelineno-0-13"></a>    zeus.vm.network :public_network,
+<a name="__codelineno-0-14"></a>      :dev =&gt; &quot;br0&quot;,
+<a name="__codelineno-0-15"></a>      :mode =&gt; &quot;bridge&quot;,
+<a name="__codelineno-0-16"></a>      :type =&gt; &quot;bridge&quot;
+<a name="__codelineno-0-17"></a>    zeus.vm.network :private_network,
+<a name="__codelineno-0-18"></a>      :libvirt__network_name =&gt; &quot;red-dmz-de-adrianj&quot;,
+<a name="__codelineno-0-19"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-20"></a>      :ip =&gt; &quot;172.16.0.1&quot;,
+<a name="__codelineno-0-21"></a>      :libvirt__netmask =&gt; &#39;255.255.0.0&#39;,
+<a name="__codelineno-0-22"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-23"></a>    zeus.vm.network :private_network,
+<a name="__codelineno-0-24"></a>      :libvirt__network_name =&gt; &quot;red-interna-de-adrianj&quot;,
+<a name="__codelineno-0-25"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-26"></a>      :ip =&gt; &quot;10.0.1.1&quot;,
+<a name="__codelineno-0-27"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-0-28"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-29"></a>  end
+<a name="__codelineno-0-30"></a>
+<a name="__codelineno-0-31"></a>  config.vm.define :hera do |hera|
+<a name="__codelineno-0-32"></a>    hera.vm.box = &quot;rockylinux/8&quot;
+<a name="__codelineno-0-33"></a>    hera.vm.hostname = &quot;hera&quot;
+<a name="__codelineno-0-34"></a>    hera.vm.network :private_network,
+<a name="__codelineno-0-35"></a>      :libvirt__network_name =&gt; &quot;red-dmz-de-adrianj&quot;,
+<a name="__codelineno-0-36"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-37"></a>      :ip =&gt; &quot;172.16.0.200&quot;,
+<a name="__codelineno-0-38"></a>      :libvirt__netmask =&gt; &#39;255.255.0.0&#39;,
+<a name="__codelineno-0-39"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-40"></a>  end
+<a name="__codelineno-0-41"></a>
+<a name="__codelineno-0-42"></a>  config.vm.define :apolo do |apolo|
+<a name="__codelineno-0-43"></a>    apolo.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-0-44"></a>    apolo.vm.hostname = &quot;apolo&quot;
+<a name="__codelineno-0-45"></a>    apolo.vm.network :private_network,
+<a name="__codelineno-0-46"></a>      :libvirt__network_name =&gt; &quot;red-interna-de-adrianj&quot;,
+<a name="__codelineno-0-47"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-48"></a>      :ip =&gt; &quot;10.0.1.102&quot;,
+<a name="__codelineno-0-49"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-0-50"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-51"></a>  end
+<a name="__codelineno-0-52"></a>
+<a name="__codelineno-0-53"></a>  config.vm.define :ares do |ares|
+<a name="__codelineno-0-54"></a>    ares.vm.box = &quot;generic/ubuntu2004&quot;
+<a name="__codelineno-0-55"></a>    ares.vm.hostname = &quot;ares&quot;
+<a name="__codelineno-0-56"></a>    ares.vm.network :private_network,
+<a name="__codelineno-0-57"></a>      :libvirt__network_name =&gt; &quot;red-interna-de-adrianj&quot;,
+<a name="__codelineno-0-58"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-59"></a>      :ip =&gt; &quot;10.0.1.101&quot;,
+<a name="__codelineno-0-60"></a>      :libvirt__netmask =&gt; &#39;255.255.255.0&#39;,
+<a name="__codelineno-0-61"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-62"></a>  end
+<a name="__codelineno-0-63"></a>
+<a name="__codelineno-0-64"></a>end
+</code></pre></div>
+<p><img alt="" src="https://fp.josedomingo.org/hlc2122/u02/img/escenario3.png" /></p>
+<h2 id="parte-2">Parte 2</h2>
+<blockquote>
+<p>Mostrar el estado iptables del que se parte</p>
+</blockquote>
+<p>Tabla filter:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>vagrant@zeus:~$ sudo iptables -L -v -n
+<a name="__codelineno-1-2"></a># Warning: iptables-legacy tables present, use iptables-legacy to see them
+<a name="__codelineno-1-3"></a>Chain INPUT (policy ACCEPT 0 packets, 0 bytes)
+<a name="__codelineno-1-4"></a> pkts bytes target     prot opt in     out     source               destination
+<a name="__codelineno-1-5"></a>
+<a name="__codelineno-1-6"></a>Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+<a name="__codelineno-1-7"></a> pkts bytes target     prot opt in     out     source               destination
+<a name="__codelineno-1-8"></a>
+<a name="__codelineno-1-9"></a>Chain OUTPUT (policy ACCEPT 0 packets, 0 bytes)
+<a name="__codelineno-1-10"></a> pkts bytes target     prot opt in     out     source               destination
+</code></pre></div></p>
+<p>Tabla nat:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>vagrant@zeus:~$ sudo iptables -L -v -n -t nat
+<a name="__codelineno-2-2"></a># Warning: iptables-legacy tables present, use iptables-legacy to see them
+<a name="__codelineno-2-3"></a>Chain PREROUTING (policy ACCEPT 437 packets, 87098 bytes)
+<a name="__codelineno-2-4"></a> pkts bytes target     prot opt in     out     source               destination
+<a name="__codelineno-2-5"></a>    0     0 DNAT       udp  --  eth1   *       0.0.0.0/0            0.0.0.0/0            udp dpt:53 to:10.0.1.102:53
+<a name="__codelineno-2-6"></a>    0     0 DNAT       tcp  --  eth1   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:80 to:172.16.0.200:80
+<a name="__codelineno-2-7"></a>    0     0 DNAT       tcp  --  eth1   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:25 to:10.0.1.102:25
+<a name="__codelineno-2-8"></a>
+<a name="__codelineno-2-9"></a>Chain INPUT (policy ACCEPT 41 packets, 10816 bytes)
+<a name="__codelineno-2-10"></a> pkts bytes target     prot opt in     out     source               destination
+<a name="__codelineno-2-11"></a>
+<a name="__codelineno-2-12"></a>Chain OUTPUT (policy ACCEPT 12 packets, 873 bytes)
+<a name="__codelineno-2-13"></a> pkts bytes target     prot opt in     out     source               destination
+<a name="__codelineno-2-14"></a>
+<a name="__codelineno-2-15"></a>Chain POSTROUTING (policy ACCEPT 4 packets, 257 bytes)
+<a name="__codelineno-2-16"></a> pkts bytes target     prot opt in     out     source               destination
+<a name="__codelineno-2-17"></a>   36  2986 MASQUERADE  all  --  *      eth1    0.0.0.0/0            0.0.0.0/0
+</code></pre></div></p>
+<p>Mismas reglas NAT pero en comandos:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>sudo iptables -t nat -A PREROUTING -i eth1 -p udp --dport 53 -j DNAT --to-destination 10.0.1.102:53
+<a name="__codelineno-3-2"></a>sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j DNAT --to-destination 172.16.0.200:80
+<a name="__codelineno-3-3"></a>sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 25 -j DNAT --to-destination 10.0.1.102:25
+<a name="__codelineno-3-4"></a>sudo iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+</code></pre></div></p>
+<h2 id="parte-3">Parte 3</h2>
+<blockquote>
+<p>Redigir puertos 2222-22 en Zeus desde el exterior</p>
+</blockquote>
+<p>DNAT para mi casa y para clase:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>sudo iptables -t nat -A PREROUTING -i eth1 -s 172.22.0.0/16 -p tcp --dport 2222 -j DNAT --to-destination 172.22.0.213:22
+<a name="__codelineno-4-2"></a>sudo iptables -t nat -A PREROUTING -i eth1 -s 192.168.1.0/24 -p tcp --dport 2222 -j DNAT --to-destination 192.168.1.115:22
+</code></pre></div></p>
+<h2 id="parte-4">Parte 4</h2>
+<blockquote>
+<p>Permitir tráfico ssh entrante exterior → Zeus</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>sudo iptables -A INPUT -i eth1 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-5-2"></a>sudo iptables -A OUTPUT -o eth1 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona desde mi host:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>atlas@olympus:~/vagrant/escenario-libvirt$ ssh zeus-casa
+<a name="__codelineno-6-2"></a>Linux zeus 5.10.0-9-amd64 #1 SMP Debian 5.10.70-1 (2021-09-30) x86_64
+<a name="__codelineno-6-3"></a>
+<a name="__codelineno-6-4"></a> @@@@@@@@ @@@@@@@@ @@@  @@@  @@@@@@
+<a name="__codelineno-6-5"></a>      @@! @@!      @@!  @@@ !@@
+<a name="__codelineno-6-6"></a>    @!!   @!!!:!   @!@  !@!  !@@!!
+<a name="__codelineno-6-7"></a>  !!:     !!:      !!:  !!!     !:!
+<a name="__codelineno-6-8"></a> :.::.: : : :: :::  :.:: :  ::.: :
+<a name="__codelineno-6-9"></a>
+<a name="__codelineno-6-10"></a>The programs included with the Debian GNU/Linux system are free software;
+<a name="__codelineno-6-11"></a>the exact distribution terms for each program are described in the
+<a name="__codelineno-6-12"></a>individual files in /usr/share/doc/*/copyright.
+<a name="__codelineno-6-13"></a>
+<a name="__codelineno-6-14"></a>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+<a name="__codelineno-6-15"></a>permitted by applicable law.
+<a name="__codelineno-6-16"></a>Last login: Sun Feb  6 16:53:51 2022 from 192.168.1.106
+<a name="__codelineno-6-17"></a>vagrant@zeus:~$
+</code></pre></div>
+<em>(no escribo el puerto 2222 al conectar porque ya está en mi config ssh. Ver la siguiente parte para más información)</em></p>
+<p>Que funcione esta conexión significa que tanto las reglas de este paso como del anterior funcionan.</p>
+<h2 id="parte-5">Parte 5</h2>
+<blockquote>
+<p>Permitir tráfico ssh para hacer proxyjump desde zeus</p>
+</blockquote>
+<p>Según como estaba planteado nuestro escenario, se tenía que acceder a la DMZ y a la LAN a través de zeus por ssh. Esto nos obliga a añadir reglas INPUT/OUPUT desde zeus hacia estas redes, para que el salto SSH pueda funcionar.</p>
+<p>Muestro la parte correspondiente de mi <code>.ssh/config</code>, para que sepamos de dónde partimos:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>#####################
+<a name="__codelineno-7-2"></a># escenario libvirt #
+<a name="__codelineno-7-3"></a>#####################
+<a name="__codelineno-7-4"></a>
+<a name="__codelineno-7-5"></a>Host zeus-clase
+<a name="__codelineno-7-6"></a>    HostName 172.22.0.213
+<a name="__codelineno-7-7"></a>    User vagrant
+<a name="__codelineno-7-8"></a>    Port 2222
+<a name="__codelineno-7-9"></a>
+<a name="__codelineno-7-10"></a>Host zeus-casa
+<a name="__codelineno-7-11"></a>    HostName 192.168.1.115
+<a name="__codelineno-7-12"></a>    User vagrant
+<a name="__codelineno-7-13"></a>    Port 2222
+<a name="__codelineno-7-14"></a>
+<a name="__codelineno-7-15"></a>
+<a name="__codelineno-7-16"></a>Host apolo-clase
+<a name="__codelineno-7-17"></a>  HostName 10.0.1.102
+<a name="__codelineno-7-18"></a>  User vagrant
+<a name="__codelineno-7-19"></a>  ProxyJump zeus-clase
+<a name="__codelineno-7-20"></a>
+<a name="__codelineno-7-21"></a>Host apolo-casa
+<a name="__codelineno-7-22"></a>  HostName 10.0.1.102
+<a name="__codelineno-7-23"></a>  User vagrant
+<a name="__codelineno-7-24"></a>  ProxyJump zeus-casa
+<a name="__codelineno-7-25"></a>
+<a name="__codelineno-7-26"></a>
+<a name="__codelineno-7-27"></a>Host ares-clase
+<a name="__codelineno-7-28"></a>  HostName 10.0.1.101
+<a name="__codelineno-7-29"></a>  User vagrant
+<a name="__codelineno-7-30"></a>  ProxyJump zeus-clase
+<a name="__codelineno-7-31"></a>
+<a name="__codelineno-7-32"></a>Host ares-casa
+<a name="__codelineno-7-33"></a>  HostName 10.0.1.101
+<a name="__codelineno-7-34"></a>  User vagrant
+<a name="__codelineno-7-35"></a>  ProxyJump zeus-casa
+<a name="__codelineno-7-36"></a>
+<a name="__codelineno-7-37"></a>
+<a name="__codelineno-7-38"></a>Host hera-clase
+<a name="__codelineno-7-39"></a>  HostName 172.16.0.200
+<a name="__codelineno-7-40"></a>  User vagrant
+<a name="__codelineno-7-41"></a>  ProxyJump zeus-clase
+<a name="__codelineno-7-42"></a>
+<a name="__codelineno-7-43"></a>Host hera-casa
+<a name="__codelineno-7-44"></a>  HostName 172.16.0.200
+<a name="__codelineno-7-45"></a>  User vagrant
+<a name="__codelineno-7-46"></a>  ProxyJump zeus-casa
+</code></pre></div></p>
+<p>Tráfico ssh saliente zeus → DMZ:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>sudo iptables -A OUTPUT -o eth2 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-8-2"></a>sudo iptables -A INPUT -i eth2 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div></p>
+<p>Tráfico ssh saliente zeus → LAN:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>sudo iptables -A OUTPUT -o eth3 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-9-2"></a>sudo iptables -A INPUT -i eth3 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div></p>
+<p>Pruebo que puedo conectar a Hera desde mi host:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>atlas@olympus:~/vagrant/escenario-libvirt$ ssh hera-casa
+<a name="__codelineno-10-2"></a>
+<a name="__codelineno-10-3"></a> @@@  @@@ @@@@@@@@ @@@@@@@   @@@@@@
+<a name="__codelineno-10-4"></a> @@!  @@@ @@!      @@!  @@@ @@!  @@@
+<a name="__codelineno-10-5"></a> @!@!@!@! @!!!:!   @!@!!@!  @!@!@!@!
+<a name="__codelineno-10-6"></a> !!:  !!! !!:      !!: :!!  !!:  !!!
+<a name="__codelineno-10-7"></a>  :   : : : :: :::  :   : :  :   : :
+<a name="__codelineno-10-8"></a>
+<a name="__codelineno-10-9"></a>Last login: Sun Feb  6 16:08:56 2022 from 172.16.0.1
+<a name="__codelineno-10-10"></a>[vagrant@hera ~]$
+</code></pre></div></p>
+<p>Pruebo que puedo conectar a Apolo desde mi host:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a>atlas@olympus:~/vagrant/escenario-libvirt$ ssh apolo-casa
+<a name="__codelineno-11-2"></a>Linux apolo 5.10.0-10-amd64 #1 SMP Debian 5.10.84-1 (2021-12-08) x86_64
+<a name="__codelineno-11-3"></a>
+<a name="__codelineno-11-4"></a>  @@@@@@  @@@@@@@   @@@@@@  @@@       @@@@@@
+<a name="__codelineno-11-5"></a> @@!  @@@ @@!  @@@ @@!  @@@ @@!      @@!  @@@
+<a name="__codelineno-11-6"></a> @!@!@!@! @!@@!@!  @!@  !@! @!!      @!@  !@!
+<a name="__codelineno-11-7"></a> !!:  !!! !!:      !!:  !!! !!:      !!:  !!!
+<a name="__codelineno-11-8"></a>  :   : :  :        : :. :  : ::.: :  : :. :
+<a name="__codelineno-11-9"></a>
+<a name="__codelineno-11-10"></a>The programs included with the Debian GNU/Linux system are free software;
+<a name="__codelineno-11-11"></a>the exact distribution terms for each program are described in the
+<a name="__codelineno-11-12"></a>individual files in /usr/share/doc/*/copyright.
+<a name="__codelineno-11-13"></a>
+<a name="__codelineno-11-14"></a>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+<a name="__codelineno-11-15"></a>permitted by applicable law.
+<a name="__codelineno-11-16"></a>You have mail.
+<a name="__codelineno-11-17"></a>Last login: Sun Feb  6 16:07:35 2022 from 10.0.1.1
+<a name="__codelineno-11-18"></a>vagrant@apolo:~$
+</code></pre></div></p>
+<p>Pruebo que puedo conectar a Ares desde mi host:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>atlas@olympus:~/vagrant/escenario-libvirt$ ssh ares-casa
+<a name="__codelineno-12-2"></a>
+<a name="__codelineno-12-3"></a>  @@@@@@  @@@@@@@  @@@@@@@@  @@@@@@
+<a name="__codelineno-12-4"></a> @@!  @@@ @@!  @@@ @@!      !@@
+<a name="__codelineno-12-5"></a> @!@!@!@! @!@!!@!  @!!!:!    !@@!!
+<a name="__codelineno-12-6"></a> !!:  !!! !!: :!!  !!:          !:!
+<a name="__codelineno-12-7"></a>  :   : :  :   : : : :: ::: ::.: :
+<a name="__codelineno-12-8"></a>
+<a name="__codelineno-12-9"></a>Last login: Thu Feb  3 12:06:44 2022 from 192.168.121.1
+<a name="__codelineno-12-10"></a>vagrant@ares:~$
+</code></pre></div></p>
+<h2 id="parte-6">Parte 6</h2>
+<blockquote>
+<p>Políticas por defecto</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>sudo iptables -P INPUT DROP
+<a name="__codelineno-13-2"></a>sudo iptables -P OUTPUT DROP
+<a name="__codelineno-13-3"></a>sudo iptables -P FORWARD DROP
+</code></pre></div>
+<p>Si no se nos cortan las conexiones ssh a las máquinas después de este paso, las reglas que aplicamos antes funcionan.</p>
+<h2 id="parte-7">Parte 7</h2>
+<blockquote>
+<p>Permitir tráfico ssh Apolo-Hera → Zeus</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a>sudo iptables -A INPUT -s 10.0.1.102,172.16.0.200 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-14-2"></a>sudo iptables -A OUTPUT -d 10.0.1.102,172.16.0.200 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona desde Apolo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a>vagrant@apolo:~$ ssh vagrant@10.0.1.1
+<a name="__codelineno-15-2"></a>Linux zeus 5.10.0-9-amd64 #1 SMP Debian 5.10.70-1 (2021-09-30) x86_64
+<a name="__codelineno-15-3"></a>
+<a name="__codelineno-15-4"></a> @@@@@@@@ @@@@@@@@ @@@  @@@  @@@@@@
+<a name="__codelineno-15-5"></a>      @@! @@!      @@!  @@@ !@@
+<a name="__codelineno-15-6"></a>    @!!   @!!!:!   @!@  !@!  !@@!!
+<a name="__codelineno-15-7"></a>  !!:     !!:      !!:  !!!     !:!
+<a name="__codelineno-15-8"></a> :.::.: : : :: :::  :.:: :  ::.: :
+<a name="__codelineno-15-9"></a>
+<a name="__codelineno-15-10"></a>The programs included with the Debian GNU/Linux system are free software;
+<a name="__codelineno-15-11"></a>the exact distribution terms for each program are described in the
+<a name="__codelineno-15-12"></a>individual files in /usr/share/doc/*/copyright.
+<a name="__codelineno-15-13"></a>
+<a name="__codelineno-15-14"></a>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+<a name="__codelineno-15-15"></a>permitted by applicable law.
+<a name="__codelineno-15-16"></a>Last login: Sun Feb  6 17:38:17 2022 from 10.0.1.102
+<a name="__codelineno-15-17"></a>vagrant@zeus:~$
+</code></pre></div></p>
+<p>Pruebo que funciona desde Hera:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a>[vagrant@hera ~]$ ssh vagrant@172.16.0.1
+<a name="__codelineno-16-2"></a>Linux zeus 5.10.0-9-amd64 #1 SMP Debian 5.10.70-1 (2021-09-30) x86_64
+<a name="__codelineno-16-3"></a>
+<a name="__codelineno-16-4"></a> @@@@@@@@ @@@@@@@@ @@@  @@@  @@@@@@
+<a name="__codelineno-16-5"></a>      @@! @@!      @@!  @@@ !@@
+<a name="__codelineno-16-6"></a>    @!!   @!!!:!   @!@  !@!  !@@!!
+<a name="__codelineno-16-7"></a>  !!:     !!:      !!:  !!!     !:!
+<a name="__codelineno-16-8"></a> :.::.: : : :: :::  :.:: :  ::.: :
+<a name="__codelineno-16-9"></a>
+<a name="__codelineno-16-10"></a>The programs included with the Debian GNU/Linux system are free software;
+<a name="__codelineno-16-11"></a>the exact distribution terms for each program are described in the
+<a name="__codelineno-16-12"></a>individual files in /usr/share/doc/*/copyright.
+<a name="__codelineno-16-13"></a>
+<a name="__codelineno-16-14"></a>Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+<a name="__codelineno-16-15"></a>permitted by applicable law.
+<a name="__codelineno-16-16"></a>Last login: Sun Feb  6 17:38:19 2022 from 10.0.1.102
+<a name="__codelineno-16-17"></a>vagrant@zeus:~$
+</code></pre></div></p>
+<h2 id="parte-8">Parte 8</h2>
+<blockquote>
+<p>Permitir tráfico loopback en Zeus</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a>sudo iptables -A OUTPUT -o lo -p icmp -j ACCEPT
+<a name="__codelineno-17-2"></a>sudo iptables -A INPUT -i lo -p icmp -j ACCEPT
+</code></pre></div>
+<p>Ya funciona el ping a localhost:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a>vagrant@zeus:~$ ping 127.0.0.1
+<a name="__codelineno-18-2"></a>PING 127.0.0.1 (127.0.0.1) 56(84) bytes of data.
+<a name="__codelineno-18-3"></a>64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.064 ms
+<a name="__codelineno-18-4"></a>64 bytes from 127.0.0.1: icmp_seq=2 ttl=64 time=0.095 ms
+<a name="__codelineno-18-5"></a>^C
+<a name="__codelineno-18-6"></a>--- 127.0.0.1 ping statistics ---
+<a name="__codelineno-18-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1020ms
+<a name="__codelineno-18-8"></a>rtt min/avg/max/mdev = 0.064/0.079/0.095/0.015 ms
+</code></pre></div></p>
+<h2 id="parte-9">Parte 9</h2>
+<blockquote>
+<p>Permitir ping entrante DMZ → Zeus</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a>sudo iptables -A INPUT -i eth2 -p icmp -m icmp --icmp-type echo-request -j ACCEPT
+<a name="__codelineno-19-2"></a>sudo iptables -A OUTPUT -o eth2 -p icmp -m icmp --icmp-type echo-reply -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona desde Hera:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a>[vagrant@hera ~]$ ping 172.16.0.1
+<a name="__codelineno-20-2"></a>PING 172.16.0.1 (172.16.0.1) 56(84) bytes of data.
+<a name="__codelineno-20-3"></a>64 bytes from 172.16.0.1: icmp_seq=1 ttl=64 time=0.267 ms
+<a name="__codelineno-20-4"></a>64 bytes from 172.16.0.1: icmp_seq=2 ttl=64 time=0.492 ms
+<a name="__codelineno-20-5"></a>^C
+<a name="__codelineno-20-6"></a>--- 172.16.0.1 ping statistics ---
+<a name="__codelineno-20-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1020ms
+<a name="__codelineno-20-8"></a>rtt min/avg/max/mdev = 0.267/0.379/0.492/0.114 ms
+</code></pre></div></p>
+<h2 id="parte-10">Parte 10</h2>
+<blockquote>
+<p>Rechazar ping entrante LAN → Zeus</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a>sudo iptables -A INPUT -i eth3 -p icmp -m icmp --icmp-type echo-request -j REJECT
+</code></pre></div>
+<p>Pruebo que bloquea el ping desde Ares:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a>vagrant@ares:~$ ping 10.0.1.1
+<a name="__codelineno-22-2"></a>PING 10.0.1.1 (10.0.1.1) 56(84) bytes of data.
+<a name="__codelineno-22-3"></a>^C
+<a name="__codelineno-22-4"></a>--- 10.0.1.1 ping statistics ---
+<a name="__codelineno-22-5"></a>3 packets transmitted, 0 received, 100% packet loss, time 2037ms
+</code></pre></div></p>
+<h2 id="parte-11">Parte 11</h2>
+<blockquote>
+<p>Bloquear ping entrante exterior → Zeus</p>
+</blockquote>
+<p>La política por defecto de INPUT la tenemos a DROP, y tampoco tenemos reglas en este momento que acepten el ping entrante desde el exterior <em>(eth1)</em>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a>Chain INPUT (policy DROP 37915 packets, 1859K bytes)
+<a name="__codelineno-23-2"></a> pkts bytes target     prot opt in     out     source               destination
+<a name="__codelineno-23-3"></a>19351 1298K ACCEPT     tcp  --  eth1   *       0.0.0.0/0            0.0.0.0/0            tcp dpt:22 state NEW,ESTABLISHED
+<a name="__codelineno-23-4"></a>  221 47538 ACCEPT     tcp  --  eth2   *       0.0.0.0/0            0.0.0.0/0            tcp spt:22 state ESTABLISHED
+<a name="__codelineno-23-5"></a>   83 14061 ACCEPT     tcp  --  eth3   *       0.0.0.0/0            0.0.0.0/0            tcp spt:22 state ESTABLISHED
+<a name="__codelineno-23-6"></a>  115 14256 ACCEPT     tcp  --  *      *       10.0.1.102           0.0.0.0/0            tcp dpt:22 state NEW,ESTABLISHED
+<a name="__codelineno-23-7"></a>   66  9222 ACCEPT     tcp  --  *      *       172.16.0.200         0.0.0.0/0            tcp dpt:22 state NEW,ESTABLISHED
+<a name="__codelineno-23-8"></a>    8   672 ACCEPT     icmp --  lo     *       0.0.0.0/0            0.0.0.0/0
+<a name="__codelineno-23-9"></a>    6   504 ACCEPT     icmp --  eth2   *       0.0.0.0/0            0.0.0.0/0            icmptype 8
+<a name="__codelineno-23-10"></a>   11   924 REJECT     icmp --  eth3   *       0.0.0.0/0            0.0.0.0/0            icmptype 8 reject-with icmp-port-unreachable
+</code></pre></div>
+Esto significa que no necesitamos añadir ninguna regla adicional para que se deniegue el ping entrante a Zeus desde el exterior.</p>
+<h2 id="parte-12">Parte 12</h2>
+<blockquote>
+<p>Permitir ping saliente Zeus → LAN-DMZ</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a>sudo iptables -A OUTPUT -d 10.0.1.0/24,172.16.0.0/16 -p icmp -m icmp --icmp-type echo-request -j ACCEPT
+<a name="__codelineno-24-2"></a>sudo iptables -A INPUT -s 10.0.1.0/24,172.16.0.0/16 -p icmp -m icmp --icmp-type echo-reply -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona el ping a Hera:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-25-1"></a>vagrant@zeus:~$ ping 172.16.0.200
+<a name="__codelineno-25-2"></a>PING 172.16.0.200 (172.16.0.200) 56(84) bytes of data.
+<a name="__codelineno-25-3"></a>64 bytes from 172.16.0.200: icmp_seq=1 ttl=64 time=0.675 ms
+<a name="__codelineno-25-4"></a>64 bytes from 172.16.0.200: icmp_seq=2 ttl=64 time=0.584 ms
+<a name="__codelineno-25-5"></a>^C
+<a name="__codelineno-25-6"></a>--- 172.16.0.200 ping statistics ---
+<a name="__codelineno-25-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1030ms
+<a name="__codelineno-25-8"></a>rtt min/avg/max/mdev = 0.584/0.629/0.675/0.045 ms
+</code></pre></div></p>
+<p>Pruebo que funciona el ping a Ares:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-26-1"></a>vagrant@zeus:~$ ping 10.0.1.101
+<a name="__codelineno-26-2"></a>PING 10.0.1.101 (10.0.1.101) 56(84) bytes of data.
+<a name="__codelineno-26-3"></a>64 bytes from 10.0.1.101: icmp_seq=1 ttl=64 time=0.532 ms
+<a name="__codelineno-26-4"></a>64 bytes from 10.0.1.101: icmp_seq=2 ttl=64 time=0.359 ms
+<a name="__codelineno-26-5"></a>^C
+<a name="__codelineno-26-6"></a>--- 10.0.1.101 ping statistics ---
+<a name="__codelineno-26-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1020ms
+<a name="__codelineno-26-8"></a>rtt min/avg/max/mdev = 0.359/0.445/0.532/0.086 ms
+</code></pre></div></p>
+<h2 id="parte-13">Parte 13</h2>
+<blockquote>
+<p>Permitir ping saliente Zeus → exterior</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-27-1"></a>sudo iptables -A OUTPUT -o eth1 -p icmp -m icmp --icmp-type echo-request -j ACCEPT
+<a name="__codelineno-27-2"></a>sudo iptables -A INPUT -i eth1 -p icmp -m icmp --icmp-type echo-reply -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-28-1"></a>vagrant@zeus:~$ ping 1.1.1.1
+<a name="__codelineno-28-2"></a>PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+<a name="__codelineno-28-3"></a>64 bytes from 1.1.1.1: icmp_seq=1 ttl=55 time=19.1 ms
+<a name="__codelineno-28-4"></a>64 bytes from 1.1.1.1: icmp_seq=2 ttl=55 time=19.8 ms
+<a name="__codelineno-28-5"></a>^C
+<a name="__codelineno-28-6"></a>--- 1.1.1.1 ping statistics ---
+<a name="__codelineno-28-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+<a name="__codelineno-28-8"></a>rtt min/avg/max/mdev = 19.103/19.468/19.834/0.365 ms
+</code></pre></div></p>
+<h2 id="parte-14">Parte 14</h2>
+<blockquote>
+<p>Permitir ping Hera → LAN</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-29-1"></a>sudo iptables -A FORWARD -s 172.16.0.200 -o eth3 -p icmp -m icmp --icmp-type echo-request -j ACCEPT
+<a name="__codelineno-29-2"></a>sudo iptables -A FORWARD -i eth3 -d 172.16.0.200 -p icmp -m icmp --icmp-type echo-reply -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona haciendo ping a Ares:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-30-1"></a>[vagrant@hera ~]$ ping 10.0.1.101
+<a name="__codelineno-30-2"></a>PING 10.0.1.101 (10.0.1.101) 56(84) bytes of data.
+<a name="__codelineno-30-3"></a>64 bytes from 10.0.1.101: icmp_seq=1 ttl=63 time=1.94 ms
+<a name="__codelineno-30-4"></a>64 bytes from 10.0.1.101: icmp_seq=2 ttl=63 time=0.898 ms
+<a name="__codelineno-30-5"></a>^C
+<a name="__codelineno-30-6"></a>--- 10.0.1.101 ping statistics ---
+<a name="__codelineno-30-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+<a name="__codelineno-30-8"></a>rtt min/avg/max/mdev = 0.898/1.417/1.937/0.520 ms
+</code></pre></div></p>
+<h2 id="parte-15">Parte 15</h2>
+<blockquote>
+<p>Permitir tráfico ssh Hera → LAN</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-31-1"></a>sudo iptables -A FORWARD -s 172.16.0.200 -o eth3 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-31-2"></a>sudo iptables -A FORWARD -i eth3 -d 172.16.0.200 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona haciendo ssh a Ares:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-32-1"></a>[vagrant@hera ~]$ ssh vagrant@10.0.1.101
+<a name="__codelineno-32-2"></a>
+<a name="__codelineno-32-3"></a>  @@@@@@  @@@@@@@  @@@@@@@@  @@@@@@
+<a name="__codelineno-32-4"></a> @@!  @@@ @@!  @@@ @@!      !@@
+<a name="__codelineno-32-5"></a> @!@!@!@! @!@!!@!  @!!!:!    !@@!!
+<a name="__codelineno-32-6"></a> !!:  !!! !!: :!!  !!:          !:!
+<a name="__codelineno-32-7"></a>  :   : :  :   : : : :: ::: ::.: :
+<a name="__codelineno-32-8"></a>
+<a name="__codelineno-32-9"></a>Last login: Mon Feb  7 00:09:02 2022 from 172.16.0.200
+<a name="__codelineno-32-10"></a>vagrant@ares:~$
+</code></pre></div></p>
+<h2 id="parte-16">Parte 16</h2>
+<blockquote>
+<p>Permitir tráfico ssh LAN → Hera</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-33-1"></a>sudo iptables -A FORWARD -i eth3 -d 172.16.0.200 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-33-2"></a>sudo iptables -A FORWARD -s 172.16.0.200 -o eth3 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona desde Ares:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-34-1"></a>vagrant@ares:~$ ssh vagrant@172.16.0.200
+<a name="__codelineno-34-2"></a>
+<a name="__codelineno-34-3"></a> @@@  @@@ @@@@@@@@ @@@@@@@   @@@@@@
+<a name="__codelineno-34-4"></a> @@!  @@@ @@!      @@!  @@@ @@!  @@@
+<a name="__codelineno-34-5"></a> @!@!@!@! @!!!:!   @!@!!@!  @!@!@!@!
+<a name="__codelineno-34-6"></a> !!:  !!! !!:      !!: :!!  !!:  !!!
+<a name="__codelineno-34-7"></a>  :   : : : :: :::  :   : :  :   : :
+<a name="__codelineno-34-8"></a>
+<a name="__codelineno-34-9"></a>Last login: Sun Feb  6 16:56:24 2022 from 172.16.0.1
+<a name="__codelineno-34-10"></a>[vagrant@hera ~]$
+</code></pre></div></p>
+<h2 id="parte-17">Parte 17</h2>
+<blockquote>
+<p>Permitir ping LAN-DMZ → exterior</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-35-1"></a>sudo iptables -A FORWARD -s 10.0.1.0/24,172.16.0.0/16 -o eth1 -p icmp -m icmp --icmp-type echo-request -j ACCEPT
+<a name="__codelineno-35-2"></a>sudo iptables -A FORWARD -i eth1 -d 10.0.1.0/24,172.16.0.0/16 -p icmp -m icmp --icmp-type echo-reply -j ACCEPT
+</code></pre></div>
+<p>Tenemos, porque lo hicimos en una anterior práctica sobre el escenario, una regla de SNAT que entra en juego en este apartado, así que no la tenemos que volver a añadir. Es la siguiente:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-36-1"></a>sudo iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+</code></pre></div></p>
+<p>Pruebo que funciona desde Hera:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-37-1"></a>[vagrant@hera ~]$ ping 1.1.1.1
+<a name="__codelineno-37-2"></a>PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+<a name="__codelineno-37-3"></a>64 bytes from 1.1.1.1: icmp_seq=1 ttl=54 time=19.4 ms
+<a name="__codelineno-37-4"></a>64 bytes from 1.1.1.1: icmp_seq=2 ttl=54 time=14.7 ms
+<a name="__codelineno-37-5"></a>^C
+<a name="__codelineno-37-6"></a>--- 1.1.1.1 ping statistics ---
+<a name="__codelineno-37-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+<a name="__codelineno-37-8"></a>rtt min/avg/max/mdev = 14.739/17.069/19.400/2.334 ms
+</code></pre></div></p>
+<p>Pruebo que funciona desde Ares:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-38-1"></a>vagrant@ares:~$ ping 1.1.1.1
+<a name="__codelineno-38-2"></a>PING 1.1.1.1 (1.1.1.1) 56(84) bytes of data.
+<a name="__codelineno-38-3"></a>64 bytes from 1.1.1.1: icmp_seq=1 ttl=54 time=14.4 ms
+<a name="__codelineno-38-4"></a>64 bytes from 1.1.1.1: icmp_seq=2 ttl=54 time=14.1 ms
+<a name="__codelineno-38-5"></a>^C
+<a name="__codelineno-38-6"></a>--- 1.1.1.1 ping statistics ---
+<a name="__codelineno-38-7"></a>2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+<a name="__codelineno-38-8"></a>rtt min/avg/max/mdev = 14.081/14.255/14.430/0.174 ms
+</code></pre></div></p>
+<h2 id="parte-18">Parte 18</h2>
+<blockquote>
+<p>LAN puede navegar</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-39-1"></a>sudo iptables -A FORWARD -i eth3 -o eth1 -p tcp -m multiport --dport 80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-39-2"></a>sudo iptables -A FORWARD -i eth1 -o eth3 -p tcp -m multiport --sport 80,443 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona el tráfico http desde Ares:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-40-1"></a>vagrant@ares:~$ telnet 52.47.209.216 80
+<a name="__codelineno-40-2"></a>Trying 52.47.209.216...
+<a name="__codelineno-40-3"></a>Connected to 52.47.209.216.
+<a name="__codelineno-40-4"></a>Escape character is &#39;^]&#39;.
+</code></pre></div></p>
+<p>Pruebo que funciona el tráfico https desde Apolo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-41-1"></a>vagrant@apolo:~$ telnet 52.47.209.216 443
+<a name="__codelineno-41-2"></a>Trying 52.47.209.216...
+<a name="__codelineno-41-3"></a>Connected to 52.47.209.216.
+<a name="__codelineno-41-4"></a>Escape character is &#39;^]&#39;.
+</code></pre></div></p>
+<h2 id="parte-19">Parte 19</h2>
+<blockquote>
+<p>Hera puede navegar</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-42-1"></a>sudo iptables -A FORWARD -s 172.16.0.200 -o eth1 -p tcp -m multiport --dport 80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-42-2"></a>sudo iptables -A FORWARD -i eth1 -d 172.16.0.200 -p tcp -m multiport --sport 80,443 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona el tráfico http:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-43-1"></a>[vagrant@hera ~]$ telnet 52.47.209.216 80
+<a name="__codelineno-43-2"></a>Trying 52.47.209.216...
+<a name="__codelineno-43-3"></a>Connected to 52.47.209.216.
+<a name="__codelineno-43-4"></a>Escape character is &#39;^]&#39;.
+</code></pre></div></p>
+<p>Pruebo que funciona el tráfico https:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-44-1"></a>[vagrant@hera ~]$ telnet 52.47.209.216 443
+<a name="__codelineno-44-2"></a>Trying 52.47.209.216...
+<a name="__codelineno-44-3"></a>Connected to 52.47.209.216.
+<a name="__codelineno-44-4"></a>Escape character is &#39;^]&#39;.
+</code></pre></div></p>
+<h2 id="parte-20">Parte 20</h2>
+<p>Tenemos que instalar en Hera un servidor de correos y un servidor ftp.</p>
+<h3 id="servidor-de-correo">Servidor de correo</h3>
+<p>Instalo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-45-1"></a>sudo dnf install postfix
+</code></pre></div></p>
+<p>Modifico <code>/etc/postfix/main.cf</code> para que acepte peticiones desde cualquier IP y no sólo desde localhost <em>(es como está por defecto)</em>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-46-1"></a>inet_interfaces = all
+</code></pre></div></p>
+<p>Inicio postfix:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-47-1"></a>sudo systemctl start postfix
+</code></pre></div></p>
+<p>Compruebo que está escuchando el puerto correctamente:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-48-1"></a>[vagrant@hera ~]$ sudo ss -tulpn | grep LISTEN
+<a name="__codelineno-48-2"></a>tcp   LISTEN 0      128          0.0.0.0:111       0.0.0.0:*    users:((&quot;rpcbind&quot;,pid=603,fd=4),(&quot;systemd&quot;,pid=1,fd=88))
+<a name="__codelineno-48-3"></a>tcp   LISTEN 0      128          0.0.0.0:22        0.0.0.0:*    users:((&quot;sshd&quot;,pid=670,fd=4))
+<a name="__codelineno-48-4"></a>tcp   LISTEN 0      100          0.0.0.0:25        0.0.0.0:*    users:((&quot;master&quot;,pid=32765,fd=16))
+<a name="__codelineno-48-5"></a>tcp   LISTEN 0      128             [::]:111          [::]:*    users:((&quot;rpcbind&quot;,pid=603,fd=6),(&quot;systemd&quot;,pid=1,fd=90))
+<a name="__codelineno-48-6"></a>tcp   LISTEN 0      128                *:80              *:*    users:((&quot;httpd&quot;,pid=720,fd=4),(&quot;httpd&quot;,pid=719,fd=4),(&quot;httpd&quot;,pid=718,fd=4),(&quot;httpd&quot;,pid=701,fd=4))
+<a name="__codelineno-48-7"></a>tcp   LISTEN 0      128             [::]:22           [::]:*    users:((&quot;sshd&quot;,pid=670,fd=6))
+<a name="__codelineno-48-8"></a>tcp   LISTEN 0      100             [::]:25           [::]:*    users:((&quot;master&quot;,pid=32765,fd=17))
+</code></pre></div></p>
+<h3 id="servidor-ftp">Servidor FTP</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-49-1"></a>sudo dnf install vsftpd
+<a name="__codelineno-49-2"></a>sudo systemctl start vsftpd
+</code></pre></div>
+<p>Compruebo que está escuchando el puerto correctamente:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-50-1"></a>[vagrant@hera ~]$ sudo ss -tulpn | grep LISTEN
+<a name="__codelineno-50-2"></a>tcp   LISTEN 0      128          0.0.0.0:111       0.0.0.0:*    users:((&quot;rpcbind&quot;,pid=603,fd=4),(&quot;systemd&quot;,pid=1,fd=88))
+<a name="__codelineno-50-3"></a>tcp   LISTEN 0      128          0.0.0.0:22        0.0.0.0:*    users:((&quot;sshd&quot;,pid=670,fd=4))
+<a name="__codelineno-50-4"></a>tcp   LISTEN 0      100          0.0.0.0:25        0.0.0.0:*    users:((&quot;master&quot;,pid=32765,fd=16))
+<a name="__codelineno-50-5"></a>tcp   LISTEN 0      128             [::]:111          [::]:*    users:((&quot;rpcbind&quot;,pid=603,fd=6),(&quot;systemd&quot;,pid=1,fd=90))
+<a name="__codelineno-50-6"></a>tcp   LISTEN 0      128                *:80              *:*    users:((&quot;httpd&quot;,pid=720,fd=4),(&quot;httpd&quot;,pid=719,fd=4),(&quot;httpd&quot;,pid=718,fd=4),(&quot;httpd&quot;,pid=701,fd=4))
+<a name="__codelineno-50-7"></a>tcp   LISTEN 0      32                 *:21              *:*    users:((&quot;vsftpd&quot;,pid=32862,fd=3))
+<a name="__codelineno-50-8"></a>tcp   LISTEN 0      128             [::]:22           [::]:*    users:((&quot;sshd&quot;,pid=670,fd=6))
+<a name="__codelineno-50-9"></a>tcp   LISTEN 0      100             [::]:25           [::]:*    users:((&quot;master&quot;,pid=32765,fd=17))
+</code></pre></div></p>
+<h2 id="parte-21">Parte 21</h2>
+<blockquote>
+<p>Permitir tráfico exterior → Hera para Web-FTP</p>
+</blockquote>
+<p>La regla DNAT web ya la tenía previamente, así que no hace falta añadirla. La recuerdo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-51-1"></a>sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 80 -j DNAT --to-destination 172.16.0.200:80
+</code></pre></div></p>
+<p>Añado la regla DNAT FTP:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-52-1"></a>sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 21 -j DNAT --to-destination 172.16.0.200:21
+</code></pre></div></p>
+<p>Reglas forward web:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-53-1"></a>sudo iptables -A FORWARD -i eth1 -d 172.16.0.200 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-53-2"></a>sudo iptables -A FORWARD -s 172.16.0.200 -o eth1 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div></p>
+<p>Pruebo que funciona el tráfico http a Hera desde mi host:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-54-1"></a>atlas@olympus:~$ telnet 172.22.0.213 80
+<a name="__codelineno-54-2"></a>Trying 172.22.0.213...
+<a name="__codelineno-54-3"></a>Connected to 172.22.0.213.
+<a name="__codelineno-54-4"></a>Escape character is &#39;^]&#39;.
+</code></pre></div></p>
+<p>Reglas forward ftp:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-55-1"></a>sudo iptables -A FORWARD -i eth1 -d 172.16.0.200 -p tcp --dport 21 -j ACCEPT
+<a name="__codelineno-55-2"></a>sudo iptables -A FORWARD -s 172.16.0.200 -o eth1 -p tcp --sport 21 -j ACCEPT
+</code></pre></div></p>
+<p>Pruebo que funciona el tráfico ftp a Hera desde mi host:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-56-1"></a>atlas@olympus:~$ telnet 172.22.0.213 21
+<a name="__codelineno-56-2"></a>Trying 172.22.0.213...
+<a name="__codelineno-56-3"></a>Connected to 172.22.0.213.
+<a name="__codelineno-56-4"></a>Escape character is &#39;^]&#39;.
+<a name="__codelineno-56-5"></a>220 (vsFTPd 3.0.3)
+</code></pre></div></p>
+<h2 id="parte-22">Parte 22</h2>
+<blockquote>
+<p>Permitir tráfico LAN → Hera para Web-FTP</p>
+</blockquote>
+<p>Reglas forward web:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-57-1"></a>sudo iptables -A FORWARD -i eth3 -d 172.16.0.200 -p tcp --dport 80 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-57-2"></a>sudo iptables -A FORWARD -s 172.16.0.200 -o eth3 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div></p>
+<p>Pruebo que funciona el tráfico http a Hera desde Ares:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-58-1"></a>vagrant@ares:~$ telnet 172.16.0.200 80
+<a name="__codelineno-58-2"></a>Trying 172.16.0.200...
+<a name="__codelineno-58-3"></a>Connected to 172.16.0.200.
+<a name="__codelineno-58-4"></a>Escape character is &#39;^]&#39;.
+</code></pre></div></p>
+<p>Reglas forward ftp:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-59-1"></a>sudo iptables -A FORWARD -i eth3 -d 172.16.0.200 -p tcp --dport 21 -j ACCEPT
+<a name="__codelineno-59-2"></a>sudo iptables -A FORWARD -s 172.16.0.200 -o eth3 -p tcp --sport 21 -j ACCEPT
+</code></pre></div></p>
+<p>Pruebo que funciona el tráfico ftp a Hera desde Apolo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-60-1"></a>vagrant@apolo:~$ telnet 172.16.0.200 21
+<a name="__codelineno-60-2"></a>Trying 172.16.0.200...
+<a name="__codelineno-60-3"></a>Connected to 172.16.0.200.
+<a name="__codelineno-60-4"></a>Escape character is &#39;^]&#39;.
+<a name="__codelineno-60-5"></a>220 (vsFTPd 3.0.3)
+</code></pre></div></p>
+<h2 id="parte-23">Parte 23</h2>
+<blockquote>
+<p>Permitir tráfico LAN → Hera al servidor correo, pero no se podrá acceder desde otro sitio</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-61-1"></a>sudo iptables -A FORWARD -i eth3 -d 172.16.0.200 -p tcp --dport 25 -j ACCEPT
+<a name="__codelineno-61-2"></a>sudo iptables -A FORWARD -s 172.16.0.200 -o eth3 -p tcp --sport 25 -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona desde Ares:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-62-1"></a>vagrant@ares:~$ telnet 172.16.0.200 25
+<a name="__codelineno-62-2"></a>Trying 172.16.0.200...
+<a name="__codelineno-62-3"></a>Connected to 172.16.0.200.
+<a name="__codelineno-62-4"></a>Escape character is &#39;^]&#39;.
+<a name="__codelineno-62-5"></a>220 hera.localdomain ESMTP Postfix
+</code></pre></div></p>
+<p>Realmente no tendría por qué hacerlo porque no influye, pero para que quede todo más limpio, eliminaré la regla DNAT 25 que teníamos previamente por el escenario:</p>
+<p><img alt="" src="https://i.imgur.com/jv4yvRR.png" /></p>
+<p>Desde el exterior igualmente no podríamos tener acceso al servidor de correos antiguo de Apolo porque aunque tengamos esa regla DNAT, no hemos hecho en ningún momento reglas forward hacia Apolo.</p>
+<p>La elimino:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-63-1"></a>sudo iptables -t nat -D PREROUTING -i eth1 -p tcp --dport 25 -j DNAT --to-destination 10.0.1.102:25
+</code></pre></div></p>
+<h2 id="parte-24">Parte 24</h2>
+<blockquote>
+<p>Permitir tráfico DMZ → Ares al servidor mysql. No se podrá acceder desde el exterior</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-64-1"></a>sudo iptables -A FORWARD -i eth2 -d 10.0.1.101 -p tcp --dport 3306 -j ACCEPT
+<a name="__codelineno-64-2"></a>sudo iptables -A FORWARD -s 10.0.1.101 -o eth2 -p tcp --sport 3306 -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona desde Hera:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-65-1"></a>[vagrant@hera ~]$ sudo mysql -u root -h 10.0.1.101 -p
+<a name="__codelineno-65-2"></a>Enter password:
+<a name="__codelineno-65-3"></a>Welcome to the MariaDB monitor.  Commands end with ; or \g.
+<a name="__codelineno-65-4"></a>Your MariaDB connection id is 45
+<a name="__codelineno-65-5"></a>Server version: 10.3.31-MariaDB-0ubuntu0.20.04.1 Ubuntu 20.04
+<a name="__codelineno-65-6"></a>
+<a name="__codelineno-65-7"></a>Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+<a name="__codelineno-65-8"></a>
+<a name="__codelineno-65-9"></a>Type &#39;help;&#39; or &#39;\h&#39; for help. Type &#39;\c&#39; to clear the current input statement.
+<a name="__codelineno-65-10"></a>
+<a name="__codelineno-65-11"></a>MariaDB [(none)]&gt;
+</code></pre></div></p>
+<p>Desde el exterior no podremos acceder claramente, porque no existe una regla DNAT válida:</p>
+<p><img alt="" src="https://i.imgur.com/T3uQOhq.png" /></p>
+<h2 id="parte-25">Parte 25</h2>
+<blockquote>
+<p>Bloquear ICMP Flood limitando el número de peticiones por segundo</p>
+</blockquote>
+<p>Desde el exterior y la LAN hemos bloqueado el tráfico ICMP así que no tenemos que preocuparnos por ataques de flood. <strong>Desde la DMZ sí tenemos permitido el tráfico, así que lo tenemos que limitar</strong>.</p>
+<p>Primero voy a realizar un ataque desde Hera a Zeus sin límite de protección y mostraré lo que sucedería.</p>
+<p>Este es el comando de ataque que ejecutaré en Hera:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-66-1"></a>sudo ping -f -s 56500 172.16.0.1
+</code></pre></div></p>
+<p>Hago el ataque, y así se quedarían los contadores después de varios segundos:</p>
+<p><img alt="" src="https://i.imgur.com/onPFJxU.png" /></p>
+<p>Borro la regla, y la vuelvo a añadir con un límite de protección:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-67-1"></a>sudo iptables -A INPUT -i eth2 -p icmp -m icmp --icmp-type echo-request -m limit --limit 1/s --limit-burst 1 -j ACCEPT
+</code></pre></div></p>
+<p>Vuelvo a lanzar el ataque, y veo cómo se quedan los contadores después de varios segundos:</p>
+<p><img alt="" src="https://i.imgur.com/sVce9V0.png" /></p>
+<p>4 paquetes, habiendo limitado el tráfico a 1 por segundo significa que he lanzado el ataque por 4 segundos, pero sólo 1 paquete se permitió gracias al límite. Funciona correctamente.</p>
+<h2 id="parte-26">Parte 26</h2>
+<blockquote>
+<p>Bloquear SYN Flood</p>
+</blockquote>
+<p>Necesitamos esta regla para limitar:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-68-1"></a>sudo iptables -A INPUT -p tcp --syn -m limit --limit 1/s --limit-burst 3 -j ACCEPT
+</code></pre></div></p>
+<p><strong>PERO</strong> en mi caso no la necesito, porque he comprobado que la política por defecto DROP en INPUT bloquea el ataque de flood.</p>
+<p>Este es el comando de ataque que necesitamos, usando como ejemplo el puerto 80 <em>(partiendo de que sabemos que está abierto y redirigido a Hera)</em>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-69-1"></a>sudo hping3 -p 80 --flood --rand-source 192.168.1.115
+</code></pre></div></p>
+<p>Borro los contadores para esta prueba, y lanzo el ataque durante varios segundos. Vemos que la política DROP ha cortado el ataque:</p>
+<p><img alt="" src="https://i.imgur.com/HvUrZSN.png" /></p>
+<p>Sabemos que esos paquetes son del ataque porque el contador estaba a 0 previamente, y me fijé que no aumentase al no hacer nada por varios segundos.<br />
+También hay que tener en cuenta que esa cantidad de paquetes en varios segundos no es algo normal, teniendo en cuenta que durante la prueba el único tráfico que estaba llegando a Zeus era el ataque.</p>
+<h2 id="parte-27">Parte 27</h2>
+<p>Bloquear escaneos de puertos a Zeus.</p>
+<h3 id="logica-base">Lógica base</h3>
+<p>Según he investigado existen <a href="https://serverfault.com/questions/941952/iptables-rules-and-port-scanners-blocking">ciertas reglas</a> que dicen bloquear los escaneos de puertos, pero al probarlas no funcionan.</p>
+<p>Después de indagar he llegado a <a href="https://serverfault.com/questions/246225/how-can-i-use-iptable-rules-to-prevent-port-scanning-like-hping-and-nmap">este post</a> que dice algo bastante interesante:</p>
+<p><em>"Lo lógico es usar una política DROP y sólo permitir el tráfico que queramos. No hay manera alguna de bloquear escaneos de puertos sin que se llegue a bloquear tráfico legítimo."</em></p>
+<p>Esto además de interesante tiene mucho sentido, porque si bloqueáramos tráfico a todos los puertos a su vez perderíamos todo tipo de conexión que fuese legítima. Evidentemente esto no es lo que queremos.</p>
+<p>Al final, esto se traduce a que cuando se use nmap se mostrarán los puertos abiertos, pero ninguno más. Queda como tarea del administrador el que el tráfico a esos puertos esté correctamente protegido y dirigido.</p>
+<h3 id="prueba-1">Prueba 1</h3>
+<p>Partiendo de la lógica base que es casi cierta en su totalidad, realmente hay algunas medidas que podemos tomar.</p>
+<p>Intentaremos logear accesos a un puerto que sabemos que está cerrado. Si intentan acceder a él, se puede entender que es un atacante porque alguien que quiera acceder legítimamente sabría qué puertos están abiertos.</p>
+<p>Regla:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-70-1"></a>sudo iptables -A INPUT -p tcp -m tcp --dport 19 -j LOG --log-level 1 --log-prefix &quot;PortScan&quot;
+</code></pre></div></p>
+<p>Lanzamos nmap desde nuestro host a Zeus:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-71-1"></a>atlas@olympus:~$ nmap 172.22.0.213 -Pn
+<a name="__codelineno-71-2"></a>Starting Nmap 7.80 ( https://nmap.org ) at 2022-02-08 12:20 CET
+<a name="__codelineno-71-3"></a>Nmap scan report for 172.22.0.213
+<a name="__codelineno-71-4"></a>Host is up (0.0011s latency).
+<a name="__codelineno-71-5"></a>Not shown: 998 filtered ports
+<a name="__codelineno-71-6"></a>PORT     STATE SERVICE
+<a name="__codelineno-71-7"></a>22/tcp   open  ssh
+<a name="__codelineno-71-8"></a>2222/tcp open  EtherNetIP-1
+<a name="__codelineno-71-9"></a>
+<a name="__codelineno-71-10"></a>Nmap done: 1 IP address (1 host up) scanned in 8.15 seconds
+</code></pre></div></p>
+<p>Mostramos lo que ha aparecido en <code>/var/log/syslog</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-72-1"></a>Feb  8 11:20:47 zeus kernel: [  453.591450] PortScanIN=eth1 OUT= MAC=52:54:00:6d:6e:a7:06:68:af:97:62:7f:08:00 SRC=172.22.9.227 DST=172.22.0.213 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=63993 DF PROTO=TCP SPT=35550 DPT=19 WINDOW=64240 RES=0x00 SYN URGP=0
+</code></pre></div></p>
+<p>Esto funciona, e incluso logea la IP de origen del atacante, pero no es una solución.<br />
+Esto simplemente es un log, no estamos bloqueando el ataque nmap y el atacante seguirá teniendo una respuesta de los puertos abiertos.</p>
+<h3 id="solucion-1-bloquear-null-scan">Solución 1: Bloquear Null scan</h3>
+<p>Lanzo este ataque desde mi host a Zeus:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-73-1"></a>atlas@olympus:~$ sudo nmap -sN 172.22.0.213
+<a name="__codelineno-73-2"></a>Starting Nmap 7.80 ( https://nmap.org ) at 2022-02-09 08:48 CET
+<a name="__codelineno-73-3"></a>Stats: 0:00:14 elapsed; 0 hosts completed (1 up), 1 undergoing NULL Scan
+<a name="__codelineno-73-4"></a>NULL Scan Timing: About 66.60% done; ETC: 08:48 (0:00:08 remaining)
+<a name="__codelineno-73-5"></a>Stats: 0:00:21 elapsed; 0 hosts completed (1 up), 1 undergoing NULL Scan
+<a name="__codelineno-73-6"></a>NULL Scan Timing: About 99.99% done; ETC: 08:48 (0:00:00 remaining)
+<a name="__codelineno-73-7"></a>Nmap scan report for 172.22.0.213
+<a name="__codelineno-73-8"></a>Host is up (0.00041s latency).
+<a name="__codelineno-73-9"></a>All 1000 scanned ports on 172.22.0.213 are open|filtered
+<a name="__codelineno-73-10"></a>MAC Address: 52:54:00:6D:6E:A7 (QEMU virtual NIC)
+<a name="__codelineno-73-11"></a>
+<a name="__codelineno-73-12"></a>Nmap done: 1 IP address (1 host up) scanned in 21.27 seconds
+</code></pre></div></p>
+<p>Gracias a las políticas por defecto DROP de la tabla filter, este tipo de escaneo está fallando.</p>
+<p>Lo último que queda sería logear el ataque y bloquear al atacante por IP:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-74-1"></a>sudo iptables -A INPUT -p tcp --tcp-flags ALL NONE -m limit --limit 3/m --limit-burst 5 -j LOG --log-prefix &quot;Firewall&gt; Null scan &quot;
+<a name="__codelineno-74-2"></a>sudo iptables -A INPUT -p tcp --tcp-flags ALL NONE -m recent --name blacklist_60 --set -m comment --comment &quot;Drop/Blacklist Null scan&quot; -j DROP
+</code></pre></div></p>
+<p>Compruebo <code>/var/log/syslog</code>:</p>
+<p><img alt="" src="https://i.imgur.com/SFq55HX.png" /></p>
+<h3 id="solucion-2-bloquear-xmas-scan">Solución 2: Bloquear Xmas scan</h3>
+<p>Lanzo este ataque desde mi host a Zeus:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-75-1"></a>atlas@olympus:~$ sudo nmap -sX 172.22.0.213
+<a name="__codelineno-75-2"></a>Starting Nmap 7.80 ( https://nmap.org ) at 2022-02-09 09:08 CET
+<a name="__codelineno-75-3"></a>Nmap scan report for 172.22.0.213
+<a name="__codelineno-75-4"></a>Host is up (0.00026s latency).
+<a name="__codelineno-75-5"></a>All 1000 scanned ports on 172.22.0.213 are open|filtered
+<a name="__codelineno-75-6"></a>MAC Address: 52:54:00:6D:6E:A7 (QEMU virtual NIC)
+<a name="__codelineno-75-7"></a>
+<a name="__codelineno-75-8"></a>Nmap done: 1 IP address (1 host up) scanned in 21.25 seconds
+</code></pre></div></p>
+<p>Gracias a las políticas por defecto DROP de la tabla filter, este tipo de escaneo está fallando, no me aparece ninguna información sobre los puertos abiertos.</p>
+<p>Lo último que queda sería logear el ataque y bloquear al atacante por IP:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-76-1"></a>sudo iptables -A INPUT -p tcp --tcp-flags ALL FIN,PSH,URG -m limit --limit 3/m --limit-burst 5 -j LOG --log-prefix &quot;Firewall&gt; XMAS scan &quot;
+<a name="__codelineno-76-2"></a>sudo iptables -A INPUT -p tcp --tcp-flags ALL SYN,RST,ACK,FIN,URG -m limit --limit 3/m --limit-burst 5 -j LOG --log-prefix &quot;Firewall&gt; XMAS-PSH scan &quot;
+<a name="__codelineno-76-3"></a>sudo iptables -A INPUT -p tcp --tcp-flags ALL ALL -m limit --limit 3/m --limit-burst 5 -j LOG --log-prefix &quot;Firewall&gt; XMAS-ALL scan &quot;
+<a name="__codelineno-76-4"></a>sudo iptables -A INPUT -p tcp --tcp-flags ALL SYN,RST,ACK,FIN,URG -m recent --name blacklist_60 --set  -m comment --comment &quot;Drop/Blacklist Xmas/PSH scan&quot; -j DROP
+<a name="__codelineno-76-5"></a>sudo iptables -A INPUT -p tcp --tcp-flags ALL FIN,PSH,URG -m recent --name blacklist_60 --set  -m comment --comment &quot;Drop/Blacklist Xmas scan&quot; -j DROP
+<a name="__codelineno-76-6"></a>sudo iptables -A INPUT -p tcp --tcp-flags ALL ALL -m recent --name blacklist_60 --set  -m comment --comment &quot;Drop/Blacklist Xmas/All scan&quot; -j DROP
+</code></pre></div></p>
+<p>Compruebo <code>/var/log/syslog</code>:</p>
+<p><img alt="" src="https://i.imgur.com/M7zswAp.png" /></p>
+<h3 id="solucion-3-bloquear-fin-scan">Solución 3: Bloquear FIN scan</h3>
+<p>Lanzo este ataque desde mi host a Zeus:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-77-1"></a>atlas@olympus:~$ sudo nmap -sF 172.22.0.213
+<a name="__codelineno-77-2"></a>Starting Nmap 7.80 ( https://nmap.org ) at 2022-02-09 09:32 CET
+<a name="__codelineno-77-3"></a>Nmap scan report for 172.22.0.213
+<a name="__codelineno-77-4"></a>Host is up (0.00017s latency).
+<a name="__codelineno-77-5"></a>All 1000 scanned ports on 172.22.0.213 are open|filtered
+<a name="__codelineno-77-6"></a>MAC Address: 52:54:00:6D:6E:A7 (QEMU virtual NIC)
+<a name="__codelineno-77-7"></a>
+<a name="__codelineno-77-8"></a>Nmap done: 1 IP address (1 host up) scanned in 21.20 seconds
+</code></pre></div></p>
+<p>Gracias a las políticas por defecto DROP de la tabla filter, este tipo de escaneo está fallando, no me aparece ninguna información sobre los puertos abiertos.</p>
+<p>Lo último que queda sería logear el ataque y bloquear al atacante por IP:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-78-1"></a>sudo iptables -A INPUT -p tcp --tcp-flags ALL FIN -m limit --limit 3/m --limit-burst 5 -j LOG --log-prefix &quot;Firewall&gt; FIN scan &quot;
+<a name="__codelineno-78-2"></a>sudo iptables -A INPUT -p tcp --tcp-flags ALL FIN -m recent --name blacklist_60 --set  -m comment --comment &quot;Drop/Blacklist FIN scan&quot; -j DROP
+</code></pre></div></p>
+<p>Compruebo <code>/var/log/syslog</code>:</p>
+<p><img alt="" src="https://i.imgur.com/xpKrh6C.png" /></p>
+<h3 id="solucion-4-bloquear-udp-scan">Solución 4: Bloquear UDP scan</h3>
+<p>Lanzo el scan desde mi host a Zeus:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-79-1"></a>atlas@olympus:~$ sudo nmap -sU 172.22.0.213
+<a name="__codelineno-79-2"></a>Starting Nmap 7.80 ( https://nmap.org ) at 2022-02-09 10:45 CET
+<a name="__codelineno-79-3"></a>Nmap scan report for 172.22.0.213
+<a name="__codelineno-79-4"></a>Host is up (0.00016s latency).
+<a name="__codelineno-79-5"></a>All 1000 scanned ports on 172.22.0.213 are open|filtered
+<a name="__codelineno-79-6"></a>MAC Address: 52:54:00:6D:6E:A7 (QEMU virtual NIC)
+<a name="__codelineno-79-7"></a>
+<a name="__codelineno-79-8"></a>Nmap done: 1 IP address (1 host up) scanned in 21.19 seconds
+<a name="__codelineno-79-9"></a>atlas@olympus:~$
+</code></pre></div></p>
+<p>Gracias a las políticas por defecto DROP de la tabla filter, este tipo de escaneo está fallando, no me aparece ninguna información sobre los puertos abiertos.</p>
+<p>Lo último que queda sería logear el ataque y bloquear el tráfico específico anormal:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-80-1"></a>sudo iptables -A INPUT -p udp -m limit --limit 6/h --limit-burst 1 -m length --length 0:28 -j LOG --log-prefix &quot;Firewall&gt;0 length udp &quot;
+<a name="__codelineno-80-2"></a>sudo iptables -A INPUT -p udp -m length --length 0:28 -m comment --comment &quot;Drop UDP packet with no content&quot; -j DROP
+</code></pre></div></p>
+<p>En syslog no me aparece nada porque no tengo tráfico udp permitido.</p>
+<h2 id="parte-28">Parte 28</h2>
+<p>Modificar el cortafuegos todo lo necesario para que los servicios antiguos sigan funcionando.</p>
+<h3 id="trafico-dns-externa-apolo">Tráfico DNS externa → Apolo</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-81-1"></a>sudo iptables -A FORWARD -i eth1 -d 10.0.1.102 -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-81-2"></a>sudo iptables -A FORWARD -s 10.0.1.102 -o eth1 -p udp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona desde mi host:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-82-1"></a>atlas@olympus:~$ dig NS adrianj.gonzalonazareno.org
+<a name="__codelineno-82-2"></a>
+<a name="__codelineno-82-3"></a>; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; NS adrianj.gonzalonazareno.org
+<a name="__codelineno-82-4"></a>;; global options: +cmd
+<a name="__codelineno-82-5"></a>;; Got answer:
+<a name="__codelineno-82-6"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 1376
+<a name="__codelineno-82-7"></a>;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-82-8"></a>
+<a name="__codelineno-82-9"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-82-10"></a>; EDNS: version: 0, flags:; udp: 4096
+<a name="__codelineno-82-11"></a>; COOKIE: 976da02d0426b93be97b71876204c09c9e25924aa113dc62 (good)
+<a name="__codelineno-82-12"></a>;; QUESTION SECTION:
+<a name="__codelineno-82-13"></a>;adrianj.gonzalonazareno.org.   IN  NS
+<a name="__codelineno-82-14"></a>
+<a name="__codelineno-82-15"></a>;; ANSWER SECTION:
+<a name="__codelineno-82-16"></a>adrianj.gonzalonazareno.org. 86229 IN   NS  zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-82-17"></a>
+<a name="__codelineno-82-18"></a>;; Query time: 0 msec
+<a name="__codelineno-82-19"></a>;; SERVER: 192.168.202.2#53(192.168.202.2)
+<a name="__codelineno-82-20"></a>;; WHEN: Thu Feb 10 08:36:59 CET 2022
+<a name="__codelineno-82-21"></a>;; MSG SIZE  rcvd: 103
+</code></pre></div></p>
+<h3 id="trafico-dns-apolo-externa">Tráfico DNS Apolo → externa</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-83-1"></a>sudo iptables -A FORWARD -s 10.0.1.102 -o eth1 -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-83-2"></a>sudo iptables -A FORWARD -i eth1 -d 10.0.1.102 -p udp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div>
+<p>Pruebo que funciona desde Apolo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-84-1"></a>vagrant@apolo:~$ dig @127.0.0.1 www.google.es
+<a name="__codelineno-84-2"></a>
+<a name="__codelineno-84-3"></a>; &lt;&lt;&gt;&gt; DiG 9.16.22-Debian &lt;&lt;&gt;&gt; @127.0.0.1 www.google.es
+<a name="__codelineno-84-4"></a>; (1 server found)
+<a name="__codelineno-84-5"></a>;; global options: +cmd
+<a name="__codelineno-84-6"></a>;; Got answer:
+<a name="__codelineno-84-7"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 9760
+<a name="__codelineno-84-8"></a>;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-84-9"></a>
+<a name="__codelineno-84-10"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-84-11"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-84-12"></a>; COOKIE: fc8dc3dfcf8ed8c7010000006204c5d28d2cd0f4696bab50 (good)
+<a name="__codelineno-84-13"></a>;; QUESTION SECTION:
+<a name="__codelineno-84-14"></a>;www.google.es.         IN  A
+<a name="__codelineno-84-15"></a>
+<a name="__codelineno-84-16"></a>;; ANSWER SECTION:
+<a name="__codelineno-84-17"></a>www.google.es.          300 IN  A   216.58.215.131
+<a name="__codelineno-84-18"></a>
+<a name="__codelineno-84-19"></a>;; Query time: 92 msec
+<a name="__codelineno-84-20"></a>;; SERVER: 127.0.0.1#53(127.0.0.1)
+<a name="__codelineno-84-21"></a>;; WHEN: Thu Feb 10 07:59:14 UTC 2022
+<a name="__codelineno-84-22"></a>;; MSG SIZE  rcvd: 86
+</code></pre></div></p>
+<p>Pruebo que funciona desde Ares:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-85-1"></a>vagrant@ares:~$ dig fp.josedomingo.org
+<a name="__codelineno-85-2"></a>
+<a name="__codelineno-85-3"></a>; &lt;&lt;&gt;&gt; DiG 9.16.1-Ubuntu &lt;&lt;&gt;&gt; fp.josedomingo.org
+<a name="__codelineno-85-4"></a>;; global options: +cmd
+<a name="__codelineno-85-5"></a>;; Got answer:
+<a name="__codelineno-85-6"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 45695
+<a name="__codelineno-85-7"></a>;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-85-8"></a>
+<a name="__codelineno-85-9"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-85-10"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-85-11"></a>; COOKIE: 653a9b32ddd84ca8010000006204c6b054cab2e10d50bf35 (good)
+<a name="__codelineno-85-12"></a>;; QUESTION SECTION:
+<a name="__codelineno-85-13"></a>;fp.josedomingo.org.            IN  A
+<a name="__codelineno-85-14"></a>
+<a name="__codelineno-85-15"></a>;; ANSWER SECTION:
+<a name="__codelineno-85-16"></a>fp.josedomingo.org. 900 IN  CNAME   endor.josedomingo.org.
+<a name="__codelineno-85-17"></a>endor.josedomingo.org.  900 IN  A   37.187.119.60
+<a name="__codelineno-85-18"></a>
+<a name="__codelineno-85-19"></a>;; Query time: 2705 msec
+<a name="__codelineno-85-20"></a>;; SERVER: 10.0.1.102#53(10.0.1.102)
+<a name="__codelineno-85-21"></a>;; WHEN: Thu Feb 10 08:03:32 UTC 2022
+<a name="__codelineno-85-22"></a>;; MSG SIZE  rcvd: 111
+</code></pre></div>
+<em>(funciona sin reglas adicionales porque Ares y Apolo están en la misma red)</em></p>
+<p>Para que Zeus pueda hacer consultas DNS usando Apolo, necesitamos reglas adicionales:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-86-1"></a>sudo iptables -A OUTPUT -d 10.0.1.102 -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-86-2"></a>sudo iptables -A INPUT -s 10.0.1.102 -p udp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div></p>
+<p>Pruebo que funciona desde Zeus:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-87-1"></a>vagrant@zeus:~$ dig www.josedomingo.org
+<a name="__codelineno-87-2"></a>
+<a name="__codelineno-87-3"></a>; &lt;&lt;&gt;&gt; DiG 9.16.22-Debian &lt;&lt;&gt;&gt; www.josedomingo.org
+<a name="__codelineno-87-4"></a>;; global options: +cmd
+<a name="__codelineno-87-5"></a>;; Got answer:
+<a name="__codelineno-87-6"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 37724
+<a name="__codelineno-87-7"></a>;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-87-8"></a>
+<a name="__codelineno-87-9"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-87-10"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-87-11"></a>; COOKIE: 1e95cdcc67defb84010000006204c9120b793d41bff868be (good)
+<a name="__codelineno-87-12"></a>;; QUESTION SECTION:
+<a name="__codelineno-87-13"></a>;www.josedomingo.org.           IN  A
+<a name="__codelineno-87-14"></a>
+<a name="__codelineno-87-15"></a>;; ANSWER SECTION:
+<a name="__codelineno-87-16"></a>www.josedomingo.org.    889 IN  CNAME   endor.josedomingo.org.
+<a name="__codelineno-87-17"></a>endor.josedomingo.org.  290 IN  A   37.187.119.60
+<a name="__codelineno-87-18"></a>
+<a name="__codelineno-87-19"></a>;; Query time: 0 msec
+<a name="__codelineno-87-20"></a>;; SERVER: 10.0.1.102#53(10.0.1.102)
+<a name="__codelineno-87-21"></a>;; WHEN: Thu Feb 10 08:13:06 UTC 2022
+<a name="__codelineno-87-22"></a>;; MSG SIZE  rcvd: 112
+</code></pre></div></p>
+<p>Para que desde la DMZ se puedan hacer consultas DNS usando Apolo, necesitamos reglas adicionales:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-88-1"></a>sudo iptables -A FORWARD -i eth2 -d 10.0.1.102 -p udp --dport 53 -m state --state NEW,ESTABLISHED -j ACCEPT
+<a name="__codelineno-88-2"></a>sudo iptables -A FORWARD -s 10.0.1.102 -o eth2 -p udp --sport 53 -m state --state ESTABLISHED -j ACCEPT
+</code></pre></div></p>
+<p>Pruebo que funciona desde Hera:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-89-1"></a>[vagrant@hera ~]$ dig stackoverflow.com
+<a name="__codelineno-89-2"></a>
+<a name="__codelineno-89-3"></a>; &lt;&lt;&gt;&gt; DiG 9.11.26-RedHat-9.11.26-6.el8 &lt;&lt;&gt;&gt; stackoverflow.com
+<a name="__codelineno-89-4"></a>;; global options: +cmd
+<a name="__codelineno-89-5"></a>;; Got answer:
+<a name="__codelineno-89-6"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 64139
+<a name="__codelineno-89-7"></a>;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-89-8"></a>
+<a name="__codelineno-89-9"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-89-10"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-89-11"></a>; COOKIE: fcf5085ad3e0c20e010000006204cb4d63eb8fac5764ecd5 (good)
+<a name="__codelineno-89-12"></a>;; QUESTION SECTION:
+<a name="__codelineno-89-13"></a>;stackoverflow.com.         IN  A
+<a name="__codelineno-89-14"></a>
+<a name="__codelineno-89-15"></a>;; ANSWER SECTION:
+<a name="__codelineno-89-16"></a>stackoverflow.com.  300 IN  A   151.101.1.69
+<a name="__codelineno-89-17"></a>stackoverflow.com.  300 IN  A   151.101.193.69
+<a name="__codelineno-89-18"></a>stackoverflow.com.  300 IN  A   151.101.129.69
+<a name="__codelineno-89-19"></a>stackoverflow.com.  300 IN  A   151.101.65.69
+<a name="__codelineno-89-20"></a>
+<a name="__codelineno-89-21"></a>;; Query time: 1944 msec
+<a name="__codelineno-89-22"></a>;; SERVER: 10.0.1.102#53(10.0.1.102)
+<a name="__codelineno-89-23"></a>;; WHEN: Thu Feb 10 08:22:36 UTC 2022
+<a name="__codelineno-89-24"></a>;; MSG SIZE  rcvd: 138
+</code></pre></div></p>
+<h3 id="trafico-http-externa-hera">Tráfico http externa → Hera</h3>
+<p>La regla DNAT no hace falta añadirla, porque ya la teníamos de antes:</p>
+<p><img alt="" src="https://i.postimg.cc/DZn2s1ZG/dnat-80-web.png" /></p>
+<p>Las reglas forward no hacen falta añadirlas porque ya las hemos hecho durante esta práctica:</p>
+<p><img alt="" src="https://i.postimg.cc/rmLRZhVY/forward-http-hera.png" /></p>
+<p>Desde fuera, compruebo que puedo acceder a <code>www.adrianj.gonzalonazareno.org</code>:</p>
+<p><img alt="" src="https://i.postimg.cc/4yYrq1Nj/acceso-web-externa-hera-www.png" /></p>
+<h3 id="trafico-correo-apolo-externa">Tráfico correo Apolo → externa</h3>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-90-1"></a>sudo iptables -A FORWARD -s 10.0.1.102 -o eth1 -p tcp --dport 25 -j ACCEPT
+<a name="__codelineno-90-2"></a>sudo iptables -A FORWARD -i eth1 -d 10.0.1.102 -p tcp --sport 25 -j ACCEPT
+</code></pre></div>
+<p>Envío un correo a mi gmail desde Apolo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-91-1"></a>vagrant@apolo:~$ mail -r vagrant@adrianj.gonzalonazareno.org adristudy@gmail.com
+<a name="__codelineno-91-2"></a>Cc:
+<a name="__codelineno-91-3"></a>Subject: hola
+<a name="__codelineno-91-4"></a>hola
+</code></pre></div></p>
+<p>Muestro que me ha llegado:</p>
+<p><img alt="" src="https://i.imgur.com/BxVGGh3.png" /></p>
+<h3 id="trafico-correo-externa-apolo">Tráfico correo externa → Apolo</h3>
+<p>Vuelvo a añadir la regla DNAT que previamente eliminé:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-92-1"></a>sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 25 -j DNAT --to-destination 10.0.1.102:25
+</code></pre></div></p>
+<p>Habilito el tráfico de vuelta:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-93-1"></a>sudo iptables -A FORWARD -i eth1 -d 10.0.1.102 -p tcp --dport 25 -j ACCEPT
+</code></pre></div></p>
+<p>Envío desde gmail un correo a Apolo:</p>
+<p><img alt="" src="https://i.imgur.com/4b87Myc.png" /></p>
+<p>Compruebo en Apolo que me haya llegado:</p>
+<p><img alt="" src="https://i.imgur.com/JF2VMhe.png" /></p>
+<p>Muestro el contenido para que se vea que es el correo correcto:</p>
+<p><img alt="" src="https://i.imgur.com/8Qr4uvS.png" /></p>
+<h2 id="parte-29">Parte 29</h2>
+<blockquote>
+<p>El cortafuegos tiene que funcionar después de un reinicio</p>
+</blockquote>
+<p>Necesitamos el paquete <code>iptables-persistent</code>, que no tenemos que instalar porque ya se hizo en prácticas sobre el escenario anteriores.</p>
+<p>Teniendo el paquete instalado, para guardar las reglas ejecuto este comando:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-94-1"></a>iptables-save &gt; /etc/iptables/rules.v4
+</code></pre></div>
+Se guardarán en ese fichero, y eso las hará persistentes en reinicios.</p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/perimetral-iptables-escenario/",this.page.identifier="perimetral-iptables-escenario/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ej2-nftables-perimetral/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ejercicio 2 nftables: perimetral" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Ejercicio 2 nftables: perimetral
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../practica-escenario-libvirt/" class="md-footer__link md-footer__link--next" aria-label="Next: Escenario libvirt" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Escenario libvirt
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2055 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/ej2-control-acceso-autenticacion-autorizacion/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Ejercicio 2: Control de acceso - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ejercicio-2-control-de-acceso-autenticacion-y-autorizacion" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ejercicio 2: Control de acceso
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Ejercicio 2: Control de acceso
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Ejercicio 2: Control de acceso
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entrega" class="md-nav__link">
+    ENTREGA
+  </a>
+  
+    <nav class="md-nav" aria-label="ENTREGA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preliminares" class="md-nav__link">
+    Preliminares
+  </a>
+  
+    <nav class="md-nav" aria-label="Preliminares">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#control-de-acceso" class="md-nav__link">
+    Control de acceso
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    EJERCICIOS
+  </a>
+  
+    <nav class="md-nav" aria-label="EJERCICIOS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-0" class="md-nav__link">
+    Ejercicio 0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entrega" class="md-nav__link">
+    ENTREGA
+  </a>
+  
+    <nav class="md-nav" aria-label="ENTREGA">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preliminares" class="md-nav__link">
+    Preliminares
+  </a>
+  
+    <nav class="md-nav" aria-label="Preliminares">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#control-de-acceso" class="md-nav__link">
+    Control de acceso
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    EJERCICIOS
+  </a>
+  
+    <nav class="md-nav" aria-label="EJERCICIOS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-0" class="md-nav__link">
+    Ejercicio 0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="ejercicio-2-control-de-acceso-autenticacion-y-autorizacion">Ejercicio 2: Control de acceso, autenticación y autorización</h1>
+<h2 id="entrega">ENTREGA</h2>
+<h3 id="parte-1">Parte 1</h3>
+<blockquote>
+<p>Captura accediendo a <code>departamentos.iesgn.org/intranet</code> desde nuestro host</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/AbQcx2L.png" /></p>
+<blockquote>
+<p>Captura accediendo a <code>departamentos.iesgn.org/intranet</code> desde cliente</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/yO8mo59.png" /></p>
+<h3 id="parte-2">Parte 2</h3>
+<blockquote>
+<p>Captura accediendo a <code>departamentos.iesgn.org/internet</code> desde nuestro host</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/Uc4khoh.png" /></p>
+<blockquote>
+<p>Captura accediendo a <code>departamentos.iesgn.org/internet</code> desde cliente</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/DxwK452.png" /></p>
+<h3 id="parte-3">Parte 3</h3>
+<blockquote>
+<p>Mostrar que la autenticación básica funciona</p>
+</blockquote>
+<p><img alt="" src="https://i.postimg.cc/fRDHyYRM/autenticacion-basica-apache.gif" /></p>
+<h3 id="parte-4">Parte 4</h3>
+<blockquote>
+<p>Captura con las cabeceras HTTP donde se vea la autenticación básica</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/wK84JnE.png" /></p>
+<p>Se manda una cabecera <code>Authorization</code> en la petición, con el mensaje <code>dmlwOnZpcA==</code> en texto plano.</p>
+<p>Con cualquier decodificador online de Base64 podemos averiguar lo que significa:</p>
+<p><img alt="" src="https://i.imgur.com/9FDigJG.png" /></p>
+<p>Pues bien, ahí tenemos el usuario y la contraseña que he introducido durante la autenticación básica.</p>
+<h3 id="parte-5">Parte 5</h3>
+<blockquote>
+<p>Mostrar que la autenticación digest funciona</p>
+</blockquote>
+<p>Pruebo el acceso con <code>nodirectivo1</code>:</p>
+<p><img alt="" src="https://i.postimg.cc/CMvXMXwM/auth-digest-nodirectivo.gif" /></p>
+<p>Pruebo el acceso con <code>directivo1</code>:</p>
+<p><img alt="" src="https://i.postimg.cc/j2FRzjNZ/auth-digest-directivo.gif" /></p>
+<h3 id="parte-6">Parte 6</h3>
+<blockquote>
+<p>Captura con las cabeceras HTTP donde se vea la autenticación digest</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/Kd06SYn.png" /></p>
+<h3 id="parte-7">Parte 7</h3>
+<blockquote>
+<p>Mostrar el funcionamiento del ejercicio 4</p>
+</blockquote>
+<p>Prueba de acceso desde cliente:</p>
+<p><img alt="" src="https://i.postimg.cc/W1sWPcy1/acceso-secreto-intranet.gif" /></p>
+<p>Prueba de acceso desde mi máquina:</p>
+<p><img alt="" src="https://i.postimg.cc/NjP1PhqV/acceso-secreto-internet.gif" /></p>
+<blockquote>
+<p>Entregar la configuración realizada</p>
+</blockquote>
+<p>Modifico <code>/etc/apache2/sites-available/departamentos.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>&lt;Directory &quot;/var/www/departamentos/secreto&quot;&gt;
+<a name="__codelineno-0-2"></a>  &lt;RequireAny&gt;
+<a name="__codelineno-0-3"></a>    &lt;RequireAll&gt;
+<a name="__codelineno-0-4"></a>      Require ip 10.0.0
+<a name="__codelineno-0-5"></a>    &lt;/RequireAll&gt;
+<a name="__codelineno-0-6"></a>    &lt;RequireAll&gt;
+<a name="__codelineno-0-7"></a>      Require ip 192.168.121
+<a name="__codelineno-0-8"></a>      AuthType Digest
+<a name="__codelineno-0-9"></a>      AuthName &quot;directivos&quot;
+<a name="__codelineno-0-10"></a>      AuthUserFile /etc/apache2/.htpasswd
+<a name="__codelineno-0-11"></a>      Require valid-user  
+<a name="__codelineno-0-12"></a>    &lt;/RequireAll&gt;
+<a name="__codelineno-0-13"></a>  &lt;/RequireAny&gt;
+<a name="__codelineno-0-14"></a>&lt;/Directory&gt;
+</code></pre></div></p>
+<p>Reinicio Apache:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>sudo systemctl restart apache2.service
+</code></pre></div></p>
+<h2 id="preliminares">Preliminares</h2>
+<h3 id="control-de-acceso">Control de acceso</h3>
+<blockquote>
+<p>¿Control de acceso por defecto de 000-default?</p>
+</blockquote>
+<p>En <code>000-default.conf</code> no hay control de acceso definido, pero como el DocumentRoot está en <code>/var/www/html</code>, le afecta la siguiente directiva de <code>apache2.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>&lt;Directory /var/www/&gt;
+<a name="__codelineno-2-2"></a>        Options Indexes FollowSymLinks
+<a name="__codelineno-2-3"></a>        AllowOverride None
+<a name="__codelineno-2-4"></a>        Require all granted
+<a name="__codelineno-2-5"></a>&lt;/Directory&gt;
+</code></pre></div></p>
+<h2 id="ejercicios">EJERCICIOS</h2>
+<h3 id="ejercicio-0">Ejercicio 0</h3>
+<blockquote>
+<p>Definir escenario Vagrant:</p>
+<ul>
+<li>Servidor:<ul>
+<li>Interfaz eth0 (NAT) actuando como pública</li>
+<li>Interfaz privada (veryisolated)</li>
+</ul>
+</li>
+<li>Cliente conectado a la red privada</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-3-2"></a>
+<a name="__codelineno-3-3"></a>config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-3-4"></a>
+<a name="__codelineno-3-5"></a>  config.vm.define :ej2controlacceso do |ej2controlacceso|
+<a name="__codelineno-3-6"></a>    ej2controlacceso.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-3-7"></a>    ej2controlacceso.vm.hostname = &quot;ej2controlacceso&quot;
+<a name="__codelineno-3-8"></a>    ej2controlacceso.vm.network :private_network,
+<a name="__codelineno-3-9"></a>      :libvirt__network_name =&gt; &quot;ej2controlaccesonet&quot;,
+<a name="__codelineno-3-10"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-3-11"></a>      :ip =&gt; &quot;10.0.0.2&quot;,
+<a name="__codelineno-3-12"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-3-13"></a>  end
+<a name="__codelineno-3-14"></a>
+<a name="__codelineno-3-15"></a>  config.vm.define :cliente do |cliente|
+<a name="__codelineno-3-16"></a>    cliente.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-3-17"></a>    cliente.vm.hostname = &quot;cliente&quot;
+<a name="__codelineno-3-18"></a>    cliente.vm.network :private_network,
+<a name="__codelineno-3-19"></a>      :libvirt__network_name =&gt; &quot;ej2controlaccesonet&quot;,
+<a name="__codelineno-3-20"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-3-21"></a>      :ip =&gt; &quot;10.0.0.3&quot;,
+<a name="__codelineno-3-22"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-3-23"></a>  end
+<a name="__codelineno-3-24"></a>
+<a name="__codelineno-3-25"></a>end
+</code></pre></div>
+<blockquote>
+<p>Crear VirtualHost <code>departamentos.iesgn.org</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>&lt;VirtualHost *:80&gt;
+<a name="__codelineno-4-2"></a>    # The ServerName directive sets the request scheme, hostname and port that
+<a name="__codelineno-4-3"></a>    # the server uses to identify itself. This is used when creating
+<a name="__codelineno-4-4"></a>    # redirection URLs. In the context of virtual hosts, the ServerName
+<a name="__codelineno-4-5"></a>    # specifies what hostname must appear in the request&#39;s Host: header to
+<a name="__codelineno-4-6"></a>    # match this virtual host. For the default virtual host (this file) this
+<a name="__codelineno-4-7"></a>    # value is not decisive as it is used as a last resort host regardless.
+<a name="__codelineno-4-8"></a>    # However, you must set it for any further virtual host explicitly.
+<a name="__codelineno-4-9"></a>
+<a name="__codelineno-4-10"></a>    ServerName departamentos.iesgn.org
+<a name="__codelineno-4-11"></a>    DocumentRoot /var/www/departamentos
+<a name="__codelineno-4-12"></a>
+<a name="__codelineno-4-13"></a>    # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+<a name="__codelineno-4-14"></a>    # error, crit, alert, emerg.
+<a name="__codelineno-4-15"></a>    # It is also possible to configure the loglevel for particular
+<a name="__codelineno-4-16"></a>    # modules, e.g.
+<a name="__codelineno-4-17"></a>    #LogLevel info ssl:warn
+<a name="__codelineno-4-18"></a>
+<a name="__codelineno-4-19"></a>    ErrorLog ${APACHE_LOG_DIR}/error.log
+<a name="__codelineno-4-20"></a>    CustomLog ${APACHE_LOG_DIR}/access.log combined
+<a name="__codelineno-4-21"></a>
+<a name="__codelineno-4-22"></a>    # For most configuration files from conf-available/, which are
+<a name="__codelineno-4-23"></a>    # enabled or disabled at a global level, it is possible to
+<a name="__codelineno-4-24"></a>    # include a line for only one particular virtual host. For example the
+<a name="__codelineno-4-25"></a>    # following line enables the CGI configuration for this host only
+<a name="__codelineno-4-26"></a>    # after it has been globally disabled with &quot;a2disconf&quot;.
+<a name="__codelineno-4-27"></a>    #Include conf-available/serve-cgi-bin.conf
+<a name="__codelineno-4-28"></a>&lt;/VirtualHost&gt;
+<a name="__codelineno-4-29"></a>
+<a name="__codelineno-4-30"></a># vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+</code></pre></div>
+<h3 id="ejercicio-1">Ejercicio 1</h3>
+<blockquote>
+<p>A <code>departamentos.iesgn.org/intranet</code>:</p>
+<ul>
+<li>Se permite acceso desde cliente</li>
+<li>Se deniega acceso desde nuestra máquina</li>
+</ul>
+</blockquote>
+<p>Modificar <code>/etc/apache2/sites-available/departamentos.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>&lt;Directory /var/www/departamentos/intranet&gt;
+<a name="__codelineno-5-2"></a>  Require ip 10.0.0
+<a name="__codelineno-5-3"></a>&lt;/Directory&gt;
+</code></pre></div></p>
+<p>Reiniciar Apache:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>sudo systemctl restart apache2.service
+</code></pre></div></p>
+<p>Prueba de acceso desde mi máquina:</p>
+<p><img alt="" src="https://i.imgur.com/AbQcx2L.png" /></p>
+<p>Prueba de acceso desde cliente:</p>
+<p><img alt="" src="https://i.imgur.com/yO8mo59.png" /></p>
+<p>He usado "lynx".</p>
+<blockquote>
+<p>A <code>departamentos.iesgn.org/internet</code>:</p>
+<ul>
+<li>Se permite acceso desde nuestra máquina</li>
+<li>Se deniega acceso desde cliente</li>
+</ul>
+</blockquote>
+<p>Modificar <code>/etc/apache2/sites-available/departamentos.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>&lt;Directory /var/www/departamentos/internet&gt;
+<a name="__codelineno-7-2"></a>  Require ip 192.168.121       
+<a name="__codelineno-7-3"></a>&lt;/Directory&gt;
+</code></pre></div></p>
+<p>Reiniciar Apache:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>sudo systemctl restart apache2.service
+</code></pre></div></p>
+<p>Prueba de acceso desde mi máquina:</p>
+<p><img alt="" src="https://i.imgur.com/Uc4khoh.png" /></p>
+<p>Prueba de acceso desde cliente:</p>
+<p><img alt="" src="https://i.imgur.com/DxwK452.png" /></p>
+<h3 id="ejercicio-2">Ejercicio 2</h3>
+<blockquote>
+<p>Autenticación básica en <code>departamentos.iesgn.org/secreto</code></p>
+</blockquote>
+<p>Creo el fichero <code>htpasswd</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>sudo htpasswd -c /etc/apache2/.htpasswd vip
+</code></pre></div></p>
+<p>He añadido un usuario "vip" con contraseña "vip".</p>
+<p>Comprobamos que se ha creado <code>htpasswd</code> y sus contenidos:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>vagrant@ej2controlacceso:/etc/apache2$ cat .htpasswd
+<a name="__codelineno-10-2"></a>vip:$apr1$p6ga61LF$dl2YMKRkVM7GW8AuRUsIN/
+</code></pre></div></p>
+<p>Modifico <code>/etc/apache2/sites-available/departamentos.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a>&lt;Directory &quot;/var/www/departamentos/secreto&quot;&gt;
+<a name="__codelineno-11-2"></a>  AuthType Basic
+<a name="__codelineno-11-3"></a>  AuthName &quot;Acceso para VIPs&quot;
+<a name="__codelineno-11-4"></a>  AuthUserFile /etc/apache2/.htpasswd
+<a name="__codelineno-11-5"></a>  Require valid-user
+<a name="__codelineno-11-6"></a>&lt;/Directory&gt;
+</code></pre></div></p>
+<p>Reinicio Apache:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>sudo systemctl restart apache2.service
+</code></pre></div></p>
+<p>Pruebo que funciona:</p>
+<p><img alt="" src="https://i.postimg.cc/fRDHyYRM/autenticacion-basica-apache.gif" /></p>
+<blockquote>
+<p>Comprobar las cabeceras HTTP durante la autenticación básica ¿Cómo se manda la contraseña entre el cliente y el servidor?</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/wK84JnE.png" /></p>
+<p>Se manda una cabecera <code>Authorization</code> en la petición, con el mensaje <code>dmlwOnZpcA==</code> en texto plano.</p>
+<p>Con cualquier decodificador online de Base64 podemos averiguar lo que significa:</p>
+<p><img alt="" src="https://i.imgur.com/9FDigJG.png" /></p>
+<p>Pues bien, ahí tenemos el usuario y la contraseña que he introducido durante la autenticación básica.</p>
+<h3 id="ejercicio-3">Ejercicio 3</h3>
+<blockquote>
+<p>Modificar la autenticación a tipo digest, y hacer que <code>departamentos.iesgn.org/secreto</code> sólo sea accesible por usuarios del grupo directivos</p>
+</blockquote>
+<p>Sobreescribo el antiguo fichero <code>htpasswd</code> añadiendo un usuario directivo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>sudo htdigest -c /etc/apache2/.htpasswd directivos directivo1
+</code></pre></div></p>
+<p>Añado también un usuario no directivo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a>sudo htdigest /etc/apache2/.htpasswd nodirectivos nodirectivo1
+</code></pre></div></p>
+<p>Ambos usuarios tienen como contraseña "1234".</p>
+<p>Ahora el fichero <code>.htpasswd</code> luce de la siguiente manera:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a>directivo1:directivos:4fdd1584741ce8cc0d722a82af5d2a1f
+<a name="__codelineno-15-2"></a>nodirectivo1:nodirectivos:305a303414ab365e1637a8f26f2c30cc
+</code></pre></div></p>
+<p>Habilito el módulo necesario:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a>sudo a2enmod auth_digest
+</code></pre></div></p>
+<p>Modifico <code>/etc/apache2/sites-available/departamentos.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a>&lt;Directory &quot;/var/www/departamentos/secreto&quot;&gt;
+<a name="__codelineno-17-2"></a>  AuthType Digest
+<a name="__codelineno-17-3"></a>  AuthName &quot;directivos&quot;
+<a name="__codelineno-17-4"></a>  AuthUserFile /etc/apache2/.htpasswd
+<a name="__codelineno-17-5"></a>  Require valid-user
+<a name="__codelineno-17-6"></a>&lt;/Directory&gt;
+</code></pre></div></p>
+<p>Reinicio Apache:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a>sudo systemctl restart apache2.service
+</code></pre></div></p>
+<p>Pruebo el acceso con <code>nodirectivo1</code>:</p>
+<p><img alt="" src="https://i.postimg.cc/CMvXMXwM/auth-digest-nodirectivo.gif" /></p>
+<p>Pruebo el acceso con <code>directivo1</code>:</p>
+<p><img alt="" src="https://i.postimg.cc/j2FRzjNZ/auth-digest-directivo.gif" /></p>
+<blockquote>
+<p>Comprobar las cabeceras HTTP durante la autenticación digest ¿Cómo funciona esta autenticación?</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/Kd06SYn.png" /></p>
+<p>Ahora en la cabecera <code>Authorization</code> de la petición, se manda un campo <code>response</code> que contiene las credenciales enviadas encriptadas.</p>
+<p>No hay manera de sacar la contraseña en texto plano a partir de ese mensaje encriptado, ya que el sistema se hizo así intencionamente para que no fuese posible.</p>
+<h3 id="ejercicio-4">Ejercicio 4</h3>
+<blockquote>
+<p>Para acceder a <code>departamentos.iesgn.org/secreto</code>:</p>
+<ul>
+<li>No pide autenticación desde la intranet</li>
+<li>Pide autenticación desde nuestro host</li>
+</ul>
+</blockquote>
+<p>Modifico <code>/etc/apache2/sites-available/departamentos.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a>&lt;Directory &quot;/var/www/departamentos/secreto&quot;&gt;
+<a name="__codelineno-19-2"></a>  &lt;RequireAny&gt;
+<a name="__codelineno-19-3"></a>    &lt;RequireAll&gt;
+<a name="__codelineno-19-4"></a>      Require ip 10.0.0
+<a name="__codelineno-19-5"></a>    &lt;/RequireAll&gt;
+<a name="__codelineno-19-6"></a>    &lt;RequireAll&gt;
+<a name="__codelineno-19-7"></a>      Require ip 192.168.121
+<a name="__codelineno-19-8"></a>      AuthType Digest
+<a name="__codelineno-19-9"></a>      AuthName &quot;directivos&quot;
+<a name="__codelineno-19-10"></a>      AuthUserFile /etc/apache2/.htpasswd
+<a name="__codelineno-19-11"></a>      Require valid-user  
+<a name="__codelineno-19-12"></a>    &lt;/RequireAll&gt;
+<a name="__codelineno-19-13"></a>  &lt;/RequireAny&gt;
+<a name="__codelineno-19-14"></a>&lt;/Directory&gt;
+</code></pre></div></p>
+<p>Reinicio Apache:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a>sudo systemctl restart apache2.service
+</code></pre></div></p>
+<p>Prueba de acceso desde cliente:</p>
+<p><img alt="" src="https://i.postimg.cc/W1sWPcy1/acceso-secreto-intranet.gif" /></p>
+<p>Prueba de acceso desde mi máquina:</p>
+<p><img alt="" src="https://i.postimg.cc/NjP1PhqV/acceso-secreto-internet.gif" /></p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/ej2-control-acceso-autenticacion-autorizacion/",this.page.identifier="ej2-control-acceso-autenticacion-autorizacion/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ejercicio 1: Mapeo de URLs" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Ejercicio 1: Mapeo de URLs
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../ej3-apache-.htaccess/" class="md-footer__link md-footer__link--next" aria-label="Next: Ejercicio 3: .htaccess con Apache" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Ejercicio 3: .htaccess con Apache
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

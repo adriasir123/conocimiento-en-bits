@@ -1,0 +1,1995 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/ejercicios-correo/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Ejercicios en escenario libvirt - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ejercicios-correo-en-escenario-libvirt" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ejercicios en escenario libvirt
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Ejercicios en escenario libvirt
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Ejercicios en escenario libvirt
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-1-usuarios-del-mismo-servidor" class="md-nav__link">
+    Ejercicio 1: Usuarios del mismo servidor
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 1: Usuarios del mismo servidor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-2-usuarios-del-servidor-a-correos-de-internet" class="md-nav__link">
+    Ejercicio 2: Usuarios del servidor a correos de internet
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 2: Usuarios del servidor a correos de internet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_1" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_1" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_1" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-3-correos-desde-internet-a-usuarios-del-servidor" class="md-nav__link">
+    Ejercicio 3: correos desde internet a usuarios del servidor
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 3: correos desde internet a usuarios del servidor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_2" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_2" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_2" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-1-usuarios-del-mismo-servidor" class="md-nav__link">
+    Ejercicio 1: Usuarios del mismo servidor
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 1: Usuarios del mismo servidor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-2-usuarios-del-servidor-a-correos-de-internet" class="md-nav__link">
+    Ejercicio 2: Usuarios del servidor a correos de internet
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 2: Usuarios del servidor a correos de internet">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_1" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_1" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_1" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-3-correos-desde-internet-a-usuarios-del-servidor" class="md-nav__link">
+    Ejercicio 3: correos desde internet a usuarios del servidor
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 3: correos desde internet a usuarios del servidor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_2" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_2" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_2" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="ejercicios-correo-en-escenario-libvirt">Ejercicios correo en escenario libvirt</h1>
+<h2 id="ejercicio-1-usuarios-del-mismo-servidor">Ejercicio 1: Usuarios del mismo servidor</h2>
+<h3 id="parte-1">Parte 1</h3>
+<blockquote>
+<p>Instalar <code>postfix</code> en apolo</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>sudo apt install postfix
+</code></pre></div>
+<p>Selecciono "Internet Site":</p>
+<p><img alt="" src="https://i.postimg.cc/mg8J9xT5/internet-site-postfix.png" /></p>
+<p>Escribo mi nombre de dominio. Se tomará como dominio origen de los correos que se envíen desde apolo:</p>
+<p><img alt="" src="https://i.postimg.cc/T39T1Hyk/nombre-dominio-postfix.png" /></p>
+<h3 id="parte-2">Parte 2</h3>
+<blockquote>
+<p>Instalar <code>mailutils</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>sudo apt install mailutils
+</code></pre></div>
+<h3 id="parte-3">Parte 3</h3>
+<blockquote>
+<p>Usar <code>mail</code> para enviar un correo desde el usuario <code>vagrant</code> al usuario <code>profesor</code></p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>vagrant@apolo:~$ mail profesor@localhost
+<a name="__codelineno-2-2"></a>Cc:
+<a name="__codelineno-2-3"></a>Subject: Correo para profesor
+<a name="__codelineno-2-4"></a>Correo de prueba
+</code></pre></div>
+<em>(para que este correo se envíe, es necesario estar en una nueva línea del cuerpo y pulsar Ctrl+D)</em></p>
+<h3 id="parte-4">Parte 4</h3>
+<blockquote>
+<p>Leer el correo enviado usando <code>mail</code> en el usuario <code>profesor</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>profesor@apolo:~$ mail
+<a name="__codelineno-3-2"></a>&quot;/var/mail/profesor&quot;: 1 message 1 new
+<a name="__codelineno-3-3"></a>&gt;N   1 vagrant@apolo.adri Tue Jan 18 09:38  13/528   Correo para profesor
+<a name="__codelineno-3-4"></a>? 1
+<a name="__codelineno-3-5"></a>Return-Path: &lt;vagrant@apolo.adrianj.gonzalonazareno.org&gt;
+<a name="__codelineno-3-6"></a>X-Original-To: profesor@localhost
+<a name="__codelineno-3-7"></a>Delivered-To: profesor@localhost
+<a name="__codelineno-3-8"></a>Received: by apolo.adrianj.gonzalonazareno.org (Postfix, from userid 1000)
+<a name="__codelineno-3-9"></a>    id C5521C02CA; Tue, 18 Jan 2022 09:38:24 +0000 (UTC)
+<a name="__codelineno-3-10"></a>To: &lt;profesor@localhost&gt;
+<a name="__codelineno-3-11"></a>Subject: Correo para profesor
+<a name="__codelineno-3-12"></a>X-Mailer: mail (GNU Mailutils 3.10)
+<a name="__codelineno-3-13"></a>Message-Id: &lt;20220118093824.C5521C02CA@apolo.adrianj.gonzalonazareno.org&gt;
+<a name="__codelineno-3-14"></a>Date: Tue, 18 Jan 2022 09:38:24 +0000 (UTC)
+<a name="__codelineno-3-15"></a>From: vagrant@apolo.adrianj.gonzalonazareno.org
+<a name="__codelineno-3-16"></a>
+<a name="__codelineno-3-17"></a>Correo de prueba
+<a name="__codelineno-3-18"></a>?
+</code></pre></div>
+<h2 id="ejercicio-2-usuarios-del-servidor-a-correos-de-internet">Ejercicio 2: Usuarios del servidor a correos de internet</h2>
+<h3 id="parte-1_1">Parte 1</h3>
+<blockquote>
+<p>Añadir <code>babuino-smtp.gonzalonazareno.org</code> como relayhost en postfix</p>
+</blockquote>
+<p>Modifico <code>/etc/postfix/main.cf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>relayhost = babuino-smtp.gonzalonazareno.org
+</code></pre></div></p>
+<p>Modifico los <code>nameserver</code> en apolo de la siguiente manera en <code>/etc/dhcp/dhclient.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>supersede domain-name-servers 192.168.202.2,127.0.0.1;
+</code></pre></div>
+<em>(he colocado la ip de <code>papion-dns</code> en primer orden para que al hacer relay se resuelva <code>babuino-smtp.gonzalonazareno.org</code> desde nuestra red y no desde Internet. Esto sucede porque apolo no tiene la zona <code>gonzalonazareno.org</code> y por ende acaba preguntando recursivamente)</em></p>
+<h3 id="parte-2_1">Parte 2</h3>
+<blockquote>
+<p>Enviar un correo a adristudy@gmail.com con <code>mail</code></p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>vagrant@apolo:~$ mail -r vagrant@adrianj.gonzalonazareno.org adristudy@gmail.com
+<a name="__codelineno-6-2"></a>Cc:
+<a name="__codelineno-6-3"></a>Subject: Correo externo
+<a name="__codelineno-6-4"></a>Prueba de correo a gmail
+</code></pre></div>
+<em>(es necesario añadir con <code>-r</code> la dirección de origen. Así evitamos que <code>mail</code> use el hostname completo de la máquina como dominio de origen, lo cual sería incorrecto)</em></p>
+<h3 id="parte-3_1">Parte 3</h3>
+<blockquote>
+<p>Mostrar <code>/var/log/mail.log</code> para verificar que el correo se ha enviado correctamente</p>
+</blockquote>
+<p>Muestro la línea relevante:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>Jan 19 09:21:16 apolo postfix/smtp[2764]: 3EA6BC0D9E: to=&lt;adristudy@gmail.com&gt;, relay=babuino-smtp.gonzalonazareno.org[192.168.203.3]:25, delay=0.16, delays=0.06/0.03/0.06/0.01, dsn=2.0.0, status=sent (250 2.0.0 Ok: queued as 571FBFF778)
+</code></pre></div></p>
+<h3 id="parte-4_1">Parte 4</h3>
+<blockquote>
+<p>Mostrar el correo en gmail</p>
+</blockquote>
+<p><img alt="" src="https://i.postimg.cc/rmt7y2cd/correo-enviado-gmail.png" /></p>
+<h3 id="parte-5">Parte 5</h3>
+<blockquote>
+<p>¿Cómo podemos ver el correo original (en bruto)?</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/u7He26f.png" /></p>
+<h3 id="parte-6">Parte 6</h3>
+<blockquote>
+<p>Indicar en las cabeceras la ruta de servidores SMTP tomada por el correo desde apolo a gmail</p>
+</blockquote>
+<p><img alt="" src="https://i.postimg.cc/rpwvsHcC/ruta-smpts-a-gmail.png" /></p>
+<p><em>(los apartados "Received" se leen inversamente)</em></p>
+<h2 id="ejercicio-3-correos-desde-internet-a-usuarios-del-servidor">Ejercicio 3: correos desde internet a usuarios del servidor</h2>
+<h3 id="parte-1_2">Parte 1</h3>
+<blockquote>
+<p>Añadir registro MX a la vista externa de bind</p>
+</blockquote>
+<p>Modifico <code>db.externa.adrianj.gonzalonazareno.org</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>$ORIGIN adrianj.gonzalonazareno.org.
+<a name="__codelineno-8-2"></a>$TTL 86400
+<a name="__codelineno-8-3"></a>@     IN     SOA    zeus.adrianj.gonzalonazareno.org.     admin.adrianj.gonzalonazareno.org. (
+<a name="__codelineno-8-4"></a>                    2001062501 ; serial
+<a name="__codelineno-8-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-8-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-8-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-8-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-8-9"></a>
+<a name="__codelineno-8-10"></a>@              IN    NS      zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-8-11"></a>@              IN    MX      10 zeus.adrianj.gonzalonazareno.org.
+<a name="__codelineno-8-12"></a>
+<a name="__codelineno-8-13"></a>zeus           IN    A       172.22.0.213 ; clase
+<a name="__codelineno-8-14"></a>; zeus           IN    A       192.168.1.106 ; casa-eth
+<a name="__codelineno-8-15"></a>www            IN    CNAME   zeus
+<a name="__codelineno-8-16"></a>python         IN    CNAME   zeus
+</code></pre></div></p>
+<p>Reinicio bind
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>sudo systemctl restart bind9
+</code></pre></div></p>
+<h3 id="parte-2_2">Parte 2</h3>
+<blockquote>
+<p>DNAT en zeus redirigiendo el puerto 25 a apolo</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>sudo iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 25 -j DNAT --to-destination 10.0.1.102:25
+</code></pre></div>
+<p>Guardo la regla:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a>iptables-save &gt; /etc/iptables/rules.v4
+</code></pre></div></p>
+<h3 id="parte-3_2">Parte 3</h3>
+<blockquote>
+<p>Responder desde gmail al correo recibido en el ejercicio anterior</p>
+</blockquote>
+<p>Muestro mi respuesta:</p>
+<p><img alt="" src="https://i.postimg.cc/GpghS5k7/respuesta-desde-gmail.png" /></p>
+<h3 id="parte-4_2">Parte 4</h3>
+<blockquote>
+<p>Comprobar en apolo que se ha recibido correctamente el correo mirando <code>/var/log/mail.log</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>Jan 19 09:55:10 apolo postfix/smtpd[2896]: connect from babuino-smtp.gonzalonazareno.org[192.168.203.3]
+<a name="__codelineno-12-2"></a>Jan 19 09:55:10 apolo postfix/smtpd[2896]: CACBDC0D97: client=babuino-smtp.gonzalonazareno.org[192.168.203.3]
+<a name="__codelineno-12-3"></a>Jan 19 09:55:10 apolo postfix/cleanup[2900]: CACBDC0D97: message-id=&lt;CAG5uPReLQZ4YoD=8YG+JrvE6SYUjseL0M-NyD83KNoGHHbmzEw@mail.gmail.com&gt;
+<a name="__codelineno-12-4"></a>Jan 19 09:55:10 apolo postfix/qmgr[2654]: CACBDC0D97: from=&lt;adristudy@gmail.com&gt;, size=3692, nrcpt=1 (queue active)
+<a name="__codelineno-12-5"></a>Jan 19 09:55:10 apolo postfix/smtpd[2896]: disconnect from babuino-smtp.gonzalonazareno.org[192.168.203.3] ehlo=2 starttls=1 mail=1 rcpt=1 data=1 quit=1 commands=7
+<a name="__codelineno-12-6"></a>Jan 19 09:55:10 apolo postfix/local[2901]: CACBDC0D97: to=&lt;vagrant@adrianj.gonzalonazareno.org&gt;, relay=local, delay=0.03, delays=0.02/0.01/0/0, dsn=2.0.0, status=sent (delivered to mailbox)
+<a name="__codelineno-12-7"></a>Jan 19 09:55:10 apolo postfix/qmgr[2654]: CACBDC0D97: removed
+</code></pre></div>
+<p>Muestro el correo recibido:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>vagrant@apolo:~$ mail
+<a name="__codelineno-13-2"></a>&quot;/var/mail/vagrant&quot;: 5 messages 5 new
+<a name="__codelineno-13-3"></a>&gt;N   1 adristudy          Wed Jan 19 09:41  72/3840  Re: Correo externo
+<a name="__codelineno-13-4"></a> N   2 adristudy          Wed Jan 19 09:42  70/3685  Re: Correo externo
+<a name="__codelineno-13-5"></a> N   3 adristudy          Wed Jan 19 09:42  71/3760  Re: Correo externo
+<a name="__codelineno-13-6"></a> N   4 adristudy          Wed Jan 19 09:47  70/3733  Re: Correo externo
+<a name="__codelineno-13-7"></a> N   5 adristudy          Wed Jan 19 09:55  71/3760  Re: Correo externo
+<a name="__codelineno-13-8"></a>? 5
+<a name="__codelineno-13-9"></a>Return-Path: &lt;adristudy@gmail.com&gt;
+<a name="__codelineno-13-10"></a>X-Original-To: vagrant@adrianj.gonzalonazareno.org
+<a name="__codelineno-13-11"></a>Delivered-To: vagrant@adrianj.gonzalonazareno.org
+<a name="__codelineno-13-12"></a>Received: from babuino-smtp.gonzalonazareno.org (babuino-smtp.gonzalonazareno.org [192.168.203.3])
+<a name="__codelineno-13-13"></a>    by apolo.adrianj.gonzalonazareno.org (Postfix) with ESMTPS id CACBDC0D97
+<a name="__codelineno-13-14"></a>    for &lt;vagrant@adrianj.gonzalonazareno.org&gt;; Wed, 19 Jan 2022 09:55:10 +0000 (UTC)
+<a name="__codelineno-13-15"></a>Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+<a name="__codelineno-13-16"></a>    by babuino-smtp.gonzalonazareno.org (Postfix) with ESMTPS id A2EDAFF779
+<a name="__codelineno-13-17"></a>    for &lt;vagrant@adrianj.gonzalonazareno.org&gt;; Wed, 19 Jan 2022 09:55:10 +0000 (UTC)
+<a name="__codelineno-13-18"></a>Received: by mail-pf1-f179.google.com with SMTP id i17so2054870pfk.11
+<a name="__codelineno-13-19"></a>        for &lt;vagrant@adrianj.gonzalonazareno.org&gt;; Wed, 19 Jan 2022 01:55:10 -0800 (PST)
+<a name="__codelineno-13-20"></a>DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+<a name="__codelineno-13-21"></a>        d=gmail.com; s=20210112;
+<a name="__codelineno-13-22"></a>        h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+<a name="__codelineno-13-23"></a>        bh=UBRzoQFstQM7RXR6pMZdQeQN69KQeIge6p3HzfH8Cnw=;
+<a name="__codelineno-13-24"></a>        b=SBed1/6ifJBmc3cotOM2KN5vYhx3Emlvd0snQssj4+19q2o0LEwG4yrLoDdmdoGCGk
+<a name="__codelineno-13-25"></a>         7akg1xd+ldFO9NFUDRRra5c7y/P0rZ/lOX8TILS7HRYVNnOtn3ko1e540sKhXYFzLeTR
+<a name="__codelineno-13-26"></a>         MBTBO0f/ru8+6zgQEMRHixsA7FGJldQLLv7TgJEzWSAFORcLg9VmHouXTH5e9+H/44E0
+<a name="__codelineno-13-27"></a>         zmkZI7WKS8vcjkVCaCt6Dfh/cjzI2NmQeMXGZzjVN30pLzu4YqcWyPjtjUv30SXSloLt
+<a name="__codelineno-13-28"></a>         Uz94rZ7Regq/geNg5GyzsYHWBuRINEjDHHbdN7TI9oOWEOt852gu2OgPLVw7Ls+8htyH
+<a name="__codelineno-13-29"></a>         gktA==
+<a name="__codelineno-13-30"></a>X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+<a name="__codelineno-13-31"></a>        d=1e100.net; s=20210112;
+<a name="__codelineno-13-32"></a>        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+<a name="__codelineno-13-33"></a>         :message-id:subject:to;
+<a name="__codelineno-13-34"></a>        bh=UBRzoQFstQM7RXR6pMZdQeQN69KQeIge6p3HzfH8Cnw=;
+<a name="__codelineno-13-35"></a>        b=32Kq/nf+UvzvxQJ6ik5lUXbV7vsSA/vYiuKrf3UMopF8/xpmUziglRPbV6YKT77Klj
+<a name="__codelineno-13-36"></a>         00L/lqWR03204+B/rMc2fJuZgvL9mF1K7bhU5tUajx7K681EUyEfsb3SoHtFo5rACvpN
+<a name="__codelineno-13-37"></a>         faB5tspK0JGZpJrzlje+kOn2cMTTmA0fmbG9H1ZaZpbHqS8I88gUe5hTFd6g9b8Duo6D
+<a name="__codelineno-13-38"></a>         sLhcEt/PDaqpklT20i1dYq9PliJwrfV4w8Fphd1QB8JX6Q+LrfhrD59aLYNxgEXzb4+D
+<a name="__codelineno-13-39"></a>         le8cMo/T9FBRm1CGwOI4rikgOU7I7gAGk3lfdj7kz2z4WsgZbzNnhi10011eOzZkfWlJ
+<a name="__codelineno-13-40"></a>         CUSA==
+<a name="__codelineno-13-41"></a>X-Gm-Message-State: AOAM532fkZWJWnHiaF36A5Nc+fDMpsESW9z6MSRbA510wCRAVfpBggip
+<a name="__codelineno-13-42"></a>    Q1wcux1gIM2rqaJXsGRIiqgfjOexLLwBjtgCxx9vw/Rd2Ic=
+<a name="__codelineno-13-43"></a>X-Google-Smtp-Source: ABdhPJwFZl8S+5mmB9d4DO93QwZgmwFk0vh06sVosKBDr2J4J3PVhfQWB1g22JvwPa0VNnRtPizZaX37r8W8+b/Q3Yc=
+<a name="__codelineno-13-44"></a>X-Received: by 2002:a63:7c10:: with SMTP id x16mr26938561pgc.128.1642586106377;
+<a name="__codelineno-13-45"></a> Wed, 19 Jan 2022 01:55:06 -0800 (PST)
+<a name="__codelineno-13-46"></a>MIME-Version: 1.0
+<a name="__codelineno-13-47"></a>References: &lt;20220119092116.3EA6BC0D9E@apolo.adrianj.gonzalonazareno.org&gt;
+<a name="__codelineno-13-48"></a>In-Reply-To: &lt;20220119092116.3EA6BC0D9E@apolo.adrianj.gonzalonazareno.org&gt;
+<a name="__codelineno-13-49"></a>From: adristudy &lt;adristudy@gmail.com&gt;
+<a name="__codelineno-13-50"></a>Date: Wed, 19 Jan 2022 10:54:55 +0100
+<a name="__codelineno-13-51"></a>Message-ID: &lt;CAG5uPReLQZ4YoD=8YG+JrvE6SYUjseL0M-NyD83KNoGHHbmzEw@mail.gmail.com&gt;
+<a name="__codelineno-13-52"></a>Subject: Re: Correo externo
+<a name="__codelineno-13-53"></a>To: vagrant@adrianj.gonzalonazareno.org
+<a name="__codelineno-13-54"></a>Content-Type: multipart/alternative; boundary=&quot;0000000000006238fe05d5ec61c4&quot;
+<a name="__codelineno-13-55"></a>
+<a name="__codelineno-13-56"></a>--0000000000006238fe05d5ec61c4
+<a name="__codelineno-13-57"></a>Content-Type: text/plain; charset=&quot;UTF-8&quot;
+<a name="__codelineno-13-58"></a>
+<a name="__codelineno-13-59"></a>respuesta para apolo
+<a name="__codelineno-13-60"></a>
+<a name="__codelineno-13-61"></a>On Wed, 19 Jan 2022 at 10:21, &lt;vagrant@adrianj.gonzalonazareno.org&gt; wrote:
+<a name="__codelineno-13-62"></a>
+<a name="__codelineno-13-63"></a>&gt; Prueba de correo a gmail
+<a name="__codelineno-13-64"></a>&gt;
+<a name="__codelineno-13-65"></a>
+<a name="__codelineno-13-66"></a>--0000000000006238fe05d5ec61c4
+<a name="__codelineno-13-67"></a>Content-Type: text/html; charset=&quot;UTF-8&quot;
+<a name="__codelineno-13-68"></a>Content-Transfer-Encoding: quoted-printable
+<a name="__codelineno-13-69"></a>
+<a name="__codelineno-13-70"></a>&lt;div dir=3D&quot;ltr&quot;&gt;&lt;div dir=3D&quot;ltr&quot;&gt;&lt;div dir=3D&quot;ltr&quot;&gt;respuesta para apolo&lt;/di=
+<a name="__codelineno-13-71"></a>v&gt;&lt;/div&gt;&lt;/div&gt;&lt;br&gt;&lt;div class=3D&quot;gmail_quote&quot;&gt;&lt;div dir=3D&quot;ltr&quot; class=3D&quot;gmai=
+<a name="__codelineno-13-72"></a>l_attr&quot;&gt;On Wed, 19 Jan 2022 at 10:21, &amp;lt;&lt;a href=3D&quot;mailto:vagrant@adrianj=
+<a name="__codelineno-13-73"></a>.gonzalonazareno.org&quot;&gt;vagrant@adrianj.gonzalonazareno.org&lt;/a&gt;&amp;gt; wrote:&lt;br=
+<a name="__codelineno-13-74"></a>&gt;&lt;/div&gt;&lt;blockquote class=3D&quot;gmail_quote&quot; style=3D&quot;margin:0px 0px 0px 0.8ex;=
+<a name="__codelineno-13-75"></a>border-left:1px solid rgb(204,204,204);padding-left:1ex&quot;&gt;Prueba de correo a=
+<a name="__codelineno-13-76"></a> gmail&lt;br&gt;
+<a name="__codelineno-13-77"></a>&lt;/blockquote&gt;&lt;/div&gt;
+<a name="__codelineno-13-78"></a>
+<a name="__codelineno-13-79"></a>--0000000000006238fe05d5ec61c4--
+</code></pre></div>
+<em>(escribo 5 porque es el último recibido)</em></p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/ejercicios-correo/",this.page.identifier="ejercicios-correo/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../practica-aumento-rendimiento-web/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Práctica: Aumento rendimiento web" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Práctica: Aumento rendimiento web
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../practica-servidor-correo/" class="md-footer__link md-footer__link--next" aria-label="Next: Práctica: Servidor de correos en VPS" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Práctica: Servidor de correos en VPS
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

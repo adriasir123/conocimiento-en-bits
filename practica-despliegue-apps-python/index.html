@@ -1,0 +1,2431 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/practica-despliegue-apps-python/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Práctica: Despliegue python - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-despliegue-de-aplicaciones-python" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Práctica: Despliegue python
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Práctica: Despliegue python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Práctica: Despliegue python
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-1-entorno-de-desarrollo" class="md-nav__link">
+    Tarea 1: Entorno de desarrollo
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 1: Entorno de desarrollo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-0" class="md-nav__link">
+    Parte 0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-8" class="md-nav__link">
+    Parte 8
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-2-entorno-de-produccion-vps" class="md-nav__link">
+    Tarea 2: Entorno de producción (VPS)
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 2: Entorno de producción (VPS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_1" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_1" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_1" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5_1" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6_1" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7_1" class="md-nav__link">
+    Parte 7
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 7">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-gunicorn" class="md-nav__link">
+    Instalar Gunicorn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-unidad-systemd" class="md-nav__link">
+    Crear unidad systemd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx-gunicorn" class="md-nav__link">
+    Nginx + Gunicorn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anadir-nuevo-registro-dns" class="md-nav__link">
+    Añadir nuevo registro DNS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-settingspy" class="md-nav__link">
+    Modificar settings.py
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-8_1" class="md-nav__link">
+    Parte 8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-9" class="md-nav__link">
+    Parte 9
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-10" class="md-nav__link">
+    Parte 10
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-3-modificacion-de-nuestra-aplicacion" class="md-nav__link">
+    Tarea 3: Modificación de nuestra aplicación
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 3: Modificación de nuestra aplicación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-0_1" class="md-nav__link">
+    Parte 0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_2" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_2" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-1-entorno-de-desarrollo" class="md-nav__link">
+    Tarea 1: Entorno de desarrollo
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 1: Entorno de desarrollo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-0" class="md-nav__link">
+    Parte 0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-8" class="md-nav__link">
+    Parte 8
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-2-entorno-de-produccion-vps" class="md-nav__link">
+    Tarea 2: Entorno de producción (VPS)
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 2: Entorno de producción (VPS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_1" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_1" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_1" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5_1" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6_1" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7_1" class="md-nav__link">
+    Parte 7
+  </a>
+  
+    <nav class="md-nav" aria-label="Parte 7">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instalar-gunicorn" class="md-nav__link">
+    Instalar Gunicorn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#crear-unidad-systemd" class="md-nav__link">
+    Crear unidad systemd
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nginx-gunicorn" class="md-nav__link">
+    Nginx + Gunicorn
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#anadir-nuevo-registro-dns" class="md-nav__link">
+    Añadir nuevo registro DNS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-settingspy" class="md-nav__link">
+    Modificar settings.py
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-8_1" class="md-nav__link">
+    Parte 8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-9" class="md-nav__link">
+    Parte 9
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-10" class="md-nav__link">
+    Parte 10
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-3-modificacion-de-nuestra-aplicacion" class="md-nav__link">
+    Tarea 3: Modificación de nuestra aplicación
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 3: Modificación de nuestra aplicación">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-0_1" class="md-nav__link">
+    Parte 0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_2" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_2" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="practica-despliegue-de-aplicaciones-python">Práctica: Despliegue de aplicaciones python</h1>
+<p>En esta práctica se usa la aplicación <a href="https://docs.djangoproject.com/en/3.2/intro/tutorial01/">Django tutorial</a>.</p>
+<h2 id="tarea-1-entorno-de-desarrollo">Tarea 1: Entorno de desarrollo</h2>
+<h3 id="parte-0">Parte 0</h3>
+<blockquote>
+<p>Crear escenario</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-0-2"></a>
+<a name="__codelineno-0-3"></a>config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-0-4"></a>
+<a name="__codelineno-0-5"></a>  config.vm.define :desplieguepython do |desplieguepython|
+<a name="__codelineno-0-6"></a>    desplieguepython.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-0-7"></a>    desplieguepython.vm.hostname = &quot;desplieguepython&quot;
+<a name="__codelineno-0-8"></a>  end
+<a name="__codelineno-0-9"></a>
+<a name="__codelineno-0-10"></a>end
+</code></pre></div>
+<h3 id="parte-1">Parte 1</h3>
+<blockquote>
+<p>Hacer fork de <a href="https://github.com/josedom24/django_tutorial">https://github.com/josedom24/django_tutorial</a></p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/eqNYbrr.png" /></p>
+<blockquote>
+<p>Clonar repo</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>git clone git@github.com:adriasir123/django_tutorial.git
+</code></pre></div>
+<h3 id="parte-2">Parte 2</h3>
+<blockquote>
+<p>Crear entorno virtual</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>mkdir venv
+<a name="__codelineno-2-2"></a>cd venv
+<a name="__codelineno-2-3"></a>sudo apt update
+<a name="__codelineno-2-4"></a>sudo apt install python3-venv
+<a name="__codelineno-2-5"></a>python3 -m venv .
+<a name="__codelineno-2-6"></a>source ~/venv/bin/activate
+</code></pre></div>
+<blockquote>
+<p>Instalar dependencias</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>pip install -r requirements.txt
+</code></pre></div>
+<h3 id="parte-3">Parte 3</h3>
+<blockquote>
+<p>Comprobar que se usa SQLite. ¿Qué fichero la define?</p>
+</blockquote>
+<p><code>settings.py</code>, en el siguiente bloque:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>DATABASES = {
+<a name="__codelineno-4-2"></a>    &#39;default&#39;: {
+<a name="__codelineno-4-3"></a>        &#39;ENGINE&#39;: &#39;django.db.backends.sqlite3&#39;,
+<a name="__codelineno-4-4"></a>        &#39;NAME&#39;: BASE_DIR / &#39;db.sqlite3&#39;,
+<a name="__codelineno-4-5"></a>    }
+<a name="__codelineno-4-6"></a>}
+</code></pre></div></p>
+<blockquote>
+<p>¿Nombre de la BD que se creará?</p>
+</blockquote>
+<p><code>db.sqlite3</code></p>
+<h3 id="parte-4">Parte 4</h3>
+<blockquote>
+<p>Crear tablas en SQLite</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>python3 manage.py migrate
+</code></pre></div>
+<h3 id="parte-5">Parte 5</h3>
+<blockquote>
+<p>Crear usuario admin</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>python3 manage.py createsuperuser
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>Username (leave blank to use &#39;vagrant&#39;): admin
+<a name="__codelineno-7-2"></a>Email address:
+<a name="__codelineno-7-3"></a>Password:
+<a name="__codelineno-7-4"></a>Password (again):
+<a name="__codelineno-7-5"></a>Superuser created successfully.
+</code></pre></div></p>
+<ul>
+<li><strong>Username</strong>: admin</li>
+<li><strong>Password</strong>: 123admin456</li>
+</ul>
+<h3 id="parte-6">Parte 6</h3>
+<blockquote>
+<p>Habilitar acceso a la app</p>
+</blockquote>
+<p><code>settings.py</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>ALLOWED_HOSTS = [&#39;192.168.121.102&#39;]
+</code></pre></div>
+<em>(Dirección de destino a habilitar)</em></p>
+<blockquote>
+<p>Ejecutar servidor web desarrollo</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>python3 manage.py runserver 0.0.0.0:8000
+</code></pre></div>
+<p>Index:</p>
+<p><img alt="" src="https://i.imgur.com/OeNUoxK.png" /></p>
+<p>/admin:</p>
+<p><img alt="" src="https://i.imgur.com/filgcVV.png" /></p>
+<p>Comprobar que el usuario admin se ha añadido correctamente:</p>
+<p><img alt="" src="https://i.imgur.com/ZIdaCXy.png" /></p>
+<h3 id="parte-7">Parte 7</h3>
+<blockquote>
+<p>Crear dos preguntas con respuestas</p>
+</blockquote>
+<p>Pregunta 1:</p>
+<p><img alt="" src="https://i.imgur.com/nlobFJe.png" /></p>
+<p>Pregunta 2:</p>
+<p><img alt="" src="https://i.imgur.com/43J3Wlb.png" /></p>
+<h3 id="parte-8">Parte 8</h3>
+<blockquote>
+<p>Comprobar que la URL <code>/polls</code> funciona</p>
+</blockquote>
+<p>/polls:</p>
+<p><img alt="" src="https://i.imgur.com/BKlJSAA.png" /></p>
+<p>Poll 1:</p>
+<p><img alt="" src="https://i.imgur.com/9W3HsNG.png" /></p>
+<p>Poll 2:</p>
+<p><img alt="" src="https://i.imgur.com/00l7pcH.png" /></p>
+<h2 id="tarea-2-entorno-de-produccion-vps">Tarea 2: Entorno de producción (VPS)</h2>
+<h3 id="parte-1_1">Parte 1</h3>
+<blockquote>
+<p>Clonar repositorio en VPS</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>git clone https://github.com/adriasir123/django_tutorial.git
+</code></pre></div>
+<h3 id="parte-2_1">Parte 2</h3>
+<blockquote>
+<p>Crear entorno virtual</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a>mkdir venv
+<a name="__codelineno-11-2"></a>cd venv
+<a name="__codelineno-11-3"></a>sudo apt install python3-venv
+<a name="__codelineno-11-4"></a>python3 -m venv .
+<a name="__codelineno-11-5"></a>source bin/activate
+</code></pre></div>
+<blockquote>
+<p>Instalar dependencias</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>pip install -r requirements.txt
+</code></pre></div>
+<h3 id="parte-3_1">Parte 3</h3>
+<blockquote>
+<p>Instalar módulo para que python se pueda comunicar con MariaDB</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>sudo apt install python3-dev default-libmysqlclient-dev build-essential
+<a name="__codelineno-13-2"></a>pip install mysqlclient
+</code></pre></div>
+<h3 id="parte-4_1">Parte 4</h3>
+<blockquote>
+<p>Crear BD</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a>CREATE DATABASE `django_tutorial_db`;
+</code></pre></div>
+<blockquote>
+<p>Crear usuario con permisos sobre <code>django_tutorial_db</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a>CREATE USER &#39;django_tutorial_user&#39; IDENTIFIED BY &#39;1234&#39;;
+<a name="__codelineno-15-2"></a>
+<a name="__codelineno-15-3"></a>GRANT USAGE ON *.* TO &#39;django_tutorial_user&#39;@localhost IDENTIFIED BY &#39;1234&#39;;
+<a name="__codelineno-15-4"></a>
+<a name="__codelineno-15-5"></a>GRANT ALL privileges ON `django_tutorial_db`.* TO &#39;django_tutorial_user&#39;@localhost;
+<a name="__codelineno-15-6"></a>
+<a name="__codelineno-15-7"></a>FLUSH PRIVILEGES;
+</code></pre></div>
+<h3 id="parte-5_1">Parte 5</h3>
+<blockquote>
+<p>Modificar la conexión a la BD en <code>settings.py</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a>DATABASES = {
+<a name="__codelineno-16-2"></a>    &#39;default&#39;: {
+<a name="__codelineno-16-3"></a>        &#39;ENGINE&#39;: &#39;django.db.backends.mysql&#39;,
+<a name="__codelineno-16-4"></a>        &#39;NAME&#39;: &#39;django_tutorial_db&#39;,
+<a name="__codelineno-16-5"></a>        &#39;USER&#39;: &#39;django_tutorial_user&#39;,
+<a name="__codelineno-16-6"></a>        &#39;PASSWORD&#39;: &#39;1234&#39;,         
+<a name="__codelineno-16-7"></a>        &#39;HOST&#39;: &#39;localhost&#39;,
+<a name="__codelineno-16-8"></a>        &#39;PORT&#39;: &#39;&#39;,
+<a name="__codelineno-16-9"></a>    }
+<a name="__codelineno-16-10"></a>}
+</code></pre></div>
+<h3 id="parte-6_1">Parte 6</h3>
+<blockquote>
+<p>Crear tablas en MariaDB</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a>python3 manage.py migrate
+</code></pre></div>
+<blockquote>
+<p>Comprobar que se han creado</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a>MariaDB [django_tutorial_db]&gt; show tables;
+<a name="__codelineno-18-2"></a>+------------------------------+
+<a name="__codelineno-18-3"></a>| Tables_in_django_tutorial_db |
+<a name="__codelineno-18-4"></a>+------------------------------+
+<a name="__codelineno-18-5"></a>| auth_group                   |
+<a name="__codelineno-18-6"></a>| auth_group_permissions       |
+<a name="__codelineno-18-7"></a>| auth_permission              |
+<a name="__codelineno-18-8"></a>| auth_user                    |
+<a name="__codelineno-18-9"></a>| auth_user_groups             |
+<a name="__codelineno-18-10"></a>| auth_user_user_permissions   |
+<a name="__codelineno-18-11"></a>| django_admin_log             |
+<a name="__codelineno-18-12"></a>| django_content_type          |
+<a name="__codelineno-18-13"></a>| django_migrations            |
+<a name="__codelineno-18-14"></a>| django_session               |
+<a name="__codelineno-18-15"></a>| polls_choice                 |
+<a name="__codelineno-18-16"></a>| polls_question               |
+<a name="__codelineno-18-17"></a>+------------------------------+
+<a name="__codelineno-18-18"></a>12 rows in set (0.001 sec)
+</code></pre></div>
+<blockquote>
+<p>Volcado de datos en desarrollo</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a>python3 manage.py dumpdata &gt; db.json
+</code></pre></div>
+<blockquote>
+<p>Volcado de datos en VPS:</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a>python3 manage.py loaddata db.json
+</code></pre></div>
+<h3 id="parte-7_1">Parte 7</h3>
+<blockquote>
+<p>Instalar y configurar Gunicorn para ejecutar Django.<br />
+Luego, configurar Nginx como proxy inverso para servir <code>django_tutorial</code></p>
+</blockquote>
+<h4 id="instalar-gunicorn">Instalar Gunicorn</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a>pip install gunicorn
+</code></pre></div>
+<h4 id="crear-unidad-systemd">Crear unidad systemd</h4>
+<p><code>/etc/systemd/system/gunicorn-django-tutorial.service</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a>[Unit]
+<a name="__codelineno-22-2"></a>Description=gunicorn-django-tutorial
+<a name="__codelineno-22-3"></a>After=network.target
+<a name="__codelineno-22-4"></a>
+<a name="__codelineno-22-5"></a>[Install]
+<a name="__codelineno-22-6"></a>WantedBy=multi-user.target
+<a name="__codelineno-22-7"></a>
+<a name="__codelineno-22-8"></a>[Service]
+<a name="__codelineno-22-9"></a>User=www-data
+<a name="__codelineno-22-10"></a>Group=www-data
+<a name="__codelineno-22-11"></a>Restart=always
+<a name="__codelineno-22-12"></a>
+<a name="__codelineno-22-13"></a>ExecStart=/home/blackmamba/venv/bin/gunicorn -w 2 -b :8080 django_tutorial.wsgi
+<a name="__codelineno-22-14"></a>ExecReload=/bin/kill -s HUP $MAINPID
+<a name="__codelineno-22-15"></a>ExecStop=/bin/kill -s TERM $MAINPID
+<a name="__codelineno-22-16"></a>
+<a name="__codelineno-22-17"></a>WorkingDirectory=/home/blackmamba/django_tutorial
+<a name="__codelineno-22-18"></a>Environment=PYTHONPATH=&#39;/home/blackmamba/django_tutorial:/home/blackmamba/venv/lib/python3.9/site-packages&#39;
+<a name="__codelineno-22-19"></a>
+<a name="__codelineno-22-20"></a>PrivateTmp=true
+</code></pre></div></p>
+<p>La activo e inicio:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a>sudo systemctl enable gunicorn-django-tutorial.service
+<a name="__codelineno-23-2"></a>sudo systemctl start gunicorn-django-tutorial.service
+</code></pre></div></p>
+<h4 id="nginx-gunicorn">Nginx + Gunicorn</h4>
+<p>Creo <code>/etc/nginx/sites-available/django.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a>server {
+<a name="__codelineno-24-2"></a>
+<a name="__codelineno-24-3"></a>    listen 80;
+<a name="__codelineno-24-4"></a>    server_name django.adrianjaramillo.tk;
+<a name="__codelineno-24-5"></a>    root /home/blackmamba/django_tutorial;
+<a name="__codelineno-24-6"></a>
+<a name="__codelineno-24-7"></a>    location / {
+<a name="__codelineno-24-8"></a>        proxy_pass http://localhost:8080;
+<a name="__codelineno-24-9"></a>        include proxy_params;
+<a name="__codelineno-24-10"></a>    }
+<a name="__codelineno-24-11"></a>
+<a name="__codelineno-24-12"></a>}
+</code></pre></div></p>
+<p>Lo habilito:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-25-1"></a>sudo ln -s /etc/nginx/sites-available/django.conf /etc/nginx/sites-enabled/
+</code></pre></div></p>
+<p>Reinicio Nginx:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-26-1"></a>sudo systemctl restart nginx
+</code></pre></div></p>
+<h4 id="anadir-nuevo-registro-dns">Añadir nuevo registro DNS</h4>
+<p><img alt="" src="https://i.imgur.com/Dgw0mq8.png" /></p>
+<h4 id="modificar-settingspy">Modificar settings.py</h4>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-27-1"></a>ALLOWED_HOSTS = [&#39;django.adrianjaramillo.tk&#39;]
+</code></pre></div>
+<p>Reinicio:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-28-1"></a>sudo systemctl restart gunicorn-django-tutorial.service
+</code></pre></div></p>
+<p>Pruebo que funciona:</p>
+<p><img alt="" src="https://i.imgur.com/ag517YK.png" /></p>
+<h3 id="parte-8_1">Parte 8</h3>
+<blockquote>
+<p>¿Funciona el css de polls? Arréglalo.</p>
+</blockquote>
+<p><code>/etc/nginx/sites-available/django.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-29-1"></a>location /static/polls {
+<a name="__codelineno-29-2"></a>    alias /home/blackmamba/django_tutorial/polls/static/polls;
+<a name="__codelineno-29-3"></a>}
+</code></pre></div></p>
+<p>Reinicio Nginx:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-30-1"></a>sudo systemctl restart nginx
+</code></pre></div></p>
+<p>Pruebo que funciona:</p>
+<p><img alt="" src="https://i.imgur.com/2SGXgU1.png" /></p>
+<blockquote>
+<p>¿Funciona el css de admin? Arréglalo.</p>
+</blockquote>
+<p><code>/etc/nginx/sites-available/django.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-31-1"></a>location /static/admin {
+<a name="__codelineno-31-2"></a>    alias /home/blackmamba/venv/lib/python3.9/site-packages/django/contrib/admin/static/admin/;
+<a name="__codelineno-31-3"></a>}
+</code></pre></div></p>
+<p>Reinicio Nginx:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-32-1"></a>sudo systemctl restart nginx
+</code></pre></div></p>
+<p>Pruebo que funciona:</p>
+<p><img alt="" src="https://i.imgur.com/plc3TzP.png" /></p>
+<h3 id="parte-9">Parte 9</h3>
+<blockquote>
+<p>Desactivar debug</p>
+</blockquote>
+<p><code>settings.py</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-33-1"></a>DEBUG = False
+</code></pre></div></p>
+<p>Reinicio:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-34-1"></a>sudo systemctl restart gunicorn-django-tutorial.service
+</code></pre></div></p>
+<p>Pruebo que funciona:</p>
+<p><img alt="" src="https://i.imgur.com/ESRxqoB.png" /></p>
+<p>Si DEBUG fuese True, al escribir esa URL que no existe, me habría aparecido mucha más información:</p>
+<p><img alt="" src="https://i.imgur.com/Gt9qRe9.png" /></p>
+<p><em>(DEBUG = True)</em></p>
+<h3 id="parte-10">Parte 10</h3>
+<blockquote>
+<p>Mostrar la página funcionando</p>
+</blockquote>
+<p><img alt="" src="https://i.postimg.cc/5ydStsgg/djangotutorial-vps-funcionando.gif" /></p>
+<h2 id="tarea-3-modificacion-de-nuestra-aplicacion">Tarea 3: Modificación de nuestra aplicación</h2>
+<p>En esta sección primero se cambia en desarrollo, y luego se pasa a producción.</p>
+<h3 id="parte-0_1">Parte 0</h3>
+<blockquote>
+<p>Añadir <code>settings.py</code> a <code>.gitignore</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-35-1"></a>django_tutorial/settings.py
+</code></pre></div>
+<p><strong>¡Esta acción es importante!</strong><br />
+El fichero cambia MUCHO con respecto a desarrollo/producción <em>(DEBUG, ALLOWED_HOSTS, DATABASES)</em>.</p>
+<h3 id="parte-1_2">Parte 1</h3>
+<blockquote>
+<p>Modificar <code>django_tutorial/polls/templates/polls/index.html</code> con tu nombre</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-36-1"></a>{% load static %}
+<a name="__codelineno-36-2"></a>
+<a name="__codelineno-36-3"></a>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;{% static &#39;polls/style.css&#39; %}&quot;&gt;
+<a name="__codelineno-36-4"></a>
+<a name="__codelineno-36-5"></a>{% if latest_question_list %}
+<a name="__codelineno-36-6"></a>    &lt;ul&gt;
+<a name="__codelineno-36-7"></a>    {% for question in latest_question_list %}
+<a name="__codelineno-36-8"></a>    &lt;li&gt;&lt;a href=&quot;{% url &#39;polls:detail&#39; question.id %}&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
+<a name="__codelineno-36-9"></a>    {% endfor %}
+<a name="__codelineno-36-10"></a>    &lt;/ul&gt;
+<a name="__codelineno-36-11"></a>{% else %}
+<a name="__codelineno-36-12"></a>    &lt;p&gt;No polls are available.&lt;/p&gt;
+<a name="__codelineno-36-13"></a>{% endif %}
+<a name="__codelineno-36-14"></a>
+<a name="__codelineno-36-15"></a>&lt;h2&gt;Adrián Jaramillo Rodríguez&lt;/h2&gt;
+</code></pre></div>
+<p>Prueba en desarrollo:</p>
+<p><img alt="" src="https://i.postimg.cc/Xq4nw8Zj/polls-nombre.png" /></p>
+<p>Subir cambios desde desarrollo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-37-1"></a>git commit -am &quot;mi nombre polls index.html&quot;
+<a name="__codelineno-37-2"></a>git push
+</code></pre></div></p>
+<p>Bajar cambios en producción:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-38-1"></a>git pull
+</code></pre></div></p>
+<p>Reinicio gunicorn para que actualice la configuración:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-39-1"></a>sudo systemctl restart gunicorn-django-tutorial.service
+</code></pre></div></p>
+<p>Prueba en producción:</p>
+<p><img alt="" src="https://i.postimg.cc/DzD9R2yD/minombre-polls-produccion.png" /></p>
+<h3 id="parte-2_2">Parte 2</h3>
+<blockquote>
+<p>Modificar la imagen de fondo en la página principal</p>
+</blockquote>
+<p>En <code>/home/vagrant/django_tutorial/polls/templates/index.html</code>...</p>
+<p>Añadir en el head:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-40-1"></a>&lt;style&gt;
+<a name="__codelineno-40-2"></a>  body {
+<a name="__codelineno-40-3"></a>    background-image: url(&#39;https://w.wallhaven.cc/full/lm/wallhaven-lm12ey.jpg&#39;);
+<a name="__codelineno-40-4"></a>  }
+<a name="__codelineno-40-5"></a>&lt;/style&gt;
+</code></pre></div></p>
+<p>Comentar en el body:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-41-1"></a>&lt;!--
+<a name="__codelineno-41-2"></a>  &lt;div id=&quot;stripes&quot;&gt;
+<a name="__codelineno-41-3"></a>    &lt;span&gt;&lt;/span&gt;
+<a name="__codelineno-41-4"></a>    &lt;span&gt;&lt;/span&gt;
+<a name="__codelineno-41-5"></a>    &lt;span&gt;&lt;/span&gt;
+<a name="__codelineno-41-6"></a>    &lt;span&gt;&lt;/span&gt;
+<a name="__codelineno-41-7"></a>    &lt;span&gt;&lt;/span&gt;
+<a name="__codelineno-41-8"></a>  &lt;/div&gt;
+<a name="__codelineno-41-9"></a>--&gt;
+</code></pre></div></p>
+<p>Prueba en desarrollo:</p>
+<p><img alt="" src="https://i.imgur.com/w8Jy6Mq.png" /></p>
+<p>Subir cambios desde desarrollo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-42-1"></a>git commit -am &quot;fondo cambiado en index.html&quot;
+<a name="__codelineno-42-2"></a>git push
+</code></pre></div></p>
+<p>Bajar cambios en producción:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-43-1"></a>git pull
+</code></pre></div></p>
+<p>Reinicio gunicorn para que actualice la configuración:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-44-1"></a>sudo systemctl restart gunicorn-django-tutorial.service
+</code></pre></div></p>
+<p>Prueba en producción:</p>
+<p><img alt="" src="https://i.imgur.com/bzbYZpn.png" /></p>
+<h3 id="parte-3_2">Parte 3</h3>
+<blockquote>
+<p>Crear una nueva tabla en la base de datos</p>
+</blockquote>
+<p>Añadir a <code>django_tutorial/polls/models.py</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-45-1"></a>class Categoria(models.Model):
+<a name="__codelineno-45-2"></a>    Abr = models.CharField(max_length=4)
+<a name="__codelineno-45-3"></a>    Nombre = models.CharField(max_length=50)
+<a name="__codelineno-45-4"></a>
+<a name="__codelineno-45-5"></a>    def __str__(self):
+<a name="__codelineno-45-6"></a>        return self.Abr+&quot; - &quot;+self.Nombre
+</code></pre></div></p>
+<p>Aplicar cambios:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-46-1"></a>python manage.py makemigrations
+<a name="__codelineno-46-2"></a>python manage.py migrate
+</code></pre></div></p>
+<p>Modificar la siguiente línea en <code>django_tutorial/polls/admin.py</code>...
+<div class="highlight"><pre><span></span><code><a name="__codelineno-47-1"></a>from .models import Choice, Question, Categoria
+</code></pre></div></p>
+<p>...y añadir esta otra:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-48-1"></a>admin.site.register(Categoria)
+</code></pre></div></p>
+<p>Prueba en desarrollo:</p>
+<p><img alt="" src="https://i.imgur.com/qozi4Oh.png" />
+<em>(la tabla categorías se ha creado, y he rellenado datos)</em></p>
+<p>Vuelco los nuevos datos en desarrollo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-49-1"></a>python3 manage.py dumpdata &gt; db2.json
+</code></pre></div></p>
+<p>Subir cambios desde desarrollo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-50-1"></a>git add .
+<a name="__codelineno-50-2"></a>git commit -am &quot;nueva tabla&quot;
+<a name="__codelineno-50-3"></a>git push
+</code></pre></div></p>
+<p>Bajar cambios en producción:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-51-1"></a>git pull
+</code></pre></div></p>
+<p>Creo la tabla:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-52-1"></a>python manage.py migrate
+</code></pre></div></p>
+<p>Cargo los datos:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-53-1"></a>python3 manage.py loaddata db2.json
+</code></pre></div></p>
+<p>Reinicio gunicorn para que actualice la configuración:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-54-1"></a>sudo systemctl restart gunicorn-django-tutorial.service
+</code></pre></div></p>
+<p>Prueba en producción:</p>
+<p><img alt="" src="https://i.imgur.com/nnNjlC7.png" /></p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/practica-despliegue-apps-python/",this.page.identifier="practica-despliegue-apps-python/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ej3-apache-uwsgi/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ejercicio 3: Apache/Nginx + uWSGI" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Ejercicio 3: Apache/Nginx + uWSGI
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../practica-cms-python/" class="md-footer__link md-footer__link--next" aria-label="Next: Práctica: CMS python" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Práctica: CMS python
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

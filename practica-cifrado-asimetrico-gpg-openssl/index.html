@@ -1,0 +1,2231 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/practica-cifrado-asimetrico-gpg-openssl/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Criptografía 1: Cifrado asímetrico - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-cifrado-asimetrico-con-gpg-y-openssl" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Criptografía 1: Cifrado asímetrico
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Criptografía 1: Cifrado asímetrico
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-1-generacion-de-claves" class="md-nav__link">
+    Tarea 1: Generación de claves
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 1: Generación de claves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-0" class="md-nav__link">
+    Ejercicio 0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-2-importar-exportar-clave-publica" class="md-nav__link">
+    Tarea 2: Importar / exportar clave pública
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 2: Importar / exportar clave pública">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1_1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2_1" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3_1" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-3-cifrado-asimetrico-con-claves-publicas" class="md-nav__link">
+    Tarea 3: Cifrado asimétrico con claves públicas
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 3: Cifrado asimétrico con claves públicas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1_2" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2_2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3_2" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-5" class="md-nav__link">
+    Ejercicio 5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-4-exportar-clave-a-un-servidor-publico-de-claves-pgp" class="md-nav__link">
+    Tarea 4: Exportar clave a un servidor público de claves PGP
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 4: Exportar clave a un servidor público de claves PGP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1_3" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2_3" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3_3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-5-cifrado-asimetrico-con-openssl" class="md-nav__link">
+    Tarea 5: Cifrado asimétrico con openssl
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 5: Cifrado asimétrico con openssl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1_4" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2_4" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3_4" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4_1" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-1-generacion-de-claves" class="md-nav__link">
+    Tarea 1: Generación de claves
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 1: Generación de claves">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-0" class="md-nav__link">
+    Ejercicio 0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-2-importar-exportar-clave-publica" class="md-nav__link">
+    Tarea 2: Importar / exportar clave pública
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 2: Importar / exportar clave pública">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1_1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2_1" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3_1" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-3-cifrado-asimetrico-con-claves-publicas" class="md-nav__link">
+    Tarea 3: Cifrado asimétrico con claves públicas
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 3: Cifrado asimétrico con claves públicas">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1_2" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2_2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3_2" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-5" class="md-nav__link">
+    Ejercicio 5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-4-exportar-clave-a-un-servidor-publico-de-claves-pgp" class="md-nav__link">
+    Tarea 4: Exportar clave a un servidor público de claves PGP
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 4: Exportar clave a un servidor público de claves PGP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1_3" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2_3" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3_3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-5-cifrado-asimetrico-con-openssl" class="md-nav__link">
+    Tarea 5: Cifrado asimétrico con openssl
+  </a>
+  
+    <nav class="md-nav" aria-label="Tarea 5: Cifrado asimétrico con openssl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1_4" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2_4" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3_4" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4_1" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="practica-cifrado-asimetrico-con-gpg-y-openssl">Práctica: Cifrado asimétrico con gpg y openssl</h1>
+<h2 id="tarea-1-generacion-de-claves">Tarea 1: Generación de claves</h2>
+<h3 id="ejercicio-0">Ejercicio 0</h3>
+<blockquote>
+<p>Instalar gpg</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>sudo apt update
+<a name="__codelineno-0-2"></a>sudo apt install gnupg
+</code></pre></div>
+<h3 id="ejercicio-1">Ejercicio 1</h3>
+<blockquote>
+<p>Generar par de claves</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>gpg --gen-key
+</code></pre></div>
+<p><img alt="" src="https://i.imgur.com/hQJG0dl.png" /></p>
+<p>En rojo, marco lo que yo he tenido que escribir.</p>
+<p>Cuando pide una passphrase, no le pongo ninguna.</p>
+<blockquote>
+<p>¿En qué directorio se guardan las claves de un usuario?</p>
+</blockquote>
+<p><code>/home/vagrant/.gnupg</code></p>
+<h3 id="ejercicio-2">Ejercicio 2</h3>
+<blockquote>
+<p>Listar las claves públicas</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>gpg --list-keys
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>/home/vagrant/.gnupg/pubring.kbx
+<a name="__codelineno-3-2"></a>--------------------------------
+<a name="__codelineno-3-3"></a>pub   rsa3072 2021-11-15 [SC] [expires: 2023-11-15]
+<a name="__codelineno-3-4"></a>      5FAB740108563CA70D25EFA770B15EFFA5837AF8
+<a name="__codelineno-3-5"></a>uid           [ultimate] Adrián Jaramillo Rodríguez &lt;adristudy@gmail.com&gt;
+<a name="__codelineno-3-6"></a>sub   rsa3072 2021-11-15 [E] [expires: 2023-11-15]
+</code></pre></div></p>
+<blockquote>
+<p>Explicar el output</p>
+</blockquote>
+<ul>
+<li><code>/home/vagrant/.gnupg/pubring.kbx</code>: anillo de claves</li>
+<li><code>pub</code>: indicador de clave pública</li>
+<li><code>rsa3072</code>: tipo de clave rsa y tamaño en bits de 3072</li>
+<li><code>2021-11-15</code>: fecha de creación</li>
+<li><code>[expires: 2023-11-15]</code>: fecha de expiración</li>
+<li><code>5FAB740108563CA70D25EFA770B15EFFA5837AF8</code>: fingerprint de la clave</li>
+<li><code>uid</code>: identificadores de la clave</li>
+<li><code>sub</code>: indica una "subkey". Esto es un concepto un poco avanzado de gpg que no hemos visto, porque en realidad cada par de claves que creamos a su vez crean subpares de claves por debajo.</li>
+</ul>
+<blockquote>
+<p>¿Cómo deberías haber generado las claves para indicar, por ejemplo, que tengan 1 mes de validez?</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>gpg --full-gen-key
+</code></pre></div>
+<p><img alt="" src="https://i.imgur.com/62UcDKR.png" /></p>
+<p>En rojo he marcado cuando:</p>
+<ul>
+<li>Defino 1 mes de validez</li>
+<li>Aparece la fecha de expiración correcta en la clave</li>
+</ul>
+<h3 id="ejercicio-3">Ejercicio 3</h3>
+<blockquote>
+<p>Listar las claves privadas</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>gpg --list-secret-keys
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>/home/vagrant/.gnupg/pubring.kbx
+<a name="__codelineno-6-2"></a>--------------------------------
+<a name="__codelineno-6-3"></a>sec   rsa3072 2021-11-15 [SC] [expires: 2023-11-15]
+<a name="__codelineno-6-4"></a>      5FAB740108563CA70D25EFA770B15EFFA5837AF8
+<a name="__codelineno-6-5"></a>uid           [ultimate] Adrián Jaramillo Rodríguez &lt;adristudy@gmail.com&gt;
+<a name="__codelineno-6-6"></a>ssb   rsa3072 2021-11-15 [E] [expires: 2023-11-15]
+</code></pre></div></p>
+<h2 id="tarea-2-importar-exportar-clave-publica">Tarea 2: Importar / exportar clave pública</h2>
+<h3 id="ejercicio-1_1">Ejercicio 1</h3>
+<blockquote>
+<p>Exportar tu clave pública en ASCII al fichero <code>adrian_jaramillo.asc</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>gpg --armor --output adrian_jaramillo.asc --export adristudy@gmail.com
+</code></pre></div>
+<blockquote>
+<p>Enviar <code>adrian_jaramillo.asc</code> a Carlos</p>
+</blockquote>
+<p>Enviado.</p>
+<h3 id="ejercicio-2_1">Ejercicio 2</h3>
+<blockquote>
+<p>Importar la clave pública recibida de Carlos</p>
+</blockquote>
+<p>He recibido:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>-rw-r--r-- 1 vagrant vagrant 2476 Nov 15 09:18 carlos_rivero.asc
+</code></pre></div></p>
+<p>La importo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>gpg --import carlos_rivero.asc
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>gpg: key 69700115DE666C54: public key &quot;Carlos Rivero Martín &lt;carlosrivero1988@gmail.com&gt;&quot; imported
+<a name="__codelineno-10-2"></a>gpg: Total number processed: 1
+<a name="__codelineno-10-3"></a>gpg:               imported: 1
+</code></pre></div></p>
+<h3 id="ejercicio-3_1">Ejercicio 3</h3>
+<blockquote>
+<p>Comprobar que la clave se ha incluido correctamente</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a>gpg --list-keys
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>/home/vagrant/.gnupg/pubring.kbx
+<a name="__codelineno-12-2"></a>--------------------------------
+<a name="__codelineno-12-3"></a>pub   rsa3072 2021-11-15 [SC] [expires: 2023-11-15]
+<a name="__codelineno-12-4"></a>      5FAB740108563CA70D25EFA770B15EFFA5837AF8
+<a name="__codelineno-12-5"></a>uid           [ultimate] Adrián Jaramillo Rodríguez &lt;adristudy@gmail.com&gt;
+<a name="__codelineno-12-6"></a>sub   rsa3072 2021-11-15 [E] [expires: 2023-11-15]
+<a name="__codelineno-12-7"></a>
+<a name="__codelineno-12-8"></a>pub   rsa3072 2021-11-15 [SC] [expires: 2023-11-15]
+<a name="__codelineno-12-9"></a>      35AAEDB27BDF2918D11FB3B569700115DE666C54
+<a name="__codelineno-12-10"></a>uid           [ unknown] Carlos Rivero Martín &lt;carlosrivero1988@gmail.com&gt;
+<a name="__codelineno-12-11"></a>sub   rsa3072 2021-11-15 [E] [expires: 2023-11-15]
+</code></pre></div></p>
+<p>Abajo tenemos la de Carlos.</p>
+<h2 id="tarea-3-cifrado-asimetrico-con-claves-publicas">Tarea 3: Cifrado asimétrico con claves públicas</h2>
+<h3 id="ejercicio-1_2">Ejercicio 1</h3>
+<blockquote>
+<p>Cifrar un fichero con la clave pública de Carlos</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>gpg --output para_carlos.txt.gpg --encrypt --recipient carlosrivero1988@gmail.com para_carlos.txt
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a>gpg: A226D42A5B0599A6: There is no assurance this key belongs to the named user
+<a name="__codelineno-14-2"></a>
+<a name="__codelineno-14-3"></a>sub  rsa3072/A226D42A5B0599A6 2021-11-15 Carlos Rivero Martín &lt;carlosrivero1988@gmail.com&gt;
+<a name="__codelineno-14-4"></a> Primary key fingerprint: 35AA EDB2 7BDF 2918 D11F  B3B5 6970 0115 DE66 6C54
+<a name="__codelineno-14-5"></a>      Subkey fingerprint: 0FC1 7DA5 8FC3 9973 A4FA  5648 A226 D42A 5B05 99A6
+<a name="__codelineno-14-6"></a>
+<a name="__codelineno-14-7"></a>It is NOT certain that the key belongs to the person named
+<a name="__codelineno-14-8"></a>in the user ID.  If you *really* know what you are doing,
+<a name="__codelineno-14-9"></a>you may answer the next question with yes.
+<a name="__codelineno-14-10"></a>
+<a name="__codelineno-14-11"></a>Use this key anyway? (y/N) y
+</code></pre></div></p>
+<p>Fichero generado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a>-rw-r--r-- 1 vagrant vagrant  498 Nov 15 09:46 para_carlos.txt.gpg
+</code></pre></div></p>
+<blockquote>
+<p>Enviar el fichero cifrado a Carlos</p>
+</blockquote>
+<p>Enviado.</p>
+<h3 id="ejercicio-2_2">Ejercicio 2</h3>
+<blockquote>
+<p>Carlos nos enviará un fichero cifrado</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a>-rw-r--r-- 1 vagrant vagrant  502 Nov 15 09:58 para_adrian.txt.gpg
+</code></pre></div>
+<h3 id="ejercicio-3_2">Ejercicio 3</h3>
+<blockquote>
+<p>Descifrar <code>para_adrian.txt.gpg</code></p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a>gpg --output para_adrian.txt --decrypt para_adrian.txt.gpg
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a>gpg: encrypted with 3072-bit RSA key, ID ABA647DE60867CB5, created 2021-11-15
+<a name="__codelineno-18-2"></a>      &quot;Adrián Jaramillo Rodríguez &lt;adristudy@gmail.com&gt;&quot;
+</code></pre></div>
+Se nos indica la clave pública original con la que se encriptó el mensaje.</p>
+<p>Fichero desencriptado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a>-rw-r--r-- 1 vagrant vagrant   30 Nov 15 10:11 para_adrian.txt
+</code></pre></div></p>
+<p>Contenido:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a>vagrant@practicacifradogpg:~$ cat para_adrian.txt
+<a name="__codelineno-20-2"></a>Mensaje cifrado para Adrián.
+</code></pre></div></p>
+<h3 id="ejercicio-4">Ejercicio 4</h3>
+<blockquote>
+<p>Enviar <code>para_carlos.txt.gpg</code> a Daniel Parrales</p>
+</blockquote>
+<p>Enviado.</p>
+<blockquote>
+<p>Comprobar que Daniel no puede descifrar <code>para_carlos.txt.gpg</code></p>
+</blockquote>
+<p>Si intenta hacer:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a>gpg --output para_carlos.txt --decrypt para_carlos.txt.gpg
+</code></pre></div></p>
+<p>Le aparece:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a>gpg: encrypted with RSA key, ID A226D42A5B0599A6
+<a name="__codelineno-22-2"></a>gpg: decryption failed: No secret key
+</code></pre></div></p>
+<p>Esto sucede porque Daniel no tiene la clave privada asociada a la pública con la que originalmente se encriptó el fichero.</p>
+<h3 id="ejercicio-5">Ejercicio 5</h3>
+<blockquote>
+<p>Borrar tu clave privada</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a>gpg --delete-secret-key adristudy@gmail.com
+</code></pre></div>
+<p>Muestro que se ha borrado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a>vagrant@practicacifradogpg:~$ gpg --list-secret-keys
+<a name="__codelineno-24-2"></a>vagrant@practicacifradogpg:~$
+</code></pre></div></p>
+<blockquote>
+<p>Borrar todas las claves públicas</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-25-1"></a>gpg --delete-key carlosrivero1988@gmail.com
+<a name="__codelineno-25-2"></a>gpg --delete-key adristudy@gmail.com
+</code></pre></div>
+<p>Muestro que no queda ninguna:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-26-1"></a>vagrant@practicacifradogpg:~$ gpg --list-keys
+<a name="__codelineno-26-2"></a>vagrant@practicacifradogpg:~$
+</code></pre></div></p>
+<h2 id="tarea-4-exportar-clave-a-un-servidor-publico-de-claves-pgp">Tarea 4: Exportar clave a un servidor público de claves PGP</h2>
+<h3 id="ejercicio-1_3">Ejercicio 1</h3>
+<blockquote>
+<p>Generar certificado de revocación de tu clave pública</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-27-1"></a>gpg --output revoke_adrianj.asc --gen-revoke adristudy@gmail.com
+</code></pre></div>
+<p>Seguimos los pasos que se nos indican <em>(en rojo, mis respuestas)</em>:</p>
+<p><img alt="" src="https://i.imgur.com/duHO4i3.png" /></p>
+<p>Fichero generado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-28-1"></a>-rw------- 1 vagrant vagrant  719 Nov 15 19:25 revoke_adrianj.asc
+</code></pre></div></p>
+<h3 id="ejercicio-2_3">Ejercicio 2</h3>
+<blockquote>
+<p>Exportar tu clave pública a <code>pgp.rediris.es</code></p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-29-1"></a>gpg --keyserver pgp.rediris.es --send-key 5FAB740108563CA70D25EFA770B15EFFA5837AF8
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-30-1"></a>gpg: sending key 70B15EFFA5837AF8 to hkp://pgp.rediris.es
+</code></pre></div></p>
+<p><strong>Obligatorio</strong> indicar el "key ID" después de <code>--send-key</code> <em>(no funcionaría, por ejemplo, indicando un correo).</em></p>
+<p>Compruebo que se haya subido correctamente:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-31-1"></a>gpg --keyserver pgp.rediris.es --search-key adristudy@gmail.com
+</code></pre></div></p>
+<p><img alt="" src="https://i.imgur.com/T4HswxU.png" /></p>
+<p>La número 1 es la que acabo de subir <em>(las demás claves son de otros años)</em>.</p>
+<p>La sé identificar por:</p>
+<ul>
+<li>ID resumido (últimos 16 caracteres del ID original)</li>
+<li>Fecha de creación</li>
+</ul>
+<h3 id="ejercicio-3_3">Ejercicio 3</h3>
+<blockquote>
+<p>Borrar la clave pública de Carlos</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-32-1"></a>gpg --delete-keys carlosrivero1988@gmail.com
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-33-1"></a>gpg (GnuPG) 2.2.27; Copyright (C) 2021 Free Software Foundation, Inc.
+<a name="__codelineno-33-2"></a>This is free software: you are free to change and redistribute it.
+<a name="__codelineno-33-3"></a>There is NO WARRANTY, to the extent permitted by law.
+<a name="__codelineno-33-4"></a>
+<a name="__codelineno-33-5"></a>
+<a name="__codelineno-33-6"></a>pub  rsa3072/69700115DE666C54 2021-11-15 Carlos Rivero Martín &lt;carlosrivero1988@gmail.com&gt;
+<a name="__codelineno-33-7"></a>
+<a name="__codelineno-33-8"></a>Delete this key from the keyring? (y/N) y
+</code></pre></div></p>
+<blockquote>
+<p>Importarla desde <code>pgp.rediris.es</code></p>
+</blockquote>
+<p>Para importar su clave pública de nuevo a mi keybox, primero, tengo que averiguar su ID.</p>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-34-1"></a>gpg --keyserver pgp.rediris.es --search-key carlosrivero1988@gmail.com
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-35-1"></a>gpg: data source: http://130.206.1.8:11371
+<a name="__codelineno-35-2"></a>(1) Carlos Rivero Martín &lt;carlosrivero1988@gmail.com&gt;
+<a name="__codelineno-35-3"></a>      3072 bit RSA key 69700115DE666C54, created: 2021-11-15, expires: 2023-11-15
+</code></pre></div></p>
+<p>Sabiendo su ID, <code>69700115DE666C54</code>, me bajo la clave:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-36-1"></a>gpg --keyserver pgp.rediris.es --recv-key 69700115DE666C54
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-37-1"></a>gpg: key 69700115DE666C54: public key &quot;Carlos Rivero Martín &lt;carlosrivero1988@gmail.com&gt;&quot; imported
+<a name="__codelineno-37-2"></a>gpg: Total number processed: 1
+<a name="__codelineno-37-3"></a>gpg:               imported: 1
+</code></pre></div></p>
+<p>Vuelvo a listar mis claves públicas, y la tengo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-38-1"></a>vagrant@practicacifradogpg:~$ gpg --list-key
+<a name="__codelineno-38-2"></a>/home/vagrant/.gnupg/pubring.kbx
+<a name="__codelineno-38-3"></a>--------------------------------
+<a name="__codelineno-38-4"></a>pub   rsa3072 2021-11-15 [SC] [expires: 2023-11-15]
+<a name="__codelineno-38-5"></a>      5FAB740108563CA70D25EFA770B15EFFA5837AF8
+<a name="__codelineno-38-6"></a>uid           [ultimate] Adrián Jaramillo Rodríguez &lt;adristudy@gmail.com&gt;
+<a name="__codelineno-38-7"></a>sub   rsa3072 2021-11-15 [E] [expires: 2023-11-15]
+<a name="__codelineno-38-8"></a>
+<a name="__codelineno-38-9"></a>pub   rsa3072 2021-11-15 [SC] [expires: 2023-11-15]
+<a name="__codelineno-38-10"></a>      35AAEDB27BDF2918D11FB3B569700115DE666C54
+<a name="__codelineno-38-11"></a>uid           [ unknown] Carlos Rivero Martín &lt;carlosrivero1988@gmail.com&gt;
+<a name="__codelineno-38-12"></a>sub   rsa3072 2021-11-15 [E] [expires: 2023-11-15]
+</code></pre></div></p>
+<h2 id="tarea-5-cifrado-asimetrico-con-openssl">Tarea 5: Cifrado asimétrico con openssl</h2>
+<h3 id="ejercicio-1_4">Ejercicio 1</h3>
+<blockquote>
+<p>Generar par de claves</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-39-1"></a>openssl genrsa -des3 -out keypair.pem 2048
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-40-1"></a>Generating RSA private key, 2048 bit long modulus (2 primes)
+<a name="__codelineno-40-2"></a>......................................................................................+++++
+<a name="__codelineno-40-3"></a>....................................................................................................................+++++
+<a name="__codelineno-40-4"></a>e is 65537 (0x010001)
+<a name="__codelineno-40-5"></a>Enter pass phrase for keypair.pem:
+<a name="__codelineno-40-6"></a>Verifying - Enter pass phrase for keypair.pem:
+</code></pre></div></p>
+<p>Passphrase: 1234</p>
+<p>Fichero resultante:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-41-1"></a>-rw------- 1 vagrant vagrant 1743 Nov 15 22:56 keypair.pem
+</code></pre></div></p>
+<h3 id="ejercicio-2_4">Ejercicio 2</h3>
+<blockquote>
+<p>Enviar tu clave pública a Carlos</p>
+</blockquote>
+<p>Exporto mi clave pública del fichero <code>keypair.pem</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-42-1"></a>openssl rsa -in keypair.pem -outform PEM -pubout -out public_adrianj.pem
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-43-1"></a>Enter pass phrase for keypair.pem:
+<a name="__codelineno-43-2"></a>writing RSA key
+</code></pre></div></p>
+<p>Nos pregunta la passphrase, y nos genera:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-44-1"></a>-rw-r--r-- 1 vagrant vagrant  451 Nov 15 23:15 public_adrianj.pem
+</code></pre></div></p>
+<p>Este fichero, es el que envío a Carlos.</p>
+<h3 id="ejercicio-3_4">Ejercicio 3</h3>
+<blockquote>
+<p>Recibir la clave pública de Carlos</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-45-1"></a>-rw-r--r-- 1 vagrant vagrant  451 Nov 16 00:08 public_crivero.pem
+</code></pre></div>
+<blockquote>
+<p>Utilizando esa clave, cifra un fichero de texto y envíaselo</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-46-1"></a>openssl rsautl -encrypt -inkey public_crivero.pem -pubin -in para_carlos_openssl.txt -out para_carlos_openssl.txt.enc
+</code></pre></div>
+<p>Nos genera este fichero cifrado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-47-1"></a>-rw-r--r-- 1 vagrant vagrant  256 Nov 16 00:24 para_carlos_openssl.txt.enc
+</code></pre></div></p>
+<p>Se lo envío.</p>
+<h3 id="ejercicio-4_1">Ejercicio 4</h3>
+<blockquote>
+<p>Recibe un fichero cifrado de Carlos</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-48-1"></a>-rw-r--r-- 1 vagrant vagrant  256 Nov 16 00:35 para_adrian_openssl.txt.enc
+</code></pre></div>
+<blockquote>
+<p>Descifra el fichero</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-49-1"></a>openssl rsautl -decrypt -inkey keypair.pem -in para_adrian_openssl.txt.enc &gt; para_adrian_openssl.txt
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-50-1"></a>Enter pass phrase for keypair.pem:
+</code></pre></div></p>
+<p>Introducimos la passphrase, y obtenemos el fichero:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-51-1"></a>-rw-r--r-- 1 vagrant vagrant   58 Nov 16 00:43 para_adrian_openssl.txt
+</code></pre></div></p>
+<p>Con el contenido:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-52-1"></a>vagrant@practicacifradogpg:~$ cat para_adrian_openssl.txt
+<a name="__codelineno-52-2"></a>Este mensaje se cifrará con openssl.
+<a name="__codelineno-52-3"></a>
+<a name="__codelineno-52-4"></a>Es para Adrián.
+</code></pre></div></p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/practica-cifrado-asimetrico-gpg-openssl/",this.page.identifier="practica-cifrado-asimetrico-gpg-openssl/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../practica-cms-python/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Práctica: CMS python" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Práctica: CMS python
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../practica-integridad-firmas-autenticacion/" class="md-footer__link md-footer__link--next" aria-label="Next: Criptografía 2: Firmas" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Criptografía 2: Firmas
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,2127 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/practica-servidor-dhcp/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Práctica - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-servidor-dhcp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Práctica
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Práctica
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Práctica
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-1" class="md-nav__link">
+    Tarea 1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-2" class="md-nav__link">
+    Tarea 2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-3" class="md-nav__link">
+    Tarea 3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-4" class="md-nav__link">
+    Tarea 4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-5" class="md-nav__link">
+    Tarea 5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-6" class="md-nav__link">
+    Tarea 6
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-1" class="md-nav__link">
+    Tarea 1
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-2" class="md-nav__link">
+    Tarea 2
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-3" class="md-nav__link">
+    Tarea 3
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-4" class="md-nav__link">
+    Tarea 4
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-5" class="md-nav__link">
+    Tarea 5
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tarea-6" class="md-nav__link">
+    Tarea 6
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="practica-servidor-dhcp">Práctica: Servidor DHCP</h1>
+<h2 id="tarea-1">Tarea 1</h2>
+<blockquote>
+<p>Escenario:</p>
+<ul>
+<li>Servidor:<ul>
+<li>NAT para dar salida a Internet <em>(la tratamos como si fuera una pública)</em></li>
+<li>Privada1 (veryisolated)</li>
+<li>Privada2 (veryisolated)</li>
+</ul>
+</li>
+<li>nodo_lan1: cliente conectado a privada1</li>
+<li>nodo_lan2: cliente conectado a privada2</li>
+<li>nodowin10: cliente conectado a privada1</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-0-2"></a>
+<a name="__codelineno-0-3"></a>config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-0-4"></a>
+<a name="__codelineno-0-5"></a>  config.vm.define :servidor do |servidor|
+<a name="__codelineno-0-6"></a>    servidor.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-0-7"></a>    servidor.vm.hostname = &quot;servidor&quot;
+<a name="__codelineno-0-8"></a>    servidor.vm.network :private_network,
+<a name="__codelineno-0-9"></a>      :libvirt__network_name =&gt; &quot;practica-dhcp-nat&quot;,
+<a name="__codelineno-0-10"></a>      :ip =&gt; &quot;192.168.0.2&quot;
+<a name="__codelineno-0-11"></a>    servidor.vm.network :private_network,
+<a name="__codelineno-0-12"></a>      :libvirt__network_name =&gt; &quot;practica-dhcp-privada1&quot;,
+<a name="__codelineno-0-13"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-14"></a>      :ip =&gt; &quot;192.168.100.1&quot;,
+<a name="__codelineno-0-15"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-16"></a>    servidor.vm.network :private_network,
+<a name="__codelineno-0-17"></a>      :libvirt__network_name =&gt; &quot;practica-dhcp-privada2&quot;,
+<a name="__codelineno-0-18"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-19"></a>      :ip =&gt; &quot;192.168.200.1&quot;,
+<a name="__codelineno-0-20"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-21"></a>  end
+<a name="__codelineno-0-22"></a>
+<a name="__codelineno-0-23"></a>  config.vm.define :nodolan1 do |nodolan1|
+<a name="__codelineno-0-24"></a>    nodolan1.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-0-25"></a>    nodolan1.vm.hostname = &quot;nodolan1&quot;
+<a name="__codelineno-0-26"></a>    nodolan1.vm.network :private_network,
+<a name="__codelineno-0-27"></a>      :libvirt__network_name =&gt; &quot;practica-dhcp-privada1&quot;,
+<a name="__codelineno-0-28"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-29"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-30"></a>  end
+<a name="__codelineno-0-31"></a>
+<a name="__codelineno-0-32"></a>  config.vm.define :nodolan2 do |nodolan2|
+<a name="__codelineno-0-33"></a>    nodolan2.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-0-34"></a>    nodolan2.vm.hostname = &quot;nodolan2&quot;
+<a name="__codelineno-0-35"></a>    nodolan2.vm.network :private_network,
+<a name="__codelineno-0-36"></a>      :libvirt__network_name =&gt; &quot;practica-dhcp-privada2&quot;,
+<a name="__codelineno-0-37"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-38"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-39"></a>  end
+<a name="__codelineno-0-40"></a>
+<a name="__codelineno-0-41"></a>  config.vm.define :nodowin10 do |nodowin10|
+<a name="__codelineno-0-42"></a>    nodowin10.vm.box = &quot;jborean93/WindowsServer2016&quot;
+<a name="__codelineno-0-43"></a>    nodowin10.vm.guest = :windows
+<a name="__codelineno-0-44"></a>    nodowin10.vm.hostname = &quot;nodowin10&quot;
+<a name="__codelineno-0-45"></a>    nodowin10.vm.communicator = &quot;winrm&quot;
+<a name="__codelineno-0-46"></a>    nodowin10.vm.network :private_network,
+<a name="__codelineno-0-47"></a>      :libvirt__network_name =&gt; &quot;practica-dhcp-privada1&quot;,
+<a name="__codelineno-0-48"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-0-49"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-0-50"></a>  end
+<a name="__codelineno-0-51"></a>
+<a name="__codelineno-0-52"></a>end
+</code></pre></div>
+<p>Para conectarnos a <code>nodowin10</code> hacemos:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>vagrant ssh nodowin10
+</code></pre></div></p>
+<h2 id="tarea-2">Tarea 2</h2>
+<blockquote>
+<p>Instalación servidor DHCP</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>sudo apt update &amp;&amp; sudo apt install isc-dhcp-server
+</code></pre></div>
+<blockquote>
+<p>Configuración DHCP</p>
+</blockquote>
+<p>En <code>/etc/default/isc-dhcp-server</code>:</p>
+<ul>
+<li>Descomentar la línea: <code>DHCPDv4_CONF=/etc/dhcp/dhcpd.conf</code></li>
+<li>Especificar interfaces: <code>INTERFACESv4="eth2 eth3"</code>  </li>
+</ul>
+<p>En <code>/etc/dhcp/dhcpd.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>subnet 192.168.100.0 netmask 255.255.255.0 {
+<a name="__codelineno-3-2"></a>  range 192.168.100.100 192.168.100.150;
+<a name="__codelineno-3-3"></a>  option subnet-mask 255.255.255.0;
+<a name="__codelineno-3-4"></a>  option routers 192.168.100.1;
+<a name="__codelineno-3-5"></a>  option domain-name-servers 1.1.1.1, 1.0.0.1;
+<a name="__codelineno-3-6"></a>  default-lease-time 43200;
+<a name="__codelineno-3-7"></a>  max-lease-time 43200;
+<a name="__codelineno-3-8"></a>}
+<a name="__codelineno-3-9"></a>
+<a name="__codelineno-3-10"></a>subnet 192.168.200.0 netmask 255.255.255.0 {
+<a name="__codelineno-3-11"></a>  range 192.168.200.100 192.168.200.150;
+<a name="__codelineno-3-12"></a>  option subnet-mask 255.255.255.0;
+<a name="__codelineno-3-13"></a>  option routers 192.168.200.1;
+<a name="__codelineno-3-14"></a>  option domain-name-servers 1.1.1.1, 1.0.0.1;
+<a name="__codelineno-3-15"></a>  default-lease-time 3600;
+<a name="__codelineno-3-16"></a>  max-lease-time 3600;
+<a name="__codelineno-3-17"></a>}
+</code></pre></div></p>
+<p>Reiniciar el servicio:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>sudo systemctl restart isc-dhcp-server
+</code></pre></div></p>
+<blockquote>
+<p>Listar concesiones y comprobación</p>
+</blockquote>
+<p>Nodolan1 concesión:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>lease 192.168.100.101 {
+<a name="__codelineno-5-2"></a>  starts 3 2021/10/20 06:40:30;
+<a name="__codelineno-5-3"></a>  ends 3 2021/10/20 18:40:30;
+<a name="__codelineno-5-4"></a>  cltt 3 2021/10/20 06:40:30;
+<a name="__codelineno-5-5"></a>  binding state active;
+<a name="__codelineno-5-6"></a>  next binding state free;
+<a name="__codelineno-5-7"></a>  rewind binding state free;
+<a name="__codelineno-5-8"></a>  hardware ethernet 52:54:00:57:5b:cf;
+<a name="__codelineno-5-9"></a>  client-hostname &quot;nodolan1&quot;;
+<a name="__codelineno-5-10"></a>}
+</code></pre></div></p>
+<p>Nodolan1 comprobación:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+<a name="__codelineno-6-2"></a>    link/ether 52:54:00:57:5b:cf brd ff:ff:ff:ff:ff:ff
+<a name="__codelineno-6-3"></a>    altname enp0s6
+<a name="__codelineno-6-4"></a>    altname ens6
+<a name="__codelineno-6-5"></a>    inet 192.168.100.101/24 brd 192.168.100.255 scope global dynamic eth1
+<a name="__codelineno-6-6"></a>       valid_lft 41316sec preferred_lft 41316sec
+<a name="__codelineno-6-7"></a>    inet6 fe80::5054:ff:fe57:5bcf/64 scope link
+<a name="__codelineno-6-8"></a>       valid_lft forever preferred_lft forever
+</code></pre></div></p>
+<p>Nodolan2 concesión:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>lease 192.168.200.101 {
+<a name="__codelineno-7-2"></a>  starts 3 2021/10/20 07:15:53;
+<a name="__codelineno-7-3"></a>  ends 3 2021/10/20 08:15:53;
+<a name="__codelineno-7-4"></a>  cltt 3 2021/10/20 07:15:53;
+<a name="__codelineno-7-5"></a>  binding state active;
+<a name="__codelineno-7-6"></a>  next binding state free;
+<a name="__codelineno-7-7"></a>  rewind binding state free;
+<a name="__codelineno-7-8"></a>  hardware ethernet 52:54:00:eb:66:51;
+<a name="__codelineno-7-9"></a>  client-hostname &quot;nodolan2&quot;;
+<a name="__codelineno-7-10"></a>}
+</code></pre></div></p>
+<p>Nodolan2 comprobación:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+<a name="__codelineno-8-2"></a>    link/ether 52:54:00:eb:66:51 brd ff:ff:ff:ff:ff:ff
+<a name="__codelineno-8-3"></a>    altname enp0s6
+<a name="__codelineno-8-4"></a>    altname ens6
+<a name="__codelineno-8-5"></a>    inet 192.168.200.101/24 brd 192.168.200.255 scope global dynamic eth1
+<a name="__codelineno-8-6"></a>       valid_lft 3599sec preferred_lft 3599sec
+<a name="__codelineno-8-7"></a>    inet6 fe80::5054:ff:feeb:6651/64 scope link
+<a name="__codelineno-8-8"></a>       valid_lft forever preferred_lft forever
+</code></pre></div></p>
+<p>Nodowin10 concesión:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>lease 192.168.100.102 {
+<a name="__codelineno-9-2"></a>  starts 3 2021/10/20 07:37:44;
+<a name="__codelineno-9-3"></a>  ends 3 2021/10/20 19:37:44;
+<a name="__codelineno-9-4"></a>  cltt 3 2021/10/20 07:37:44;
+<a name="__codelineno-9-5"></a>  binding state active;
+<a name="__codelineno-9-6"></a>  next binding state free;
+<a name="__codelineno-9-7"></a>  rewind binding state free;
+<a name="__codelineno-9-8"></a>  hardware ethernet 52:54:00:57:de:32;
+<a name="__codelineno-9-9"></a>  uid &quot;\001RT\000W\3362&quot;;
+<a name="__codelineno-9-10"></a>  set vendor-class-identifier = &quot;MSFT 5.0&quot;;
+<a name="__codelineno-9-11"></a>  client-hostname &quot;nodowin10&quot;;
+<a name="__codelineno-9-12"></a>}
+</code></pre></div></p>
+<p>Nodowin10 comprobación:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>Ethernet adapter Ethernet 2:                                                                            
+<a name="__codelineno-10-2"></a>
+<a name="__codelineno-10-3"></a>   Connection-specific DNS Suffix  . :                                                                  
+<a name="__codelineno-10-4"></a>   Description . . . . . . . . . . . : Red Hat VirtIO Ethernet Adapter #2                               
+<a name="__codelineno-10-5"></a>   Physical Address. . . . . . . . . : 52-54-00-57-DE-32                                                
+<a name="__codelineno-10-6"></a>   DHCP Enabled. . . . . . . . . . . : Yes                                                              
+<a name="__codelineno-10-7"></a>   Autoconfiguration Enabled . . . . : Yes                                                              
+<a name="__codelineno-10-8"></a>   Link-local IPv6 Address . . . . . : fe80::c1c4:20a1:511b:ecc8%2(Preferred)                           
+<a name="__codelineno-10-9"></a>   IPv4 Address. . . . . . . . . . . : 192.168.100.102(Preferred)                                       
+<a name="__codelineno-10-10"></a>   Subnet Mask . . . . . . . . . . . : 255.255.255.0                                                    
+<a name="__codelineno-10-11"></a>   Lease Obtained. . . . . . . . . . : Wednesday, October 20, 2021 7:37:44 AM                           
+<a name="__codelineno-10-12"></a>   Lease Expires . . . . . . . . . . : Wednesday, October 20, 2021 7:37:43 PM                           
+<a name="__codelineno-10-13"></a>   Default Gateway . . . . . . . . . : 192.168.100.1                                                    
+<a name="__codelineno-10-14"></a>   DHCP Server . . . . . . . . . . . : 192.168.100.1                                                    
+<a name="__codelineno-10-15"></a>   DHCPv6 IAID . . . . . . . . . . . : 72504320                                                         
+<a name="__codelineno-10-16"></a>   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-29-01-8E-B1-52-54-00-CE-85-A1                        
+<a name="__codelineno-10-17"></a>   DNS Servers . . . . . . . . . . . : 1.1.1.1                                                          
+<a name="__codelineno-10-18"></a>                                       1.0.0.1                                                          
+<a name="__codelineno-10-19"></a>   NetBIOS over Tcpip. . . . . . . . : Enabled   
+</code></pre></div></p>
+<blockquote>
+<p>Cambios en clientes para configuración DHCP</p>
+</blockquote>
+<p>En <code>nodolan1</code>:</p>
+<ul>
+<li>Cambiar <code>/etc/network/interfaces</code>:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a>allow-hotplug eth0
+<a name="__codelineno-11-2"></a>iface eth0 inet dhcp
+<a name="__codelineno-11-3"></a>  post-up ip route del default dev $IFACE || true
+<a name="__codelineno-11-4"></a>
+<a name="__codelineno-11-5"></a>auto eth1
+<a name="__codelineno-11-6"></a>iface eth1 inet dhcp
+</code></pre></div>
+<ul>
+<li>Pedir configuración:  </li>
+</ul>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>sudo dhclient eth1
+</code></pre></div>
+<p>En <code>nodolan2</code>:</p>
+<ul>
+<li>Cambiar <code>/etc/network/interfaces</code>:</li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>allow-hotplug eth0
+<a name="__codelineno-13-2"></a>iface eth0 inet dhcp
+<a name="__codelineno-13-3"></a>  post-up ip route del default dev $IFACE || true
+<a name="__codelineno-13-4"></a>
+<a name="__codelineno-13-5"></a>auto eth1
+<a name="__codelineno-13-6"></a>iface eth1 inet dhcp
+</code></pre></div>
+- Pedir configuración:</p>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a>sudo dhclient eth1
+</code></pre></div>
+<p>En <code>nodowin10</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a>ipconfig /renew &quot;Ethernet 2&quot;
+</code></pre></div></p>
+<h2 id="tarea-3">Tarea 3</h2>
+<blockquote>
+<p>Servidor DHCP como router-NAT para que los clientes tengan internet</p>
+</blockquote>
+<p>Hago router-nat y persistente:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a>sudo modprobe iptable_nat
+<a name="__codelineno-16-2"></a>echo &quot;iptable_nat&quot; &gt;&gt; /etc/modules
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a>echo &quot;1&quot; &gt; /proc/sys/net/ipv4/ip_forward
+<a name="__codelineno-17-2"></a>echo &quot;net.ipv4.ip_forward=1&quot; &gt;&gt; /etc/sysctl.conf
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a>sudo iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+<a name="__codelineno-18-2"></a>sudo apt install iptables-persistent
+</code></pre></div></p>
+<p>Cambio ruta por defecto para que el tráfico salga por la interfaz NAT que habíamos definido:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a>sudo ip route del default
+<a name="__codelineno-19-2"></a>sudo ip route add default via 192.168.0.1
+</code></pre></div></p>
+<p>Hago este cambio persistente modificando <code>/etc/network/interfaces</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a>allow-hotplug eth0
+<a name="__codelineno-20-2"></a>iface eth0 inet dhcp
+<a name="__codelineno-20-3"></a>   post-up ip route del default dev $IFACE
+<a name="__codelineno-20-4"></a>
+<a name="__codelineno-20-5"></a>auto eth1
+<a name="__codelineno-20-6"></a>iface eth1 inet static
+<a name="__codelineno-20-7"></a>      address 192.168.0.2
+<a name="__codelineno-20-8"></a>      netmask 255.255.255.0
+<a name="__codelineno-20-9"></a>      gateway 192.168.0.1
+</code></pre></div>
+<em>(muestro <strong>sólo</strong> los fragmentos modificados)</em></p>
+<blockquote>
+<p>Mostrar rutas por defecto</p>
+</blockquote>
+<p>En <code>servidor</code>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a>vagrant@servidor:~$ ip r
+<a name="__codelineno-21-2"></a>default via 192.168.0.1 dev eth1 onlink
+<a name="__codelineno-21-3"></a>192.168.0.0/24 dev eth1 proto kernel scope link src 192.168.0.2
+<a name="__codelineno-21-4"></a>192.168.100.0/24 dev eth2 proto kernel scope link src 192.168.100.1
+<a name="__codelineno-21-5"></a>192.168.121.0/24 dev eth0 proto kernel scope link src 192.168.121.164
+<a name="__codelineno-21-6"></a>192.168.200.0/24 dev eth3 proto kernel scope link src 192.168.200.1
+</code></pre></div></p>
+<p>En <code>nodolan1</code>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a>vagrant@nodolan1:~$ ip r
+<a name="__codelineno-22-2"></a>default via 192.168.100.1 dev eth1
+<a name="__codelineno-22-3"></a>192.168.100.0/24 dev eth1 proto kernel scope link src 192.168.100.100
+<a name="__codelineno-22-4"></a>192.168.121.0/24 dev eth0 proto kernel scope link src 192.168.121.193
+</code></pre></div></p>
+<p>En <code>nodolan2</code>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a>vagrant@nodolan2:~$ ip r
+<a name="__codelineno-23-2"></a>default via 192.168.200.1 dev eth1
+<a name="__codelineno-23-3"></a>192.168.121.0/24 dev eth0 proto kernel scope link src 192.168.121.97
+<a name="__codelineno-23-4"></a>192.168.200.0/24 dev eth1 proto kernel scope link src 192.168.200.100
+</code></pre></div></p>
+<p>En <code>nodowin10</code>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a>Ethernet adapter Ethernet 2:                                                                            
+<a name="__codelineno-24-2"></a>
+<a name="__codelineno-24-3"></a>   Connection-specific DNS Suffix  . :                                                                  
+<a name="__codelineno-24-4"></a>   Link-local IPv6 Address . . . . . : fe80::c1c4:20a1:511b:ecc8%2                                      
+<a name="__codelineno-24-5"></a>   IPv4 Address. . . . . . . . . . . : 192.168.100.102                                                  
+<a name="__codelineno-24-6"></a>   Subnet Mask . . . . . . . . . . . : 255.255.255.0                                                    
+<a name="__codelineno-24-7"></a>   Default Gateway . . . . . . . . . : 192.168.100.1    
+</code></pre></div></p>
+<blockquote>
+<p>Pruebas de acceso a Internet en clientes</p>
+</blockquote>
+<p>En <code>nodolan1</code>:</p>
+<ul>
+<li>ping</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-25-1"></a>vagrant@nodolan1:~$ ping www.example.org
+<a name="__codelineno-25-2"></a>PING www.example.org (93.184.216.34) 56(84) bytes of data.
+<a name="__codelineno-25-3"></a>64 bytes from 93.184.216.34 (93.184.216.34): icmp_seq=1 ttl=52 time=142 ms
+<a name="__codelineno-25-4"></a>64 bytes from 93.184.216.34 (93.184.216.34): icmp_seq=2 ttl=52 time=160 ms
+<a name="__codelineno-25-5"></a>64 bytes from 93.184.216.34 (93.184.216.34): icmp_seq=3 ttl=52 time=185 ms
+<a name="__codelineno-25-6"></a>^C
+<a name="__codelineno-25-7"></a>--- www.example.org ping statistics ---
+<a name="__codelineno-25-8"></a>3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+<a name="__codelineno-25-9"></a>rtt min/avg/max/mdev = 142.480/162.336/184.700/17.327 ms
+</code></pre></div>
+<ul>
+<li>dig</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-26-1"></a>vagrant@nodolan1:~$ dig www.example.org
+<a name="__codelineno-26-2"></a>
+<a name="__codelineno-26-3"></a>; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; www.example.org
+<a name="__codelineno-26-4"></a>;; global options: +cmd
+<a name="__codelineno-26-5"></a>;; Got answer:
+<a name="__codelineno-26-6"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 21798
+<a name="__codelineno-26-7"></a>;; flags: qr rd ra ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-26-8"></a>
+<a name="__codelineno-26-9"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-26-10"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-26-11"></a>;; QUESTION SECTION:
+<a name="__codelineno-26-12"></a>;www.example.org.       IN  A
+<a name="__codelineno-26-13"></a>
+<a name="__codelineno-26-14"></a>;; ANSWER SECTION:
+<a name="__codelineno-26-15"></a>www.example.org.    82705   IN  A   93.184.216.34
+<a name="__codelineno-26-16"></a>
+<a name="__codelineno-26-17"></a>;; Query time: 48 msec
+<a name="__codelineno-26-18"></a>;; SERVER: 1.1.1.1#53(1.1.1.1)
+<a name="__codelineno-26-19"></a>;; WHEN: Wed Oct 20 10:16:57 UTC 2021
+<a name="__codelineno-26-20"></a>;; MSG SIZE  rcvd: 60
+</code></pre></div>
+<p>En <code>nodolan2</code>:</p>
+<ul>
+<li>ping</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-27-1"></a>vagrant@nodolan2:~$ ping www.example.org
+<a name="__codelineno-27-2"></a>PING www.example.org (93.184.216.34) 56(84) bytes of data.
+<a name="__codelineno-27-3"></a>64 bytes from 93.184.216.34 (93.184.216.34): icmp_seq=1 ttl=52 time=143 ms
+<a name="__codelineno-27-4"></a>64 bytes from 93.184.216.34 (93.184.216.34): icmp_seq=2 ttl=52 time=332 ms
+<a name="__codelineno-27-5"></a>64 bytes from 93.184.216.34 (93.184.216.34): icmp_seq=3 ttl=52 time=193 ms
+<a name="__codelineno-27-6"></a>
+<a name="__codelineno-27-7"></a>64 bytes from 93.184.216.34 (93.184.216.34): icmp_seq=4 ttl=52 time=142 ms
+<a name="__codelineno-27-8"></a>^C
+<a name="__codelineno-27-9"></a>--- www.example.org ping statistics ---
+<a name="__codelineno-27-10"></a>5 packets transmitted, 4 received, 20% packet loss, time 4000ms
+<a name="__codelineno-27-11"></a>rtt min/avg/max/mdev = 142.189/202.596/332.117/77.558 ms
+</code></pre></div>
+<ul>
+<li>dig</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-28-1"></a>vagrant@nodolan2:~$ dig www.example.org
+<a name="__codelineno-28-2"></a>
+<a name="__codelineno-28-3"></a>; &lt;&lt;&gt;&gt; DiG 9.16.15-Debian &lt;&lt;&gt;&gt; www.example.org
+<a name="__codelineno-28-4"></a>;; global options: +cmd
+<a name="__codelineno-28-5"></a>;; Got answer:
+<a name="__codelineno-28-6"></a>;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 4706
+<a name="__codelineno-28-7"></a>;; flags: qr rd ra ad; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+<a name="__codelineno-28-8"></a>
+<a name="__codelineno-28-9"></a>;; OPT PSEUDOSECTION:
+<a name="__codelineno-28-10"></a>; EDNS: version: 0, flags:; udp: 1232
+<a name="__codelineno-28-11"></a>;; QUESTION SECTION:
+<a name="__codelineno-28-12"></a>;www.example.org.       IN  A
+<a name="__codelineno-28-13"></a>
+<a name="__codelineno-28-14"></a>;; ANSWER SECTION:
+<a name="__codelineno-28-15"></a>www.example.org.    82395   IN  A   93.184.216.34
+<a name="__codelineno-28-16"></a>
+<a name="__codelineno-28-17"></a>;; Query time: 472 msec
+<a name="__codelineno-28-18"></a>;; SERVER: 1.1.1.1#53(1.1.1.1)
+<a name="__codelineno-28-19"></a>;; WHEN: Wed Oct 20 10:22:02 UTC 2021
+<a name="__codelineno-28-20"></a>;; MSG SIZE  rcvd: 60
+</code></pre></div>
+<p>En <code>nodowin10</code>:</p>
+<ul>
+<li>ping</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-29-1"></a>vagrant@NODOWIN10 C:\Users\vagrant&gt;ping www.example.org                                                 
+<a name="__codelineno-29-2"></a>
+<a name="__codelineno-29-3"></a>Pinging www.example.org [93.184.216.34] with 32 bytes of data:                                          
+<a name="__codelineno-29-4"></a>Reply from 93.184.216.34: bytes=32 time=141ms TTL=52                                                    
+<a name="__codelineno-29-5"></a>Reply from 93.184.216.34: bytes=32 time=149ms TTL=52                                                    
+<a name="__codelineno-29-6"></a>Reply from 93.184.216.34: bytes=32 time=141ms TTL=52                                                    
+<a name="__codelineno-29-7"></a>Reply from 93.184.216.34: bytes=32 time=142ms TTL=52                                                    
+<a name="__codelineno-29-8"></a>
+<a name="__codelineno-29-9"></a>Ping statistics for 93.184.216.34:                                                                      
+<a name="__codelineno-29-10"></a>    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),                                                
+<a name="__codelineno-29-11"></a>Approximate round trip times in milli-seconds:                                                          
+<a name="__codelineno-29-12"></a>    Minimum = 141ms, Maximum = 149ms, Average = 143ms   
+</code></pre></div>
+<ul>
+<li>nslookup  </li>
+</ul>
+<p>Hay 2 interfaces con configuración DNS, por lo que modifico la prioridad de interfaces. De esta manera me aseguro de que use los DNS que reparte <strong>nuestro</strong> servidor DHCP en las resoluciones.</p>
+<p>Averiguar el "<em>InterfaceIndex</em>" de "<em>Ethernet 2</em>":
+<div class="highlight"><pre><span></span><code><a name="__codelineno-30-1"></a>Get-NetIPInterface
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-31-1"></a>ifIndex InterfaceAlias                  AddressFamily NlMtu(Bytes) InterfaceMetric Dhcp     ConnectionS
+<a name="__codelineno-31-2"></a>                                                                                            tate        
+<a name="__codelineno-31-3"></a>------- --------------                  ------------- ------------ --------------- ----     -----------
+<a name="__codelineno-31-4"></a>4       isatap.{05B72441-FF4C-475D-B... IPv6                  1280              75 Disabled Disconne...
+<a name="__codelineno-31-5"></a>2       Ethernet 2                      IPv6                  1500              15 Enabled  Connected   
+<a name="__codelineno-31-6"></a>5       Teredo Tunneling Pseudo-Inte... IPv6                  1280              75 Enabled  Connected   
+<a name="__codelineno-31-7"></a>7       Ethernet                        IPv6                  1500              15 Enabled  Connected   
+<a name="__codelineno-31-8"></a>3       isatap.{D6D1085A-1F02-4C69-A... IPv6                  1280              75 Disabled Disconne...
+<a name="__codelineno-31-9"></a>1       Loopback Pseudo-Interface 1     IPv6            4294967295              75 Disabled Connected   
+<a name="__codelineno-31-10"></a>2       Ethernet 2                      IPv4                  1500              15 Enabled  Connected   
+<a name="__codelineno-31-11"></a>7       Ethernet                        IPv4                  1500              15 Enabled  Connected   
+<a name="__codelineno-31-12"></a>1       Loopback Pseudo-Interface 1     IPv4            4294967295              75 Disabled Connected   
+</code></pre></div></p>
+<p>Modificamos su prioridad:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-32-1"></a>Set-NetIPInterface -InterfaceIndex 2 -InterfaceMetric 10
+</code></pre></div></p>
+<p>Vemos que la prioridad ha cambiado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-33-1"></a>PS C:\Users\vagrant&gt; Get-NetIPInterface                                                                 
+<a name="__codelineno-33-2"></a>
+<a name="__codelineno-33-3"></a>ifIndex InterfaceAlias                  AddressFamily NlMtu(Bytes) InterfaceMetric Dhcp     ConnectionS
+<a name="__codelineno-33-4"></a>                                                                                            tate        
+<a name="__codelineno-33-5"></a>------- --------------                  ------------- ------------ --------------- ----     -----------
+<a name="__codelineno-33-6"></a>4       isatap.{05B72441-FF4C-475D-B... IPv6                  1280              75 Disabled Disconne...
+<a name="__codelineno-33-7"></a>2       Ethernet 2                      IPv6                  1500              10 Enabled  Connected   
+<a name="__codelineno-33-8"></a>5       Teredo Tunneling Pseudo-Inte... IPv6                  1280              75 Enabled  Connected   
+<a name="__codelineno-33-9"></a>7       Ethernet                        IPv6                  1500              15 Enabled  Connected   
+<a name="__codelineno-33-10"></a>3       isatap.{D6D1085A-1F02-4C69-A... IPv6                  1280              75 Disabled Disconne...
+<a name="__codelineno-33-11"></a>1       Loopback Pseudo-Interface 1     IPv6            4294967295              75 Disabled Connected   
+<a name="__codelineno-33-12"></a>2       Ethernet 2                      IPv4                  1500              10 Enabled  Connected   
+<a name="__codelineno-33-13"></a>7       Ethernet                        IPv4                  1500              15 Enabled  Connected   
+<a name="__codelineno-33-14"></a>1       Loopback Pseudo-Interface 1     IPv4            4294967295              75 Disabled Connected   
+</code></pre></div></p>
+<p>Hacemos la consulta DNS:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-34-1"></a>PS C:\Users\vagrant&gt; nslookup www.example.org                                                           
+<a name="__codelineno-34-2"></a>Server:  one.one.one.one                                                                                
+<a name="__codelineno-34-3"></a>Address:  1.1.1.1                                                                                       
+<a name="__codelineno-34-4"></a>
+<a name="__codelineno-34-5"></a>Non-authoritative answer:                                                                               
+<a name="__codelineno-34-6"></a>Name:    www.example.org                                                                                
+<a name="__codelineno-34-7"></a>Addresses:  2606:2800:220:1:248:1893:25c8:1946                                                          
+<a name="__codelineno-34-8"></a>          93.184.216.34   
+</code></pre></div></p>
+<h2 id="tarea-4">Tarea 4</h2>
+<blockquote>
+<p>Con los clientes configurados apagamos el servidor DHCP. ¿Qué ocurrirá tanto en Linux como en Windows?</p>
+</blockquote>
+<p>De ahora en adelante, <code>default-lease-time</code> y <code>max-lease-time</code> serán de 10 segundos para realizar esta tarea y la siguiente.</p>
+<p>Así queda:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-35-1"></a>subnet 192.168.100.0 netmask 255.255.255.0 {
+<a name="__codelineno-35-2"></a>  range 192.168.100.100 192.168.100.150;
+<a name="__codelineno-35-3"></a>  option subnet-mask 255.255.255.0;
+<a name="__codelineno-35-4"></a>  option routers 192.168.100.1;
+<a name="__codelineno-35-5"></a>  option domain-name-servers 1.1.1.1, 1.0.0.1;
+<a name="__codelineno-35-6"></a>  default-lease-time 10;
+<a name="__codelineno-35-7"></a>  max-lease-time 10;
+<a name="__codelineno-35-8"></a>}
+<a name="__codelineno-35-9"></a>
+<a name="__codelineno-35-10"></a>subnet 192.168.200.0 netmask 255.255.255.0 {
+<a name="__codelineno-35-11"></a>  range 192.168.200.100 192.168.200.150;
+<a name="__codelineno-35-12"></a>  option subnet-mask 255.255.255.0;
+<a name="__codelineno-35-13"></a>  option routers 192.168.200.1;
+<a name="__codelineno-35-14"></a>  option domain-name-servers 1.1.1.1, 1.0.0.1;
+<a name="__codelineno-35-15"></a>  default-lease-time 10;
+<a name="__codelineno-35-16"></a>  max-lease-time 10;
+<a name="__codelineno-35-17"></a>}
+</code></pre></div></p>
+<p><strong>Tenemos que reiniciar el servicio</strong> para que se apliquen estos cambios:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-36-1"></a>sudo systemctl restart isc-dhcp-server
+</code></pre></div></p>
+<p>Después de esto los clientes no actualizarán sus tiempos hasta que no pase el tiempo indicado, pero forzamos esto soltando el lease y pidiendo uno nuevo.</p>
+<p>En los clientes linux hacemos:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-37-1"></a>sudo dhclient -r eth1
+<a name="__codelineno-37-2"></a>sudo dhclient eth1
+</code></pre></div></p>
+<p>En el cliente Windows hacemos:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-38-1"></a>ipconfig /release &quot;Ethernet 2&quot;
+<a name="__codelineno-38-2"></a>ipconfig /renew &quot;Ethernet 2&quot;
+</code></pre></div></p>
+<p>Ya teniendo los tiempos actualizados en todos los clientes, procedo a apagar el servidor.</p>
+<p>Los clientes linux pierden la configuración por completo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-39-1"></a>3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+<a name="__codelineno-39-2"></a>    link/ether 52:54:00:57:5b:cf brd ff:ff:ff:ff:ff:ff
+<a name="__codelineno-39-3"></a>    altname enp0s6
+<a name="__codelineno-39-4"></a>    altname ens6
+<a name="__codelineno-39-5"></a>    inet6 fe80::5054:ff:fe57:5bcf/64 scope link
+<a name="__codelineno-39-6"></a>       valid_lft forever preferred_lft forever
+</code></pre></div></p>
+<p>El cliente Windows pierde la configuración y se autoconfigura con APIPA:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-40-1"></a>Ethernet adapter Ethernet 2:                                                                  
+<a name="__codelineno-40-2"></a>
+<a name="__codelineno-40-3"></a>   Connection-specific DNS Suffix  . :                                                        
+<a name="__codelineno-40-4"></a>   Description . . . . . . . . . . . : Red Hat VirtIO Ethernet Adapter #2                     
+<a name="__codelineno-40-5"></a>   Physical Address. . . . . . . . . : 52-54-00-57-DE-32                                      
+<a name="__codelineno-40-6"></a>   DHCP Enabled. . . . . . . . . . . : Yes                                                    
+<a name="__codelineno-40-7"></a>   Autoconfiguration Enabled . . . . : Yes                                                    
+<a name="__codelineno-40-8"></a>   Link-local IPv6 Address . . . . . : fe80::c1c4:20a1:511b:ecc8%2(Preferred)                 
+<a name="__codelineno-40-9"></a>   Autoconfiguration IPv4 Address. . : 169.254.236.200(Preferred)                             
+<a name="__codelineno-40-10"></a>   Subnet Mask . . . . . . . . . . . : 255.255.0.0                                            
+<a name="__codelineno-40-11"></a>   Default Gateway . . . . . . . . . :                                                        
+<a name="__codelineno-40-12"></a>   DHCPv6 IAID . . . . . . . . . . . : 72504320                                               
+<a name="__codelineno-40-13"></a>   DHCPv6 Client DUID. . . . . . . . : 00-01-00-01-29-01-8E-B1-52-54-00-CE-85-A1              
+<a name="__codelineno-40-14"></a>   DNS Servers . . . . . . . . . . . : fec0:0:0:ffff::1%1                                     
+<a name="__codelineno-40-15"></a>                                       fec0:0:0:ffff::2%1                                     
+<a name="__codelineno-40-16"></a>                                       fec0:0:0:ffff::3%1                                     
+<a name="__codelineno-40-17"></a>   NetBIOS over Tcpip. . . . . . . . : Enabled    
+</code></pre></div></p>
+<h2 id="tarea-5">Tarea 5</h2>
+<blockquote>
+<p>Con los clientes configurados cambiamos la configuración del servidor DHCP (rango). ¿Qué ocurrirá tanto en Linux como en Windows?</p>
+</blockquote>
+<p>Nuevos rangos:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-41-1"></a>subnet 192.168.100.0 netmask 255.255.255.0 {
+<a name="__codelineno-41-2"></a>  range 192.168.100.200 192.168.100.210;
+<a name="__codelineno-41-3"></a>  option subnet-mask 255.255.255.0;
+<a name="__codelineno-41-4"></a>  option routers 192.168.100.1;
+<a name="__codelineno-41-5"></a>  option domain-name-servers 1.1.1.1, 1.0.0.1;
+<a name="__codelineno-41-6"></a>  default-lease-time 10;
+<a name="__codelineno-41-7"></a>  max-lease-time 10;
+<a name="__codelineno-41-8"></a>}
+<a name="__codelineno-41-9"></a>
+<a name="__codelineno-41-10"></a>subnet 192.168.200.0 netmask 255.255.255.0 {
+<a name="__codelineno-41-11"></a>  range 192.168.200.200 192.168.200.210;
+<a name="__codelineno-41-12"></a>  option subnet-mask 255.255.255.0;
+<a name="__codelineno-41-13"></a>  option routers 192.168.200.1;
+<a name="__codelineno-41-14"></a>  option domain-name-servers 1.1.1.1, 1.0.0.1;
+<a name="__codelineno-41-15"></a>  default-lease-time 10;
+<a name="__codelineno-41-16"></a>  max-lease-time 10;
+<a name="__codelineno-41-17"></a>}
+</code></pre></div></p>
+<p><strong>Tenemos que reiniciar el servicio</strong> para que se apliquen estos cambios:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-42-1"></a>sudo systemctl restart isc-dhcp-server
+</code></pre></div></p>
+<p>Los clientes linux actualizan su configuración sin problema:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-43-1"></a>3: eth1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000
+<a name="__codelineno-43-2"></a>    link/ether 52:54:00:57:5b:cf brd ff:ff:ff:ff:ff:ff
+<a name="__codelineno-43-3"></a>    altname enp0s6
+<a name="__codelineno-43-4"></a>    altname ens6
+<a name="__codelineno-43-5"></a>    inet 192.168.100.200/24 brd 192.168.100.255 scope global dynamic eth1
+<a name="__codelineno-43-6"></a>       valid_lft 9sec preferred_lft 9sec
+<a name="__codelineno-43-7"></a>    inet6 fe80::5054:ff:fe57:5bcf/64 scope link
+<a name="__codelineno-43-8"></a>       valid_lft forever preferred_lft forever
+</code></pre></div></p>
+<p>El cliente Windows actualiza su configuración sin problema también:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-44-1"></a>Ethernet adapter Ethernet 2:                                                                  
+<a name="__codelineno-44-2"></a>
+<a name="__codelineno-44-3"></a>   Connection-specific DNS Suffix  . :                                                        
+<a name="__codelineno-44-4"></a>   Link-local IPv6 Address . . . . . : fe80::c1c4:20a1:511b:ecc8%2                            
+<a name="__codelineno-44-5"></a>   IPv4 Address. . . . . . . . . . . : 192.168.100.201                                        
+<a name="__codelineno-44-6"></a>   Subnet Mask . . . . . . . . . . . : 255.255.255.0                                          
+<a name="__codelineno-44-7"></a>   Default Gateway . . . . . . . . . : 192.168.100.1   
+</code></pre></div></p>
+<h2 id="tarea-6">Tarea 6</h2>
+<blockquote>
+<p>Realizar un playbook en ansible que configure el servidor como:</p>
+<ul>
+<li>DHCP</li>
+<li>Router-NAT</li>
+</ul>
+</blockquote>
+<p><a href="https://github.com/adriasir123/servidor-dhcp-ansible">https://github.com/adriasir123/servidor-dhcp-ansible</a></p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/practica-servidor-dhcp/",this.page.identifier="practica-servidor-dhcp/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ej2-reserva-dhcp/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ejercicio 2: reservas" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Ejercicio 2: reservas
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-footer__link md-footer__link--next" aria-label="Next: Ejercicio 1: Mapeo de URLs" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Ejercicio 1: Mapeo de URLs
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

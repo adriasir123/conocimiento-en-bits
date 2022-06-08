@@ -1,0 +1,2361 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/ej2-instalar-configurar-slave/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Ejercicio 2: Slave DNS - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ejercicio-2-instalacion-y-configuracion-de-un-servidor-dns-esclavo" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ejercicio 2: Slave DNS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej6-apache-proxy-inverso/" class="md-nav__link">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Ejercicio 2: Slave DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Ejercicio 2: Slave DNS
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entrega" class="md-nav__link">
+    Entrega
+  </a>
+  
+    <nav class="md-nav" aria-label="Entrega">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-8" class="md-nav__link">
+    Parte 8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-9" class="md-nav__link">
+    Parte 9
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realizacion" class="md-nav__link">
+    Realización
+  </a>
+  
+    <nav class="md-nav" aria-label="Realización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_1" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_1" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_1" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5_1" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6_1" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7_1" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-8_1" class="md-nav__link">
+    Parte 8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-9_1" class="md-nav__link">
+    Parte 9
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-5" class="md-nav__link">
+    Ejercicio 5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entrega" class="md-nav__link">
+    Entrega
+  </a>
+  
+    <nav class="md-nav" aria-label="Entrega">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-8" class="md-nav__link">
+    Parte 8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-9" class="md-nav__link">
+    Parte 9
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realizacion" class="md-nav__link">
+    Realización
+  </a>
+  
+    <nav class="md-nav" aria-label="Realización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1_1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2_1" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3_1" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4_1" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5_1" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6_1" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-7_1" class="md-nav__link">
+    Parte 7
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-8_1" class="md-nav__link">
+    Parte 8
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-9_1" class="md-nav__link">
+    Parte 9
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-5" class="md-nav__link">
+    Ejercicio 5
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="ejercicio-2-instalacion-y-configuracion-de-un-servidor-dns-esclavo">Ejercicio 2: Instalación y configuración de un servidor DNS esclavo</h1>
+<h2 id="entrega">Entrega</h2>
+<h3 id="parte-1">Parte 1</h3>
+<blockquote>
+<p>Mostrar la definición de zonas en maestro</p>
+</blockquote>
+<p><code>/etc/bind/named.conf.local</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>//
+<a name="__codelineno-0-2"></a>// Do any local configuration here
+<a name="__codelineno-0-3"></a>//
+<a name="__codelineno-0-4"></a>
+<a name="__codelineno-0-5"></a>// Consider adding the 1918 zones here, if they are not used in your
+<a name="__codelineno-0-6"></a>// organization
+<a name="__codelineno-0-7"></a>include &quot;/etc/bind/zones.rfc1918&quot;;
+<a name="__codelineno-0-8"></a>
+<a name="__codelineno-0-9"></a>zone &quot;iesgn.org&quot; {
+<a name="__codelineno-0-10"></a>    type master;
+<a name="__codelineno-0-11"></a>    file &quot;/etc/bind/db.iesgn.org&quot;;
+<a name="__codelineno-0-12"></a>    allow-transfer { 10.0.0.10; };
+<a name="__codelineno-0-13"></a>    also-notify { 10.0.0.10; };
+<a name="__codelineno-0-14"></a>};
+<a name="__codelineno-0-15"></a>
+<a name="__codelineno-0-16"></a>zone &quot;0.0.10.in-addr.arpa&quot; {
+<a name="__codelineno-0-17"></a>    type master;
+<a name="__codelineno-0-18"></a>    file &quot;/etc/bind/db.10.0.0&quot;;
+<a name="__codelineno-0-19"></a>    allow-transfer { 10.0.0.10; };
+<a name="__codelineno-0-20"></a>    also-notify { 10.0.0.10; };
+<a name="__codelineno-0-21"></a>};
+</code></pre></div></p>
+<blockquote>
+<p>Mostrar la zona directa en maestro</p>
+</blockquote>
+<p><code>/etc/bind/db.iesgn.org</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>$ORIGIN iesgn.org.
+<a name="__codelineno-1-2"></a>$TTL 86400
+<a name="__codelineno-1-3"></a>@     IN     SOA    adrianj.iesgn.org.     admin.iesgn.org. (
+<a name="__codelineno-1-4"></a>                    2001062501 ; serial
+<a name="__codelineno-1-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-1-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-1-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-1-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-1-9"></a>
+<a name="__codelineno-1-10"></a>@              IN    NS      adrianj.iesgn.org.
+<a name="__codelineno-1-11"></a>@              IN    NS      jaramillor.iesgn.org.
+<a name="__codelineno-1-12"></a>@              IN    MX  10  correo.iesgn.org.
+<a name="__codelineno-1-13"></a>
+<a name="__codelineno-1-14"></a>adrianj        IN    A       10.0.0.2
+<a name="__codelineno-1-15"></a>jaramillor     IN    A       10.0.0.10
+<a name="__codelineno-1-16"></a>correo         IN    A       10.0.0.200
+<a name="__codelineno-1-17"></a>ftp            IN    A       10.0.0.201
+<a name="__codelineno-1-18"></a>
+<a name="__codelineno-1-19"></a>cliente1       IN    A       10.0.0.3
+<a name="__codelineno-1-20"></a>cliente2       IN    A       10.0.0.4
+<a name="__codelineno-1-21"></a>cliente3       IN    A       10.0.0.5
+<a name="__codelineno-1-22"></a>
+<a name="__codelineno-1-23"></a>www            IN    CNAME   adrianj
+<a name="__codelineno-1-24"></a>departamentos  IN    CNAME   adrianj
+</code></pre></div></p>
+<blockquote>
+<p>Mostrar la zona inversa en maestro</p>
+</blockquote>
+<p><code>/etc/bind/db.10.0.0</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>$ORIGIN 0.0.10.in-addr.arpa.
+<a name="__codelineno-2-2"></a>$TTL 86400
+<a name="__codelineno-2-3"></a>@     IN     SOA    adrianj.iesgn.org.     admin.iesgn.org. (
+<a name="__codelineno-2-4"></a>                    2001062501 ; serial
+<a name="__codelineno-2-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-2-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-2-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-2-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-2-9"></a>
+<a name="__codelineno-2-10"></a>@     IN     NS     adrianj.iesgn.org.
+<a name="__codelineno-2-11"></a>@     IN     NS     jaramillor.iesgn.org.
+<a name="__codelineno-2-12"></a>
+<a name="__codelineno-2-13"></a>2     IN     PTR    adrianj.iesgn.org.
+<a name="__codelineno-2-14"></a>10    IN     PTR    jaramillor.iesgn.org.
+<a name="__codelineno-2-15"></a>200   IN     PTR    correo.iesgn.org.
+<a name="__codelineno-2-16"></a>201   IN     PTR    ftp.iesgn.org.
+<a name="__codelineno-2-17"></a>
+<a name="__codelineno-2-18"></a>3     IN     PTR    cliente1.iesgn.org.
+<a name="__codelineno-2-19"></a>4     IN     PTR    cliente2.iesgn.org.
+<a name="__codelineno-2-20"></a>5     IN     PTR    cliente3.iesgn.org.
+</code></pre></div></p>
+<blockquote>
+<p>Mostrar la definición de zonas en esclavo</p>
+</blockquote>
+<p><code>/etc/bind/named.conf.local</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>//
+<a name="__codelineno-3-2"></a>// Do any local configuration here
+<a name="__codelineno-3-3"></a>//
+<a name="__codelineno-3-4"></a>
+<a name="__codelineno-3-5"></a>// Consider adding the 1918 zones here, if they are not used in your
+<a name="__codelineno-3-6"></a>// organization
+<a name="__codelineno-3-7"></a>include &quot;/etc/bind/zones.rfc1918&quot;;
+<a name="__codelineno-3-8"></a>
+<a name="__codelineno-3-9"></a>zone &quot;iesgn.org&quot; {
+<a name="__codelineno-3-10"></a>    type slave;
+<a name="__codelineno-3-11"></a>    file &quot;/var/cache/bind/db.iesgn.org&quot;;
+<a name="__codelineno-3-12"></a>    masters { 10.0.0.2; };
+<a name="__codelineno-3-13"></a>};
+<a name="__codelineno-3-14"></a>
+<a name="__codelineno-3-15"></a>zone &quot;0.0.10.in-addr.arpa&quot; {
+<a name="__codelineno-3-16"></a>    type slave;
+<a name="__codelineno-3-17"></a>    file &quot;/var/cache/bind/db.10.0.0&quot;;
+<a name="__codelineno-3-18"></a>    masters { 10.0.0.2; };
+<a name="__codelineno-3-19"></a>};
+</code></pre></div></p>
+<h3 id="parte-2">Parte 2</h3>
+<blockquote>
+<p>Mostrar si los ficheros de zona del maestro tienen errores</p>
+</blockquote>
+<p>Verifico la zona directa:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a>sudo named-checkzone iesgn.org db.iesgn.org
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>zone iesgn.org/IN: loaded serial 2001062501
+<a name="__codelineno-5-2"></a>OK
+</code></pre></div></p>
+<p>Verifico la zona inversa:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>sudo named-checkzone 0.0.10.in-addr.arpa db.10.0.0
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>zone 0.0.10.in-addr.arpa/IN: loaded serial 2001062501
+<a name="__codelineno-7-2"></a>OK
+</code></pre></div></p>
+<h3 id="parte-3">Parte 3</h3>
+<blockquote>
+<p>Comprobar si <code>named.conf</code> tiene errores tanto en maestro como en esclavo</p>
+</blockquote>
+<p>En maestro:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a>sudo named-checkconf named.conf
+</code></pre></div></p>
+<p>En esclavo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>sudo named-checkconf named.conf
+</code></pre></div></p>
+<p>No me devuelve output en ambos casos, significa que no hay errores.</p>
+<h3 id="parte-4">Parte 4</h3>
+<blockquote>
+<p>Mostrar en <code>/var/log/syslog</code> la transferencia de zonas</p>
+</blockquote>
+<p>Comando:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>sudo cat /var/log/syslog | grep named | grep transfer
+</code></pre></div></p>
+<p>Transferencia de zona directa:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a>Nov 18 00:43:58 bullseye named[2538]: transfer of &#39;iesgn.org/IN&#39; from 10.0.0.2#53: connected using 10.0.0.10#58761
+<a name="__codelineno-11-2"></a>Nov 18 00:43:58 bullseye named[2538]: zone iesgn.org/IN: transferred serial 2001062504
+<a name="__codelineno-11-3"></a>Nov 18 00:43:58 bullseye named[2538]: transfer of &#39;iesgn.org/IN&#39; from 10.0.0.2#53: Transfer status: success
+<a name="__codelineno-11-4"></a>Nov 18 00:43:58 bullseye named[2538]: transfer of &#39;iesgn.org/IN&#39; from 10.0.0.2#53: Transfer completed: 1 messages, 14 records, 364 bytes, 0.004 secs (91000 bytes/sec) (serial 2001062504)
+</code></pre></div></p>
+<p>Transferencia de zona inversa:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>Nov 18 00:53:00 bullseye named[2538]: transfer of &#39;0.0.10.in-addr.arpa/IN&#39; from 10.0.0.2#53: connected using 10.0.0.10#58699
+<a name="__codelineno-12-2"></a>Nov 18 00:53:00 bullseye named[2538]: zone 0.0.10.in-addr.arpa/IN: transferred serial 2001062502
+<a name="__codelineno-12-3"></a>Nov 18 00:53:00 bullseye named[2538]: transfer of &#39;0.0.10.in-addr.arpa/IN&#39; from 10.0.0.2#53: Transfer status: success
+<a name="__codelineno-12-4"></a>Nov 18 00:53:00 bullseye named[2538]: transfer of &#39;0.0.10.in-addr.arpa/IN&#39; from 10.0.0.2#53: Transfer completed: 1 messages, 11 records, 326 bytes, 0.004 secs (81500 bytes/sec) (serial 2001062502)
+</code></pre></div></p>
+<h3 id="parte-5">Parte 5</h3>
+<blockquote>
+<p>Entregar la configuración DNS de cliente</p>
+</blockquote>
+<p><code>/etc/resolv.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>nameserver 10.0.0.2
+<a name="__codelineno-13-2"></a>nameserver 10.0.0.10
+</code></pre></div></p>
+<h3 id="parte-6">Parte 6</h3>
+<blockquote>
+<p>Realizar una consulta dig a maestro y esclavo para comprobar que las respuestas son con autoridad</p>
+</blockquote>
+<p>Al maestro:</p>
+<p><img alt="" src="https://i.imgur.com/oQi96hF.png" /></p>
+<p>Al esclavo:</p>
+<p><img alt="" src="https://i.imgur.com/RlMps2b.png" /></p>
+<p>Buscamos esa flag "aa", que quiere decir "Authoritative Answer".<br />
+Nos devolverá esa flag siempre que hagamos consultas sobre zonas en las que los servidores tengan autoridad.</p>
+<p>La <a href="https://www.ietf.org/rfc/rfc1035.txt">RFC 1035</a> dice lo siguiente:</p>
+<p><img alt="" src="https://i.imgur.com/0iqpeYW.png" /></p>
+<p>Si por ejemplo hiciese una consulta en una zona sobre la que mi servidor <em>NO TIENE</em> autoridad, pasaría lo siguiente:</p>
+<p><img alt="" src="https://i.imgur.com/B6RLmkj.png" /></p>
+<p>No aparece la flag "aa".</p>
+<h3 id="parte-7">Parte 7</h3>
+<blockquote>
+<p>Solicitar copia completa de una zona desde cliente ¿qué tiene que ocurrir?</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a>dig @10.0.0.2 iesgn.org axfr
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.22-Debian &lt;&lt;&gt;&gt; @10.0.0.2 iesgn.org axfr
+<a name="__codelineno-15-2"></a>; (1 server found)
+<a name="__codelineno-15-3"></a>;; global options: +cmd
+<a name="__codelineno-15-4"></a>; Transfer failed.
+</code></pre></div>
+No permite la transferencia.</p>
+<blockquote>
+<p>Solicitar copia completa de una zona desde esclavo ¿qué tiene que ocurrir?</p>
+</blockquote>
+<p><div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a>dig @10.0.0.2 iesgn.org axfr
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a>; &lt;&lt;&gt;&gt; DiG 9.16.22-Debian &lt;&lt;&gt;&gt; @10.0.0.2 iesgn.org axfr
+<a name="__codelineno-17-2"></a>; (1 server found)
+<a name="__codelineno-17-3"></a>;; global options: +cmd
+<a name="__codelineno-17-4"></a>iesgn.org.      86400   IN  SOA adrianj.iesgn.org. admin.iesgn.org. 2001062503 21600 3600 604800 86400
+<a name="__codelineno-17-5"></a>iesgn.org.      86400   IN  NS  adrianj.iesgn.org.
+<a name="__codelineno-17-6"></a>iesgn.org.      86400   IN  NS  jaramillor.iesgn.org.
+<a name="__codelineno-17-7"></a>iesgn.org.      86400   IN  MX  10 correo.iesgn.org.
+<a name="__codelineno-17-8"></a>adrianj.iesgn.org.  86400   IN  A   10.0.0.2
+<a name="__codelineno-17-9"></a>cliente1.iesgn.org. 86400   IN  A   10.0.0.3
+<a name="__codelineno-17-10"></a>cliente2.iesgn.org. 86400   IN  A   10.0.0.4
+<a name="__codelineno-17-11"></a>cliente3.iesgn.org. 86400   IN  A   10.0.0.5
+<a name="__codelineno-17-12"></a>correo.iesgn.org.   86400   IN  A   10.0.0.200
+<a name="__codelineno-17-13"></a>departamentos.iesgn.org. 86400  IN  CNAME   adrianj.iesgn.org.
+<a name="__codelineno-17-14"></a>ftp.iesgn.org.      86400   IN  A   10.0.0.201
+<a name="__codelineno-17-15"></a>jaramillor.iesgn.org.   86400   IN  A   10.0.0.10
+<a name="__codelineno-17-16"></a>www.iesgn.org.      86400   IN  CNAME   adrianj.iesgn.org.
+<a name="__codelineno-17-17"></a>iesgn.org.      86400   IN  SOA adrianj.iesgn.org. admin.iesgn.org. 2001062503 21600 3600 604800 86400
+<a name="__codelineno-17-18"></a>;; Query time: 0 msec
+<a name="__codelineno-17-19"></a>;; SERVER: 10.0.0.2#53(10.0.0.2)
+<a name="__codelineno-17-20"></a>;; WHEN: Wed Nov 17 23:50:34 UTC 2021
+<a name="__codelineno-17-21"></a>;; XFR size: 14 records (messages 1, bytes 403)
+</code></pre></div>
+Permite la transferencia.</p>
+<h3 id="parte-8">Parte 8</h3>
+<blockquote>
+<p>Realizar consulta desde cliente y comprobar qué servidor responde</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/KkLDV39.png" /></p>
+<p>Según nuestro orden en <code>resolv.conf</code>, siempre nos responderá el maestro, salvo que éste falle.</p>
+<h3 id="parte-9">Parte 9</h3>
+<blockquote>
+<p>Apagar maestro y hacer consulta desde cliente ¿quién responde?</p>
+</blockquote>
+<p><img alt="" src="https://i.imgur.com/VMsKXKA.png" /></p>
+<p>Responde el esclavo.</p>
+<h2 id="realizacion">Realización</h2>
+<h3 id="ejercicio-1">Ejercicio 1</h3>
+<p>Instalar un servidor DNS como esclavo del DNS configurado en el ejercicio 1.</p>
+<h4 id="parte-1_1">Parte 1</h4>
+<blockquote>
+<p>Añadir otra máquina al escenario del ej1, para instalar el esclavo ahí</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-18-2"></a>
+<a name="__codelineno-18-3"></a>config.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-18-4"></a>
+<a name="__codelineno-18-5"></a>  config.vm.define :server do |server|
+<a name="__codelineno-18-6"></a>    server.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-18-7"></a>    server.vm.hostname = &quot;server&quot;
+<a name="__codelineno-18-8"></a>    server.vm.network :private_network,
+<a name="__codelineno-18-9"></a>      :libvirt__network_name =&gt; &quot;ej1bind9&quot;,
+<a name="__codelineno-18-10"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-18-11"></a>      :ip =&gt; &quot;10.0.0.2&quot;,
+<a name="__codelineno-18-12"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-18-13"></a>  end
+<a name="__codelineno-18-14"></a>
+<a name="__codelineno-18-15"></a>  config.vm.define :cliente do |cliente|
+<a name="__codelineno-18-16"></a>    cliente.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-18-17"></a>    cliente.vm.hostname = &quot;cliente&quot;
+<a name="__codelineno-18-18"></a>    cliente.vm.network :private_network,
+<a name="__codelineno-18-19"></a>      :libvirt__network_name =&gt; &quot;ej1bind9&quot;,
+<a name="__codelineno-18-20"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-18-21"></a>      :ip =&gt; &quot;10.0.0.3&quot;,
+<a name="__codelineno-18-22"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-18-23"></a>  end
+<a name="__codelineno-18-24"></a>
+<a name="__codelineno-18-25"></a>  config.vm.define :slavedns do |slavedns|
+<a name="__codelineno-18-26"></a>    slavedns.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-18-27"></a>    slavedns.vm.hostname = &quot;slavedns&quot;
+<a name="__codelineno-18-28"></a>    slavedns.vm.network :private_network,
+<a name="__codelineno-18-29"></a>      :libvirt__network_name =&gt; &quot;ej1bind9&quot;,
+<a name="__codelineno-18-30"></a>      :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-18-31"></a>      :ip =&gt; &quot;10.0.0.10&quot;,
+<a name="__codelineno-18-32"></a>      :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-18-33"></a>  end
+<a name="__codelineno-18-34"></a>
+<a name="__codelineno-18-35"></a>end
+</code></pre></div>
+<h4 id="parte-2_1">Parte 2</h4>
+<blockquote>
+<p>Cambiar el hostname de <code>slavedns</code> a: <code>jaramillor.iesgn.org</code></p>
+</blockquote>
+<p>Modifico <code>/etc/hostname</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a>vagrant@slavedns:~$ cat /etc/hostname
+<a name="__codelineno-19-2"></a>jaramillor
+</code></pre></div></p>
+<p>Hago que el cambio de hostname tome efecto ahora:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a>sudo hostname jaramillor
+</code></pre></div></p>
+<p>Verifico:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a>vagrant@slavedns:~$ hostname
+<a name="__codelineno-21-2"></a>jaramillor
+</code></pre></div></p>
+<p>Actualizo el prompt:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a>vagrant@slavedns:~$ bash
+<a name="__codelineno-22-2"></a>vagrant@jaramillor:~$
+</code></pre></div></p>
+<p>Modifico <code>/etc/hosts</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a>127.0.0.1   localhost
+<a name="__codelineno-23-2"></a>127.0.0.2   bullseye
+<a name="__codelineno-23-3"></a>::1     localhost ip6-localhost ip6-loopback
+<a name="__codelineno-23-4"></a>ff02::1     ip6-allnodes
+<a name="__codelineno-23-5"></a>ff02::2     ip6-allrouters
+<a name="__codelineno-23-6"></a>
+<a name="__codelineno-23-7"></a>127.0.1.1 jaramillor.iesgn.org jaramillor
+</code></pre></div></p>
+<p>Compruebo nombre largo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a>vagrant@jaramillor:~$ hostname -f
+<a name="__codelineno-24-2"></a>jaramillor.iesgn.org
+</code></pre></div></p>
+<p>Compruebo nombre corto:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-25-1"></a>vagrant@jaramillor:~$ ping jaramillor -c 1
+<a name="__codelineno-25-2"></a>PING jaramillor.iesgn.org (127.0.1.1) 56(84) bytes of data.
+<a name="__codelineno-25-3"></a>64 bytes from jaramillor.iesgn.org (127.0.1.1): icmp_seq=1 ttl=64 time=0.089 ms
+<a name="__codelineno-25-4"></a>
+<a name="__codelineno-25-5"></a>--- jaramillor.iesgn.org ping statistics ---
+<a name="__codelineno-25-6"></a>1 packets transmitted, 1 received, 0% packet loss, time 0ms
+<a name="__codelineno-25-7"></a>rtt min/avg/max/mdev = 0.089/0.089/0.089/0.000 ms
+</code></pre></div></p>
+<h4 id="parte-3_1">Parte 3</h4>
+<blockquote>
+<p>Instalar <code>bind9</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-26-1"></a>sudo apt update
+<a name="__codelineno-26-2"></a>sudo apt install bind9
+</code></pre></div>
+<h4 id="parte-4_1">Parte 4</h4>
+<blockquote>
+<p>Modificar la definición de zonas del maestro para habilitar transferencia al esclavo</p>
+</blockquote>
+<p><code>/etc/bind/named.conf.local</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-27-1"></a>//
+<a name="__codelineno-27-2"></a>// Do any local configuration here
+<a name="__codelineno-27-3"></a>//
+<a name="__codelineno-27-4"></a>
+<a name="__codelineno-27-5"></a>// Consider adding the 1918 zones here, if they are not used in your
+<a name="__codelineno-27-6"></a>// organization
+<a name="__codelineno-27-7"></a>include &quot;/etc/bind/zones.rfc1918&quot;;
+<a name="__codelineno-27-8"></a>
+<a name="__codelineno-27-9"></a>zone &quot;iesgn.org&quot; {
+<a name="__codelineno-27-10"></a>    type master;
+<a name="__codelineno-27-11"></a>    file &quot;/etc/bind/db.iesgn.org&quot;;
+<a name="__codelineno-27-12"></a>    allow-transfer { 10.0.0.10; };
+<a name="__codelineno-27-13"></a>    also-notify { 10.0.0.10; };
+<a name="__codelineno-27-14"></a>};
+<a name="__codelineno-27-15"></a>
+<a name="__codelineno-27-16"></a>zone &quot;0.0.10.in-addr.arpa&quot; {
+<a name="__codelineno-27-17"></a>    type master;
+<a name="__codelineno-27-18"></a>    file &quot;/etc/bind/db.10.0.0&quot;;
+<a name="__codelineno-27-19"></a>    allow-transfer { 10.0.0.10; };
+<a name="__codelineno-27-20"></a>    also-notify { 10.0.0.10; };
+<a name="__codelineno-27-21"></a>};
+</code></pre></div></p>
+<h4 id="parte-5_1">Parte 5</h4>
+<blockquote>
+<p>Modificar la zona directa con el nuevo esclavo</p>
+</blockquote>
+<p><code>/etc/bind/db.iesgn.org</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-28-1"></a>$ORIGIN iesgn.org.
+<a name="__codelineno-28-2"></a>$TTL 86400
+<a name="__codelineno-28-3"></a>@     IN     SOA    adrianj.iesgn.org.     admin.iesgn.org. (
+<a name="__codelineno-28-4"></a>                    2001062501 ; serial
+<a name="__codelineno-28-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-28-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-28-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-28-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-28-9"></a>
+<a name="__codelineno-28-10"></a>@              IN    NS      adrianj.iesgn.org.
+<a name="__codelineno-28-11"></a>@              IN    NS      jaramillor.iesgn.org.
+<a name="__codelineno-28-12"></a>@              IN    MX  10  correo.iesgn.org.
+<a name="__codelineno-28-13"></a>
+<a name="__codelineno-28-14"></a>adrianj        IN    A       10.0.0.2
+<a name="__codelineno-28-15"></a>jaramillor     IN    A       10.0.0.10
+<a name="__codelineno-28-16"></a>correo         IN    A       10.0.0.200
+<a name="__codelineno-28-17"></a>ftp            IN    A       10.0.0.201
+<a name="__codelineno-28-18"></a>
+<a name="__codelineno-28-19"></a>cliente1       IN    A       10.0.0.3
+<a name="__codelineno-28-20"></a>cliente2       IN    A       10.0.0.4
+<a name="__codelineno-28-21"></a>cliente3       IN    A       10.0.0.5
+<a name="__codelineno-28-22"></a>
+<a name="__codelineno-28-23"></a>www            IN    CNAME   adrianj
+<a name="__codelineno-28-24"></a>departamentos  IN    CNAME   adrianj
+</code></pre></div></p>
+<h4 id="parte-6_1">Parte 6</h4>
+<blockquote>
+<p>Modificar la zona inversa con el nuevo esclavo</p>
+</blockquote>
+<p><code>/etc/bind/db.10.0.0</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-29-1"></a>$ORIGIN 0.0.10.in-addr.arpa.
+<a name="__codelineno-29-2"></a>$TTL 86400
+<a name="__codelineno-29-3"></a>@     IN     SOA    adrianj.iesgn.org.     admin.iesgn.org. (
+<a name="__codelineno-29-4"></a>                    2001062501 ; serial
+<a name="__codelineno-29-5"></a>                    21600      ; refresh after 6 hours
+<a name="__codelineno-29-6"></a>                    3600       ; retry after 1 hour
+<a name="__codelineno-29-7"></a>                    604800     ; expire after 1 week
+<a name="__codelineno-29-8"></a>                    86400 )    ; minimum TTL of 1 day
+<a name="__codelineno-29-9"></a>
+<a name="__codelineno-29-10"></a>@     IN     NS     adrianj.iesgn.org.
+<a name="__codelineno-29-11"></a>@     IN     NS     jaramillor.iesgn.org.
+<a name="__codelineno-29-12"></a>
+<a name="__codelineno-29-13"></a>2     IN     PTR    adrianj.iesgn.org.
+<a name="__codelineno-29-14"></a>10    IN     PTR    jaramillor.iesgn.org.
+<a name="__codelineno-29-15"></a>200   IN     PTR    correo.iesgn.org.
+<a name="__codelineno-29-16"></a>201   IN     PTR    ftp.iesgn.org.
+<a name="__codelineno-29-17"></a>
+<a name="__codelineno-29-18"></a>3     IN     PTR    cliente1.iesgn.org.
+<a name="__codelineno-29-19"></a>4     IN     PTR    cliente2.iesgn.org.
+<a name="__codelineno-29-20"></a>5     IN     PTR    cliente3.iesgn.org.
+</code></pre></div></p>
+<h4 id="parte-7_1">Parte 7</h4>
+<blockquote>
+<p>Reiniciar DNS maestro</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-30-1"></a>sudo systemctl restart bind9
+</code></pre></div>
+<h4 id="parte-8_1">Parte 8</h4>
+<blockquote>
+<p>Modificar la definición de zonas del esclavo</p>
+</blockquote>
+<p><code>/etc/bind/named.conf.local</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-31-1"></a>//
+<a name="__codelineno-31-2"></a>// Do any local configuration here
+<a name="__codelineno-31-3"></a>//
+<a name="__codelineno-31-4"></a>
+<a name="__codelineno-31-5"></a>// Consider adding the 1918 zones here, if they are not used in your
+<a name="__codelineno-31-6"></a>// organization
+<a name="__codelineno-31-7"></a>include &quot;/etc/bind/zones.rfc1918&quot;;
+<a name="__codelineno-31-8"></a>
+<a name="__codelineno-31-9"></a>zone &quot;iesgn.org&quot; {
+<a name="__codelineno-31-10"></a>    type slave;
+<a name="__codelineno-31-11"></a>    file &quot;/var/cache/bind/db.iesgn.org&quot;;
+<a name="__codelineno-31-12"></a>    masters { 10.0.0.2; };
+<a name="__codelineno-31-13"></a>};
+<a name="__codelineno-31-14"></a>
+<a name="__codelineno-31-15"></a>zone &quot;0.0.10.in-addr.arpa&quot; {
+<a name="__codelineno-31-16"></a>    type slave;
+<a name="__codelineno-31-17"></a>    file &quot;/var/cache/bind/db.10.0.0&quot;;
+<a name="__codelineno-31-18"></a>    masters { 10.0.0.2; };
+<a name="__codelineno-31-19"></a>};
+</code></pre></div></p>
+<h4 id="parte-9_1">Parte 9</h4>
+<blockquote>
+<p>Reiniciar DNS esclavo</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-32-1"></a>sudo systemctl restart bind9
+</code></pre></div>
+<h3 id="ejercicio-2">Ejercicio 2</h3>
+<blockquote>
+<p>Comprobar si los ficheros de zona del maestro tienen errores</p>
+</blockquote>
+<p>Verifico la zona directa:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-33-1"></a>sudo named-checkzone iesgn.org db.iesgn.org
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-34-1"></a>zone iesgn.org/IN: loaded serial 2001062501
+<a name="__codelineno-34-2"></a>OK
+</code></pre></div></p>
+<p>Verifico la zona inversa:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-35-1"></a>sudo named-checkzone 0.0.10.in-addr.arpa db.10.0.0
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-36-1"></a>zone 0.0.10.in-addr.arpa/IN: loaded serial 2001062501
+<a name="__codelineno-36-2"></a>OK
+</code></pre></div></p>
+<h3 id="ejercicio-3">Ejercicio 3</h3>
+<blockquote>
+<p>Comprobar si <code>named.conf</code> tiene errores tanto en maestro como en esclavo</p>
+</blockquote>
+<p>En maestro:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-37-1"></a>sudo named-checkconf named.conf
+</code></pre></div></p>
+<p>En esclavo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-38-1"></a>sudo named-checkconf named.conf
+</code></pre></div></p>
+<h3 id="ejercicio-4">Ejercicio 4</h3>
+<blockquote>
+<p>Reiniciar ambos servidores DNS</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-39-1"></a>sudo systemctl restart bind9
+</code></pre></div>
+<blockquote>
+<p>Comprobar en <code>/var/log/syslog</code> si hay algún error <em>(incrementar número de serie en SOA si se modifican zonas en el maestro)</em></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-40-1"></a>sudo cat /var/log/syslog | grep named
+</code></pre></div>
+<p>No hay errores.</p>
+<h3 id="ejercicio-5">Ejercicio 5</h3>
+<blockquote>
+<p>Configurar cliente para utilizar maestro y esclavo como servidores DNS</p>
+</blockquote>
+<p><code>/etc/resolv.conf</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-41-1"></a>nameserver 10.0.0.2
+<a name="__codelineno-41-2"></a>nameserver 10.0.0.10
+</code></pre></div></p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/ej2-instalar-configurar-slave/",this.page.identifier="ej2-instalar-configurar-slave/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ej1-instalar-configurar-bind9/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ejercicio 1: bind9" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Ejercicio 1: bind9
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../ej3-delegacion-subdominio-bind9/" class="md-footer__link md-footer__link--next" aria-label="Next: Ejercicio 3: Delegación subdominios" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Ejercicio 3: Delegación subdominios
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>

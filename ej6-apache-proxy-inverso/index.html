@@ -1,0 +1,2094 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://conocimiento-en-bits.neocities.org/ej6-apache-proxy-inverso/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.3">
+    
+    
+      
+        <title>Ejercicio 6: Apache proxy inverso - conocimiento-en-bits</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.5143246d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.3f5d1f46.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+      <script>var palette=__get("__palette");if(null!==palette&&"object"==typeof palette.color)for(var key in palette.color)document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ejercicio-6-apache2-como-proxy-inverso" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="conocimiento-en-bits" class="md-header__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            conocimiento-en-bits
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ejercicio 6: Apache proxy inverso
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 6H7c-3.31 0-6 2.69-6 6s2.69 6 6 6h10c3.31 0 6-2.69 6-6s-2.69-6-6-6zm0 10H7c-2.21 0-4-1.79-4-4s1.79-4 4-4h10c2.21 0 4 1.79 4 4s-1.79 4-4 4zM7 9c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 7H7a5 5 0 0 0-5 5 5 5 0 0 0 5 5h10a5 5 0 0 0 5-5 5 5 0 0 0-5-5m0 8a3 3 0 0 1-3-3 3 3 0 0 1 3-3 3 3 0 0 1 3 3 3 3 0 0 1-3 3z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="conocimiento-en-bits" class="md-nav__button md-logo" aria-label="conocimiento-en-bits" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    conocimiento-en-bits
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Principal
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          2º ASIR 21/22
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="2º ASIR 21/22" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          2º ASIR 21/22
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          SRI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SRI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          SRI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_1" type="checkbox" id="__nav_2_1_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_1">
+          Vagrant y Ansible
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Vagrant y Ansible" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_1">
+          <span class="md-nav__icon md-icon"></span>
+          Vagrant y Ansible
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-playbook-sencillo/" class="md-nav__link">
+        Ejercicio 1: Playbook sencillo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-router-nat-vagrant/" class="md-nav__link">
+        Ejercicio 2: router NAT vagrant
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-config-escenario-router-nat/" class="md-nav__link">
+        Ejercicio 3: Configuración escenario router NAT
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_2" type="checkbox" id="__nav_2_1_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_2">
+          DHCP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DHCP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_2">
+          <span class="md-nav__icon md-icon"></span>
+          DHCP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-dhcp/" class="md-nav__link">
+        Ejercicio 1
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-reserva-dhcp/" class="md-nav__link">
+        Ejercicio 2: reservas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-dhcp/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_3" type="checkbox" id="__nav_2_1_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_3">
+          HTTP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-mapeo-urls-al-sistema-ficheros/" class="md-nav__link">
+        Ejercicio 1: Mapeo de URLs
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-control-acceso-autenticacion-autorizacion/" class="md-nav__link">
+        Ejercicio 2: Control de acceso
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-.htaccess/" class="md-nav__link">
+        Ejercicio 3: .htaccess con Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej4-modulos-apache/" class="md-nav__link">
+        Ejercicio 4: Módulos en Apache
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej5-vps/" class="md-nav__link">
+        Ejercicio 5: VPS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Ejercicio 6: Apache proxy inverso
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Ejercicio 6: Apache proxy inverso
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entrega" class="md-nav__link">
+    Entrega
+  </a>
+  
+    <nav class="md-nav" aria-label="Entrega">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    Ejercicios
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-5" class="md-nav__link">
+    Ejercicio 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-6" class="md-nav__link">
+    Ejercicio 6
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#en-mi-maquina" class="md-nav__link">
+    En mi máquina
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-proxy" class="md-nav__link">
+    En proxy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-7" class="md-nav__link">
+    Ejercicio 7
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 7">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#en-mi-maquina_1" class="md-nav__link">
+    En mi máquina
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-proxy_1" class="md-nav__link">
+    En proxy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica3-LEMP-VPS/" class="md-nav__link">
+        Práctica: LEMP en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_4" type="checkbox" id="__nav_2_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_4">
+          DNS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="DNS" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          DNS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-instalar-configurar-bind9/" class="md-nav__link">
+        Ejercicio 1: bind9
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-instalar-configurar-slave/" class="md-nav__link">
+        Ejercicio 2: Slave DNS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-delegacion-subdominio-bind9/" class="md-nav__link">
+        Ejercicio 3: Delegación subdominios
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-web-bd-dns-escenario/" class="md-nav__link">
+        Práctica: DNS+Web+BD en escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_5" type="checkbox" id="__nav_2_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_5">
+          HTTPS (1ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTPS (1ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          HTTPS (1ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-https-vps/" class="md-nav__link">
+        Práctica: HTTPS en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_6" type="checkbox" id="__nav_2_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_6">
+          HTTP (2ª Parte)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HTTP (2ª Parte)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          HTTP (2ª Parte)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-aumento-rendimiento-web/" class="md-nav__link">
+        Práctica: Aumento rendimiento web
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_7" type="checkbox" id="__nav_2_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_7">
+          Correo
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Correo" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          Correo
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ejercicios-correo/" class="md-nav__link">
+        Ejercicios en escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-servidor-correo/" class="md-nav__link">
+        Práctica: Servidor de correos en VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1_8" type="checkbox" id="__nav_2_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1_8">
+          HA Clusters
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="HA Clusters" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          HA Clusters
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cluster-ha/" class="md-nav__link">
+        Práctica
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2">
+          IAW
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="IAW" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          IAW
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-09-22-ej1-pull-request/" class="md-nav__link">
+        ej1-pull-request
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-5-implantacion-despliegue-aplicacion-web-estatica/" class="md-nav__link">
+        app-web-estatica
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2021-10-14-ej2-pr-pag-compa%C3%B1ero/" class="md-nav__link">
+        ej2-pr-pag-compañero
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_4" type="checkbox" id="__nav_2_2_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_4">
+          PHP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="PHP" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          PHP
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-phpmyadmin/" class="md-nav__link">
+        Ejercicio 1: phpMyAdmin
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-bookmedik/" class="md-nav__link">
+        Ejercicio 2: BookMedik
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-phpfpm/" class="md-nav__link">
+        Ejercicio 3: php-fpm
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica1-implantacion-apps-php/" class="md-nav__link">
+        Práctica 1: Apps PHP
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica2-instalacion-migracion-apps-PHP-en-VPS/" class="md-nav__link">
+        Práctica 2: Instalación/migración de apps a VPS
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2_5" type="checkbox" id="__nav_2_2_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_2_5">
+          Python
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-apps-flask-apache2-mod_wsgi/" class="md-nav__link">
+        Ejercicio 1: Apache + mod_wsgi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-apache2-gunicorn/" class="md-nav__link">
+        Ejercicio 2: Apache/Nginx + Gunicorn
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej3-apache-uwsgi/" class="md-nav__link">
+        Ejercicio 3: Apache/Nginx + uWSGI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-despliegue-apps-python/" class="md-nav__link">
+        Práctica: Despliegue python
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cms-python/" class="md-nav__link">
+        Práctica: CMS python
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          SAD
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="SAD" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          SAD
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-cifrado-asimetrico-gpg-openssl/" class="md-nav__link">
+        Criptografía 1: Cifrado asímetrico
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-integridad-firmas-autenticacion/" class="md-nav__link">
+        Criptografía 2: Firmas
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-vpn-sad/" class="md-nav__link">
+        Práctica: VPN
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3_4" type="checkbox" id="__nav_2_3_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3_4">
+          Cortafuegos
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Cortafuegos" data-md-level="3">
+        <label class="md-nav__title" for="__nav_2_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          Cortafuegos
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-iptables-nodo/" class="md-nav__link">
+        Ejercicio 1 iptables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej1-nftables-nodo/" class="md-nav__link">
+        Ejercicio 1 nftables: por nodo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-iptables-perimetral/" class="md-nav__link">
+        Ejercicio 2 iptables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ej2-nftables-perimetral/" class="md-nav__link">
+        Ejercicio 2 nftables: perimetral
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../perimetral-iptables-escenario/" class="md-nav__link">
+        Práctica iptables: perimetral escenario
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../practica-escenario-libvirt/" class="md-nav__link">
+        Escenario libvirt
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#entrega" class="md-nav__link">
+    Entrega
+  </a>
+  
+    <nav class="md-nav" aria-label="Entrega">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parte-1" class="md-nav__link">
+    Parte 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-2" class="md-nav__link">
+    Parte 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-3" class="md-nav__link">
+    Parte 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-4" class="md-nav__link">
+    Parte 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-5" class="md-nav__link">
+    Parte 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parte-6" class="md-nav__link">
+    Parte 6
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicios" class="md-nav__link">
+    Ejercicios
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicios">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-1" class="md-nav__link">
+    Ejercicio 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-2" class="md-nav__link">
+    Ejercicio 2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-3" class="md-nav__link">
+    Ejercicio 3
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-4" class="md-nav__link">
+    Ejercicio 4
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-5" class="md-nav__link">
+    Ejercicio 5
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-6" class="md-nav__link">
+    Ejercicio 6
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#en-mi-maquina" class="md-nav__link">
+    En mi máquina
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-proxy" class="md-nav__link">
+    En proxy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ejercicio-7" class="md-nav__link">
+    Ejercicio 7
+  </a>
+  
+    <nav class="md-nav" aria-label="Ejercicio 7">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#en-mi-maquina_1" class="md-nav__link">
+    En mi máquina
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#en-proxy_1" class="md-nav__link">
+    En proxy
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="ejercicio-6-apache2-como-proxy-inverso">Ejercicio 6: Apache2 como proxy inverso</h1>
+<h2 id="entrega">Entrega</h2>
+<h3 id="parte-1">Parte 1</h3>
+<blockquote>
+<p>Entregar configuración de la manera 1</p>
+</blockquote>
+<p>Activo el módulo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-0-1"></a>sudo a2enmod proxy_http
+</code></pre></div></p>
+<p>Creo 2 VirtualHosts con las siguientes configuraciones:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-1-1"></a>&lt;VirtualHost *:80&gt;
+<a name="__codelineno-1-2"></a>
+<a name="__codelineno-1-3"></a>    ServerName www.app1.org
+<a name="__codelineno-1-4"></a>
+<a name="__codelineno-1-5"></a>    ProxyPass &quot;/&quot;  &quot;http://interno.example1.org/&quot;
+<a name="__codelineno-1-6"></a>
+<a name="__codelineno-1-7"></a>&lt;/VirtualHost&gt;
+<a name="__codelineno-1-8"></a>
+<a name="__codelineno-1-9"></a>&lt;VirtualHost *:80&gt;
+<a name="__codelineno-1-10"></a>
+<a name="__codelineno-1-11"></a>    ServerName www.app2.org
+<a name="__codelineno-1-12"></a>
+<a name="__codelineno-1-13"></a>    ProxyPass &quot;/&quot;  &quot;http://interno.example2.org/&quot;
+<a name="__codelineno-1-14"></a>
+<a name="__codelineno-1-15"></a>&lt;/VirtualHost&gt;
+</code></pre></div></p>
+<p>Los habilito:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-2-1"></a>sudo a2ensite app1.conf app2.conf
+</code></pre></div></p>
+<p>Reinicio Apache:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-3-1"></a>sudo systemctl restart apache2
+</code></pre></div></p>
+<h3 id="parte-2">Parte 2</h3>
+<blockquote>
+<p>Entregar resolución estática para acceder a las páginas de la manera 1</p>
+</blockquote>
+<p>Modifico <code>/etc/hosts</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-4-1"></a># ej6-apache-proxy-inverso
+<a name="__codelineno-4-2"></a>192.168.121.65 www.app1.org www.app2.org
+</code></pre></div>
+Los 2 nombres apuntan a la IP de <code>proxy</code>.</p>
+<h3 id="parte-3">Parte 3</h3>
+<blockquote>
+<p>Capturas del acceso a las páginas como se indica en la manera 1</p>
+</blockquote>
+<p>Muestro que <code>www.app1.org</code> funciona:</p>
+<p><img alt="" src="https://i.imgur.com/FdN6R0J.png" /></p>
+<p>Muestro que <code>www.app2.org</code> funciona:</p>
+<p><img alt="" src="https://i.imgur.com/LESHJEN.png" /></p>
+<h3 id="parte-4">Parte 4</h3>
+<blockquote>
+<p>Entregar configuración de la manera 2</p>
+</blockquote>
+<p>Creo 1 VirtualHost con la siguiente configuración:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-5-1"></a>&lt;VirtualHost *:80&gt;
+<a name="__codelineno-5-2"></a>
+<a name="__codelineno-5-3"></a>    ServerName www.servidor.org
+<a name="__codelineno-5-4"></a>
+<a name="__codelineno-5-5"></a>    ProxyPass &quot;/app1&quot;  &quot;http://interno.example1.org/&quot;
+<a name="__codelineno-5-6"></a>    ProxyPass &quot;/app2&quot;  &quot;http://interno.example2.org/&quot;
+<a name="__codelineno-5-7"></a>
+<a name="__codelineno-5-8"></a>&lt;/VirtualHost&gt;
+</code></pre></div></p>
+<p>Lo habilito:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-6-1"></a>sudo a2ensite servidor.conf
+</code></pre></div></p>
+<p>Reinicio Apache:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-7-1"></a>sudo systemctl restart apache2
+</code></pre></div></p>
+<h3 id="parte-5">Parte 5</h3>
+<blockquote>
+<p>Entregar resolución estática para acceder a las páginas de la manera 2</p>
+</blockquote>
+<p>Modifico <code>/etc/hosts</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-8-1"></a># ej6-apache-proxy-inverso
+<a name="__codelineno-8-2"></a>192.168.121.65 www.servidor.org
+</code></pre></div>
+Ese nombre apunta a la IP de <code>proxy</code>.</p>
+<h3 id="parte-6">Parte 6</h3>
+<blockquote>
+<p>Capturas del acceso a las páginas como se indica en la manera 2</p>
+</blockquote>
+<p>Muestro que <code>www.servidor.org/app1</code> funciona:</p>
+<p><img alt="" src="https://i.imgur.com/9gaXPGO.png" /></p>
+<p>Muestro que <code>www.servidor.org/app2</code> funciona:</p>
+<p><img alt="" src="https://i.imgur.com/YZG4kyA.png" /></p>
+<h2 id="ejercicios">Ejercicios</h2>
+<h3 id="ejercicio-1">Ejercicio 1</h3>
+<blockquote>
+<p>Descargar <code>ejercicio_proxy.zip</code>. Contiene el <code>Vagrantfile</code> y el ansible para configurar el escenario.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-9-1"></a>wget https://fp.josedomingo.org/sri2122/u03/doc/ejercicio_proxy/ejercicio_proxy.zip
+<a name="__codelineno-9-2"></a>unzip ejercicio_proxy.zip
+</code></pre></div>
+<p>Muestro la estructura que ha dejado ese zip:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-10-1"></a>atlas@olympus:~/vagrant/ej6-apache-proxy-inverso$ tree
+<a name="__codelineno-10-2"></a>.
+<a name="__codelineno-10-3"></a>├── ansible
+<a name="__codelineno-10-4"></a>│   ├── ansible.cfg
+<a name="__codelineno-10-5"></a>│   ├── group_vars
+<a name="__codelineno-10-6"></a>│   │   └── all
+<a name="__codelineno-10-7"></a>│   ├── hosts
+<a name="__codelineno-10-8"></a>│   ├── roles
+<a name="__codelineno-10-9"></a>│   │   ├── apache2
+<a name="__codelineno-10-10"></a>│   │   │   ├── files
+<a name="__codelineno-10-11"></a>│   │   │   │   ├── index_vhost1.html
+<a name="__codelineno-10-12"></a>│   │   │   │   └── index_vhost2.html
+<a name="__codelineno-10-13"></a>│   │   │   ├── handlers
+<a name="__codelineno-10-14"></a>│   │   │   │   └── main.yaml
+<a name="__codelineno-10-15"></a>│   │   │   ├── tasks
+<a name="__codelineno-10-16"></a>│   │   │   │   └── main.yaml
+<a name="__codelineno-10-17"></a>│   │   │   └── templates
+<a name="__codelineno-10-18"></a>│   │   │       └── etc
+<a name="__codelineno-10-19"></a>│   │   │           └── apache2
+<a name="__codelineno-10-20"></a>│   │   │               └── sites-available
+<a name="__codelineno-10-21"></a>│   │   │                   └── vhost.j2
+<a name="__codelineno-10-22"></a>│   │   └── commons
+<a name="__codelineno-10-23"></a>│   │       └── tasks
+<a name="__codelineno-10-24"></a>│   │           └── main.yaml
+<a name="__codelineno-10-25"></a>│   └── site.yaml
+<a name="__codelineno-10-26"></a>└── Vagrantfile
+<a name="__codelineno-10-27"></a>
+<a name="__codelineno-10-28"></a>13 directories, 11 files
+</code></pre></div></p>
+<h3 id="ejercicio-2">Ejercicio 2</h3>
+<blockquote>
+<p>Mostrar el escenario:</p>
+<ul>
+<li>“proxy”:<ul>
+<li>Interfaz eth0 actuando como pública</li>
+<li>Interfaz en red privada veryisolated</li>
+</ul>
+</li>
+<li>“servidorweb”:<ul>
+<li>Interfaz conectada a la misma red privada que proxy</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p>Muestro el <code>Vagrantfile</code> descargado:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-11-1"></a># -*- mode: ruby -*-
+<a name="__codelineno-11-2"></a># vi: set ft=ruby :
+<a name="__codelineno-11-3"></a>
+<a name="__codelineno-11-4"></a>
+<a name="__codelineno-11-5"></a>Vagrant.configure(&quot;2&quot;) do |config|
+<a name="__codelineno-11-6"></a>  config.vm.define :proxy do |proxy|
+<a name="__codelineno-11-7"></a>      proxy.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-11-8"></a>      proxy.vm.hostname = &quot;proxy&quot;
+<a name="__codelineno-11-9"></a>      proxy.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-11-10"></a>      proxy.vm.network :private_network,
+<a name="__codelineno-11-11"></a>          :libvirt__network_name =&gt; &quot;red_privada1&quot;,
+<a name="__codelineno-11-12"></a>          :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-11-13"></a>          :ip =&gt; &quot;10.0.0.10&quot;,
+<a name="__codelineno-11-14"></a>          :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-11-15"></a>      proxy.vm.provision &quot;shell&quot;, run: &quot;always&quot;, inline: &lt;&lt;-SHELL
+<a name="__codelineno-11-16"></a>        apt-get update &amp;&amp; apt upgrade -y
+<a name="__codelineno-11-17"></a>        sysctl -w net.ipv4.ip_forward=1
+<a name="__codelineno-11-18"></a>        iptables -t nat -A POSTROUTING -s 10.0.0.0/24 -j MASQUERADE
+<a name="__codelineno-11-19"></a>        echo &quot;10.0.0.6 interno.example1.org interno.example2.org&quot; &gt;&gt; /etc/hosts
+<a name="__codelineno-11-20"></a>      SHELL
+<a name="__codelineno-11-21"></a>    end
+<a name="__codelineno-11-22"></a>    config.vm.define :servidorweb do |servidorweb|
+<a name="__codelineno-11-23"></a>      servidorweb.vm.box = &quot;debian/bullseye64&quot;
+<a name="__codelineno-11-24"></a>      servidorweb.vm.hostname = &quot;servidorweb&quot;
+<a name="__codelineno-11-25"></a>      servidorweb.vm.synced_folder &quot;.&quot;, &quot;/vagrant&quot;, disabled: true
+<a name="__codelineno-11-26"></a>      servidorweb.vm.network :private_network,
+<a name="__codelineno-11-27"></a>          :libvirt__network_name =&gt; &quot;red_privada1&quot;,
+<a name="__codelineno-11-28"></a>          :libvirt__dhcp_enabled =&gt; false,
+<a name="__codelineno-11-29"></a>          :ip =&gt; &quot;10.0.0.6&quot;,
+<a name="__codelineno-11-30"></a>          :libvirt__forward_mode =&gt; &quot;veryisolated&quot;
+<a name="__codelineno-11-31"></a>      servidorweb.vm.provision &quot;shell&quot;, run: &quot;always&quot;, inline: &lt;&lt;-SHELL
+<a name="__codelineno-11-32"></a>          ip r del default
+<a name="__codelineno-11-33"></a>          ip r add default via 10.0.0.10
+<a name="__codelineno-11-34"></a>      SHELL
+<a name="__codelineno-11-35"></a>    end
+<a name="__codelineno-11-36"></a>
+<a name="__codelineno-11-37"></a>  end
+</code></pre></div></p>
+<h3 id="ejercicio-3">Ejercicio 3</h3>
+<blockquote>
+<p>Crear el escenario vagrant</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-12-1"></a>vagrant up
+</code></pre></div>
+<h3 id="ejercicio-4">Ejercicio 4</h3>
+<blockquote>
+<p>Ejecutar el ansible para configurar “servidorweb”</p>
+</blockquote>
+<p>Modifico el fichero <code>hosts</code> con la IP actual de mi “servidorweb”:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-13-1"></a>all:
+<a name="__codelineno-13-2"></a>  children:
+<a name="__codelineno-13-3"></a>    grupo_sw:
+<a name="__codelineno-13-4"></a>      hosts:
+<a name="__codelineno-13-5"></a>        servidor_web:
+<a name="__codelineno-13-6"></a>          ansible_ssh_host: 192.168.121.73
+<a name="__codelineno-13-7"></a>          ansible_ssh_user: vagrant
+<a name="__codelineno-13-8"></a>          ansible_ssh_private_key_file: ../.vagrant/machines/servidorweb/libvirt/private_key
+</code></pre></div></p>
+<p>Ejecuto el playbook:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-14-1"></a>ansible-playbook site.yaml
+</code></pre></div></p>
+<p>Este ansible, en la máquina “servidorweb”:</p>
+<ul>
+<li>Instala Apache</li>
+<li>Configura 2 VirtualHosts</li>
+</ul>
+<h3 id="ejercicio-5">Ejercicio 5</h3>
+<blockquote>
+<p>Instalar Apache en "proxy"</p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a name="__codelineno-15-1"></a>sudo apt install apache2
+</code></pre></div>
+<h3 id="ejercicio-6">Ejercicio 6</h3>
+<blockquote>
+<p>Configurar "proxy" para acceder a las páginas de “servidorweb”...</p>
+<ul>
+<li>Manera 1: acceder a la primera en <code>www.app1.org</code> y a la segunda en <code>www.app2.org</code></li>
+</ul>
+</blockquote>
+<h4 id="en-mi-maquina">En mi máquina</h4>
+<p>Modifico <code>/etc/hosts</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-16-1"></a># ej6-apache-proxy-inverso
+<a name="__codelineno-16-2"></a>192.168.121.65 www.app1.org www.app2.org
+</code></pre></div>
+Los 2 nombres apuntan a la IP de <code>proxy</code>.</p>
+<h4 id="en-proxy">En proxy</h4>
+<p>Activo el módulo:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-17-1"></a>sudo a2enmod proxy_http
+</code></pre></div></p>
+<p>Creo 2 VirtualHosts con las siguientes configuraciones:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-18-1"></a>&lt;VirtualHost *:80&gt;
+<a name="__codelineno-18-2"></a>
+<a name="__codelineno-18-3"></a>    ServerName www.app1.org
+<a name="__codelineno-18-4"></a>
+<a name="__codelineno-18-5"></a>    ProxyPass &quot;/&quot;  &quot;http://interno.example1.org/&quot;
+<a name="__codelineno-18-6"></a>
+<a name="__codelineno-18-7"></a>&lt;/VirtualHost&gt;
+<a name="__codelineno-18-8"></a>
+<a name="__codelineno-18-9"></a>&lt;VirtualHost *:80&gt;
+<a name="__codelineno-18-10"></a>
+<a name="__codelineno-18-11"></a>    ServerName www.app2.org
+<a name="__codelineno-18-12"></a>
+<a name="__codelineno-18-13"></a>    ProxyPass &quot;/&quot;  &quot;http://interno.example2.org/&quot;
+<a name="__codelineno-18-14"></a>
+<a name="__codelineno-18-15"></a>&lt;/VirtualHost&gt;
+</code></pre></div></p>
+<p>Los habilito:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-19-1"></a>sudo a2ensite app1.conf app2.conf
+</code></pre></div></p>
+<p>Reinicio Apache:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-20-1"></a>sudo systemctl restart apache2
+</code></pre></div></p>
+<p>Muestro que <code>www.app1.org</code> funciona:</p>
+<p><img alt="" src="https://i.imgur.com/FdN6R0J.png" /></p>
+<p>Muestro que <code>www.app2.org</code> funciona:</p>
+<p><img alt="" src="https://i.imgur.com/LESHJEN.png" /></p>
+<h3 id="ejercicio-7">Ejercicio 7</h3>
+<blockquote>
+<p>Configurar "proxy" para acceder a las páginas de “servidorweb”...</p>
+<ul>
+<li>Manera 2: acceder a la primera en <code>www.servidor.org/app1</code> y a la segunda en <code>www.servidor.org/app2</code></li>
+</ul>
+</blockquote>
+<h4 id="en-mi-maquina_1">En mi máquina</h4>
+<p>Modifico <code>/etc/hosts</code>:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-21-1"></a># ej6-apache-proxy-inverso
+<a name="__codelineno-21-2"></a>192.168.121.65 www.servidor.org
+</code></pre></div>
+Ese nombre apunta a la IP de <code>proxy</code>.</p>
+<h4 id="en-proxy_1">En proxy</h4>
+<p>Creo 1 VirtualHost con la siguiente configuración:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-22-1"></a>&lt;VirtualHost *:80&gt;
+<a name="__codelineno-22-2"></a>
+<a name="__codelineno-22-3"></a>    ServerName www.servidor.org
+<a name="__codelineno-22-4"></a>
+<a name="__codelineno-22-5"></a>    ProxyPass &quot;/app1&quot;  &quot;http://interno.example1.org/&quot;
+<a name="__codelineno-22-6"></a>    ProxyPass &quot;/app2&quot;  &quot;http://interno.example2.org/&quot;
+<a name="__codelineno-22-7"></a>
+<a name="__codelineno-22-8"></a>&lt;/VirtualHost&gt;
+</code></pre></div></p>
+<p>Lo habilito:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-23-1"></a>sudo a2ensite servidor.conf
+</code></pre></div></p>
+<p>Reinicio Apache:
+<div class="highlight"><pre><span></span><code><a name="__codelineno-24-1"></a>sudo systemctl restart apache2
+</code></pre></div></p>
+<p>Muestro que <code>www.servidor.org/app1</code> funciona:</p>
+<p><img alt="" src="https://i.imgur.com/9gaXPGO.png" /></p>
+<p>Muestro que <code>www.servidor.org/app2</code> funciona:</p>
+<p><img alt="" src="https://i.imgur.com/YZG4kyA.png" /></p>
+                
+              
+              
+                
+
+
+  <h2 id="__comments">Comments</h2>
+  <div id="disqus_thread"></div>
+  <script>var script,disqus_config=function(){this.page.url="https://conocimiento-en-bits.neocities.org/ej6-apache-proxy-inverso/",this.page.identifier="ej6-apache-proxy-inverso/"};"undefined"==typeof DISQUS?((script=document.createElement("script")).async=!0,script.src="https://conocimiento-en-bits-neocities-org.disqus.com/embed.js",script.setAttribute("data-timestamp",Date.now()),document.body.appendChild(script)):DISQUS.reset({reload:!0,config:disqus_config})</script>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../ej5-vps/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ejercicio 5: VPS" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Ejercicio 5: VPS
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../practica3-LEMP-VPS/" class="md-footer__link md-footer__link--next" aria-label="Next: Práctica: LEMP en VPS" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Práctica: LEMP en VPS
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        
+          Made with
+          <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+            Material for MkDocs
+          </a>
+        
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f89c2efe.min.js"></script>
+      
+    
+  </body>
+</html>
